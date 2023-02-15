@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SplashScreenController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Fichiers">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#ouvrirFichier" text="Ouvrir" />
+                  <MenuItem mnemonicParsing="false" onAction="#fermerApp" text="Fermer" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Bibliothèques">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#ouvrirBibliothèque" text="Ouvrir la Bibliothèque de composantes" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Aide">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#ouvrirInfoApp" text="Informations sur l'application" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="À propos">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#ouvrirInfoCreateurs" text="Informations sur les créateurs" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Circuits Récents :" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="250.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="imageHautGauche" fitHeight="175.0" fitWidth="200.0" onMouseClicked="#CircuitPressed" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="labelHautGauche" text="Label" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="250.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="imageHautMilieu" fitHeight="175.0" fitWidth="200.0" onMouseClicked="#CircuitPressed" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="labelHautMilieu" text="Label" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="250.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="imageHautDroite" fitHeight="175.0" fitWidth="200.0" onMouseClicked="#CircuitPressed" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="labelHautDroite" text="Label" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label text="Circuits de base :" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="imageBasGauche" fitHeight="175.0" fitWidth="200.0" onMouseClicked="#CircuitPressed" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="labelBasGauche" text="Label" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="imageBasMilieu" fitHeight="175.0" fitWidth="200.0" onMouseClicked="#CircuitPressed" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="LabelBasMilieu" text="Label" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="imageBasDroite" fitHeight="175.0" fitWidth="200.0" onMouseClicked="#CircuitPressed" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="labelBasDroite" text="Label" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>
