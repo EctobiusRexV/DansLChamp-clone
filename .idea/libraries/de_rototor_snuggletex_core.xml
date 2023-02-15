@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="de.rototor.snuggletex.core" type="repository">
+    <properties maven-id="de.rototor.snuggletex:snuggletex-core:1.3.0" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/de/rototor/snuggletex/snuggletex-core/1.3.0/snuggletex-core-1.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
