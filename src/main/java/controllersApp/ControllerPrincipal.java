@@ -1,5 +1,7 @@
-package controllers;
+package controllersApp;
 
+import danslchamp.Circuit;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -15,7 +17,7 @@ public class ControllerPrincipal {
 
     @FXML
     void FermerRetour(ActionEvent event) {
-
+        Platform.exit();
     }
 
     @FXML
@@ -40,6 +42,10 @@ public class ControllerPrincipal {
 
     @FXML
     void ouvrirInfoCreateur(ActionEvent event) {
+
+    }
+
+    void setCircuit(Circuit circuit){
 
     }
 
