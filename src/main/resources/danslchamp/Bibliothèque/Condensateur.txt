@@ -1,0 +1,1 @@
+un condensateur est une composante qui enmagasine les charge électrique. la capacitance a comme unitée le Farade (F). Elle est la quantitée de charge éléectrique qui peut être stocké a un voltage de 1 Volt. Voici la formule pour trouvée la capacitance (C): C = Q/V ou Q est la charge électrique et V est la tension entre les plaquettes
