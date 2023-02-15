@@ -19,7 +19,7 @@ public class Circuit {
     private void traverserRecursive(Composante composante) {
         System.out.println("Traverse de " + composante);
         for (Composante next : composante.getNexts()) {
-            if (next == source) break; // !!
+            if (next == composante) break; // !!
             traverserRecursive(next);   // un thread pour chaque maille?
         }
     }
