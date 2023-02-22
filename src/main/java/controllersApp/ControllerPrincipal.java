@@ -27,7 +27,7 @@ public class ControllerPrincipal {
 
     @FXML
     void ouvrirBibliothèque(ActionEvent event) {
-
+        ControllerUtil.loadFenetre("ControllerBibli.fxml").show();
     }
 
     @FXML
@@ -37,12 +37,12 @@ public class ControllerPrincipal {
 
     @FXML
     void ouvrirInfoApp(ActionEvent event) {
-
+        ControllerUtil.loadFenetre("ControllerAide.fxml").show();
     }
 
     @FXML
     void ouvrirInfoCreateur(ActionEvent event) {
-
+        ControllerUtil.loadFenetre("ControllerAPropos.fxml").show();
     }
 
     void setCircuit(Circuit circuit){
