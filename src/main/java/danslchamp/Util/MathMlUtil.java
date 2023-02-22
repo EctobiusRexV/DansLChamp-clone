@@ -1,4 +1,4 @@
-package danslchamp.Bibliothèque;
+package danslchamp.Util;
 
 import javafx.scene.web.WebView;
 
