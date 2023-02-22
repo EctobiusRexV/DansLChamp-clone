@@ -52,6 +52,18 @@ public class DragAndDropControleur {
     void mouseClicked(MouseEvent event) {
         System.out.println("mouse Clicked\n\tx: " + event.getX() + "\n\ty: " + event.getY() + "\n");
         currentLine = new Line(event.getX(), event.getY(), event.getX(), event.getY());
+
+        currentLine.setOnMouseEntered(e -> {
+            Line line = (Line) e.getTarget();
+            System.out.println(line + " mouse Entered");
+            line.setStrokeWidth(13);
+                line.setStyle("-fx-border-width: 13; -fx-border-color: blue; -fx-border-style: dotted;");
+                line.setOnMouseExited(ev -> {
+line.setStrokeWidth(1);
+                    line.setStyle("");
+                });
+                }
+        );
         conceptionAnchorPane.getChildren().add(currentLine);
     }
 
