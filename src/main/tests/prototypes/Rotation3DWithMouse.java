@@ -7,13 +7,22 @@ import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 public class Rotation3DWithMouse extends Application {
@@ -34,7 +43,7 @@ public class Rotation3DWithMouse extends Application {
 //        Box box2 = new Box(100, 50, 20);
 //        box2.setLayoutX(200);
 //        box2.setLayoutY(200);
-//        Cylinder cylindre = new Cylinder(25, 75);
+        Cylinder cylindre = new Cylinder(25, 75);
 //        cylindre.setLayoutX(200);
 //        cylindre.setLayoutY(-100);
 //        Line ligne2 = new Line(cylindre.getLayoutX(),cylindre.getLayoutY()+cylindre.getRadius(),box2.getLayoutX(),box2.getLayoutY()-box2.getHeight()/2);
@@ -54,19 +63,36 @@ public class Rotation3DWithMouse extends Application {
 //        } catch (MalformedURLException e) {
 //            throw new RuntimeException(e);
 //        }
-//        cylindre.setMaterial(a);
-//        cylindre.setMaterial(new PhongMaterial(Color.RED));
 
 
-        Circuit c = new Circuit(new Composante2[]{new Source(), new Condensateur(), new Resistor(), new Condensateur(), new Condensateur(), new Condensateur()});
+
+//        Circuit c = new Circuit(new Composante2[]{new Source(), new Condensateur(), new Resistor(), new Condensateur(), new Condensateur(), new Condensateur()});
+
+        Rectangle r = new Rectangle(100,100);
+        PhongMaterial a = new PhongMaterial();
+        try {
+            a.setDiffuseMap(new Image(new File("i.png").toURI().toURL().toExternalForm()));
+
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        Image img = null;
+        try {
+            img = new Image(new File("i.png").toURI().toURL().toExternalForm());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        r.setFill(new ImagePattern(img));
+        cylindre.setMaterial(a);
 
 
         SmartGroup group = new SmartGroup();
-        group.getChildren().add(c.getGroupe());
+        group.getChildren().add(cylindre);
 
         Camera camera = new PerspectiveCamera();
         Scene scene = new Scene(group, WIDTH, HEIGHT);
-        scene.setFill(Color.SILVER);
+//        scene.setFill(Color.TRANSPARENT);
+        scene.setFill(Color.LIGHTGRAY);
         scene.setCamera(camera);
 
         group.translateXProperty().set(WIDTH / 2);
@@ -90,6 +116,7 @@ public class Rotation3DWithMouse extends Application {
         });
 
         primaryStage.setScene(scene);
+//        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
     }
 
