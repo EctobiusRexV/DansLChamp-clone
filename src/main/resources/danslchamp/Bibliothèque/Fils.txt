@@ -1,0 +1,2 @@
+Les fils électrique sont des composante électrique servant au transport de l'énergie dans le circuit
+*dans cette simulation, la résistance de fil est négligée
