@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact name="danslchamp:jar2">
+    <output-path>$PROJECT_DIR$/out/artifacts/danslchamp_jar2</output-path>
+    <root id="root">
+      <element id="archive" name="danslchamp.jar">
+        <element id="module-output" name="danslchamp" />
+      </element>
+      <element id="library" level="project" name="Maven: org.junit.platform:junit-platform-commons:1.9.2" />
+      <element id="library" level="project" name="Maven: org.opentest4j:opentest4j:1.2.0" />
+      <element id="library" level="project" name="Maven: org.apiguardian:apiguardian-api:1.1.2" />
+      <element id="library" level="project" name="Maven: org.junit.jupiter:junit-jupiter-api:5.9.2" />
+    </root>
+  </artifact>
+</component>

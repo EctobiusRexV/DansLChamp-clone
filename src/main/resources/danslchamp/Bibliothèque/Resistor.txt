@@ -1,0 +1,1 @@
+une resistance est caratérisé par la résistance qui peut être définit par cette formule: R = V/I. l'unitée de la résistance est l'ohm (Ω)

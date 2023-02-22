@@ -1,0 +1,1 @@
+un circuit électronique est composé de composante électronique comme des resistances, des transisteurs, des condansateurs et des diodes. Ceux-ci sont connecter par des fils
