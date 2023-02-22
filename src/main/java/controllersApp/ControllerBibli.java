@@ -1,10 +1,14 @@
 package controllersApp;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
-public class ControllerBibli {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ControllerBibli implements Initializable {
 
     @FXML
     private TextArea textAreaBibliotheque;
@@ -13,5 +17,8 @@ public class ControllerBibli {
     private VBox vBoxPane;
 
 
-
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        textAreaBibliotheque.setEditable(false);
+    }
 }
