@@ -1,0 +1,2 @@
+La bobine est caractérisée par son inductance qui peut être définit par le le ratio du voltage sur la variation du courrant. L'unitée de l'inductance (L) est le Henry (H).
+Quand un changement de courrant survient dans un circuit, l'inductance vas créé un courrant de polarité opposé au changent
