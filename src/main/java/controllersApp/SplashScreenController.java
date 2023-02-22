@@ -91,12 +91,42 @@ public class SplashScreenController {
 
     @FXML
     void ouvrirInfoApp(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Stage stage = new Stage();
 
+        try {
+            Scene scene = new Scene(fxmlLoader.load(this.getClass().getResourceAsStream("ControllerAide.fxml")));
+
+
+            stage.setScene(scene);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Erreur dans l'ouverture de la fenêtre");
+            alert.setContentText("Veuillez réessayer...");
+        }
+
+        stage.show();
     }
 
     @FXML
     void ouvrirInfoCreateurs(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Stage stage = new Stage();
 
+        try {
+            Scene scene = new Scene(fxmlLoader.load(this.getClass().getResourceAsStream("ControllerAPropos.fxml")));
+
+
+            stage.setScene(scene);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Erreur dans l'ouverture de la fenêtre");
+            alert.setContentText("Veuillez réessayer...");
+        }
+
+        stage.show();
     }
 
 }
