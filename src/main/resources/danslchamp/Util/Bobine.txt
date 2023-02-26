@@ -1,2 +1,32 @@
-La bobine est caractérisée par son inductance qui peut être définit par le le ratio du voltage sur la variation du courrant. L'unitée de l'inductance (L) est le Henry (H).
-Quand un changement de courrant survient dans un circuit, l'inductance vas créé un courrant de polarité opposé au changent
+Une bobine est un composant électronique qui stocke de l'énergie magnétique dans un champ magnétique. Elle est constituée d'un conducteur enroulé en forme de bobine autour d'un noyau en matériau magnétique. L'inductance d'une bobine est définie comme la proportionnalité entre le courant qui la traverse et le flux magnétique créé, et est donnée par l'équation suivante :
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow>
+    <mi>L</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>&Phi;</mi>
+      <mi>I</mi>
+    </mfrac>
+  </mrow>
+</math>
+où <i> L</i> est l'inductance en henrys, &Phi; est le flux magnétique créé en webers et <i>I</i> est le courant en ampères.
+
+L'énergie stockée dans une bobine est donnée par l'équation suivante :
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow>
+    <mi>U</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mn>1</mn>
+      <mn>2</mn>
+    </mfrac>
+    <mi>L</mi>
+    <msup>
+      <mi>I</mi>
+      <mn>2</mn>
+    </msup>
+  </mrow>
+</math>
+où <i>U</i> est l'énergie stockée dans la bobine en joules.
