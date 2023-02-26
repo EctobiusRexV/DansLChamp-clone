@@ -1,1 +1,34 @@
-un condensateur est une composante qui enmagasine les charge électrique. la capacitance a comme unitée le Farade (F). Elle est la quantitée de charge électrique qui peut être stocké a un voltage de 1 Volt. Voici la formule pour trouvée la capacitance (C): <math display="block" style="display:inline-block;"><mrow><mi>C</mi><mo>=</mo><mfrac><mi>Q</mi><mi>V</mi></mfrac></mrow></math> ou Q est la charge électrique et V est la tension entre les plaquettes
+Un condensateur est un dispositif électronique utilisé pour stocker de la charge électrique et de l'énergie électrique dans un champ électrique. Il se compose de deux plaques conductrices séparées par un matériau isolant appelé diélectrique. La capacité d'un condensateur est définie comme le rapport de la charge stockée sur chaque plaque à la différence de tension entre les plaques, et est donnée par l'équation suivante :
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow>
+    <mi>C</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>Q</mi>
+      <mi>V</mi>
+    </mfrac>
+  </mrow>
+</math>
+où C est la capacité en farads, Q est la charge stockée sur chaque plaque en coulombs et V est la différence de tension entre les plaques en volts.
+
+L'énergie stockée dans un condensateur est donnée par l'équation suivante :
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow>
+    <mi>U</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mn>1</mn>
+      <mn>2</mn>
+    </mfrac>
+    <mi>C</mi>
+    <msup>
+      <mi>V</mi>
+      <mn>2</mn>
+    </msup>
+  </mrow>
+</math>
+où U est l'énergie stockée dans le condensateur en joules.
+
+Les condensateurs ont de nombreuses applications dans les circuits électroniques, notamment le stockage d'énergie, la filtration et la synchronisation. Ils sont également utilisés dans la correction du facteur de puissance et dans divers types de capteurs.
