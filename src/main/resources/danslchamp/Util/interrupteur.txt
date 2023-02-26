@@ -1,1 +1,1 @@
-un interrupteur permet d'interrompre ou de rétablire un contacte dans le circuit électrique
+Un interrupteur est un dispositif électrique utilisé pour interrompre le flux de courant dans un circuit électrique en utilisant des contacts électriques. 
