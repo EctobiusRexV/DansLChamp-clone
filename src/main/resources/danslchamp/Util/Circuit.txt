@@ -1,1 +1,31 @@
-un circuit électronique est composé de composante électronique comme des resistances, des transisteurs, des condansateurs et des diodes. Ceux-ci sont connecter par des fils
+Un circuit électrique est un système de composants électriques qui permettent à un courant électrique de circuler. La loi d'Ohm décrit la relation entre la tension V, le courant I et la résistance R dans un circuit, et est donnée par l'équation :
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow>
+    <mi>V</mi>
+    <mo>=</mo>
+    <mi>I</mi>
+    <mi>R</mi>
+  </mrow>
+</math>
+La loi de Kirchhoff des courants stipule que la somme des courants entrants dans un nœud est égale à la somme des courants sortants du nœud, et est donnée par l'équation :
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow>
+    <mo>&#x2211;</mo>
+    <mi>I</mi>
+    <mo>=</mo>
+    <mo>&#x2211;</mo>
+    <mi>I</mi>
+  </mrow>
+</math>
+La loi de Kirchhoff des tensions stipule que la somme des tensions dans une boucle est égale à zéro, et est donnée par l'équation :
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow>
+    <mo>&#x2211;</mo>
+    <mi>V</mi>
+    <mo>=</mo>
+    <mn>0</mn>
+  </mrow>
+</math>
