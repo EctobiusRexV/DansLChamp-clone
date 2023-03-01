@@ -1,3 +1,4 @@
+<p align="justify">
 Une batterie est un dispositif électrochimique qui stocke de l'énergie électrique et la libère sous forme de courant électrique. Elle est généralement constituée de deux électrodes, une cathode et une anode, qui sont séparées par un électrolyte. La différence de potentiel électrique entre les deux électrodes est appelée la tension de la batterie et est donnée par l'équation suivante :
 
 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -25,3 +26,4 @@ La capacité d'une batterie, qui mesure la quantité d'énergie qu'elle peut sto
   </mrow>
 </math>
 où C est la capacité en ampères-heures, Q est la charge totale en coulombs que la batterie peut fournir et V est la tension de la batterie en volts.
+</p>

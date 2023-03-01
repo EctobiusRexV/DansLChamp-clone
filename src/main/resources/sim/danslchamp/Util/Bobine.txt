@@ -1,3 +1,4 @@
+<p align="justify">
 Une bobine est un composant électronique qui stocke de l'énergie magnétique dans un champ magnétique. Elle est constituée d'un conducteur enroulé en forme de bobine autour d'un noyau en matériau magnétique. L'inductance d'une bobine est définie comme la proportionnalité entre le courant qui la traverse et le flux magnétique créé, et est donnée par l'équation suivante :
 
 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -30,3 +31,4 @@ L'énergie stockée dans une bobine est donnée par l'équation suivante :
   </mrow>
 </math>
 où <i>U</i> est l'énergie stockée dans la bobine en joules.
+</p>

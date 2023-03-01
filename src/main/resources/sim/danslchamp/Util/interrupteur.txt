@@ -1,1 +1,3 @@
-Un interrupteur est un dispositif électrique utilisé pour interrompre le flux de courant dans un circuit électrique en utilisant des contacts électriques. 
+<p align="justify">
+Un interrupteur est un dispositif électrique utilisé pour interrompre le flux de courant dans un circuit électrique en utilisant des contacts électriques.
+</p>

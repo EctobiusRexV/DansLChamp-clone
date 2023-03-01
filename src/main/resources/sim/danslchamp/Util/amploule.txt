@@ -1,3 +1,4 @@
+<p align="justify">
 Une ampoule à incandescence est un dispositif électrique qui produit de la lumière en faisant passer un courant électrique à travers un filament métallique. Lorsque le courant électrique traverse le filament, celui-ci devient très chaud et émet de la lumière visible.
 
 La puissance électrique dissipée dans une ampoule à incandescence peut être calculée à l'aide de la formule :
@@ -24,3 +25,4 @@ La résistance électrique du filament d'une ampoule à incandescence peut être
   </mrow>
 </math>
 où R représente la résistance électrique en ohms (Ω), V représente la tension électrique en volts (V) et I représente le courant électrique en ampères (A).
+</p>
