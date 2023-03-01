@@ -62,6 +62,7 @@ public class ControllerPrincipal {
     // ===============================
     @FXML
     void fermerRetour() {
+
         Platform.exit();
     }
 

@@ -62,7 +62,7 @@ public class SvgLoader {
                 elementMap.put("g", e -> bh.handleElement((SVGOMGElement) e));
         elementMap.put("use", e -> bh.handleElement((SVGOMUseElement) e));
 
-/*
+
         elementMap.put("metadata", e -> bh.handleElement((SVGOMMetadataElement) e));
          elementMap.put("title", e -> {} );
 
@@ -79,7 +79,7 @@ public class SvgLoader {
 
         elementMap.put("linearGradient", e -> bh.handleElement((SVGOMLinearGradientElement) e));
         elementMap.put("radialGradient", e -> bh.handleElement((SVGOMRadialGradientElement) e));
-        elementMap.put("stop", e -> { } );*/
+        elementMap.put("stop", e -> { } );
 
         /*
          * <title>
