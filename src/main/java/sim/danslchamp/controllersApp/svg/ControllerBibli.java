@@ -39,63 +39,6 @@ public class ControllerBibli implements Initializable {
         CreerVBoxs("source_ca");
         CreerVBoxs("source_cc");
 
-//        VBox vBoxBobine = new VBox();
-//
-//        vBoxBobine.setSpacing(5);
-//
-//        vBoxBobine.setAlignment(Pos.CENTER);
-//
-//        vBoxBobine.setMinHeight(50);
-//
-//        SvgLoader svgLoader = new SvgLoader();
-//
-//        Group group = new Group();
-//
-//        group.minHeight(50);
-//
-//        group = svgLoader.loadSvg(this.getClass().getResourceAsStream("bobine.svg"));
-//
-//        Label labelBobine = new Label("Bobine");
-//
-//        vBoxBobine.getChildren().addAll(group, labelBobine);
-//
-//        vBoxPane.getChildren().add(vBoxBobine);
-//
-//        VBox vBoxCondenasteur = new VBox();
-//
-//        vBoxCondenasteur.setMinHeight(50);
-//
-//        SvgLoader svgLoaderCondensateur = new SvgLoader();
-//
-//        Group groupCondensateur = new Group();
-//
-//        groupCondensateur.minHeight(50);
-//
-//        groupCondensateur = svgLoaderCondensateur.loadSvg(this.getClass().getResourceAsStream("condensateur.svg"));
-//
-//        Label labelCondensateur = new Label("Condensateur");
-//
-//        vBoxCondenasteur.getChildren().addAll(groupCondensateur, labelCondensateur);
-//
-//        vBoxPane.getChildren().add(vBoxCondenasteur);
-//
-//        VBox vBoxresistor = new VBox();
-//
-//        vBoxCondenasteur.setMinHeight(50);
-//
-//        SvgLoader svgLoaderCondensateur = new SvgLoader();
-//
-//        Group groupCondensateur = new Group();
-//
-//        groupCondensateur.minHeight(50);
-//
-//        groupCondensateur = svgLoaderCondensateur.loadSvg(this.getClass().getResourceAsStream("condensateur.svg"));
-//
-//        Label labelCondensateur = new Label("Condensateur");
-//
-//        vBoxCondenasteur.getChildren().addAll(groupCondensateur, labelCondensateur);
-//
-//        vBoxPane.getChildren().add(vBoxCondenasteur);
     }
 
     private void CreerVBoxs(String nom) {
