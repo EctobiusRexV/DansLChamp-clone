@@ -5,9 +5,8 @@ import javafx.scene.Group;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
-import javafx.scene.transform.Transform;
 
-public class Tes {
+public class Fleche {
     // Set up the start and end points of the arrow
     Point3D start = new Point3D(0, 0, 0);
     Point3D end = new Point3D(100, 0, 0);
@@ -24,7 +23,7 @@ public class Tes {
     Group groupe = new Group(cylinder,c);
 
 
-    public Tes() {
+    public Fleche() {
         createCylinder();
         createArrow();
         c.setRotationAxis(new Point3D(0,0,1));

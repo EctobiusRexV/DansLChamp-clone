@@ -3,6 +3,7 @@ package prototypes;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Point2D;
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
@@ -12,9 +13,12 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
@@ -66,7 +70,7 @@ public class Rotation3DWithMouse extends Application {
 
 
 
-//        Circuit c = new Circuit(new Composante2[]{new Source(), new Condensateur(), new Resistor(), new Condensateur(), new Condensateur(), new Condensateur()});
+        Circuit c = new Circuit(new Composante2[]{new Source(), new Condensateur(), new Resistor(), new Condensateur(), new Condensateur(), new Condensateur()});
 
         Rectangle r = new Rectangle(100,100);
         PhongMaterial a = new PhongMaterial();
@@ -83,11 +87,15 @@ public class Rotation3DWithMouse extends Application {
             throw new RuntimeException(e);
         }
         r.setFill(new ImagePattern(img));
-        cylindre.setMaterial(a);
 
+
+       ListPoint list = new ListPoint();
+        for (int i = 0; i < 5; i++) {
+            list.addPoint(i*30,i*70);
+        }
 
         SmartGroup group = new SmartGroup();
-        group.getChildren().add(cylindre);
+        group.getChildren().add(c.getGroupe());
 
         Camera camera = new PerspectiveCamera();
         Scene scene = new Scene(group, WIDTH, HEIGHT);

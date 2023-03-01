@@ -4,7 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
 
-public class Iii  {
+public class SymboleI {
 
  private   Cylinder c = new Cylinder(10,100);
 
@@ -12,7 +12,7 @@ public class Iii  {
 
   private  Group groupe = new Group();
 
-    public Iii() {
+    public SymboleI() {
         s.setLayoutY(c.getLayoutY() - c.getHeight()/3*2);
         groupe.getChildren().addAll(c,s);
     }
