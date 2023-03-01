@@ -1,3 +1,4 @@
+<p align="justify">
 Un circuit électrique est un système de composants électriques qui permettent à un courant électrique de circuler. La loi d'Ohm décrit la relation entre la tension V, le courant I et la résistance R dans un circuit, et est donnée par l'équation :
 
 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -29,3 +30,4 @@ La loi de Kirchhoff des tensions stipule que la somme des tensions dans une bouc
     <mn>0</mn>
   </mrow>
 </math>
+</p>

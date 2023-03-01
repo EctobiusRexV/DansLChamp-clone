@@ -1,1 +1,3 @@
+<p align="justify">
 une alimentation électrique variable est un ensemble de système capable de fournire de l'electricité aux circuit électrique ou la tension et la puissance peut être modifier pour les besoin du circuit
+</p>

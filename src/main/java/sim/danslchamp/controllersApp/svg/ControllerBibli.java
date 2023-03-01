@@ -73,7 +73,9 @@ public class ControllerBibli implements Initializable {
 
         vBox.setOnMouseClicked(event -> {
             try {
-                textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt(nom+".txt"));
+                if(nom.contains("source") && !nom.contains("batterie")){
+                    textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt("source"+".txt"));
+                }else textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt(nom+".txt"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
