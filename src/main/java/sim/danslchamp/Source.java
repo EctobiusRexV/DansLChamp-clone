@@ -4,6 +4,8 @@ public abstract class Source extends Composante {
 
     public static final long DEFAUT_VOLTAGE_mV = 1000;
 
+    private long voltage_mv;
+
     public Source(String voltage_mV) {
         try {
             setVoltage_mV(Long.parseLong(voltage_mV));

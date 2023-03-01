@@ -8,6 +8,8 @@ public class Condensateur extends Composante {
 
     private long capacite_uf;
 
+    public final String name = "Condensateur";
+
     /**
      * Permet la construction d'un condensateur depuis les attributs SVG
      *
@@ -24,5 +26,14 @@ public class Condensateur extends Composante {
     @Override
     Point[] getConnecteursRelatifs() {
         return new Point[]{new Point(20, 0), new Point(20, 30)};
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setCapacite_uf(String capacite_uf) {
+        this.capacite_uf = Long.parseLong(capacite_uf);
     }
 }

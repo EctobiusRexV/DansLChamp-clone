@@ -4,8 +4,10 @@ import java.awt.*;
 
 public class Resistor extends Composante {
 
-    public static final long DEFAUT_RESISTANCE_mOHMS = 4000;
+    private static final long DEFAUT_RESISTANCE_mOHMS = 4000;
     private long resistance_mOhms;
+
+    public final String name = "Resistor";
 
     /**
      * Permet la construction d'un résistor depuis les attributs SVG.
@@ -24,12 +26,17 @@ public class Resistor extends Composante {
         return resistance_mOhms;
     }
 
-    public void setResistance_mOhms(long resistance_mOhms) {
-        this.resistance_mOhms = resistance_mOhms;
+    public void setResistance_mOhms(String resistance_mOhms) {
+        this.resistance_mOhms = Long.parseLong(resistance_mOhms);
     }
 
     @Override
     Point[] getConnecteursRelatifs() {
         return new Point[]{new Point(0, 10), new Point(80, 10)};
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

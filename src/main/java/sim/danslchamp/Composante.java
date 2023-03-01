@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public abstract class Composante {
 
+    private String name;
     private int posX;
     private int posY;
 
@@ -63,4 +64,6 @@ public abstract class Composante {
     public String toString() {
         return getClass().getSimpleName();
     }
+
+    public abstract String getName();
 }

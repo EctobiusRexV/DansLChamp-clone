@@ -6,14 +6,22 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
+import sim.danslchamp.*;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import static sim.danslchamp.controllersApp.DanslChampApp.FC;
 import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
@@ -25,6 +33,8 @@ import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
  * @author Mathis Rosa-Wilson
  */
 public class ControllerPrincipal {
+
+    private ArrayList<Composante> composantes = new ArrayList<>();
 
     private Stage stage;
     void setStage(Stage stage) {
@@ -54,6 +64,56 @@ public class ControllerPrincipal {
     // ===============================
     @FXML
     public void initialize() {
+
+
+
+        composantes.add(new SourceCC("1000"));
+        composantes.add(new Bobine("1","1","1"));
+        composantes.add(new Condensateur("1"));
+        composantes.add(new Resistor("1000"));
+
+        for (Composante c : composantes){
+            VBox vBox = new VBox();
+
+            vBox.getChildren().add(new Label(c.getName()));
+
+            Field[] fields = c.getClass().getDeclaredFields();
+
+            Method[] methods = c.getClass().getDeclaredMethods();
+
+            for (Method m : methods){
+
+                if (m.getName().startsWith("set")){
+                    HBox hBox = new HBox();
+                    hBox.getChildren().add(new Label(m.getName().substring(0, 2)));
+                    TextField textField = new TextField();
+                    textField.setOnKeyTyped(eh -> {
+                        try {
+                            m.invoke(c, textField.getText());
+                        } catch (IllegalAccessException e) {
+                            throw new RuntimeException(e);
+                        } catch (InvocationTargetException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    hBox.getChildren().add(textField);
+                    vBox.getChildren().add(hBox);
+                }
+            }
+
+//            for (Field f : fields){
+//                HBox hBox = new HBox();
+//
+//                hBox.getChildren().add(new Label(f.getName()));
+//
+//                hBox.getChildren().add(new TextField());
+//
+//                vBox.getChildren().add(hBox);
+//            }
+            vBoxScrollPane.getChildren().add(vBox);
+        }
+
+
     }
 
     // ===============================

@@ -9,8 +9,12 @@ public class Bobine extends Composante {
     public static final double DEFAUT_RAYON_m = 2;
 
     private int nombreDeSpires;
-    private int longueur_m;
+    private double longueur_m;
     private double rayon_m;
+
+    private double inductance;
+
+    private final String name = "Bobine";
 
     /**
      * Permet la construction d'une bobine depuis les attributs SVG
@@ -41,5 +45,23 @@ public class Bobine extends Composante {
     @Override
     Point[] getConnecteursRelatifs() {
         return new Point[]{new Point(0,10), new Point(80,10)};
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setNombreDeSpires(String nombreDeSpires) {
+
+        this.nombreDeSpires = Integer.parseInt(nombreDeSpires);
+    }
+
+    public void setLongueur_m(String longueur_m) {
+        this.longueur_m = Double.parseDouble(longueur_m);
+    }
+
+    public void setRayon_m(String rayon_m) {
+        this.rayon_m = Double.parseDouble(rayon_m);
     }
 }
