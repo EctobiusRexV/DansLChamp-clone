@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
@@ -75,9 +76,9 @@ public class ControllerPrincipal {
         for (Composante c : composantes){
             VBox vBox = new VBox();
 
-            vBox.getChildren().add(new Label(c.getName()));
+            vBox.setPrefWidth(200);
 
-            Field[] fields = c.getClass().getDeclaredFields();
+            vBox.getChildren().add(new Label(c.getName()));
 
             Method[] methods = c.getClass().getDeclaredMethods();
 
@@ -85,11 +86,19 @@ public class ControllerPrincipal {
 
                 if (m.getName().startsWith("set")){
                     HBox hBox = new HBox();
-                    hBox.getChildren().add(new Label(m.getName().substring(0, 2)));
+                    HBox.setHgrow(hBox, Priority.ALWAYS);
+                    hBox.setMinWidth(195);
+                    hBox.setSpacing(10);
+                    Label label = new Label(m.getName().substring(3));
+                    label.setMinWidth(70);
+                    hBox.getChildren().add(label);
                     TextField textField = new TextField();
                     textField.setOnKeyTyped(eh -> {
                         try {
-                            m.invoke(c, textField.getText());
+                            if (textField.getText() != null){
+                                m.invoke(c, textField.getText());
+                            }
+
                         } catch (IllegalAccessException e) {
                             throw new RuntimeException(e);
                         } catch (InvocationTargetException e) {
@@ -101,15 +110,7 @@ public class ControllerPrincipal {
                 }
             }
 
-//            for (Field f : fields){
-//                HBox hBox = new HBox();
-//
-//                hBox.getChildren().add(new Label(f.getName()));
-//
-//                hBox.getChildren().add(new TextField());
-//
-//                vBox.getChildren().add(hBox);
-//            }
+
             vBoxScrollPane.getChildren().add(vBox);
         }
 
