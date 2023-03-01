@@ -50,16 +50,20 @@ public class SplashScreenController {
     // ===============================
     @FXML
     public void initialize() {
-//        circuitsRecentsFlowPane.getChildren().add(
-//                getCircuitVBox(".\\circuits\\circuitR.svg")
-//        );
+        circuitsRecentsFlowPane.getChildren().add(
+                getCircuitVBox(".\\circuits\\circuitR.svg")
+        );
     }
 
     private VBox getCircuitVBox(String filename) {
-        return new VBox(
+        VBox vBox = new VBox(
                 SVG_LOADER.loadSvg(filename),
                 new Label(filename)
         );
+
+        vBox.setUserData(new File(filename));
+        vBox.setOnMouseClicked(this::circuitPressed);
+        return vBox;
     }
 
     // ===============================
