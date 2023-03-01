@@ -1,5 +1,9 @@
 package sim.danslchamp;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Box;
+
 public abstract class Source extends Composante {
 
     public static final long DEFAUT_VOLTAGE_mV = 1000;
@@ -10,5 +14,18 @@ public abstract class Source extends Composante {
         } catch (NumberFormatException e) {
             setVoltage_mV(DEFAUT_VOLTAGE_mV);
         }
+    }
+
+    private Source() {
+        setGroupe3D();
+    }
+
+
+    @Override
+    public void setGroupe3D() {
+        Box box = new Box(100, 50, 20);
+        box.setMaterial(new PhongMaterial(Color.RED));
+        this.getGroupe3D().getChildren().add(box);
+
     }
 }

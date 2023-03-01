@@ -1,5 +1,9 @@
 package sim.danslchamp;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Cylinder;
+
 import java.awt.*;
 
 public class Resistor extends Composante {
@@ -20,6 +24,10 @@ public class Resistor extends Composante {
         }
     }
 
+    public Resistor() {
+        setGroupe3D();
+    }
+
     public long getResistance_mOhms() {
         return resistance_mOhms;
     }
@@ -31,5 +39,13 @@ public class Resistor extends Composante {
     @Override
     Point[] getConnecteursRelatifs() {
         return new Point[]{new Point(0, 10), new Point(80, 10)};
+    }
+
+    @Override
+    public void setGroupe3D() {
+        Cylinder c = new Cylinder(10,30);
+        c.setMaterial(new PhongMaterial(Color.BLUE));
+        c.setRotate(90);
+        this.getGroupe3D().getChildren().add(c);
     }
 }

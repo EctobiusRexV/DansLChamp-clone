@@ -1,5 +1,7 @@
 package sim.danslchamp;
 
+import javafx.scene.Group;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Map;
@@ -7,6 +9,9 @@ import java.util.Map;
 public class Circuit {
 
     private Source source;
+
+    private Group groupe = new Group();
+
 
     /**
      * Un circuit est composé de multiples composantes connectées l'une avec les autres.
@@ -28,8 +33,37 @@ public class Circuit {
         return source;
     }
 
+    private ArrayList<Composante> nexts = new ArrayList<>();
 
+    public Circuit(Composante[] a) {
 
+        for (int i = 0; i < a.length; i++) {
+            addNext(a[i]);
+        }
+        setCircuit3D();
+    }
+
+    public void addNext(Composante next) {
+        nexts.add(next);
+    }
+
+    public ArrayList<Composante> getNexts() {
+        return nexts;
+    }
+
+    public void setNexts(ArrayList<Composante> nexts) {
+        this.nexts = nexts;
+    }
+
+    void setCircuit3D() {
+        for (int i = 0; i < nexts.size(); i++) {
+            groupe.getChildren().add(nexts.get(i).getGroupe3D());
+        }
+    }
+
+    public Group getGroupe() {
+        return groupe;
+    }
 
     // TRAVERSE NEXT
     /*public void traverser() {

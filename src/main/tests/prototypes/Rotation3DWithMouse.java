@@ -70,7 +70,7 @@ public class Rotation3DWithMouse extends Application {
 
 
 
-        Circuit c = new Circuit(new Composante2[]{new Source(), new Condensateur(), new Resistor(), new Condensateur(), new Condensateur(), new Condensateur()});
+//        Circuit c = new Circuit(new Composante2[]{new Source(), new Condensateur(), new Resistor(), new Condensateur(), new Condensateur(), new Condensateur()});
 
         Rectangle r = new Rectangle(100,100);
         PhongMaterial a = new PhongMaterial();
@@ -95,7 +95,7 @@ public class Rotation3DWithMouse extends Application {
         }
 
         SmartGroup group = new SmartGroup();
-        group.getChildren().add(c.getGroupe());
+//        group.getChildren().add(c.getGroupe());
 
         Camera camera = new PerspectiveCamera();
         Scene scene = new Scene(group, WIDTH, HEIGHT);

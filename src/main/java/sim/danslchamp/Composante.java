@@ -1,5 +1,7 @@
 package sim.danslchamp;
 
+import javafx.scene.Group;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -11,7 +13,14 @@ public abstract class Composante {
     private int hauteur;
     private int largeur;
 
+    private Group groupe3D = new Group();
+
+
     // Getters & Setters
+    public Group getGroupe3D() {
+        return groupe3D;
+    }
+    public abstract void setGroupe3D();
 
     public int getPosX() {
         return posX;

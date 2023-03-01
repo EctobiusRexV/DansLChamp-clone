@@ -39,6 +39,11 @@ public class Bobine extends Composante {
     }
 
     @Override
+    public void setGroupe3D() {
+
+    }
+
+    @Override
     Point[] getConnecteursRelatifs() {
         return new Point[]{new Point(0,10), new Point(80,10)};
     }
