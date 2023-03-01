@@ -26,9 +26,10 @@ import org.apache.batik.anim.dom.SVGOMAnimatedPathData.BaseSVGPathSegList;
 import org.apache.batik.css.dom.CSSOMSVGColor;
 import org.apache.batik.css.dom.CSSOMValue;
 import org.apache.batik.dom.svg.SVGPathSegItem;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.svg.SVGPoint;
@@ -48,7 +49,7 @@ public class SvgBasicElementHandler {
     public SvgStyleTools styleTools = null;
     private SvgLoader loader = null;
 
-    private Map<String, SVGOMDefsElement> defs = new HashMap<>();
+    private Map<String, SVGOMGElement> defs = new HashMap<>();
 
     private ArrayList<Composante> composantes = new ArrayList<>();
 
@@ -85,7 +86,16 @@ public class SvgBasicElementHandler {
     // <defs>
     void handleElement(SVGOMDefsElement element) {
         logger.info("Handling <defs>: " + element);
-        defs.put(element.getId(), element); // fixme
+        handle(element);
+    }
+
+    private void handle(Node node) {
+        if (node instanceof SVGOMGElement) defs.put(((SVGOMGElement) node).getId(), (SVGOMGElement) node);
+        NodeList children = node.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            org.w3c.dom.Node element = children.item(i);
+            handle(element);
+        }
     }
 
 
@@ -312,12 +322,11 @@ public class SvgBasicElementHandler {
         float posX = element.getX().getBaseVal().getValue(),
                 posY = element.getY().getBaseVal().getValue();
 
-        SVGOMGElement gEl = (SVGOMGElement) defs.get(element.getHref().getBaseVal().substring(1)).cloneNode(true);
-        gEl.removeAttribute("id");
+        SVGOMGElement gEl = defs.get(element.getHref().getBaseVal().substring(1));
 
-        gEl.setAttribute("transform", "translate(" +
+        /*gEl.setAttribute("transform", "translate(" +
                 (int) posX + "," +
-                (int) posY + ")");
+                (int) posY + ")");*/
 
 
         String type = element.getHref().getBaseVal();
@@ -352,7 +361,7 @@ public class SvgBasicElementHandler {
 
         composantes.add(c);
 
-                handleElement(gEl);
+        handleElement(gEl);
 
         System.out.println("Loaded use element: " + element.getHref().getBaseVal());
     }
