@@ -15,10 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Sphere;
+import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
@@ -69,10 +66,15 @@ public class Rotation3DWithMouse extends Application {
 //        }
 
 
+        CubicCurve c = new CubicCurve(0, 0, 20, 20, 40, 40, 100, 0);
+        c.setStrokeWidth(4);
+        c.setStroke(Color.FORESTGREEN);
+        c.setStrokeLineCap(StrokeLineCap.ROUND);
+        c.setFill(Color.LIGHTGRAY);
 
 //        Circuit c = new Circuit(new Composante2[]{new Source(), new Condensateur(), new Resistor(), new Condensateur(), new Condensateur(), new Condensateur()});
 
-        Rectangle r = new Rectangle(100,100);
+        Rectangle r = new Rectangle(100, 100);
         PhongMaterial a = new PhongMaterial();
         try {
             a.setDiffuseMap(new Image(new File("i.png").toURI().toURL().toExternalForm()));
@@ -89,13 +91,13 @@ public class Rotation3DWithMouse extends Application {
         r.setFill(new ImagePattern(img));
 
 
-       ListPoint list = new ListPoint();
+        ListPoint list = new ListPoint();
         for (int i = 0; i < 5; i++) {
-            list.addPoint(i*30,i*70);
+            list.addPoint(i * 30, i * 70);
         }
 
         SmartGroup group = new SmartGroup();
-//        group.getChildren().add(c.getGroupe());
+        group.getChildren().add(c);
 
         Camera camera = new PerspectiveCamera();
         Scene scene = new Scene(group, WIDTH, HEIGHT);
