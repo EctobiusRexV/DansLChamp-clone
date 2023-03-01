@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class ControllerBibli implements Initializable {
 
     @FXML
-    private WebView textAreaBibliotheque;
+    private TextArea textAreaBibliotheque;
 
     @FXML
     private VBox vBoxPane;

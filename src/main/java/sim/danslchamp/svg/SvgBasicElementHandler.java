@@ -27,6 +27,8 @@ import org.apache.batik.css.dom.CSSOMSVGColor;
 import org.apache.batik.css.dom.CSSOMValue;
 import org.apache.batik.dom.svg.SVGPathSegItem;
 
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.svg.SVGPoint;
@@ -46,7 +48,7 @@ public class SvgBasicElementHandler {
     public SvgStyleTools styleTools = null;
     private SvgLoader loader = null;
 
-    private Map<String, SVGOMDefsElement> defs = new HashMap<>();
+    private Map<String, SVGOMGElement> defs = new HashMap<>();
 
     private ArrayList<Composante> composantes = new ArrayList<>();
 
@@ -83,7 +85,16 @@ public class SvgBasicElementHandler {
     // <defs>
     void handleElement(SVGOMDefsElement element) {
         System.out.println("Handling <defs>: " + element);
-        defs.put(element.getId(), element); // fixme
+        handle(element);
+    }
+
+    private void handle(Node node) {
+        if (node instanceof SVGOMGElement) defs.put(((SVGOMGElement) node).getId(), (SVGOMGElement) node);
+        NodeList children = node.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            org.w3c.dom.Node element = children.item(i);
+            handle(element);
+        }
     }
 
 

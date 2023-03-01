@@ -18,7 +18,7 @@
       </Label>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <WebView fx:id="textAreaBibliotheque" />
+            <TextArea fx:id="textAreaBibliotheque" />
 
 
                   <VBox fx:id="vBoxPane" />
