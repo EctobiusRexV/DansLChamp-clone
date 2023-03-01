@@ -10,16 +10,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
+import sim.danslchamp.Util.MathMlUtil;
 import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ControllerBibli implements Initializable {
 
     @FXML
-    private TextArea textAreaBibliotheque;
+    private WebView textAreaBibliotheque;
 
     @FXML
     private VBox vBoxPane;
@@ -57,12 +59,23 @@ public class ControllerBibli implements Initializable {
 
         group.minHeight(50);
 
-        group = svgLoader.loadSvg(this.getClass().getResourceAsStream(nom + ".svg"));
+        //temporaire
+
+        else group = svgLoader.loadSvg(this.getClass().getResourceAsStream(nom + ".svg"));
 
         Label label = new Label(nom);
 
         vBox.getChildren().addAll(group, label);
 
         vBoxPane.getChildren().add(vBox);
+
+        vBox.setOnMouseClicked(event -> {
+            try {
+                    textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt("source"+".txt"));
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } );
     }
 }
