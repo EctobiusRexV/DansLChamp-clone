@@ -26,10 +26,7 @@ import org.apache.batik.anim.dom.SVGOMAnimatedPathData.BaseSVGPathSegList;
 import org.apache.batik.css.dom.CSSOMSVGColor;
 import org.apache.batik.css.dom.CSSOMValue;
 import org.apache.batik.dom.svg.SVGPathSegItem;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.svg.SVGPoint;
@@ -44,12 +41,12 @@ import java.util.Map;
 
 
 public class SvgBasicElementHandler {
-    private static final Logger logger = LogManager.getLogger(SvgBasicElementHandler.class);
+
 
     public SvgStyleTools styleTools = null;
     private SvgLoader loader = null;
 
-    private Map<String, SVGOMGElement> defs = new HashMap<>();
+    private Map<String, SVGOMDefsElement> defs = new HashMap<>();
 
     private ArrayList<Composante> composantes = new ArrayList<>();
 
@@ -85,17 +82,8 @@ public class SvgBasicElementHandler {
 
     // <defs>
     void handleElement(SVGOMDefsElement element) {
-        logger.info("Handling <defs>: " + element);
-        handle(element);
-    }
-
-    private void handle(Node node) {
-        if (node instanceof SVGOMGElement) defs.put(((SVGOMGElement) node).getId(), (SVGOMGElement) node);
-        NodeList children = node.getChildNodes();
-        for (int i = 0; i < children.getLength(); i++) {
-            org.w3c.dom.Node element = children.item(i);
-            handle(element);
-        }
+        System.out.println("Handling <defs>: " + element);
+        defs.put(element.getId(), element); // fixme
     }
 
 
@@ -115,7 +103,7 @@ public class SvgBasicElementHandler {
 
 
     void handleElement(SVGOMMetadataElement element) {
-        logger.debug("Handling <metadata>: {}" + element);
+        System.out.println("Handling <metadata>: {}" + element);
     }
 
 
@@ -176,12 +164,12 @@ public class SvgBasicElementHandler {
 
 
     void handleElement(SVGOMTSpanElement element) {
-        logger.debug("Handling <tspan>: {}" + element);
+        System.out.println("Handling <tspan>: {}" + element);
     }
 
 
     void handleElement(SVGOMPatternElement element) {
-        logger.debug("Handling <pattern>: {}" + element);
+        System.out.println("Handling <pattern>: {}" + element);
     }
 
 
@@ -322,11 +310,12 @@ public class SvgBasicElementHandler {
         float posX = element.getX().getBaseVal().getValue(),
                 posY = element.getY().getBaseVal().getValue();
 
-        SVGOMGElement gEl = defs.get(element.getHref().getBaseVal().substring(1));
+        SVGOMGElement gEl = (SVGOMGElement) defs.get(element.getHref().getBaseVal().substring(1)).cloneNode(true);
+        gEl.removeAttribute("id");
 
-        /*gEl.setAttribute("transform", "translate(" +
+        gEl.setAttribute("transform", "translate(" +
                 (int) posX + "," +
-                (int) posY + ")");*/
+                (int) posY + ")");
 
 
         String type = element.getHref().getBaseVal();
@@ -361,7 +350,7 @@ public class SvgBasicElementHandler {
 
         composantes.add(c);
 
-        handleElement(gEl);
+                handleElement(gEl);
 
         System.out.println("Loaded use element: " + element.getHref().getBaseVal());
     }
@@ -499,7 +488,7 @@ public class SvgBasicElementHandler {
             }
 
             if (fxObj != null) {
-                logger.debug(element);
+                System.out.println(element);
                 styleTools.applyStyle(fxObj, element);
 
                 result.getChildren().add(fxObj);
@@ -555,7 +544,7 @@ public class SvgBasicElementHandler {
         float stopOpacity = stopOpacityValue.getFloatValue(CSSPrimitiveValue.CSS_NUMBER);
 
         Color stopColor = new Color(red, green, blue, stopOpacity);
-        logger.debug("stopColor={}" + stopColor);
+        System.out.println("stopColor={}" + stopColor);
 
         return new Stop(offset, stopColor);
     }
