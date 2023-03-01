@@ -1,6 +1,5 @@
 package prototypes;
 
-import danslchamp.Composante;
 import javafx.scene.shape.Line;
 
 public class Fil extends Composante2 {

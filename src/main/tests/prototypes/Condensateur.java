@@ -1,6 +1,5 @@
 package prototypes;
 
-import danslchamp.Composante;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;

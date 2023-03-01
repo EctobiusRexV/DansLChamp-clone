@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import static sim.danslchamp.controllersApp.DanslChampApp.FC;
+import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
 
 /**
  * Contrôleur de la fenêtre de Démarrage
@@ -30,47 +32,34 @@ public class SplashScreenController {
     // FXML
 
     @FXML
-    private Label LabelBasMilieu;
-
-    @FXML
-    private ImageView imageBasDroite;
-
-    @FXML
-    private ImageView imageBasGauche;
-
-    @FXML
-    private ImageView imageBasMilieu;
-
-    @FXML
-    private ImageView imageHautDroite;
-
-    @FXML
-    private ImageView imageHautGauche;
-
-    @FXML
-    private ImageView imageHautMilieu;
-
-    @FXML
-    private Label labelBasDroite;
-
-    @FXML
-    private Label labelBasGauche;
-
-    @FXML
     private Label labelHautDroite;
+
+    @FXML
+    private Label labelHautMilieu;
 
     @FXML
     private Label labelHautGauche;
 
     @FXML
-    private Label labelHautMilieu;
+    private FlowPane circuitsRecentsFlowPane;
+
+
 
     // ===============================
     //             INIT
     // ===============================
     @FXML
     public void initialize() {
+//        circuitsRecentsFlowPane.getChildren().add(
+//                getCircuitVBox(".\\circuits\\circuitR.svg")
+//        );
+    }
 
+    private VBox getCircuitVBox(String filename) {
+        return new VBox(
+                SVG_LOADER.loadSvg(filename),
+                new Label(filename)
+        );
     }
 
     // ===============================

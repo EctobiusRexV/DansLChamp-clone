@@ -1,6 +1,5 @@
 package prototypes;
 
-import danslchamp.Composante;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;

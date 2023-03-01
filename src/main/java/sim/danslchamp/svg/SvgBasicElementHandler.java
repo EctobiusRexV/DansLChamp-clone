@@ -26,6 +26,7 @@ import org.apache.batik.anim.dom.SVGOMAnimatedPathData.BaseSVGPathSegList;
 import org.apache.batik.css.dom.CSSOMSVGColor;
 import org.apache.batik.css.dom.CSSOMValue;
 import org.apache.batik.dom.svg.SVGPathSegItem;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.css.CSSPrimitiveValue;
@@ -84,7 +85,7 @@ public class SvgBasicElementHandler {
     // <defs>
     void handleElement(SVGOMDefsElement element) {
         logger.info("Handling <defs>: " + element);
-        defs.put(element.getId(), element);
+        defs.put(element.getId(), element); // fixme
     }
 
 

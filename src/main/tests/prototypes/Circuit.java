@@ -1,10 +1,7 @@
 package prototypes;
 
-import danslchamp.Composante;
-import danslchamp.Source;
+import sim.danslchamp.Composante;
 import javafx.scene.Group;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Transform;
 
 import java.util.ArrayList;
 
@@ -57,10 +54,7 @@ public class Circuit {
 
     private void traverserRecursive(Composante composante) {
         System.out.println("Traverse de " + composante);
-        for (Composante next : composante.getNexts()) {
-            if (next == composante) break; // !!
-            traverserRecursive(next);   // un thread pour chaque maille?
-        }
+
     }
 
 

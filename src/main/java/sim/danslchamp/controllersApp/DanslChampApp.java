@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
+import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,10 +15,15 @@ import java.io.IOException;
 
 public class DanslChampApp extends Application {
 
+    // PAS TOUCHE
+    // ====================
     public static final FileChooser FC = new FileChooser();
-    private static final String FILE_EXTENSION = ".svg";
+    private static final String FILE_EXTENSION = "*.svg";
     private static final FileChooser.ExtensionFilter EXTENSION_FILTER =
             new FileChooser.ExtensionFilter("Circuit DANS L'CHAMP", FILE_EXTENSION);
+
+    public static final SvgLoader SVG_LOADER = new SvgLoader();
+    // ====================
 
     @Override
     public void init() throws Exception {
