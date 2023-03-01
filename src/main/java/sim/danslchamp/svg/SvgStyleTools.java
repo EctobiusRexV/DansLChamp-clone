@@ -26,8 +26,6 @@ import org.apache.batik.anim.dom.SVGOMSVGElement;
 import org.apache.batik.anim.dom.SVGStylableElement;
 import org.apache.batik.css.dom.CSSOMComputedStyle.ComputedCSSValue;
 import org.apache.batik.css.dom.CSSOMSVGComputedStyle.ComputedCSSPaintValue;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.css.CSSValue;
@@ -37,7 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SvgStyleTools {
-    private static final Logger logger = LogManager.getLogger(SvgStyleTools.class);
+
 
     protected SVGOMSVGElement svgElement = null;
     private Map<String, Paint> paints = new HashMap<>();
@@ -218,7 +216,7 @@ public class SvgStyleTools {
             }
         }
 
-        logger.debug("Font: " + fontFamily + "/" + fontSize);
+        System.out.println("Font: " + fontFamily + "/" + fontSize);
         Font font = Font.font(fontFamily, fontSize);
         fxObj.setFont(font);
 

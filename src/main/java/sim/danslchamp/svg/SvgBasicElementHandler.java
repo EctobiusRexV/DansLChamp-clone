@@ -27,8 +27,6 @@ import org.apache.batik.css.dom.CSSOMSVGColor;
 import org.apache.batik.css.dom.CSSOMValue;
 import org.apache.batik.dom.svg.SVGPathSegItem;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.svg.SVGPoint;
@@ -43,7 +41,7 @@ import java.util.Map;
 
 
 public class SvgBasicElementHandler {
-    private static final Logger logger = LogManager.getLogger(SvgBasicElementHandler.class);
+
 
     public SvgStyleTools styleTools = null;
     private SvgLoader loader = null;
@@ -84,7 +82,7 @@ public class SvgBasicElementHandler {
 
     // <defs>
     void handleElement(SVGOMDefsElement element) {
-        logger.info("Handling <defs>: " + element);
+        System.out.println("Handling <defs>: " + element);
         defs.put(element.getId(), element); // fixme
     }
 
@@ -105,7 +103,7 @@ public class SvgBasicElementHandler {
 
 
     void handleElement(SVGOMMetadataElement element) {
-        logger.debug("Handling <metadata>: {}" + element);
+        System.out.println("Handling <metadata>: {}" + element);
     }
 
 
@@ -166,12 +164,12 @@ public class SvgBasicElementHandler {
 
 
     void handleElement(SVGOMTSpanElement element) {
-        logger.debug("Handling <tspan>: {}" + element);
+        System.out.println("Handling <tspan>: {}" + element);
     }
 
 
     void handleElement(SVGOMPatternElement element) {
-        logger.debug("Handling <pattern>: {}" + element);
+        System.out.println("Handling <pattern>: {}" + element);
     }
 
 
@@ -490,7 +488,7 @@ public class SvgBasicElementHandler {
             }
 
             if (fxObj != null) {
-                logger.debug(element);
+                System.out.println(element);
                 styleTools.applyStyle(fxObj, element);
 
                 result.getChildren().add(fxObj);
@@ -546,7 +544,7 @@ public class SvgBasicElementHandler {
         float stopOpacity = stopOpacityValue.getFloatValue(CSSPrimitiveValue.CSS_NUMBER);
 
         Color stopColor = new Color(red, green, blue, stopOpacity);
-        logger.debug("stopColor={}" + stopColor);
+        System.out.println("stopColor={}" + stopColor);
 
         return new Stop(offset, stopColor);
     }

@@ -20,8 +20,6 @@ import javafx.scene.Group;
 import org.apache.batik.anim.dom.*;
 import org.apache.batik.bridge.*;
 import org.apache.batik.util.XMLResourceDescriptor;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.w3c.dom.NodeList;
 
 import java.io.FileInputStream;
@@ -33,7 +31,7 @@ import java.util.function.Consumer;
 
 
 public class SvgLoader {
-    private static final Logger logger = LogManager.getLogger(SvgLoader.class);
+
 
     Group parentNode;
 
@@ -134,7 +132,7 @@ public class SvgLoader {
             if (consumer != null) {
                 consumer.accept((SVGOMElement) node);
             } else {
-                logger.warn("Unknown element " + node.getLocalName() + " (" + node + "):");
+                System.out.println("Unknown element " + node.getLocalName() + " (" + node + "):");
             }
         }
 
