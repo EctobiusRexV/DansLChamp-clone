@@ -59,9 +59,8 @@ public class ControllerBibli implements Initializable {
 
         group.minHeight(50);
 
-        //temporaire
 
-        else group = svgLoader.loadSvg(this.getClass().getResourceAsStream(nom + ".svg"));
+         group = svgLoader.loadSvg(this.getClass().getResourceAsStream(nom + ".svg"));
 
         Label label = new Label(nom);
 
