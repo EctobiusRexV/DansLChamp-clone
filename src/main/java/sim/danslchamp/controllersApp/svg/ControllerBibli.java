@@ -43,13 +43,13 @@ public class ControllerBibli implements Initializable {
 
     private void CreerVBoxs(String nom) {
 
-        VBox vBoxBobine = new VBox();
+        VBox vBox = new VBox();
 
-        vBoxBobine.setSpacing(5);
+        vBox.setSpacing(5);
 
-        vBoxBobine.setAlignment(Pos.CENTER);
+        vBox.setAlignment(Pos.CENTER);
 
-        vBoxBobine.setMinHeight(50);
+        vBox.setMinHeight(50);
 
         SvgLoader svgLoader = new SvgLoader();
 
@@ -59,10 +59,10 @@ public class ControllerBibli implements Initializable {
 
         group = svgLoader.loadSvg(this.getClass().getResourceAsStream(nom + ".svg"));
 
-        Label labelBobine = new Label(nom);
+        Label label = new Label(nom);
 
-        vBoxBobine.getChildren().addAll(group, labelBobine);
+        vBox.getChildren().addAll(group, label);
 
-        vBoxPane.getChildren().add(vBoxBobine);
+        vBoxPane.getChildren().add(vBox);
     }
 }
