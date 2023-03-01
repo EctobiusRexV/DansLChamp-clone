@@ -9,6 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
 import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
@@ -18,7 +19,7 @@ import java.util.ResourceBundle;
 public class ControllerBibli implements Initializable {
 
     @FXML
-    private TextArea textAreaBibliotheque;
+    private WebView textAreaBibliotheque;
 
     @FXML
     private VBox vBoxPane;
@@ -26,7 +27,6 @@ public class ControllerBibli implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        textAreaBibliotheque.setEditable(false);
 
         vBoxPane.setSpacing(10);
 
