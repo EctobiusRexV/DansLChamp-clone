@@ -38,7 +38,10 @@ public class ControllerBibli implements Initializable {
         CreerVBoxs("condensateur");
         CreerVBoxs("resistor");
         CreerVBoxs("source_batterie");
+
+        //fixme
         CreerVBoxs("source_ca");
+        //fixme
         CreerVBoxs("source_cc");
 
     }
@@ -60,7 +63,7 @@ public class ControllerBibli implements Initializable {
         group.minHeight(50);
 
 
-         group = svgLoader.loadSvg(this.getClass().getResourceAsStream(nom + ".svg"));
+        group = svgLoader.loadSvg(this.getClass().getResourceAsStream(nom + ".svg"));
 
         Label label = new Label(nom);
 
@@ -70,8 +73,7 @@ public class ControllerBibli implements Initializable {
 
         vBox.setOnMouseClicked(event -> {
             try {
-                    textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt("source"+".txt"));
-
+                textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt(nom+".txt"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
