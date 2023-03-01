@@ -1,3 +1,2 @@
 Manifest-Version: 1.0
-Main-Class: controllersApp.DanslChampApp
-
+Main-Class: sim.danslchamp.controllersApp.DanslChampApp
