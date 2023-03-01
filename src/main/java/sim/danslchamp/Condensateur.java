@@ -9,20 +9,20 @@ import java.awt.*;
 
 public class Condensateur extends Composante {
 
-    private static final long DEFAUT_CAPACITE_uf = 1000;
+    private static final long DEFAUT_CAPACITE_pf = 1000;
 
-    private long capacite_uf;
+    private long capacite_pf;
 
     /**
      * Permet la construction d'un condensateur depuis les attributs SVG
      *
-     * @param capacite_uf
+     * @param capacite_pf
      */
-    public Condensateur(String capacite_uf) {
+    public Condensateur(String capacite_pf) {
         try {
-            this.capacite_uf = Long.parseLong(capacite_uf);
+            this.capacite_pf = Long.parseLong(capacite_pf);
         } catch (NumberFormatException e) {
-            this.capacite_uf = DEFAUT_CAPACITE_uf;
+            this.capacite_pf = DEFAUT_CAPACITE_pf;
         }
     }
 

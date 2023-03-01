@@ -122,7 +122,7 @@ public class SvgLoader {
     }*/
 
 
-    private void handle(org.w3c.dom.Node node) {
+    public void handle(org.w3c.dom.Node node) {
         Group par = parentNode; // save current parent
 
         // Dispatch handling of the current node to its handler

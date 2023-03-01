@@ -41,6 +41,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
+
 
 public class SvgBasicElementHandler {
 
@@ -361,7 +363,7 @@ public class SvgBasicElementHandler {
 
         composantes.add(c);
 
-                handleElement(gEl);
+        SVG_LOADER.handle(gEl);
 
         System.out.println("Loaded use element: " + element.getHref().getBaseVal());
     }
