@@ -17,6 +17,8 @@
 package sim.danslchamp.svg;
 
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
@@ -36,10 +38,9 @@ import org.w3c.dom.svg.SVGPointList;
 import org.w3c.dom.svg.SVGRect;
 import sim.danslchamp.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.*;
 
 import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
 
@@ -331,8 +332,25 @@ public class SvgBasicElementHandler {
                 (int) posY + ")");
 
 
-        String type = element.getHref().getBaseVal();
-        Composante c =
+        String type = element.getHref().getBaseVal().substring(1); // le #
+        try {
+            Class<Composante> composanteClass = (Class<Composante>) Class.forName("sim.danslchamp." + type);
+            List<Method> setMethods = Composante.getSetMethods(composanteClass.getDeclaredMethods());
+            List<String> attributs = setMethods.stream()
+                    .map(method -> {
+                            String attr = method.getName()
+                            .replace("set", "x");
+                    attr = element.getAttribute(attr);
+                    return attr;
+                    }).toList();    // il existe un attribut pour ch. setter
+
+            Constructor<?> constructor = composanteClass.getDeclaredConstructors()[0];
+            Composante c = (Composante) constructor.newInstance(attributs.toArray());
+                // SVP qu'un seul constructeur!
+
+                /*
+                    ANCIEN
+                ===============
                 switch (type) {
                     case "#resistor" -> new Resistor(
                             element.getAttribute("resistance")
@@ -354,22 +372,32 @@ public class SvgBasicElementHandler {
                         yield source_cc;
                     }
                     default -> throw new RuntimeException("Error");
-                };
+                };*/
 
-        c.setPosX((int) posX);
-        c.setPosY((int) posY);
+            c.setPosX((int) posX);
+            c.setPosY((int) posY);
 //        c.setHauteur();   // scaleX, scaleY?
 //        c.setLargeur();
 
-        composantes.add(c);
+            composantes.add(c);
 
-        SVG_LOADER.handle(gEl);
+            SVG_LOADER.handle(gEl);
 
-        System.out.println("Loaded use element: " + element.getHref().getBaseVal());
+            System.out.println("Loaded use element: " + type);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Impossible de charger " + type);
+            alert.getDialogPane().setExpandableContent(new Label(e.getMessage()));
+            alert.showAndWait();
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Composante> getComposantes() {
+        return composantes;
     }
 
 
-    /**
+        /**
      * Returns an array with coordinate pairs from an SVGPointList.
      *
      * @param points The SVGPointList which contains the svg points.

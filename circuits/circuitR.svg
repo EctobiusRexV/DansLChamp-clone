@@ -2,10 +2,10 @@
 	 width="300" height="200"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 	<defs>
-	<g id="resistor">
+	<g id="Resistor">
     	<polyline points="0,10 5,0 15,30 25,0 35,30 45,0 55,30 65,0 75,30 80,10" style="fill:none;stroke:black;stroke-width:3" />
 </g>
-		<g id="source_cc" style="fill:none;stroke:black;stroke-width:3">
+		<g id="SourceCC" style="fill:none;stroke:black;stroke-width:3">
 		  <polyline points="0,10 20,10 20,0 20,10 40,10" />
 		  <text x="25" y="7" style="stroke-width:1">+</text>
 
@@ -16,12 +16,12 @@
 
 		</g>
 
-		<g id="source_ca" style="fill:none;stroke:black;stroke-width:3">
+		<g id="SourceCA" style="fill:none;stroke:black;stroke-width:3">
 			<circle cx="20" cy="20" r="20" />
 			<path d="m 5 20 c 10 -25 20 25 30 1" />
 		</g>
 
-		<g id="source_batterie" style="fill:none;stroke:black;stroke-width:3">
+		<g id="SourceBatterie" style="fill:none;stroke:black;stroke-width:3">
 			<polyline points="0,10 20,10 20,0 20,10 40,10" />
 			<text x="25" y="7" style="stroke-width:1">+</text>
 
@@ -31,12 +31,12 @@
 			<text x="25" y="34" style="stroke-width:1">-</text>
 		</g>
 
-		<g id="condensateur" style="fill:none;stroke:black;stroke-width:3">
+		<g id="Condensateur" style="fill:none;stroke:black;stroke-width:3">
 		  <polyline points="0,10 20,10 20,0 20,10 40,10" />
 		  <polyline points="0,20 20,20 20,30 20,20 40,20" />
 		</g>
 
-		<g id="bobine" style="fill:none;stroke:black;stroke-width:3">
+		<g id="Bobine" style="fill:none;stroke:black;stroke-width:3">
 			<path d="m 0 10 a 2 2 0 0 0 20 0 a 2 2 0 0 0 20 0 a 2 2 0 0 0 20 0 a 2 2 0 0 0 20 0" />
 			<ellipse cx="20" cy="2" rx="5" ry="10" />
 			<ellipse cx="40" cy="2" rx="5" ry="10" />
@@ -44,10 +44,10 @@
 		</g>
 	</defs>
 
-	<use xlink:href="#source_cc" x="5" y="100" />
+	<use xlink:href="#SourceCC" xVoltage_mV="5000" x="5" y="100" />
 	<line x1="25" y1="100" x2="25" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
 	<line x1="25" y1="20" x2="100" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
-	<use xlink:href="#resistor" x="100" y="10" />
+	<use xlink:href="#Resistor" xResistance_mOhms="1500" x="100" y="10"/>
 	<line x1="180" y1="20" x2="300" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
 	<line x1="300" y1="20" x2="300" y2="150" style="fill:none;stroke:black;stroke-width:3"/>
 	<line x1="300" y1="150" x2="25" y2="150" style="fill:none;stroke:black;stroke-width:3"/>

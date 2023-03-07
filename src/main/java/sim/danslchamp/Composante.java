@@ -2,8 +2,10 @@ package sim.danslchamp;
 
 import javafx.scene.Group;
 
-import java.awt.*;
-import java.util.ArrayList;
+import java.awt.Point;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class Composante {
 
@@ -20,7 +22,7 @@ public abstract class Composante {
     public Group getGroupe3D() {
         return groupe3D;
     }
-    public abstract void setGroupe3D();
+    public abstract void initGroupe3D();
 
     public int getPosX() {
         return posX;
@@ -52,6 +54,16 @@ public abstract class Composante {
 
     public void setLargeur(int largeur) {
         this.largeur = largeur;
+    }
+
+    public List<Method> getSetMethods() {
+        return getSetMethods(getClass().getDeclaredMethods());
+    }
+
+    public static List<Method> getSetMethods(Method[] methods) {
+        return Arrays.stream(methods)
+                .filter(method -> method.getName().startsWith("set"))
+                .toList();
     }
 
     private long reactance_mOhms;

@@ -46,6 +46,10 @@ public class SvgLoader {
 
     private SvgBasicElementHandler bh;
 
+    public SvgBasicElementHandler getSvgElementHandler() {
+        return bh;
+    }
+
     /**
      * Creates a new SVGLoader.
      */

@@ -22,10 +22,8 @@ public class Resistor extends Composante {
         } catch (NumberFormatException e) {
             this.resistance_mOhms = DEFAUT_RESISTANCE_mOHMS;
         }
-    }
 
-    public Resistor() {
-        setGroupe3D();
+        initGroupe3D();
     }
 
     public long getResistance_mOhms() {
@@ -42,7 +40,7 @@ public class Resistor extends Composante {
     }
 
     @Override
-    public void setGroupe3D() {
+    public void initGroupe3D() {
         Cylinder c = new Cylinder(10,30);
         c.setMaterial(new PhongMaterial(Color.BLUE));
         c.setRotate(90);

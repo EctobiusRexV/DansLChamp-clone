@@ -14,15 +14,12 @@ public abstract class Source extends Composante {
         } catch (NumberFormatException e) {
             setVoltage_mV(DEFAUT_VOLTAGE_mV);
         }
-    }
 
-    private Source() {
-        setGroupe3D();
+        initGroupe3D();
     }
-
 
     @Override
-    public void setGroupe3D() {
+    public void initGroupe3D() {
         Box box = new Box(100, 50, 20);
         box.setMaterial(new PhongMaterial(Color.RED));
         this.getGroupe3D().getChildren().add(box);

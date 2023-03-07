@@ -39,7 +39,7 @@ public class Bobine extends Composante {
     }
 
     @Override
-    public void setGroupe3D() {
+    public void initGroupe3D() {
 
     }
 

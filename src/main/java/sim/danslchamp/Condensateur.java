@@ -24,14 +24,12 @@ public class Condensateur extends Composante {
         } catch (NumberFormatException e) {
             this.capacite_pf = DEFAUT_CAPACITE_pf;
         }
-    }
 
-    public Condensateur() {
-        setGroupe3D();
+        initGroupe3D();
     }
 
     @Override
-    public void setGroupe3D() {
+    public void initGroupe3D() {
         Cylinder c = new Cylinder(15,20);
         c.setMaterial(new PhongMaterial(Color.PINK));
         c.setRotationAxis(new Point3D(1,0,0));

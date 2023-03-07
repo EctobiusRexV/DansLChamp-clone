@@ -15,11 +15,11 @@ public class Fil extends Composante{
         setStartY(startY);
         setEndX(endX);
         setEndY(endY);
-        setGroupe3D();
+        initGroupe3D();
     }
 
     @Override
-    public void setGroupe3D() {
+    public void initGroupe3D() {
         this.getGroupe3D().getChildren().add(new Line(startX, startY, endX, endY));
     }
 
