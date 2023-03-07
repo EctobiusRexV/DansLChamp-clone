@@ -68,6 +68,8 @@ public class Bobine extends Composante {
                     DanslChampUtil.lanceAlerte("Entrée non-conforme", "nombreDeSpires");
                 }
             }
+        }else {
+            this.nombreDeSpires = 0;
         }
     }
 
@@ -82,6 +84,8 @@ public class Bobine extends Composante {
                     DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
                 }
             }
+        }else {
+            this.longueur_m = 0;
         }
     }
 
@@ -91,11 +95,13 @@ public class Bobine extends Composante {
                 DanslChampUtil.lanceAlerte("Entrée non-conforme", "rayon_m");
             } else {
                 try{
-                    this.longueur_m = Double.parseDouble(rayon_m);
+                    this.rayon_m = Double.parseDouble(rayon_m);
                 } catch (NumberFormatException e){
                     DanslChampUtil.lanceAlerte("Entrée non-conforme", "rayon_m");
                 }
             }
+        }else {
+            this.rayon_m = 0;
         }
     }
 }
