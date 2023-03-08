@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import io.github.palexdev.materialfx.controls.MFXTitledPane;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,6 +44,8 @@ public class SplashScreenController {
     @FXML
     private FlowPane circuitsRecentsFlowPane;
 
+    @FXML
+    private MFXTitledPane titledPane;
 
 
     // ===============================
@@ -53,6 +56,7 @@ public class SplashScreenController {
         circuitsRecentsFlowPane.getChildren().add(
                 getCircuitVBox(".\\circuits\\circuitR.svg")
         );
+        titledPane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
     }
 
     private VBox getCircuitVBox(String filename) {
@@ -96,8 +100,10 @@ public class SplashScreenController {
     void ouvrirCircuit() {
         try {
             File file = FC.showOpenDialog(stage);
-            if (file != null) DanslChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
-        } catch (FileNotFoundException neSappliquePas) {}
+            if (file != null)
+                DanslChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
+        } catch (FileNotFoundException neSappliquePas) {
+        }
     }
 
     @FXML

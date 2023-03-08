@@ -14,9 +14,6 @@ public class SourceCC extends Source {
         super(voltage_mV);
     }
 
-    public void setVoltage_mV(String voltage_mV) {
-        this.setVoltage_mV(Long.parseLong(voltage_mV));
-    }
 
     @Override
     Point[] getConnecteursRelatifs() {
