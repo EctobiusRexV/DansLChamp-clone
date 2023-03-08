@@ -1,5 +1,7 @@
 package sim.danslchamp;
 
+import sim.danslchamp.Util.DanslChampUtil;
+
 import java.awt.*;
 
 public class Condensateur extends Composante {
@@ -34,6 +36,19 @@ public class Condensateur extends Composante {
     }
 
     public void setCapacite_uf(String capacite_uf) {
-        this.capacite_uf = Long.parseLong(capacite_uf);
+        if (!capacite_uf.isEmpty()) {
+            if (capacite_uf.matches("[a-z]")) {
+                DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+            } else {
+                try {
+                    this.capacite_uf = Long.parseLong(capacite_uf);
+                } catch (NumberFormatException e) {
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                }
+            }
+        } else {
+            this.capacite_uf = 0;
+        }
+
     }
 }

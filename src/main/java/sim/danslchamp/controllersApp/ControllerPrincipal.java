@@ -68,6 +68,7 @@ public class ControllerPrincipal {
     public void initialize() {
 
 
+        vBoxScrollPane.setSpacing(20);
 
         composantes.add(new SourceCC("1000"));
         composantes.add(new Bobine("1","1","1"));
@@ -77,7 +78,7 @@ public class ControllerPrincipal {
         for (Composante c : composantes){
             VBox vBox = new VBox();
 
-            vBox.setPrefWidth(200);
+            vBox.setPrefWidth(300);
 
             vBox.getChildren().add(new Label(c.getName()));
 
@@ -88,10 +89,10 @@ public class ControllerPrincipal {
                 if (m.getName().startsWith("set")){
                     HBox hBox = new HBox();
                     HBox.setHgrow(hBox, Priority.ALWAYS);
-                    hBox.setMinWidth(195);
+                    hBox.setMinWidth(300);
                     hBox.setSpacing(10);
                     Label label = new Label(m.getName().substring(3));
-                    label.setMinWidth(70);
+                    label.setMinWidth(120);
                     hBox.getChildren().add(label);
                     TextField textField = new TextField();
                     textField.setOnKeyTyped(eh -> {

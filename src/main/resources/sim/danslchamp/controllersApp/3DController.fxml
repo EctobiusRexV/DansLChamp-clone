@@ -55,7 +55,7 @@
       </MenuBar>
    </top>
    <right>
-      <ScrollPane prefHeight="400.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane prefHeight="400.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <content>
             <VBox fx:id="vBoxScrollPane" prefWidth="130.0" />
          </content>

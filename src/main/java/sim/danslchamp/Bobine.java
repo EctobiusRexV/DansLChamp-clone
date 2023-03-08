@@ -78,13 +78,13 @@ public class Bobine extends Composante {
             if (longueur_m.matches("[a-z]")) {
                 DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
             } else {
-                try{
+                try {
                     this.longueur_m = Double.parseDouble(longueur_m);
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
                 }
             }
-        }else {
+        } else {
             this.longueur_m = 0;
         }
     }

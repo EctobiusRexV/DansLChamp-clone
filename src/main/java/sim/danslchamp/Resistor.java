@@ -1,5 +1,7 @@
 package sim.danslchamp;
 
+import sim.danslchamp.Util.DanslChampUtil;
+
 import java.awt.*;
 
 public class Resistor extends Composante {
@@ -27,7 +29,20 @@ public class Resistor extends Composante {
     }
 
     public void setResistance_mOhms(String resistance_mOhms) {
-        this.resistance_mOhms = Long.parseLong(resistance_mOhms);
+        if (!resistance_mOhms.isEmpty()) {
+            if (resistance_mOhms.matches("[a-z]")) {
+                DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+            } else {
+                try {
+                    this.resistance_mOhms = Long.parseLong(resistance_mOhms);
+                } catch (NumberFormatException e) {
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                }
+            }
+        } else {
+            this.resistance_mOhms = 0;
+        }
+
     }
 
     @Override
