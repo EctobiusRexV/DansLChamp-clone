@@ -4,10 +4,8 @@ import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
-import javafx.scene.Camera;
-import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.Scene;
+import javafx.geometry.Point3D;
+import javafx.scene.*;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
@@ -66,29 +64,40 @@ public class Rotation3DWithMouse extends Application {
 //        }
 
 
-        CubicCurve c = new CubicCurve(0, 0, 20, 20, 40, 40, 100, 0);
+        CubicCurve c = new CubicCurve(0, 0, 80, -80, 160, -80, 240, 0);
+        Polygon p = new Polygon();
+        p.getPoints().addAll(0.0, 0.0, 10.0, 10.0, 5.0, 20.0);
+        p.setFill(Color.RED);
+        Sphere s = new Sphere();
+
         c.setStrokeWidth(4);
         c.setStroke(Color.FORESTGREEN);
         c.setStrokeLineCap(StrokeLineCap.ROUND);
         c.setFill(Color.LIGHTGRAY);
-
+        ConeMesh cone = new ConeMesh();
+        cone.setLayoutY(c.getControlY1());
+        cone.setLayoutX((c.getControlX1() + c.getControlX2()) / 2);
+        cone.setHeight(40);
+        cone.setRadius(15);
+        cone.setRotationAxis(new Point3D(0, 0, 1));
+        cone.setRotate(90);
 //        Circuit c = new Circuit(new Composante2[]{new Source(), new Condensateur(), new Resistor(), new Condensateur(), new Condensateur(), new Condensateur()});
 
         Rectangle r = new Rectangle(100, 100);
-        PhongMaterial a = new PhongMaterial();
-        try {
-            a.setDiffuseMap(new Image(new File("i.png").toURI().toURL().toExternalForm()));
-
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-        Image img = null;
-        try {
-            img = new Image(new File("i.png").toURI().toURL().toExternalForm());
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-        r.setFill(new ImagePattern(img));
+//        PhongMaterial a = new PhongMaterial();
+//        try {
+//            a.setDiffuseMap(new Image(new File("i.png").toURI().toURL().toExternalForm()));
+//
+//        } catch (MalformedURLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        Image img = null;
+//        try {
+//            img = new Image(new File("i.png").toURI().toURL().toExternalForm());
+//        } catch (MalformedURLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        r.setFill(new ImagePattern(img));
 
 
         ListPoint list = new ListPoint();
@@ -97,7 +106,8 @@ public class Rotation3DWithMouse extends Application {
         }
 
         SmartGroup group = new SmartGroup();
-        group.getChildren().add(c);
+        // aa
+        group.getChildren().addAll(c, cone, p);
 
         Camera camera = new PerspectiveCamera();
         Scene scene = new Scene(group, WIDTH, HEIGHT);
