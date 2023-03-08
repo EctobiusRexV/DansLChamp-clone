@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXTitledPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -47,7 +48,7 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Circuits Récents :" />
+            <Label style="-fx-background-radius: 10;" text="Circuits Récents :" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <VBox onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
@@ -67,7 +68,7 @@
                   </VBox>
                </children>
             </HBox>
-            <Label text="Circuits de base :" />
+            <MFXTitledPane fx:id="titledPane" expanded="true" prefHeight="32.0" prefWidth="425.0" stylesheets="@titlepane.css" title="Circuit de Base" />
             <FlowPane fx:id="circuitsRecentsFlowPane" prefHeight="200.0" prefWidth="200.0" />
          </children>
          <opaqueInsets>
