@@ -14,10 +14,6 @@ public class SourceCC extends Source {
         super(voltage_mV);
     }
 
-    public void setVoltage_mV(String voltage_mV) {
-        this.setVoltage_mV(Long.parseLong(voltage_mV));
-    }
-
     @Override
     Point[] getConnecteursRelatifs() {
         return new Point[]{new Point(20, 0), new Point(20, 20)};
@@ -33,12 +29,12 @@ public class SourceCC extends Source {
     public void setDdp_mv(String ddp_mv) {
         if (!ddp_mv.isEmpty()) {
             if (ddp_mv.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                DanslChampUtil.lanceAlerte("Entrée non-conforme, enlevez le dernier caractère entré", "ddp_mv");
             } else {
                 try {
                     this.ddp_mv = Long.parseLong(ddp_mv);
                 } catch (NumberFormatException e) {
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme, enlevez le dernier caractère entré", "ddp_mv");
                 }
             }
         } else {

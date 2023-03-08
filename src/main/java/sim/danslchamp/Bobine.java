@@ -65,12 +65,12 @@ public class Bobine extends Composante {
 
         if (!nombreDeSpires.isEmpty()) {
             if (nombreDeSpires.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "nombreDeSpires");
+                DanslChampUtil.lanceAlerte("Entrée non-conforme, enlevez le dernier caractère entré", "nombreDeSpires");
             } else {
                 try{
                     this.nombreDeSpires = Integer.parseInt(nombreDeSpires);
                 } catch (NumberFormatException e){
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "nombreDeSpires");
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme, enlevez le dernier caractère entré", "nombreDeSpires");
                 }
             }
         }else {
@@ -81,12 +81,12 @@ public class Bobine extends Composante {
     public void setLongueur_m(String longueur_m) {
         if (!longueur_m.isEmpty()) {
             if (longueur_m.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                DanslChampUtil.lanceAlerte("Entrée non-conforme, enlevez le dernier caractère entré", "longueur_m");
             } else {
                 try {
                     this.longueur_m = Double.parseDouble(longueur_m);
                 } catch (NumberFormatException e) {
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme, enlevez le dernier caractère entré", "longueur_m");
                 }
             }
         } else {
@@ -97,12 +97,12 @@ public class Bobine extends Composante {
     public void setRayon_m(String rayon_m) {
         if (!rayon_m.isEmpty()) {
             if (rayon_m.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "rayon_m");
+                DanslChampUtil.lanceAlerte("Entrée non-conforme, enlevez le dernier caractère entré", "rayon_m");
             } else {
                 try{
                     this.rayon_m = Double.parseDouble(rayon_m);
                 } catch (NumberFormatException e){
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "rayon_m");
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme, enlevez le dernier caractère entré", "rayon_m");
                 }
             }
         }else {

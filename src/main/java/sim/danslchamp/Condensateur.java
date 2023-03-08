@@ -54,12 +54,12 @@ public class Condensateur extends Composante {
     public void setCapacite_pf(String capacite_pf) {
         if (!capacite_pf.isEmpty()) {
             if (capacite_pf.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                DanslChampUtil.lanceAlerte("Entrée non-conforme, enlevez le dernier caractère entré", "capacite_pf");
             } else {
                 try {
                     this.capacite_pf = Long.parseLong(capacite_pf);
                 } catch (NumberFormatException e) {
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme, enlevez le dernier caractère entré", "capacite_pf");
                 }
             }
         } else {

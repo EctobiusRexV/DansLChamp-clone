@@ -35,12 +35,12 @@ public class Resistor extends Composante {
     public void setResistance_mOhms(String resistance_mOhms) {
         if (!resistance_mOhms.isEmpty()) {
             if (resistance_mOhms.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                DanslChampUtil.lanceAlerte("Entrée non-conforme, enlevez le dernier caractère entré", "resistance_mOhms");
             } else {
                 try {
                     this.resistance_mOhms = Long.parseLong(resistance_mOhms);
                 } catch (NumberFormatException e) {
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme, enlevez le dernier caractère entré", "resistance_mOhms");
                 }
             }
         } else {
