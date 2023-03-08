@@ -68,6 +68,7 @@ public class DanslChampApp extends Application {
         controllerPrincipal.setStage(stage);
         controllerPrincipal.chargerCircuit(file);
         stage.show();
+        stage.setMaximized(true);
     }
 
     public static void main(String[] args) {

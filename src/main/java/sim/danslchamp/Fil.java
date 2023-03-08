@@ -5,6 +5,8 @@ import javafx.scene.shape.Line;
 import java.awt.*;
 
 public class Fil extends Composante{
+
+    private final String name = "fil";
     private int startX;
     private int endX;
     private int endY;
@@ -61,5 +63,10 @@ public class Fil extends Composante{
     @Override
     Point[] getConnecteursRelatifs() {
         throw new RuntimeException("getConnecteursRelatifs() non-implémenté pour les fils.");
+    }
+
+
+    public String getName() {
+        return name;
     }
 }
