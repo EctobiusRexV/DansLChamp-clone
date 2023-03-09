@@ -26,16 +26,14 @@ public class ComposantesListCell extends ListCell<Composante> {
         } else {
             VBox vBox = new VBox();
 
-            vBox.getChildren().add(new Label(item.getName()));
+            vBox.getChildren().add(new Label(item.getClass().getSimpleName()));
 
-            for (Method m : item.getSetMethods()) {
+            for (Method m : item.getSetMethodsTriées()) {
                 HBox hBox = new HBox();
                 HBox.setHgrow(hBox, Priority.ALWAYS);
                 hBox.setMinWidth(300);
                 hBox.setSpacing(10);
-                Label label = new Label(m.getName().replace("set", ""));
-                label.setMinWidth(120);
-                hBox.getChildren().add(label);
+
                 TextField textField = new TextField();
                 textField.setOnKeyTyped(eh -> {
                     try {
@@ -47,10 +45,31 @@ public class ComposantesListCell extends ListCell<Composante> {
                         throw new RuntimeException(e);
                     }
                 });
-                hBox.getChildren().add(textField);
+
+                hBox.getChildren().addAll(getLabelFromMethod(m), textField);
                 vBox.getChildren().add(hBox);
                 setGraphic(vBox);
             }
         }
+    }
+
+    /**
+     * Crée un fx.Label depuis un nom de méthode au format set_Attribut_Unités au format Attribut (Unités) :
+     * @param method
+     * @return fx.Label
+     */
+    // fixme ou method.getAnnotation()
+    private Label getLabelFromMethod(Method method) {
+        String[] parts =        // attribut, unités
+                method.getName()
+                        .substring(3)   // set
+                        .split("_");
+
+        Label label = new Label(
+                parts[0].replaceAll("[A-Z]", " $0")
+                + (parts.length > 1 ? " (" + parts[1] + ") :" : ""));
+        label.setMinWidth(120);
+
+        return label;
     }
 }

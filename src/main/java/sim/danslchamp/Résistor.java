@@ -8,43 +8,43 @@ import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.*;
 
-public class Resistor extends Composante {
+public class Résistor extends Composante {
 
     private static final long DEFAUT_RESISTANCE_mOHMS = 4000;
-    private long resistance_mOhms;
+    private long résistance_mOhms;
 
-    public final String name = "Resistor";
+    public String name;
 
     /**
      * Permet la construction d'un résistor depuis les attributs SVG.
      *
-     * @param resistance_mOhms
+     * @param résistance_mOhms
      */
-    public Resistor(String resistance_mOhms) {
+    public Résistor(String résistance_mOhms) {
         try {
-            this.resistance_mOhms = Long.parseLong(resistance_mOhms);
+            this.résistance_mOhms = Long.parseLong(résistance_mOhms);
         } catch (NumberFormatException e) {
-            this.resistance_mOhms = DEFAUT_RESISTANCE_mOHMS;
+            this.résistance_mOhms = DEFAUT_RESISTANCE_mOHMS;
         }
     }
 
-    public long getResistance_mOhms() {
-        return resistance_mOhms;
+    public long getRésistance_mOhms() {
+        return résistance_mOhms;
     }
 
-    public void setResistance_mOhms(String resistance_mOhms) {
-        if (!resistance_mOhms.isEmpty()) {
-            if (resistance_mOhms.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+    public void setRésistance_mOhms(String résistance_mOhms) {
+        if (!résistance_mOhms.isEmpty()) {
+            if (résistance_mOhms.matches("[a-z]")) {
+                DanslChampUtil.lanceAlerte("Entrée non-conforme", "Résistance (mOhms)");
             } else {
                 try {
-                    this.resistance_mOhms = Long.parseLong(resistance_mOhms);
+                    this.résistance_mOhms = Long.parseLong(résistance_mOhms);
                 } catch (NumberFormatException e) {
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "Résistance (mOhms)");
                 }
             }
         } else {
-            this.resistance_mOhms = 0;
+            this.résistance_mOhms = 0;
         }
 
     }

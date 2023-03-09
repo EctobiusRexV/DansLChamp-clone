@@ -6,9 +6,7 @@ import java.awt.*;
 
 public class SourceCC extends Source {
 
-    private final String name = "Source CC";
-
-    private long ddp_mv;
+    private String name;
 
     public SourceCC(String voltage_mV) {
         super(voltage_mV);
@@ -28,19 +26,19 @@ public class SourceCC extends Source {
 
 
 
-    public void setDdp_mv(String ddp_mv) {
-        if (!ddp_mv.isEmpty()) {
-            if (ddp_mv.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+    public void setVoltage_mV(String ddp_mV) {
+        if (!ddp_mV.isEmpty()) {
+            if (ddp_mV.matches("[a-z]")) {
+                DanslChampUtil.lanceAlerte("Entrée non-conforme", "Voltage (mV)");
             } else {
                 try {
-                    this.ddp_mv = Long.parseLong(ddp_mv);
+                    setVoltage_mV(Long.parseLong(ddp_mV));
                 } catch (NumberFormatException e) {
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "Voltage (mV)");
                 }
             }
         } else {
-            this.ddp_mv = 0;
+            setVoltage_mV(0);
         }
 
     }

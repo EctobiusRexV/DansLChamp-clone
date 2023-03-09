@@ -13,20 +13,20 @@ public class Condensateur extends Composante {
 
     private static final long DEFAUT_CAPACITE_pf = 1000;
 
-    private long capacite_pf;
+    private long capacité_pf;
 
-    public final String name = "Condensateur";
+    public String name;
 
     /**
      * Permet la construction d'un condensateur depuis les attributs SVG
      *
-     * @param capacite_pf
+     * @param capacité_pf
      */
-    public Condensateur(String capacite_pf) {
+    public Condensateur(String capacité_pf) {
         try {
-            this.capacite_pf = Long.parseLong(capacite_pf);
+            this.capacité_pf = Long.parseLong(capacité_pf);
         } catch (NumberFormatException e) {
-            this.capacite_pf = DEFAUT_CAPACITE_pf;
+            this.capacité_pf = DEFAUT_CAPACITE_pf;
         }
 
         initGroupe3D();
@@ -51,19 +51,19 @@ public class Condensateur extends Composante {
         return name;
     }
 
-    public void setCapacite_pf(String capacite_pf) {
-        if (!capacite_pf.isEmpty()) {
-            if (capacite_pf.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+    public void setCapacité_pf(String capacité_pf) {
+        if (!capacité_pf.isEmpty()) {
+            if (capacité_pf.matches("[a-z]")) {
+                DanslChampUtil.lanceAlerte("Entrée non-conforme", "Capacité (pf)");
             } else {
                 try {
-                    this.capacite_pf = Long.parseLong(capacite_pf);
+                    this.capacité_pf = Long.parseLong(capacité_pf);
                 } catch (NumberFormatException e) {
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "Capacité (pf)");
                 }
             }
         } else {
-            this.capacite_pf = 0;
+            this.capacité_pf = 0;
         }
 
     }

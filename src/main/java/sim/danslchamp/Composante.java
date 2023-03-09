@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import java.awt.Point;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public abstract class Composante {
@@ -57,13 +58,14 @@ public abstract class Composante {
         this.largeur = largeur;
     }
 
-    public List<Method> getSetMethods() {
-        return getSetMethods(getClass().getDeclaredMethods());
+    public List<Method> getSetMethodsTriées() {
+        return getSetMethodsTriées(getClass().getDeclaredMethods());
     }
 
-    public static List<Method> getSetMethods(Method[] methods) {
+    public static List<Method> getSetMethodsTriées(Method[] methods) {
         return Arrays.stream(methods)
                 .filter(method -> method.getName().startsWith("set"))
+                .sorted(Comparator.comparing(Method::getName))
                 .toList();
     }
 

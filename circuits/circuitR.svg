@@ -2,7 +2,7 @@
 	 width="300" height="200"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 	<defs>
-	<g id="Resistor">
+	<g id="Résistor">
     	<polyline points="0,10 5,0 15,30 25,0 35,30 45,0 55,30 65,0 75,30 80,10" style="fill:none;stroke:black;stroke-width:3" />
 </g>
 		<g id="SourceCC" style="fill:none;stroke:black;stroke-width:3">
@@ -47,7 +47,7 @@
 	<use xlink:href="#SourceCC" xVoltage_mV="5000" x="5" y="100" />
 	<line x1="25" y1="100" x2="25" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
 	<line x1="25" y1="20" x2="100" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
-	<use xlink:href="#Resistor" xResistance_mOhms="1500" x="100" y="10"/>
+	<use xlink:href="#Résistor" xRésistance_mOhms="1500" x="100" y="10"/>
 	<line x1="180" y1="20" x2="300" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
 	<line x1="300" y1="20" x2="300" y2="150" style="fill:none;stroke:black;stroke-width:3"/>
 	<line x1="300" y1="150" x2="25" y2="150" style="fill:none;stroke:black;stroke-width:3"/>

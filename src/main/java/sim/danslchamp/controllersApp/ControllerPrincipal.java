@@ -82,7 +82,8 @@ public class ControllerPrincipal {
         composantesListView.setCellFactory(item ->
                 new ComposantesListCell());
 
-
+        subScene3D.heightProperty().bind(vBox3D.heightProperty());
+        subScene3D.widthProperty().bind(vBox3D.widthProperty());
     }
 
     // ===============================
@@ -121,7 +122,7 @@ public class ControllerPrincipal {
 
         Group group = circuit.getGroupe2D();
         vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
-            if (group.getScaleX() < 0 && event.getDeltaY() < 0) return; // empêcher d'obtenir un scale négatif
+            if (group.getScaleX() + event.getDeltaY()/100 < 0) return; // empêcher d'obtenir un scale négatif
 
             group.scaleXProperty().set(group.getScaleX() + event.getDeltaY() / 100);
             group.scaleYProperty().set(group.getScaleY() + event.getDeltaY() / 100);
@@ -131,9 +132,14 @@ public class ControllerPrincipal {
 
 
         Group group3D = circuit.getGroupe3D();
-        vBox3D.addEventHandler(ScrollEvent.SCROLL, event -> {
-            group.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY() / 100);
+        subScene3D.addEventHandler(ScrollEvent.SCROLL, event -> {
+            group.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY());
         });
+
+        // Centrer
+        group3D.translateXProperty().set(subScene3D.getWidth() /2);
+        group3D.translateYProperty().set(subScene3D.getHeight() /2);
+        //group3D.translateZProperty().set(-500);
 
         Camera camera = new PerspectiveCamera();
 //        scene.setFill(Color.TRANSPARENT);
@@ -141,11 +147,12 @@ public class ControllerPrincipal {
         subScene3D.setCamera(camera);
         subScene3D.setRoot(circuit.getGroupe3D());
 
+        initMouseControl(group3D, subScene3D);
 
         composantesListView.setItems(circuit.getComposantes());
     }
 
-    private void initMouseControl(SmartGroup group, Scene scene) {
+    private void initMouseControl(Group group, SubScene scene) {
         Rotate xRotate;
         Rotate yRotate;
         group.getTransforms().addAll(

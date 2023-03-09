@@ -10,13 +10,13 @@ public class Bobine extends Composante {
     public static final int DEFAUT_LONGUEUR_m = 4;
     public static final double DEFAUT_RAYON_m = 2;
 
-    private int nombreDeSpires;
-    private double longueur_m;
-    private double rayon_m;
+    private int nombreDeSpires = DEFAUT_NOMBRE_DE_SPIRES;
+    private double longueur_m = DEFAUT_LONGUEUR_m;
+    private double rayon_m = DEFAUT_RAYON_m;
 
     private double inductance;
 
-    private final String name = "Bobine";
+    private String name;
 
     /**
      * Permet la construction d'une bobine depuis les attributs SVG
@@ -26,23 +26,9 @@ public class Bobine extends Composante {
      * @param rayon_m
      */
     public Bobine(String nombreDeSpires, String longueur_m, String rayon_m) {
-        try {
-            this.nombreDeSpires = Integer.parseInt(nombreDeSpires);
-        } catch (NumberFormatException e) {
-            this.nombreDeSpires = DEFAUT_NOMBRE_DE_SPIRES;
-        }
-
-        try {
-            this.longueur_m = Integer.parseInt(longueur_m);
-        } catch (NumberFormatException e) {
-            this.longueur_m = DEFAUT_LONGUEUR_m;
-        }
-
-        try {
-            this.rayon_m = Double.parseDouble(rayon_m);
-        } catch (NumberFormatException e) {
-            this.rayon_m = DEFAUT_RAYON_m;
-        }
+        setNombreDeSpires(nombreDeSpires);
+        setLongueur_m(longueur_m);
+        setRayon_m(rayon_m);
     }
 
     @Override
@@ -65,12 +51,12 @@ public class Bobine extends Composante {
 
         if (!nombreDeSpires.isEmpty()) {
             if (nombreDeSpires.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "nombreDeSpires");
+                DanslChampUtil.lanceAlerte("Entrée non-conforme", "NombreDeSpires");
             } else {
                 try{
                     this.nombreDeSpires = Integer.parseInt(nombreDeSpires);
                 } catch (NumberFormatException e){
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "nombreDeSpires");
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "NombreDeSpires");
                 }
             }
         }else {
@@ -81,12 +67,12 @@ public class Bobine extends Composante {
     public void setLongueur_m(String longueur_m) {
         if (!longueur_m.isEmpty()) {
             if (longueur_m.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                DanslChampUtil.lanceAlerte("Entrée non-conforme", "Longueur (m)");
             } else {
                 try {
                     this.longueur_m = Double.parseDouble(longueur_m);
                 } catch (NumberFormatException e) {
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "longueur_m");
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "Longueur (m)");
                 }
             }
         } else {
@@ -97,12 +83,12 @@ public class Bobine extends Composante {
     public void setRayon_m(String rayon_m) {
         if (!rayon_m.isEmpty()) {
             if (rayon_m.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "rayon_m");
+                DanslChampUtil.lanceAlerte("Entrée non-conforme", "Rayon (m)");
             } else {
                 try{
                     this.rayon_m = Double.parseDouble(rayon_m);
                 } catch (NumberFormatException e){
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "rayon_m");
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "Rayon (m)");
                 }
             }
         }else {

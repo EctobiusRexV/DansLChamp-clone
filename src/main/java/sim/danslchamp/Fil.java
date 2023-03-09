@@ -6,7 +6,6 @@ import java.awt.*;
 
 public class Fil extends Composante{
 
-    private final String name = "fil";
     private int startX;
     private int endX;
     private int endY;
@@ -67,6 +66,6 @@ public class Fil extends Composante{
 
 
     public String getName() {
-        return name;
+        return null;        // fixme c'est p-ê dangereux !
     }
 }
