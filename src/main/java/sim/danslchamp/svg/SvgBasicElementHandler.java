@@ -16,7 +16,6 @@
 
 package sim.danslchamp.svg;
 
-import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -43,20 +42,17 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
-
 
 public class SvgBasicElementHandler {
 
 
     public SvgStyleTools styleTools = null;
-    private SvgLoader loader = null;
+    private final SvgLoader loader;
 
-    private Map<String, SVGOMGElement> defs = new HashMap<>();
+    private final Map<String, SVGOMGElement> defs = new HashMap<>();
 
-    private ArrayList<Composante> composantes = new ArrayList<>();
-
-    private ArrayList<Source> sources = new ArrayList<>();
+    private final ArrayList<Composante> composantes = new ArrayList<>(),
+                                        sources = new ArrayList<>();
 
     private int[][] current_connectors_px;
 
@@ -336,7 +332,7 @@ public class SvgBasicElementHandler {
         String type = element.getHref().getBaseVal().substring(1); // le #
         try {
             Class<Composante> composanteClass = (Class<Composante>) Class.forName("sim.danslchamp." + type);
-            List<Method> setMethods = Composante.getSetMethods(composanteClass.getDeclaredMethods());
+            List<Method> setMethods = Composante.getSetMethodsTriées(composanteClass.getDeclaredMethods());
             List<String> attributs = setMethods.stream()
                     .map(method -> {
                             String attr = method.getName()

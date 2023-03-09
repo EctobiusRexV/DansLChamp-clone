@@ -3,30 +3,21 @@ package prototypes;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
-import javafx.scene.*;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.image.Image;
+import javafx.scene.Camera;
+import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
-import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-
-import java.io.File;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
 
 public class Rotation3DWithMouse extends Application {
 
-    private SmartGroup group = new SmartGroup();
+    private final SmartGroup group = new SmartGroup();
     private static final int WIDTH = 1400;
     private static final int HEIGHT = 1000;
 
@@ -115,23 +106,17 @@ public class Rotation3DWithMouse extends Application {
         scene.setFill(Color.LIGHTGRAY);
         scene.setCamera(camera);
 
-        group.translateXProperty().set(WIDTH / 2);
-        group.translateYProperty().set(HEIGHT / 2);
+        group.translateXProperty().set(WIDTH >> 1);
+        group.translateYProperty().set(HEIGHT >> 1);
         group.translateZProperty().set(-500);
 
         initMouseControl(group, scene);
 
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
-                case W:
-                    group.translateZProperty().set(group.getTranslateZ() + 100);
-                    break;
-                case S:
-                    group.translateZProperty().set(group.getTranslateZ() - 100);
-                    break;
-                case ESCAPE:
-                    primaryStage.close();
-                    break;
+                case W -> group.translateZProperty().set(group.getTranslateZ() + 100);
+                case S -> group.translateZProperty().set(group.getTranslateZ() - 100);
+                case ESCAPE -> primaryStage.close();
             }
         });
 
@@ -168,7 +153,7 @@ public class Rotation3DWithMouse extends Application {
     }
 
 
-    class SmartGroup extends Group {
+    static class SmartGroup extends Group {
 
         Rotate r;
         Transform t = new Rotate();
@@ -188,4 +173,3 @@ public class Rotation3DWithMouse extends Application {
         }
     }
 }
-

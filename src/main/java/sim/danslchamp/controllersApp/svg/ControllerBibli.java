@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
+
 public class ControllerBibli implements Initializable {
 
     @FXML
@@ -56,14 +58,12 @@ public class ControllerBibli implements Initializable {
 
         vBox.setMinHeight(50);
 
-        SvgLoader svgLoader = new SvgLoader();
-
         Group group = new Group();
 
         group.minHeight(50);
 
 
-        group = svgLoader.loadSvg(this.getClass().getResourceAsStream(nom + ".svg"));
+        group = SVG_LOADER.loadSvg(this.getClass().getResourceAsStream(nom + ".svg"));
 
         Label label = new Label(nom);
 
