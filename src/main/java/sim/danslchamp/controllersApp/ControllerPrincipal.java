@@ -137,8 +137,8 @@ public class ControllerPrincipal {
         });
 
         // Centrer
-        group3D.translateXProperty().set(subScene3D.getWidth() /2);
-        group3D.translateYProperty().set(subScene3D.getHeight() /2);
+        group3D.translateXProperty().set(subScene3D.getWidth() + 100);
+        group3D.translateYProperty().set(subScene3D.getHeight() + 150);
         //group3D.translateZProperty().set(-500);
 
         Camera camera = new PerspectiveCamera();

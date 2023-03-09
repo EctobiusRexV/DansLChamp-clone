@@ -51,6 +51,9 @@ public class Circuit {
     void setCircuit3D() {
         for (Composante composante : composantes) {
             groupe3D.getChildren().add(composante.getGroupe3D());
+            System.out.println(composante);
+            System.out.println(composante.getPosX());
+            System.out.println(composante.getPosY());
         }
     }
 
