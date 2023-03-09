@@ -16,6 +16,7 @@
 
 package sim.danslchamp.svg;
 
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -381,7 +382,7 @@ public class SvgBasicElementHandler {
 
             composantes.add(c);
 
-            SVG_LOADER.handle(gEl);
+            loader.handle(gEl);
 
             System.out.println("Loaded use element: " + type);
         } catch (Exception e) {

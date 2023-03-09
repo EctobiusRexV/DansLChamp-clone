@@ -1,44 +1,52 @@
 package sim.danslchamp.controllersApp;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
-import sim.danslchamp.*;
+import sim.danslchamp.Circuit;
+import sim.danslchamp.Composante;
+import sim.danslchamp.Util.ComposantesListCell;
+import sim.danslchamp.Util.SmartGroup;
+import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Objects;
 
 import static sim.danslchamp.controllersApp.DanslChampApp.FC;
-import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
 
 /**
  * Contrôleur de la fenêtre Concepteur de circuit
  *
  * @author Antoine Bélisle
  * @author Mathis Rosa-Wilson
+ * @author Thierry Rhéaume
  */
 public class ControllerPrincipal {
 
-    private ArrayList<Composante> composantes = new ArrayList<>();
+    private Circuit circuit;
+
+    private double anchorX, anchorY;
+    private double anchorAngleX = 0;
+    private double anchorAngleY = 0;
+    private final DoubleProperty angleX = new SimpleDoubleProperty(0);
+    private final DoubleProperty angleY = new SimpleDoubleProperty(0);
 
     private Stage stage;
+
     void setStage(Stage stage) {
         this.stage = stage;
 
@@ -48,73 +56,31 @@ public class ControllerPrincipal {
                     ButtonType.YES, ButtonType.NO).showAndWait()
                     .ifPresent(buttonType -> {
                         if (buttonType == ButtonType.NO)
-                            event.consume();        // fixme
+                            event.consume();
                     });
         });
     }
+
 
     // FXML
 
     @FXML
     private BorderPane borderPane;
-
     @FXML
-    private VBox vBoxScrollPane;
+    private ListView<Composante> composantesListView;
+    @FXML
+    private VBox vBox2D, vBox3D;
+    @FXML
+    private SubScene subScene3D;
+
 
     // ===============================
     //             INIT
     // ===============================
     @FXML
     public void initialize() {
-
-
-        vBoxScrollPane.setSpacing(20);
-
-        composantes.add(new SourceCC("1000"));
-        composantes.add(new Bobine("1","1","1"));
-        composantes.add(new Condensateur("1"));
-        composantes.add(new Resistor("1000"));
-
-        for (Composante c : composantes){
-            VBox vBox = new VBox();
-
-            vBox.setPrefWidth(300);
-
-            vBox.getChildren().add(new Label(c.getName()));
-
-            Method[] methods = c.getClass().getDeclaredMethods();
-
-            for (Method m : methods){
-
-                if (m.getName().startsWith("set")){
-                    HBox hBox = new HBox();
-                    HBox.setHgrow(hBox, Priority.ALWAYS);
-                    hBox.setMinWidth(300);
-                    hBox.setSpacing(10);
-                    Label label = new Label(m.getName().substring(3));
-                    label.setMinWidth(120);
-                    hBox.getChildren().add(label);
-                    TextField textField = new TextField();
-                    textField.setOnKeyTyped(eh -> {
-                        try {
-                            if (textField.getText() != null){
-                                m.invoke(c, textField.getText());
-                            }
-
-                        } catch (IllegalAccessException e) {
-                            throw new RuntimeException(e);
-                        } catch (InvocationTargetException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
-                    hBox.getChildren().add(textField);
-                    vBox.getChildren().add(hBox);
-                }
-            }
-
-
-            vBoxScrollPane.getChildren().add(vBox);
-        }
+        composantesListView.setCellFactory(item ->
+                new ComposantesListCell());
 
 
     }
@@ -136,19 +102,70 @@ public class ControllerPrincipal {
     @FXML
     void ouvrirCircuit() {
         try {
-        chargerCircuit(FC.showOpenDialog(stage));   // Nullable
-        } catch (FileNotFoundException neSappliquePas) {}
+            chargerCircuit(FC.showOpenDialog(stage));   // Nullable
+        } catch (FileNotFoundException neSappliquePas) {
+        }
     }
 
     /**
      * Charge un circuit depuis SVG.
+     *
      * @param file Le fichier à charger.
      */
     void chargerCircuit(@Nullable File file) throws FileNotFoundException {
-        borderPane.setCenter(
-                file == null ? new Group() :
-                        SVG_LOADER.loadSvg(
-                                new FileInputStream(file))); // Group
+        SvgLoader loader = new SvgLoader();
+        circuit = new Circuit(file == null ? new Group() : loader.loadSvg(
+                new FileInputStream(file)), // Group
+                loader.getSvgElementHandler().getComposantes()
+        );
+
+        Group group = circuit.getGroupe2D();
+        vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
+            if (group.getScaleX() < 0 && event.getDeltaY() < 0) return; // empêcher d'obtenir un scale négatif
+
+            group.scaleXProperty().set(group.getScaleX() + event.getDeltaY() / 100);
+            group.scaleYProperty().set(group.getScaleY() + event.getDeltaY() / 100);
+
+        });
+        vBox2D.getChildren().setAll(circuit.getGroupe2D());
+
+
+        Group group3D = circuit.getGroupe3D();
+        vBox3D.addEventHandler(ScrollEvent.SCROLL, event -> {
+            group.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY() / 100);
+        });
+
+        Camera camera = new PerspectiveCamera();
+//        scene.setFill(Color.TRANSPARENT);
+        subScene3D.setFill(Color.LIGHTGRAY);
+        subScene3D.setCamera(camera);
+        subScene3D.setRoot(circuit.getGroupe3D());
+
+
+        composantesListView.setItems(circuit.getComposantes());
+    }
+
+    private void initMouseControl(SmartGroup group, Scene scene) {
+        Rotate xRotate;
+        Rotate yRotate;
+        group.getTransforms().addAll(
+                xRotate = new Rotate(0, Rotate.X_AXIS),
+                yRotate = new Rotate(0, Rotate.Y_AXIS)
+        );
+        xRotate.angleProperty().bind(angleX);
+        yRotate.angleProperty().bind(angleY);
+
+        scene.setOnMousePressed(event -> {
+            anchorX = event.getSceneX();
+            anchorY = event.getSceneY();
+            anchorAngleX = angleX.get();
+            anchorAngleY = angleY.get();
+        });
+
+        scene.setOnMouseDragged(event -> {
+            angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
+            angleY.set(anchorAngleY + anchorX - event.getSceneX());
+        });
     }
 
 

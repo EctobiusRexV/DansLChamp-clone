@@ -1,16 +1,23 @@
 package sim.danslchamp;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
+import sim.danslchamp.Util.SmartGroup;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Circuit {
 
     private Source source;
 
-    private Group groupe = new Group();
+    private Group groupe2D = new Group();
+
+    // pose pas d'question
+    private final SmartGroup groupe3D = new SmartGroup();
 
 
     /**
@@ -33,36 +40,30 @@ public class Circuit {
         return source;
     }
 
-    private ArrayList<Composante> nexts = new ArrayList<>();
+    private ObservableList<Composante> composantes;
 
-    public Circuit(Composante[] a) {
-
-        for (int i = 0; i < a.length; i++) {
-            addNext(a[i]);
-        }
+    public Circuit(Group groupe2D, List<Composante> composantes) {
+        this.groupe2D = groupe2D;
+        this.composantes = FXCollections.observableList(composantes);
         setCircuit3D();
     }
 
-    public void addNext(Composante next) {
-        nexts.add(next);
-    }
-
-    public ArrayList<Composante> getNexts() {
-        return nexts;
-    }
-
-    public void setNexts(ArrayList<Composante> nexts) {
-        this.nexts = nexts;
-    }
-
     void setCircuit3D() {
-        for (int i = 0; i < nexts.size(); i++) {
-            groupe.getChildren().add(nexts.get(i).getGroupe3D());
+        for (Composante composante : composantes) {
+            groupe3D.getChildren().add(composante.getGroupe3D());
         }
     }
 
-    public Group getGroupe() {
-        return groupe;
+    public ObservableList<Composante> getComposantes() {
+        return composantes;
+    }
+
+    public Group getGroupe2D() {
+        return groupe2D;
+    }
+
+    public Group getGroupe3D() {
+        return groupe3D;
     }
 
     // TRAVERSE NEXT
