@@ -83,6 +83,98 @@ public class SvgBasicElementHandler {
     }
 
 
+    void handleElement(SVGOMLineElement element) {
+        // Get attributes from SVG node
+        float x1 = element.getX1().getBaseVal().getValue();
+        float y1 = element.getY1().getBaseVal().getValue();
+        float x2 = element.getX2().getBaseVal().getValue();
+        float y2 = element.getY2().getBaseVal().getValue();
+
+        // Create JavaFX Line object
+        Line result = new Line(x1, y1, x2, y2);
+        result.setId(element.getId());
+
+        Affine transformation = styleTools.getTransform(element);
+        if (transformation != null) {
+            result.getTransforms().add(transformation);
+        }
+
+        styleTools.applyStyle(result, element);
+
+        loader.parentNode.getChildren().add(result);
+
+        addJonction(new Fil((int) x1, (int) y1, (int) x2, (int) y2));
+    }
+
+    void handleElement(SVGOMUseElement element) {
+        int     posX = (int) element.getX().getBaseVal().getValue(),
+                posY = (int) element.getY().getBaseVal().getValue();
+
+
+        SVGOMGElement gEl = (SVGOMGElement) defs.get(element.getHref().getBaseVal().substring(1)).cloneNode(true);
+        gEl.setAttribute("transform",
+                "translate(" + posX + "," + posY + ")");
+
+        // Créer la classe Java
+        String type = element.getHref().getBaseVal().substring(1); // le #
+        try {
+            Class<Composant> composanteClass = (Class<Composant>) Class.forName("sim.danslchamp.circuit." + type);
+            List<Method> setMethods = Composant.getSetMethodsTriées(composanteClass.getDeclaredMethods());
+            List<String> attributs = setMethods.stream()
+                    .map(method -> {
+                        String attr = method.getName()
+                                .replace("set", "x");
+                        attr = element.getAttribute(attr);
+                        return attr;
+                    }).toList();    // il existe un attribut pour ch. setter
+
+            List<Object> params = new ArrayList<>(List.of(posX, posY, false));
+            Collections.addAll(params, attributs.toArray());
+            Constructor<?> constructor = composanteClass.getDeclaredConstructors()[0];
+            Composant c = (Composant) constructor.newInstance(
+                    params.toArray()
+            );
+            // SVP qu'un seul constructeur!
+
+
+            if (c instanceof Source) sources.add((Source) c);
+
+            addJonction(c);
+            composants.add(c);
+
+            loader.handle(gEl);
+
+            System.out.println("Loaded use element: " + type);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Impossible de charger " + type);
+            alert.getDialogPane().setExpandableContent(new Label(e.getMessage()));
+            alert.showAndWait();
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Ajoute les connecteurs de {@code composante} (noeud, intersection) à la liste des connecteurs.
+     * Si le connecteur existe déjà, la composante est ajoutée à la liste.
+     * Sinon, le connecteur est ajouté et une nouvelle liste contenant la composante y est associé.
+     * @see SvgBasicElementHandler#jonctions
+     * @param composant
+     */
+    private void addJonction(Composant composant) {
+        for (Jonction jonction:
+                composant.getJonctions()) {
+
+            int jonctionIdx = jonctions.indexOf(jonction);
+
+            if(jonctionIdx == -1) {
+                jonction.addComposant(composant);
+                jonctions.add(jonction);
+            } else {
+                jonctions.get(jonctionIdx).addComposant(composant);
+            }
+        }
+    }
+
     // <svg>
     void handleElement(SVGOMSVGElement element) {
         styleTools = new SvgStyleTools(element);
@@ -204,28 +296,7 @@ public class SvgBasicElementHandler {
     }
 
 
-    void handleElement(SVGOMLineElement element) {
-        // Get attributes from SVG node
-        float x1 = element.getX1().getBaseVal().getValue();
-        float y1 = element.getY1().getBaseVal().getValue();
-        float x2 = element.getX2().getBaseVal().getValue();
-        float y2 = element.getY2().getBaseVal().getValue();
 
-        // Create JavaFX Line object
-        Line result = new Line(x1, y1, x2, y2);
-        result.setId(element.getId());
-
-        Affine transformation = styleTools.getTransform(element);
-        if (transformation != null) {
-            result.getTransforms().add(transformation);
-        }
-
-        styleTools.applyStyle(result, element);
-
-        loader.parentNode.getChildren().add(result);
-
-        addJonction(new Fil((int) x1, (int) y1, (int) x2, (int) y2));
-    }
 
 
     void handleElement(SVGOMCircleElement element) {
@@ -337,74 +408,6 @@ public class SvgBasicElementHandler {
         styleTools.applyStyle(result, element);
 
         loader.parentNode.getChildren().add(result);
-    }
-
-    void handleElement(SVGOMUseElement element) {
-        int     posX = (int) element.getX().getBaseVal().getValue(),
-                posY = (int) element.getY().getBaseVal().getValue();
-
-
-        SVGOMGElement gEl = (SVGOMGElement) defs.get(element.getHref().getBaseVal().substring(1)).cloneNode(true);
-        gEl.setAttribute("transform",
-                "translate(" + posX + "," + posY + ")");
-
-        // Créer la classe Java
-        String type = element.getHref().getBaseVal().substring(1); // le #
-        try {
-            Class<Composant> composanteClass = (Class<Composant>) Class.forName("sim.danslchamp.circuit." + type);
-            List<Method> setMethods = Composant.getSetMethodsTriées(composanteClass.getDeclaredMethods());
-            List<String> attributs = setMethods.stream()
-                    .map(method -> {
-                            String attr = method.getName()
-                            .replace("set", "x");
-                    attr = element.getAttribute(attr);
-                    return attr;
-                    }).toList();    // il existe un attribut pour ch. setter
-
-            List<Object> params = new ArrayList<>(List.of(posX, posY, false));
-            Collections.addAll(params, attributs.toArray());
-            Constructor<?> constructor = composanteClass.getDeclaredConstructors()[0];
-            Composant c = (Composant) constructor.newInstance(
-                    params.toArray()
-                    );
-                // SVP qu'un seul constructeur!
-
-
-            if (c instanceof Source) sources.add((Source) c);
-
-            addJonction(c);
-            composants.add(c);
-
-            loader.handle(gEl);
-
-            System.out.println("Loaded use element: " + type);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Impossible de charger " + type);
-            alert.getDialogPane().setExpandableContent(new Label(e.getMessage()));
-            alert.showAndWait();
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Ajoute les connecteurs de {@code composante} (noeud, intersection) à la liste des connecteurs.
-     * Si le connecteur existe déjà, la composante est ajoutée à la liste.
-     * Sinon, le connecteur est ajouté et une nouvelle liste contenant la composante y est associé.
-     * @see SvgBasicElementHandler#jonctions
-     * @param composant
-     */
-    private void addJonction(Composant composant) {
-        for (Jonction jonction:
-             composant.getJonctions()) {
-
-            int jonctionIdx = jonctions.indexOf(jonction);
-
-            if(jonctionIdx == -1) {
-                jonctions.add(jonction);
-            } else {
-                jonctions.get(jonctionIdx).addComposant(composant);
-            }
-        }
     }
 
     public ArrayList<Source> getSources() {
