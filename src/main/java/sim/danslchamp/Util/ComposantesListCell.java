@@ -6,18 +6,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import sim.danslchamp.Composante;
+import sim.danslchamp.circuit.Composant;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class ComposantesListCell extends ListCell<Composante> {
+public class ComposantesListCell extends ListCell<Composant> {
     public ComposantesListCell() {
 
     }
 
     @Override
-    protected void updateItem(Composante item, boolean empty) {
+    protected void updateItem(Composant item, boolean empty) {
         super.updateItem(item, empty);
 
         if (empty || item == null) {
