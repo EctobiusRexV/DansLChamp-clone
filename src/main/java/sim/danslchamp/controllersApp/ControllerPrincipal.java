@@ -16,14 +16,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
-import sim.danslchamp.Circuit;
-import sim.danslchamp.Composante;
+import sim.danslchamp.circuit.Circuit;
+import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.Util.ComposantesListCell;
-import sim.danslchamp.Util.SmartGroup;
-import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import static sim.danslchamp.controllersApp.DanslChampApp.FC;
@@ -67,7 +64,7 @@ public class ControllerPrincipal {
     @FXML
     private BorderPane borderPane;
     @FXML
-    private ListView<Composante> composantesListView;
+    private ListView<Composant> composantesListView;
     @FXML
     private VBox vBox2D, vBox3D;
     @FXML
@@ -149,7 +146,7 @@ public class ControllerPrincipal {
 
         initMouseControl(group3D, subScene3D);
 
-        composantesListView.setItems(circuit.getComposantes());
+        composantesListView.setItems(circuit.getComposants());
     }
 
     private void initMouseControl(Group group, SubScene scene) {
