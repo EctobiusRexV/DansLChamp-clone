@@ -1,4 +1,4 @@
-package prototypes;
+package testUtil;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;

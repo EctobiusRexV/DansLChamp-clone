@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import sim.danslchamp.Condensateur;
 import sim.danslchamp.Résistor;
 import sim.danslchamp.SourceCC;
+import testUtil.ListPoint;
 
 public class Rotation3DWithMouse extends Application {
 
