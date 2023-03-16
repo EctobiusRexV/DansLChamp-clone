@@ -1,4 +1,4 @@
-package sim.danslchamp.controllersApp.svg;
+package sim.danslchamp.controllersApp;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,7 +63,7 @@ public class ControllerBibli implements Initializable {
         group.minHeight(50);
 
 
-        group = SVG_LOADER.loadSvg(this.getClass().getResourceAsStream(nom + ".svg"));
+        group = SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("..\\circuit\\symboles\\" + nom + ".svg"));
 
         Label label = new Label(nom);
 
