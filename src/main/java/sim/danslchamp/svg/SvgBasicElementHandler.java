@@ -84,7 +84,6 @@ public class SvgBasicElementHandler {
 
     // <defs>
     void handleElement(SVGOMDefsElement element) {
-        System.out.println("Handling <defs>: " + element);
         handle(element);
     }
 
@@ -114,7 +113,7 @@ public class SvgBasicElementHandler {
 
 
     void handleElement(SVGOMMetadataElement element) {
-        System.out.println("Handling <metadata>: {}" + element);
+
     }
 
 
@@ -171,16 +170,6 @@ public class SvgBasicElementHandler {
         styleTools.applyTextStyle(result, element);
 
         loader.parentNode.getChildren().add(result);
-    }
-
-
-    void handleElement(SVGOMTSpanElement element) {
-        System.out.println("Handling <tspan>: {}" + element);
-    }
-
-
-    void handleElement(SVGOMPatternElement element) {
-        System.out.println("Handling <pattern>: {}" + element);
     }
 
 
@@ -380,7 +369,6 @@ public class SvgBasicElementHandler {
 
             loader.handle(gEl);
 
-            System.out.println("Loaded use element: " + type);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Impossible de charger " + type);
             alert.getDialogPane().setExpandableContent(new Label(e.getMessage()));
@@ -526,7 +514,6 @@ public class SvgBasicElementHandler {
             }
 
             if (fxObj != null) {
-                System.out.println(element);
                 styleTools.applyStyle(fxObj, element);
 
                 result.getChildren().add(fxObj);
@@ -582,8 +569,14 @@ public class SvgBasicElementHandler {
         float stopOpacity = stopOpacityValue.getFloatValue(CSSPrimitiveValue.CSS_NUMBER);
 
         Color stopColor = new Color(red, green, blue, stopOpacity);
-        System.out.println("stopColor={}" + stopColor);
+
 
         return new Stop(offset, stopColor);
+    }
+
+    public void handleElement(SVGOMTSpanElement e) {
+    }
+
+    public void handleElement(SVGOMPatternElement e) {
     }
 }

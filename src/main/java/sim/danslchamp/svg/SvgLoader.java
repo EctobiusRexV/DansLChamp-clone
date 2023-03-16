@@ -136,7 +136,7 @@ public class SvgLoader {
             if (consumer != null) {
                 consumer.accept((SVGOMElement) node);
             } else {
-                System.out.println("Unknown element " + node.getLocalName() + " (" + node + "):");
+
             }
         }
 
