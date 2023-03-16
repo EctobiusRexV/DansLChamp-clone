@@ -5,8 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import sim.danslchamp.Bobine;
-import sim.danslchamp.Composante;
+import sim.danslchamp.circuit.Bobine;
+import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.Util.ComposantesListCell;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class TestListeDesComposantes extends Application {
         // fixme instancier toutes les classes enfant de Composante
 //        Composante.class
 
-        ListView<Composante> composanteListView = new ListView<Composante>(FXCollections.observableList(List.of(new Bobine("4", "4", "4"))));
+        ListView<Composant> composanteListView = new ListView<Composant>(FXCollections.observableList(List.of(new Bobine(4, 4, 1,1, false, "4", "4", "4"))));
 
         composanteListView.setCellFactory(value -> new ComposantesListCell());
 

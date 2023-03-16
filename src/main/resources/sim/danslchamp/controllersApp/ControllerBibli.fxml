@@ -11,7 +11,7 @@
 <?import javafx.scene.web.WebView?>
 <VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controllersApp.svg.ControllerBibli">
    <children>
-      <Label text="Bibliothèque d'information sur les composantes">
+      <Label text="Bibliothèque d'information sur les composants">
          <font>
             <Font name="Times New Roman Bold" size="24.0" />
          </font>
