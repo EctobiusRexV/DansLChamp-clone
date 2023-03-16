@@ -1,5 +1,6 @@
 package sim.danslchamp.circuit;
 
+import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
@@ -47,7 +48,6 @@ public class Résistor extends Composant {
         } else {
             this.résistance_mOhms = 0;
         }
-
     }
 
     @Override
@@ -56,10 +56,5 @@ public class Résistor extends Composant {
         c.setMaterial(new PhongMaterial(Color.BLUE));
         c.setRotate(90);
         this.getGroupe3D().getChildren().add(c);
-    }
-
-
-    public String getName() {
-        return name;
     }
 }
