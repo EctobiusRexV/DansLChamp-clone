@@ -41,6 +41,8 @@ public class DanslChampApp extends Application {
 
         SplashScreenController splashScreenController = fxmlLoader.getController();
         splashScreenController.setStage(primaryStage);
+        primaryStage.setMinHeight(600.0);
+        primaryStage.setMinWidth(600.0);
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -69,6 +71,9 @@ public class DanslChampApp extends Application {
         controllerPrincipal.chargerCircuit(file);
         stage.show();
         stage.setMaximized(true);
+        stage.setFullScreen(true);
+        stage.setMinWidth(800.0);
+        stage.setMinHeight(600.0);
     }
 
     public static void main(String[] args) {
