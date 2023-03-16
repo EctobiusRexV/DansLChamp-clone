@@ -22,7 +22,6 @@ import sim.danslchamp.Util.ComposantesListCell;
 import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import static sim.danslchamp.controllersApp.DanslChampApp.FC;
@@ -127,7 +126,7 @@ public class ControllerPrincipal {
         vBox2D.getChildren().setAll(circuit.getGroupe2D());
 
 
-        Group group3D = circuit.getGroupe3D();
+        Group group3D = circuit.getDiagramme3D();
         subScene3D.addEventHandler(ScrollEvent.SCROLL, event -> {
             group.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY());
         });
@@ -141,7 +140,7 @@ public class ControllerPrincipal {
 //        scene.setFill(Color.TRANSPARENT);
         subScene3D.setFill(Color.LIGHTGRAY);
         subScene3D.setCamera(camera);
-        subScene3D.setRoot(circuit.getGroupe3D());
+        subScene3D.setRoot(circuit.getDiagramme3D());
 
         initMouseControl(group3D, subScene3D);
 

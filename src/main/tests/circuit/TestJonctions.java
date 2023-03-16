@@ -16,7 +16,7 @@ public class TestJonctions extends Application {
         List<Jonction> jonctions = SVG_LOADER.getSvgElementHandler().getJonctions();
 
         jonctions.forEach(jonction -> {
-            if (jonction.getComposantes().size()==1) System.out.println(jonction.getComposantes().get(0) + " n'est pas connecté ! "+jonction.getComposantes());
+            if (jonction.getComposants().size()==1) System.out.println(jonction.getComposants().get(0) + " n'est pas connecté ! "+jonction.getComposants());
         });
 
         System.out.println();

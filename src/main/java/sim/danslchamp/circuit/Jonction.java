@@ -1,7 +1,5 @@
 package sim.danslchamp.circuit;
 
-import sim.danslchamp.circuit.Composant;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +38,7 @@ public class Jonction {
         return positionXY;
     }
 
-    public List<Composant> getComposantes() {
+    public List<Composant> getComposants() {
         return composantes;
     }
 
