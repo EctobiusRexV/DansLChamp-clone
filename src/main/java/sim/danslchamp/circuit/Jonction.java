@@ -1,6 +1,6 @@
 package sim.danslchamp.circuit;
 
-import sim.danslchamp.Composante;
+import sim.danslchamp.circuit.Composant;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ public class Jonction {
 
     private Point positionXY;
 
-    private final List<Composante> composantes;
+    private final List<Composant> composantes;
 
     private boolean estNoeud;
 
@@ -20,7 +20,7 @@ public class Jonction {
         estNoeud = false;
     }
 
-    public void addComposant(Composante c) {
+    public void addComposant(Composant c) {
         composantes.add(c);
 
         if (composantes.size() > 2) {

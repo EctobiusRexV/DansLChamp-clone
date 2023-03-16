@@ -1,6 +1,6 @@
 package sim.danslchamp.circuit;
 
-import sim.danslchamp.Composante;
+import sim.danslchamp.circuit.Composant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +9,14 @@ public class Maille {
 
     private final int id;
 
-    private final List<Composante> composantes;
+    private final List<Composant> composantes;
 
     public Maille(int id) {
         this.id = id;
         composantes = new ArrayList<>();
     }
 
-    public void addComposante(Composante c){
+    public void addComposante(Composant c){
         composantes.add(c);
     }
 
@@ -24,7 +24,7 @@ public class Maille {
         return id;
     }
 
-    public List<Composante> getComposantes() {
+    public List<Composant> getComposantes() {
         return composantes;
     }
 }
