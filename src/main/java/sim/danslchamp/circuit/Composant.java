@@ -13,7 +13,7 @@ public abstract class Composant {
     /**
      * Les composants concrets doivent définir leurs connecteurs relativement à la position (0, 0)
      */
-    private final Jonction[] jonctionsRelatives;
+    private Jonction[] jonctionsRelatives;
 
     /**
      * Hauteur, largeur de l'image de la composant
@@ -91,9 +91,9 @@ public abstract class Composant {
      */
     private void setJonctions() {
         jonctions = Arrays.stream(jonctionsRelatives)
-                .peek(point ->
-                        point.translate(posX, posY))
-                .toArray(Point[]::new);
+                .peek(jonction ->
+                        jonction.translate(posX, posY))
+                .toArray(Jonction[]::new);
     }
 
 //    abstract Group getSymbole2D();

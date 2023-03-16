@@ -51,7 +51,7 @@ public class Résistor extends Composant {
     }
 
     @Override
-    void initGroupe3D() { {
+    void initGroupe3D() {
         Cylinder c = new Cylinder(10,30);
         c.setMaterial(new PhongMaterial(Color.BLUE));
         c.setRotate(90);

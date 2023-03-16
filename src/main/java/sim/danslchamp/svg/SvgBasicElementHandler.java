@@ -20,7 +20,12 @@ import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Affine;
 import org.apache.batik.anim.dom.*;
@@ -36,11 +41,15 @@ import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.svg.SVGPoint;
 import org.w3c.dom.svg.SVGPointList;
 import org.w3c.dom.svg.SVGRect;
-import sim.danslchamp.*;
+import sim.danslchamp.circuit.Composant;
+import sim.danslchamp.circuit.Fil;
+import sim.danslchamp.circuit.Jonction;
+import sim.danslchamp.circuit.Source;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.List;
 
 
 public class SvgBasicElementHandler {
@@ -51,10 +60,19 @@ public class SvgBasicElementHandler {
 
     private final Map<String, SVGOMGElement> defs = new HashMap<>();
 
-    private final ArrayList<Composante> composantes = new ArrayList<>(),
-                                        sources = new ArrayList<>();
+    private final ArrayList<Source> sources = new ArrayList<>();
 
-    private int[][] current_connectors_px;
+    /**
+     * Un circuit est composé de multiples composantes connectées l'une avec les autres.
+     * Pour un point de connexion donné (connecteur), on énumère la liste des composantes qui y sont liées.
+     * <p>
+     * Chaque composante définit relativement la position de ses connecteurs. Ce sont les positions où il est graphiquement
+     * possible de lier la composante à une autre. L'emplacement des connecteurs absolus est calculé suivant l'emplacement absolu
+     * de la composante (x=, y=), additionné de la position relative de ses connecteurs (translation).
+     * <p>
+     * Un connecteur liant plus de deux composantes est un noeud, suivant la loi des noeuds.
+     */
+    private final ArrayList<Jonction> jonctions = new ArrayList<>();
 
 //    GradientFactory gradientFactory = new GradientFactory();
 
@@ -84,6 +102,7 @@ public class SvgBasicElementHandler {
 
     // <defs>
     void handleElement(SVGOMDefsElement element) {
+        System.out.println("Handling <defs>: " + element);
         handle(element);
     }
 
@@ -113,7 +132,7 @@ public class SvgBasicElementHandler {
 
 
     void handleElement(SVGOMMetadataElement element) {
-
+        System.out.println("Handling <metadata>: {}" + element);
     }
 
 
@@ -173,6 +192,16 @@ public class SvgBasicElementHandler {
     }
 
 
+    void handleElement(SVGOMTSpanElement element) {
+        System.out.println("Handling <tspan>: {}" + element);
+    }
+
+
+    void handleElement(SVGOMPatternElement element) {
+        System.out.println("Handling <pattern>: {}" + element);
+    }
+
+
     void handleElement(SVGOMLineElement element) {
         // Get attributes from SVG node
         float x1 = element.getX1().getBaseVal().getValue();
@@ -192,6 +221,8 @@ public class SvgBasicElementHandler {
         styleTools.applyStyle(result, element);
 
         loader.parentNode.getChildren().add(result);
+
+        addJonction(new Fil((int) x1, (int) y1, (int) x2, (int) y2));
     }
 
 
@@ -307,21 +338,19 @@ public class SvgBasicElementHandler {
     }
 
     void handleElement(SVGOMUseElement element) {
-        float posX = element.getX().getBaseVal().getValue(),
-                posY = element.getY().getBaseVal().getValue();
+        int     posX = (int) element.getX().getBaseVal().getValue(),
+                posY = (int) element.getY().getBaseVal().getValue();
+
 
         SVGOMGElement gEl = (SVGOMGElement) defs.get(element.getHref().getBaseVal().substring(1)).cloneNode(true);
-        gEl.removeAttribute("id");
+        gEl.setAttribute("transform",
+                "translate(" + posX + "," + posY + ")");
 
-        gEl.setAttribute("transform", "translate(" +
-                (int) posX + "," +
-                (int) posY + ")");
-
-
+        // Créer la classe Java
         String type = element.getHref().getBaseVal().substring(1); // le #
         try {
-            Class<Composante> composanteClass = (Class<Composante>) Class.forName("sim.danslchamp." + type);
-            List<Method> setMethods = Composante.getSetMethodsTriées(composanteClass.getDeclaredMethods());
+            Class<Composant> composanteClass = (Class<Composant>) Class.forName("sim.danslchamp.circuit." + type);
+            List<Method> setMethods = Composant.getSetMethodsTriées(composanteClass.getDeclaredMethods());
             List<String> attributs = setMethods.stream()
                     .map(method -> {
                             String attr = method.getName()
@@ -330,45 +359,22 @@ public class SvgBasicElementHandler {
                     return attr;
                     }).toList();    // il existe un attribut pour ch. setter
 
+            List<Object> params = new ArrayList<>(List.of(posX, posY, false));
+            Collections.addAll(params, attributs.toArray());
             Constructor<?> constructor = composanteClass.getDeclaredConstructors()[0];
-            Composante c = (Composante) constructor.newInstance(attributs.toArray());
+            Composant c = (Composant) constructor.newInstance(
+                    params.toArray()
+                    );
                 // SVP qu'un seul constructeur!
 
-                /*
-                    ANCIEN
-                ===============
-                switch (type) {
-                    case "#resistor" -> new Resistor(
-                            element.getAttribute("resistance")
-                    );
-                    case "#condensateur" -> new Condensateur(
-                            element.getAttribute("capacite")
-                    );
-                    case "#bobine" -> new Bobine(
-                            element.getAttribute("nombreDeSpires"),
-                            element.getAttribute("longueur"),
-                            element.getAttribute("rayon")
-                    );
-                    case "#source_cc" -> {
-                        Source source_cc = new SourceCC(
-                                element.getAttribute("voltage")
-                        );
 
-                        sources.add(source_cc); // prendre la 1re?
-                        yield source_cc;
-                    }
-                    default -> throw new RuntimeException("Error");
-                };*/
+            if (c instanceof Source) sources.add((Source) c);
 
-            c.setPosX((int) posX);
-            c.setPosY((int) posY);
-//        c.setHauteur();   // scaleX, scaleY?
-//        c.setLargeur();
-
-            composantes.add(c);
+            addJonction(c);
 
             loader.handle(gEl);
 
+            System.out.println("Loaded use element: " + type);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Impossible de charger " + type);
             alert.getDialogPane().setExpandableContent(new Label(e.getMessage()));
@@ -377,12 +383,37 @@ public class SvgBasicElementHandler {
         }
     }
 
-    public ArrayList<Composante> getComposantes() {
-        return composantes;
+    /**
+     * Ajoute les connecteurs de {@code composante} (noeud, intersection) à la liste des connecteurs.
+     * Si le connecteur existe déjà, la composante est ajoutée à la liste.
+     * Sinon, le connecteur est ajouté et une nouvelle liste contenant la composante y est associé.
+     * @see SvgBasicElementHandler#jonctions
+     * @param composant
+     */
+    private void addJonction(Composant composant) {
+        for (Jonction jonction:
+             composant.getJonctions()) {
+
+            int jonctionIdx = jonctions.indexOf(jonction);
+
+            if(jonctionIdx == -1) {
+                jonction.addComposant(composant);
+                jonctions.add(jonction);
+            } else {
+                jonctions.get(jonctionIdx).addComposant(composant);
+            }
+        }
     }
 
+    public List<Jonction> getJonctions() {
+        return jonctions;
+    }
 
-        /**
+    public ArrayList<Source> getSources() {
+        return sources;
+    }
+
+    /**
      * Returns an array with coordinate pairs from an SVGPointList.
      *
      * @param points The SVGPointList which contains the svg points.
@@ -514,6 +545,7 @@ public class SvgBasicElementHandler {
             }
 
             if (fxObj != null) {
+                System.out.println(element);
                 styleTools.applyStyle(fxObj, element);
 
                 result.getChildren().add(fxObj);
@@ -569,14 +601,8 @@ public class SvgBasicElementHandler {
         float stopOpacity = stopOpacityValue.getFloatValue(CSSPrimitiveValue.CSS_NUMBER);
 
         Color stopColor = new Color(red, green, blue, stopOpacity);
-
+        System.out.println("stopColor={}" + stopColor);
 
         return new Stop(offset, stopColor);
-    }
-
-    public void handleElement(SVGOMTSpanElement e) {
-    }
-
-    public void handleElement(SVGOMPatternElement e) {
     }
 }

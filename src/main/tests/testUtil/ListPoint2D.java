@@ -1,32 +1,31 @@
 package testUtil;
 
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
+import sim.danslchamp.circuit.Jonction;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Set;
+import java.awt.Point;
+import java.util.List;
 
 public class ListPoint2D {
 
-    private Set<Point> pointSet;
+    private List<Jonction> jonctionList;
 
 
-    public ListPoint2D(Set<Point> pointSet) {
-        this.pointSet = pointSet;
+    public ListPoint2D(List<Jonction> jonctionList) {
+        this.jonctionList = jonctionList;
     }
 
     public Group getGroupe() {
         Group groupe = new Group();
-        for (Point point : pointSet) {
+        for (Jonction jonction : jonctionList) {
             Sphere sp = new Sphere(5);
 
             sp.setMaterial(new PhongMaterial(Color.RED));
-            sp.setLayoutY(point.getY());
-            sp.setLayoutX(point.getX());
+            sp.setLayoutY(jonction.getPositionXY().getY());
+            sp.setLayoutX(jonction.getPositionXY().getX());
             groupe.getChildren().add(sp);
         }
 

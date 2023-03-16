@@ -19,8 +19,10 @@ import org.jetbrains.annotations.Nullable;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.Util.ComposantesListCell;
+import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import static sim.danslchamp.controllersApp.DanslChampApp.FC;
@@ -112,10 +114,7 @@ public class ControllerPrincipal {
      */
     void chargerCircuit(@Nullable File file) throws FileNotFoundException {
         SvgLoader loader = new SvgLoader();
-        circuit = new Circuit(file == null ? new Group() : loader.loadSvg(
-                new FileInputStream(file)), // Group
-                loader.getSvgElementHandler().getComposantes()
-        );
+        circuit = Circuit.chargerCircuit(file);
 
         Group group = circuit.getGroupe2D();
         vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {

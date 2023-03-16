@@ -2,9 +2,9 @@ package sim.danslchamp.circuit;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Group;
 import sim.danslchamp.svg.SvgLoader;
 
-import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -17,6 +17,16 @@ public class Circuit {
     private final Set<Jonction> noeuds;
 
     private final ObservableList<Composant> composants;
+
+    public Group getGroupe2D() {
+        return groupe2D;
+    }
+
+    public Group getGroupe3D() {
+        return groupe3D;
+    }
+
+    private Group groupe2D, groupe3D;
 
 
     public Circuit() {
@@ -31,9 +41,7 @@ public class Circuit {
 
     public static Circuit chargerCircuit(File file) throws FileNotFoundException {
         SvgLoader loader = new SvgLoader();
-
-        trouverSensDuCourant();
-        trouverMailles();
+        return new Circuit();
     }
 
     /**
@@ -41,18 +49,12 @@ public class Circuit {
      * En partant des bornes positives des sources, définit les bornes positives et négatives des composantes.
      */
     private void trouverSensDuCourant() {
-        ArrayList<? extends Composant> depart = sources;
-
-        while(!depart.isEmpty()) {
-            traverser(depart.get(0))
-            depart.remove(0);
-        }
     }
 
     private void trouverMailles() {
     }
 
-    private void traverser(Composant composant) {
+    /*private void traverser(Composant composant) {
         Point connecteur = composant.getBornePositive();
         ArrayList<Composant> composants = connecteurs.get(connecteur);
         for (Composant c :
@@ -64,7 +66,7 @@ public class Circuit {
                 traverser();
             }
         }
-    }
+    }*/
 
     /*void setCircuit3D() {
         for (Composant composant : composantes) {

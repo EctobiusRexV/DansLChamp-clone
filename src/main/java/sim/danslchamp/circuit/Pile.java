@@ -2,6 +2,8 @@ package sim.danslchamp.circuit;
 
 import sim.danslchamp.Util.DanslChampUtil;
 
+import java.awt.*;
+
 public class Pile extends Source {
 
     public Pile(int posX, int posY, boolean rotation90,

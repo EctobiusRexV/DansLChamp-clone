@@ -32,8 +32,20 @@ public class Jonction {
         return estNoeud;
     }
 
-    public boolean equals(Jonction jonction) {
+    void translate(int x, int y) {
+        positionXY.translate(x, y);
+    }
 
-        return positionXY.equals(jonction.positionXY);
+    public Point getPositionXY() {
+        return positionXY;
+    }
+
+    public List<Composant> getComposantes() {
+        return composantes;
+    }
+
+    @Override
+    public boolean equals(Object jonction) {
+        return positionXY.equals(((Jonction) jonction).positionXY);
     }
 }

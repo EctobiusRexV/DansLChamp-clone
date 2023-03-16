@@ -5,7 +5,7 @@
 	<g id="Résistor">
     	<polyline points="0,10 5,0 15,30 25,0 35,30 45,0 55,30 65,0 75,30 80,10" style="fill:none;stroke:black;stroke-width:3" />
 </g>
-		<g id="SourceCC" style="fill:none;stroke:black;stroke-width:3">
+		<g id="Pile" style="fill:none;stroke:black;stroke-width:3">
 		  <polyline points="0,10 20,10 20,0 20,10 40,10" />
 		  <text x="25" y="7" style="stroke-width:1">+</text>
 
@@ -44,7 +44,7 @@
 		</g>
 	</defs>
 
-	<use xlink:href="#SourceCC" xVoltage_mV="5000" x="5" y="100" />
+	<use xlink:href="#Pile" xVoltage_mV="5000" x="5" y="100" />
 	<line x1="25" y1="100" x2="25" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
 	<line x1="25" y1="20" x2="100" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
 	<use xlink:href="#Résistor" xRésistance_mOhms="1500" x="100" y="10"/>
