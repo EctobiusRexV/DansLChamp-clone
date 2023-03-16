@@ -62,6 +62,8 @@ public class SvgBasicElementHandler {
 
     private final ArrayList<Source> sources = new ArrayList<>();
 
+    private final ArrayList<Composant> composants = new ArrayList<>();
+
     /**
      * Un circuit est composé de multiples composantes connectées l'une avec les autres.
      * Pour un point de connexion donné (connecteur), on énumère la liste des composantes qui y sont liées.
@@ -371,6 +373,7 @@ public class SvgBasicElementHandler {
             if (c instanceof Source) sources.add((Source) c);
 
             addJonction(c);
+            composants.add(c);
 
             loader.handle(gEl);
 
@@ -397,7 +400,6 @@ public class SvgBasicElementHandler {
             int jonctionIdx = jonctions.indexOf(jonction);
 
             if(jonctionIdx == -1) {
-                jonction.addComposant(composant);
                 jonctions.add(jonction);
             } else {
                 jonctions.get(jonctionIdx).addComposant(composant);
@@ -405,12 +407,16 @@ public class SvgBasicElementHandler {
         }
     }
 
-    public List<Jonction> getJonctions() {
-        return jonctions;
-    }
-
     public ArrayList<Source> getSources() {
         return sources;
+    }
+
+    public ArrayList<Composant> getComposants() {
+        return composants;
+    }
+
+    public List<Jonction> getJonctions() {
+        return jonctions;
     }
 
     /**

@@ -38,6 +38,12 @@ public abstract class Composant {
      */
     private Jonction[] jonctions;
 
+    /**
+     * Référence sur la jonction de la borne positive
+     */
+    private Jonction bornePositive;
+
+
     //fixme delete
     Group group3D;
     public Group getGroupe3D() {
@@ -96,7 +102,11 @@ public abstract class Composant {
                 .toArray(Jonction[]::new);
     }
 
-//    abstract Group getSymbole2D();
+    public void setBornePositive(Jonction bornePositive) {
+        this.bornePositive = bornePositive;
+    }
+
+    //    abstract Group getSymbole2D();
 //    abstract Group getSymbole3D();
 
     // Getters & Setters
@@ -127,6 +137,10 @@ public abstract class Composant {
 
     public Jonction[] getJonctions() {
         return jonctions;
+    }
+
+    public Jonction getBornePositive() {
+        return bornePositive;
     }
 
     public List<Method> getSetMethodsTriées() {

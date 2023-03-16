@@ -30,7 +30,7 @@ public class Circuit {
 
 
     public Circuit() {
-        this(new ArrayList<>(), new HashSet<>(), null);
+        this(new ArrayList<>(), new HashSet<>(), new ArrayList<>());
     }
 
     private Circuit(List<Maille> mailles, Set<Jonction> noeuds, List<Composant> composants) {
