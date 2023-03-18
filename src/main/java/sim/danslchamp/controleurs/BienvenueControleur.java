@@ -1,9 +1,11 @@
 package sim.danslchamp.controleurs;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,8 +24,8 @@ import static sim.danslchamp.DansLChampApp.SVG_LOADER;
  * @author Antoine Bélisle
  * @author Mathis Rosa-Wilson
  */
-public class BienvenueControleur {
-
+public class SplashScreenController {
+    public BorderPane titleBar;
     private Stage stage;
 
     public void setStage(Stage stage) {
@@ -41,11 +43,12 @@ public class BienvenueControleur {
     @FXML
     private Label labelHautGauche;
 
-    @FXML
-    private FlowPane circuitsRecentsFlowPane;
 
     @FXML
-    private MFXTitledPane titledPane;
+    private MFXTitledPane recentsTitlePane;
+
+    @FXML
+    private MFXTitledPane deBaseTitledPane;
 
 
     // ===============================
@@ -53,10 +56,14 @@ public class BienvenueControleur {
     // ===============================
     @FXML
     public void initialize() {
-        circuitsRecentsFlowPane.getChildren().add(
+        FlowPane flowPane = new FlowPane();
+        flowPane.getChildren().add(
                 getCircuitVBox(".\\circuits\\circuitR.svg")
         );
-        titledPane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
+        deBaseTitledPane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
+        deBaseTitledPane.setContent(flowPane);
+        recentsTitlePane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
+
     }
 
     private VBox getCircuitVBox(String filename) {
@@ -87,7 +94,7 @@ public class BienvenueControleur {
     //         ACTIONS MENU
     // ===============================
     @FXML
-    void fermerApp() {
+    void fermerApp()  {
         Platform.exit();
     }
 
@@ -114,5 +121,25 @@ public class BienvenueControleur {
     @FXML
     void showAPropos() {
         DansLChampApp.loadFenetre("APropos.fxml").show();
+    }
+
+    public void resizeApp(ActionEvent actionEvent) {
+        if(stage.isMaximized()) {
+            stage.setMaximized(false);
+        }
+        else stage.setMaximized(true);
+    }
+
+    public void minimizeApp(ActionEvent actionEvent) {
+        stage.setIconified(true);
+    }
+    public void mouvePressed(MouseEvent event) {
+        double xOffset = event.getX();
+        double yOffset = event.getY();
+
+        titleBar.setOnMouseDragged(dragEvent -> {
+            stage.setX(dragEvent.getScreenX() - xOffset);
+            stage.setY(dragEvent.getScreenY() - yOffset);
+        });
     }
 }

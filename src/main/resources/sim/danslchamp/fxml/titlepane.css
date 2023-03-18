@@ -6,7 +6,7 @@
 }
 
 .mfx-titled-pane:focused {
-    -fx-border-color: -mfx-blue ;
+    -fx-border-color: dodgerblue ;
 }
 
 .mfx-titled-pane .header-pane {
@@ -15,7 +15,7 @@
 
 .mfx-titled-pane .header-pane .header-label {
     -fx-font-family: "Open Sans SemiBold";
-    -fx-text-fill: -mfx-text-he;
+    -fx-text-fill: black;
 }
 
 .mfx-titled-pane:focused .header-pane .mfx-icon-wrapper .mfx-font-icon {
