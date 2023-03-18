@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.jetbrains.annotations.Nullable;
 import sim.danslchamp.svg.SvgLoader;
 
@@ -43,6 +44,8 @@ public class DanslChampApp extends Application {
         splashScreenController.setStage(primaryStage);
 
         primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setResizable(true);
         primaryStage.show();
     }
 
