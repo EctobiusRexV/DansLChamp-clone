@@ -1,4 +1,4 @@
-<p align="justify">
+<p align="justify" style="font-family: Open Sans Light">
 Une ampoule à incandescence est un dispositif électrique qui produit de la lumière en faisant passer un courant électrique à travers un filament métallique. Lorsque le courant électrique traverse le filament, celui-ci devient très chaud et émet de la lumière visible.
 
 La puissance électrique dissipée dans une ampoule à incandescence peut être calculée à l'aide de la formule :
