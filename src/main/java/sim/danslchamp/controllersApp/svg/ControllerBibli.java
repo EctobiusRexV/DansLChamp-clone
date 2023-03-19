@@ -1,15 +1,22 @@
 package sim.danslchamp.controllersApp.svg;
 
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import sim.danslchamp.Util.MathMlUtil;
 import sim.danslchamp.svg.SvgLoader;
 
@@ -20,6 +27,12 @@ import java.util.ResourceBundle;
 
 public class ControllerBibli implements Initializable {
 
+    public BorderPane titleBar;
+    private Stage stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
     @FXML
     private WebView textAreaBibliotheque;
 
@@ -80,5 +93,59 @@ public class ControllerBibli implements Initializable {
                 throw new RuntimeException(e);
             }
         } );
+    }
+
+    @FXML
+    void fermerApp()  {
+        stage.close();
+    }
+
+
+    @FXML
+    void resizeApp(ActionEvent actionEvent) {
+        if(stage.isMaximized()) {
+            stage.setMaximized(false);
+        }
+        else stage.setMaximized(true);
+    }
+
+    @FXML
+    public void minimizeApp(ActionEvent actionEvent) {
+        stage.setIconified(true);
+    }
+
+    @FXML
+    public void mouvePressed(MouseEvent event) {
+
+        titleBar.setOnMouseDragged(dragEvent -> {
+            stage.setX(dragEvent.getScreenX() - event.getX());
+            stage.setY(dragEvent.getScreenY() - event.getY());
+        });
+    }
+
+    @FXML
+    public void dragResize(MouseEvent event) {
+        double originalWidth = stage.getWidth();
+        ((Node)event.getTarget()).setOnMouseDragged(dragEvent ->{
+
+            //filtre pour l'agrandissement fluide par les coter ouest
+            if(((Node)event.getTarget()).getCursor().equals(Cursor.W_RESIZE) ||
+                    ((Node)event.getTarget()).getCursor().equals(Cursor.SW_RESIZE) ) {
+
+                if(stage.getWidth() != stage.getMinWidth()) stage.setX(dragEvent.getScreenX() - event.getX());
+                stage.setWidth(Math.max(event.getScreenX() - dragEvent.getScreenX() + originalWidth, stage.getMinWidth()));
+            }
+
+            else if(!((Node) event.getTarget()).getCursor().equals(Cursor.S_RESIZE)){
+                stage.setWidth(Math.max(dragEvent.getScreenX() - event.getScreenX() + event.getSceneX(), stage.getMinWidth()));
+            }
+
+            if(!(((Node) event.getTarget()).getCursor().equals(Cursor.W_RESIZE) ||
+                    ((Node) event.getTarget()).getCursor().equals(Cursor.E_RESIZE))){
+
+                stage.setHeight(Math.max(dragEvent.getScreenY() - event.getScreenY() + event.getSceneY(), stage.getMinHeight()));
+            }
+
+        });
     }
 }

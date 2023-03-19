@@ -1,4 +1,4 @@
-<p align="justify">
+<p align="justify" style="font-family: Open Sans Light">
 Une résistance est un composant électronique qui limite le courant électrique dans un circuit. Elle est généralement constituée d'un matériau conducteur, tel que le carbone ou le métal, avec une résistivité élevée. La résistance d'un composant est définie comme la proportionnalité entre la tension appliquée et le courant qui le traverse, et est donnée par l'équation suivante :
 
 <math xmlns="http://www.w3.org/1998/Math/MathML">

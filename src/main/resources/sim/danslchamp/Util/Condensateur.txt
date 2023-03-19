@@ -1,4 +1,4 @@
-<p align="justify">
+<p align="justify" style="font-family: Open Sans Light">
 Un condensateur est un dispositif électronique utilisé pour stocker de la charge électrique et de l'énergie électrique dans un champ électrique. Il se compose de deux plaques conductrices séparées par un matériau isolant appelé diélectrique. La capacité d'un condensateur est définie comme le rapport de la charge stockée sur chaque plaque à la différence de tension entre les plaques, et est donnée par l'équation suivante :
 
 <math xmlns="http://www.w3.org/1998/Math/MathML">
