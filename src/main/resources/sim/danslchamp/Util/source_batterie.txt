@@ -1,4 +1,4 @@
-<p align="justify">
+<p align="justify" style="font-family: Open Sans Light">
 Une batterie est un dispositif électrochimique qui stocke de l'énergie électrique et la libère sous forme de courant électrique. Elle est généralement constituée de deux électrodes, une cathode et une anode, qui sont séparées par un électrolyte. La différence de potentiel électrique entre les deux électrodes est appelée la tension de la batterie et est donnée par l'équation suivante :
 
 <math xmlns="http://www.w3.org/1998/Math/MathML">

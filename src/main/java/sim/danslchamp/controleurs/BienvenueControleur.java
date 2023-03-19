@@ -3,8 +3,10 @@ package sim.danslchamp.controleurs;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -13,11 +15,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import io.github.palexdev.materialfx.controls.MFXTitledPane;
+import javafx.stage.StageStyle;
+import sim.danslchamp.controllersApp.svg.ControllerBibli;
 import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static sim.danslchamp.DansLChampApp.FC;
 import static sim.danslchamp.DansLChampApp.SVG_LOADER;
@@ -105,7 +110,26 @@ public class SplashScreenController {
 
     @FXML
     void showBibliotheque() {
-        DansLChampApp.loadFenetre("Bibliotheque.fxml").show();
+        try {
+            Stage bibliStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+
+            Scene scene = new Scene(fxmlLoader.load(this.getClass().getResourceAsStream("ControllerBibli.fxml")));
+
+           ControllerBibli controllerBibli = fxmlLoader.getController();
+
+            controllerBibli.setStage(bibliStage);
+
+            bibliStage.setScene(scene);
+            bibliStage.initStyle(StageStyle.UNDECORATED);
+            bibliStage.setResizable(true);
+            bibliStage.setMinWidth(610.0);
+            bibliStage.setMinWidth(468.0);
+            bibliStage.show();
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -159,11 +183,11 @@ public class SplashScreenController {
             }
 
             else if(!((Node) event.getTarget()).getCursor().equals(Cursor.S_RESIZE)){
-                stage.setWidth(Math.max(dragEvent.getScreenX() - event.getScreenX() + event.getSceneX(), stage.getMinWidth()));
+                stage.setWidth(Math.max(dragEvent.getScreenX() - event.getScreenX() + originalWidth, stage.getMinWidth()));
             }
 
-            if(!((Node) event.getTarget()).getCursor().equals(Cursor.W_RESIZE) ||
-                    ((Node) event.getTarget()).getCursor().equals(Cursor.E_RESIZE)){
+            if(!(((Node) event.getTarget()).getCursor().equals(Cursor.W_RESIZE) ||
+                    ((Node) event.getTarget()).getCursor().equals(Cursor.E_RESIZE))){
 
                 stage.setHeight(Math.max(dragEvent.getScreenY() - event.getScreenY() + event.getSceneY(), stage.getMinHeight()));
             }
