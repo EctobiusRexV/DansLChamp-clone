@@ -3,11 +3,14 @@ package sim.danslchamp.controleurs;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import io.github.palexdev.materialfx.controls.MFXTitledPane;
 import sim.danslchamp.DansLChampApp;
@@ -134,12 +137,36 @@ public class SplashScreenController {
         stage.setIconified(true);
     }
     public void mouvePressed(MouseEvent event) {
-        double xOffset = event.getX();
-        double yOffset = event.getY();
 
         titleBar.setOnMouseDragged(dragEvent -> {
-            stage.setX(dragEvent.getScreenX() - xOffset);
-            stage.setY(dragEvent.getScreenY() - yOffset);
+            stage.setX(dragEvent.getScreenX() - event.getX());
+            stage.setY(dragEvent.getScreenY() - event.getY());
         });
     }
+
+    public void dragResize(MouseEvent event) {
+        double originalWidth = stage.getWidth();
+        ((Node)event.getTarget()).setOnMouseDragged(dragEvent ->{
+
+            //filtre pour l'agrandissement fluide par les coter ouest
+            if(((Node)event.getTarget()).getCursor().equals(Cursor.W_RESIZE) ||
+                    ((Node)event.getTarget()).getCursor().equals(Cursor.SW_RESIZE) ) {
+
+                if(stage.getWidth() != stage.getMinWidth()) stage.setX(dragEvent.getScreenX() - event.getX());
+                stage.setWidth(Math.max(event.getScreenX() - dragEvent.getScreenX() + originalWidth, stage.getMinWidth()));
+            }
+
+            else if(!((Node) event.getTarget()).getCursor().equals(Cursor.S_RESIZE)){
+                stage.setWidth(Math.max(dragEvent.getScreenX() - event.getScreenX() + event.getSceneX(), stage.getMinWidth()));
+            }
+
+            if(!((Node) event.getTarget()).getCursor().equals(Cursor.W_RESIZE) ||
+                    ((Node) event.getTarget()).getCursor().equals(Cursor.E_RESIZE)){
+
+                stage.setHeight(Math.max(dragEvent.getScreenY() - event.getScreenY() + event.getSceneY(), stage.getMinHeight()));
+            }
+
+        });
+    }
+
 }
