@@ -18,13 +18,13 @@ public class TestSensDuCourant extends Application {
         circuit.getComposants().forEach(composant -> {
                     for (Jonction jonction : composant.getJonctions()) {
                         if (composant.getBornePositive() == null) System.out.println(composant + " n'a pas de borne positive");
-                        else if (composant.getBornePositive() == jonction) circuit.getDiagramme2D().getChildren().add(new Text(composant.getBornePositive().getPositionXY().x, composant.getBornePositive().getPositionXY().y + 10, "+"));
-                        else circuit.getDiagramme2D().getChildren().add(new Text(jonction.getPositionXY().x, jonction.getPositionXY().y + 10, "-"));
+                        else circuit.getDiagramme2D().getGroup().getChildren().add(
+                                new Text(jonction.getPositionXY().x, jonction.getPositionXY().y + 10,
+                                         jonction == composant.getBornePositive()? "+" : "-"));
                     }
                 });
 
-        primaryStage.setScene(new Scene(circuit.getDiagramme2D()));
-
+        primaryStage.setScene(new Scene(circuit.getDiagramme2D().getGroup()));
         primaryStage.show();
     }
 

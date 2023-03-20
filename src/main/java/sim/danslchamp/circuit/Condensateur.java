@@ -1,21 +1,23 @@
 package sim.danslchamp.circuit;
 
 import javafx.geometry.Point3D;
+import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 
 import sim.danslchamp.Util.DanslChampUtil;
 
-import java.awt.*;
+import java.awt.Point;
 
+/**
+ * @author Antoine Bélisle
+ * @author Mathis-Rosa Wilson
+ * @author Thierry Rhéaume
+ */
 public class Condensateur extends Composant {
 
-    private static final long DEFAUT_CAPACITE_pf = 1000;
-
     private long capacité_pf;
-
-    public String name;
 
     /**
      * Permet la construction d'un condensateur depuis les attributs SVG
@@ -29,16 +31,6 @@ public class Condensateur extends Composant {
 
         setCapacité_pf(capacité_pf);
     }
-
-    @Override
-    void initGroupe3D() {
-        Cylinder c = new Cylinder(15,20);
-        c.setMaterial(new PhongMaterial(Color.PINK));
-        c.setRotationAxis(new Point3D(1,0,0));
-        c.setRotate(90);
-        this.getGroupe3D().getChildren().add(c);
-    }
-
 
     public void setCapacité_pf(String capacité_pf) {
         if (!capacité_pf.isEmpty()) {
@@ -54,5 +46,19 @@ public class Condensateur extends Composant {
         } else {
             this.capacité_pf = 0;
         }
+    }
+
+    @Override
+    Group getSymbole3D() {
+        return null;
+    }
+
+    @Override
+    void initGroupe3D() {
+        Cylinder c = new Cylinder(15,20);
+        c.setMaterial(new PhongMaterial(Color.PINK));
+        c.setRotationAxis(new Point3D(1,0,0));
+        c.setRotate(90);
+        this.getGroupe3D().getChildren().add(c);
     }
 }

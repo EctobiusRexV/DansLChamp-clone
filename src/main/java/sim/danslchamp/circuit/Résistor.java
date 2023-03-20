@@ -4,24 +4,24 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
-
 import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.*;
 
+/**
+ * @author Antoine Bélisle
+ * @author Mathis-Rosa Wilson
+ * @author Thierry Rhéaume
+ */
 public class Résistor extends Composant {
 
-    private static final long DEFAUT_RESISTANCE_mOHMS = 4000;
     private long résistance_mOhms;
-
-    public String name;
 
     /**
      * Permet la construction d'un résistor depuis les attributs SVG.
      *
      * @param résistance_mOhms
      */
-    // todo gérer nom, scale, rotation
     public Résistor(int posX, int posY, boolean rotation90,
                     String résistance_mOhms) {
         super(new Jonction[]{new Jonction(new Point(0, 10)), new Jonction(new Point(80, 10))},
@@ -48,6 +48,11 @@ public class Résistor extends Composant {
         } else {
             this.résistance_mOhms = 0;
         }
+    }
+
+    @Override
+    Group getSymbole3D() {
+        return null;
     }
 
     @Override

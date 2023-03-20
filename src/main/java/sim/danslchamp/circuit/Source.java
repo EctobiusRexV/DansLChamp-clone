@@ -1,14 +1,9 @@
 package sim.danslchamp.circuit;
 
-import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
-
-import java.awt.*;
-
+/**
+ * @author Antoine Bélisle
+ */
 public abstract class Source extends Composant {
-
-    public static final long DEFAUT_VOLTAGE_mV = 5000;
 
     private boolean inversee;
 
@@ -16,12 +11,5 @@ public abstract class Source extends Composant {
         super(jonctionsRelatives, hauteur, largeur, posX, posY, rotation90);
 
         setBornePositive(inversee? getJonctions()[1] : getJonctions()[0]);
-    }
-
-    @Override
-    void initGroupe3D() {
-        Box box = new Box(100, 50, 20);
-        box.setMaterial(new PhongMaterial(Color.RED));
-        this.getGroupe3D().getChildren().add(box);
     }
 }

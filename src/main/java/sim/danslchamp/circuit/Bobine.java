@@ -1,14 +1,15 @@
 package sim.danslchamp.circuit;
 
+import javafx.scene.Group;
 import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.*;
 
+/**
+ * @author Antoine Bélisle
+ * @author Mathis-Rosa Wilson
+ */
 public class Bobine extends Composant {
-
-    public static final int DEFAUT_NOMBRE_DE_SPIRES = 4;
-    public static final int DEFAUT_LONGUEUR_mm = 4;
-    public static final double DEFAUT_RAYON_mm = 2;
 
     private int nombreDeSpires = DEFAUT_NOMBRE_DE_SPIRES;
     private double longueur_mm = DEFAUT_LONGUEUR_mm;
@@ -31,23 +32,18 @@ public class Bobine extends Composant {
         setRayon_mm(rayon_mm);
     }
 
-    @Override
-    void initGroupe3D() {
-
-    }
-
     public void setNombreDeSpires(String nombreDeSpires) {
         if (!nombreDeSpires.isEmpty()) {
             if (nombreDeSpires.matches("[a-z]")) {
                 DanslChampUtil.lanceAlerte("Entrée non-conforme", "NombreDeSpires");
             } else {
-                try{
+                try {
                     this.nombreDeSpires = Integer.parseInt(nombreDeSpires);
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     DanslChampUtil.lanceAlerte("Entrée non-conforme", "NombreDeSpires");
                 }
             }
-        }else {
+        } else {
             this.nombreDeSpires = 0;
         }
     }
@@ -73,14 +69,19 @@ public class Bobine extends Composant {
             if (rayon_mm.matches("[a-z]")) {
                 DanslChampUtil.lanceAlerte("Entrée non-conforme", "Rayon (m)");
             } else {
-                try{
+                try {
                     this.rayon_mm = Double.parseDouble(rayon_mm);
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     DanslChampUtil.lanceAlerte("Entrée non-conforme", "Rayon (m)");
                 }
             }
-        }else {
+        } else {
             this.rayon_mm = 0;
         }
+    }
+
+    @Override
+    Group getSymbole3D() {
+        return null;
     }
 }

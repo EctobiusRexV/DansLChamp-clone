@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import static sim.danslchamp.DansLChampApp.SVG_LOADER;
+
 public abstract class Composant {
 
     /**
@@ -43,13 +45,6 @@ public abstract class Composant {
      */
     private Jonction bornePositive;
 
-
-    //fixme delete
-    Group group3D;
-    public Group getGroupe3D() {
-        return group3D;
-    }
-    abstract void initGroupe3D();
 
     /**
      * Aide aux tests
@@ -106,8 +101,11 @@ public abstract class Composant {
         this.bornePositive = bornePositive;
     }
 
-    //    abstract Group getSymbole2D();
-//    abstract Group getSymbole3D();
+    public final Group getSymbole2D() {
+        return SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("symboles\\" + getClass().getSimpleName() + ".svg"));
+    }
+    abstract Group getSymbole3D();
+    final void initGroupe3D() {}; //fixme remover
 
     // Getters & Setters
 

@@ -18,41 +18,43 @@ public class Circuit {
     private final List<Jonction> noeuds;
 
     private final ObservableList<Composant> composants;
-    private Group diagramme2D, diagramme3D = new Group();
 
-    public Group getGroupe2D() {
-        return diagramme2D;
-    }
+    private Diagramme.Diagramme2D diagramme2D;
 
-    public Group getDiagramme3D() {
-        return diagramme3D;
-    }
+    private Diagramme.Diagramme3D diagramme3D;
 
+
+    // fixme
     public Circuit() {
-        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new Group());
+        mailles = null;
+        noeuds = null;
+        composants = null;
     }
 
-    private Circuit(List<Maille> mailles, List<Jonction> noeuds, List<Composant> composants, Group diagramme2D) {
-        this.mailles = mailles;
-        this.noeuds = noeuds;
-        this.composants = FXCollections.observableArrayList(composants);
-        this.diagramme2D = diagramme2D;
+    private Circuit(File file) throws FileNotFoundException {
+        SvgLoader loader = new SvgLoader(this);
+
+        loader.loadSvg(new FileInputStream(file));
+
+        List<Jonction> jonctions = loader.getSvgElementHandler().getJonctions();
+        List<Source> sources = loader.getSvgElementHandler().getSources();
+
+        noeuds = jonctions.stream().filter(Jonction::estNoeud).toList();
+        composants = FXCollections.observableArrayList(
+                loader.getSvgElementHandler().getComposants()
+        );
+
+        trouverSensDuCourant(jonctions, sources);
+        mailles = trouverMailles();
     }
 
     public static Circuit chargerCircuit(File file) throws FileNotFoundException {
-        SvgLoader loader = new SvgLoader();
-        Group diagramme2D = loader.loadSvg(new FileInputStream(file));
-        List<Jonction> jonctions = loader.getSvgElementHandler().getJonctions();
-        List<Jonction> noeuds = jonctions.stream().filter(Jonction::estNoeud).toList();
-        List<Composant> composants = loader.getSvgElementHandler().getComposants();
-        List<Source> sources = loader.getSvgElementHandler().getSources();
-        trouverSensDuCourant(jonctions, sources);
-        return new Circuit(trouverMailles(), noeuds, composants, diagramme2D);
+        return new Circuit(file);
     }
 
     /**
      * Trouve le sens du courant.
-     * En partant des bornes positives des sources, définit les bornes positives et négatives des composantes.
+     * En partant des bornes positives des sources, définit les bornes positives des composants.
      */
     private static void trouverSensDuCourant(List<Jonction> jonctions, List<Source> sources) {
         Set<Jonction> depart = new HashSet<>(sources.stream().map(Composant::getBornePositive).toList());
@@ -87,27 +89,22 @@ public class Circuit {
         return new ArrayList<>();
     }
 
-    /*private void traverser(Composant composant) {
-        Point connecteur = composant.getBornePositive();
-        ArrayList<Composant> composants = connecteurs.get(connecteur);
-        for (Composant c :
-                composants) {
-            c.setBornePositive(connecteur);
-            for (Point connecteurComposante:
-                    c.getConnecteurs()) {
-               if (connecteurComposante == connecteur) return; // C'est le même.
-                traverser();
-            }
-        }
-    }*/
 
-    /*void setCircuit3D() {
-        for (Composant composant : composantes) {
-            groupe3D.getChildren().add(composant.getGroupe3D());
-        }
-    }*/
+    // GETTERS & SETTERS
 
     public ObservableList<Composant> getComposants() {
         return composants;
+    }
+
+    public Diagramme.Diagramme2D getDiagramme2D() {
+        return diagramme2D;
+    }
+
+    public Diagramme.Diagramme3D getDiagramme3D() {
+        return diagramme3D;
+    }
+
+    public Diagramme[] getDiagrammes() {
+        return new Diagramme[]{diagramme2D, diagramme3D};
     }
 }

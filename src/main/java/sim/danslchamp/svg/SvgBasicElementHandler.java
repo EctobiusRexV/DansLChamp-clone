@@ -41,10 +41,7 @@ import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.svg.SVGPoint;
 import org.w3c.dom.svg.SVGPointList;
 import org.w3c.dom.svg.SVGRect;
-import sim.danslchamp.circuit.Composant;
-import sim.danslchamp.circuit.Fil;
-import sim.danslchamp.circuit.Jonction;
-import sim.danslchamp.circuit.Source;
+import sim.danslchamp.circuit.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -65,14 +62,14 @@ public class SvgBasicElementHandler {
     private final ArrayList<Composant> composants = new ArrayList<>();
 
     /**
-     * Un circuit est composé de multiples composantes connectées l'une avec les autres.
-     * Pour un point de connexion donné (connecteur), on énumère la liste des composantes qui y sont liées.
+     * Un circuit est composé de multiples composants connectés les uns avec les autres.
+     * Pour un point de connexion donné (jonction), on énumère la liste des composants qui y sont liés.
      * <p>
-     * Chaque composante définit relativement la position de ses connecteurs. Ce sont les positions où il est graphiquement
-     * possible de lier la composante à une autre. L'emplacement des connecteurs absolus est calculé suivant l'emplacement absolu
-     * de la composante (x=, y=), additionné de la position relative de ses connecteurs (translation).
+     * Chaque composant définit relativement la position de ses jonctions. Ce sont les positions où il est graphiquement
+     * possible de joindre le composant à une autre. L'emplacement des jonctions absolu est calculé suivant l'emplacement absolu
+     * du composant (x=, y=), additionné de la position relative de ses jonctions (translation).
      * <p>
-     * Un connecteur liant plus de deux composantes est un noeud, suivant la loi des noeuds.
+     * Une jonctions liant plus de deux composants est un noeud, suivant la loi des noeuds.
      */
     private final ArrayList<Jonction> jonctions = new ArrayList<>();
 
@@ -107,56 +104,38 @@ public class SvgBasicElementHandler {
     }
 
     void handleElement(SVGOMUseElement element) {
-        int     posX = (int) element.getX().getBaseVal().getValue(),
-                posY = (int) element.getY().getBaseVal().getValue();
-
-
-        SVGOMGElement gEl = (SVGOMGElement) defs.get(element.getHref().getBaseVal().substring(1)).cloneNode(true);
-        gEl.setAttribute("transform",
-                "translate(" + posX + "," + posY + ")");
-
-        // Créer la classe Java
         String type = element.getHref().getBaseVal().substring(1); // le #
-        try {
-            Class<Composant> composanteClass = (Class<Composant>) Class.forName("sim.danslchamp.circuit." + type);
-            List<Method> setMethods = Composant.getSetMethodsTriées(composanteClass.getDeclaredMethods());
-            List<String> attributs = setMethods.stream()
-                    .map(method -> {
-                        String attr = method.getName()
-                                .replace("set", "x");
-                        attr = element.getAttribute(attr);
-                        return attr;
-                    }).toList();    // il existe un attribut pour ch. setter
-
-            List<Object> params = new ArrayList<>(List.of(posX, posY, false));
-            Collections.addAll(params, attributs.toArray());
-            Constructor<?> constructor = composanteClass.getDeclaredConstructors()[0];
-            Composant c = (Composant) constructor.newInstance(
-                    params.toArray()
-            );
-            // SVP qu'un seul constructeur!
-
-
-            if (c instanceof Source) sources.add((Source) c);
-
-            addJonction(c);
-            composants.add(c);
-
-            loader.handle(gEl);
-
-            System.out.println("Loaded use element: " + type);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Impossible de charger " + type);
-            alert.getDialogPane().setExpandableContent(new Label(e.getMessage()));
-            alert.showAndWait();
-            e.printStackTrace();
+        for (Diagramme diagramme:
+                loader.getCircuit().getDiagrammes()) {
+            try {
+                Class<Composant> composantClass = (Class<Composant>) Class.forName("sim.danslchamp.circuit." + type);
+                List<Method> setMethods = Composant.getSetMethodsTriées(composantClass.getDeclaredMethods());
+                List<String> attributs = setMethods.stream().map(method -> {
+                    String attr = method.getName().replace("set", "x");
+                    attr = element.getAttribute(attr);
+                    return attr;
+                }).toList();
+                diagramme.addComposant(
+                        composantClass,
+                        (int) element.getX().getBaseVal().getValue(),
+                        (int) element.getY().getBaseVal().getValue(),
+                        estRotationne90(element));
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
+        System.out.println("Loaded use element: " + type);
+    }
+
+    private static boolean estRotationne90(SVGOMUseElement element) {
+//        return element.getTransform().getBaseVal()
+        return false;
     }
 
     /**
-     * Ajoute les connecteurs de {@code composante} (noeud, intersection) à la liste des connecteurs.
-     * Si le connecteur existe déjà, la composante est ajoutée à la liste.
-     * Sinon, le connecteur est ajouté et une nouvelle liste contenant la composante y est associé.
+     * Ajoute les jonction de {@code composant} à la liste des jonctions.
+     * Si la jonction existe déjà, le composant est ajouté à la liste.
+     * Sinon, la jonction est ajoutée et une nouvelle liste contenant le composant y est associé.
      * @see SvgBasicElementHandler#jonctions
      * @param composant
      */

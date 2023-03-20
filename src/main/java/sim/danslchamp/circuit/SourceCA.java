@@ -1,9 +1,14 @@
 package sim.danslchamp.circuit;
 
+import javafx.scene.Group;
 import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.*;
 
+/**
+ * @author Antoine Bélisle
+ * @author Mathis-Rosa Wilson
+ */
 public class SourceCA extends Source {
 
     public SourceCA(int posX, int posY, boolean rotation90,
@@ -28,5 +33,10 @@ public class SourceCA extends Source {
         } else {
             setVoltage_mV(0);
         }
+    }
+
+    @Override
+    Group getSymbole3D() {
+        return null;
     }
 }
