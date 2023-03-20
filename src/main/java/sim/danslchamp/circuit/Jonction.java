@@ -1,15 +1,20 @@
 package sim.danslchamp.circuit;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Une jonction représente l'embout d'un composant, éventuellement lié à d'autres composants.
+ * Si la jonction joint plus de deux composants, c'est un noeud et la loi des noeuds s'applique.
+ *
+ * @author Antoine Bélisle
+ * @author Mathis Rosa-Wilson
+ */
 public class Jonction {
 
-    private Point positionXY;
-
+    private final Point positionXY;
     private final List<Composant> composantes;
-
     private boolean estNoeud;
 
     public Jonction(Point positionXY) {
@@ -42,6 +47,9 @@ public class Jonction {
         return composantes;
     }
 
+    /**
+     * @throws ClassCastException {@code jonction} n'est pas de type Jonction.
+     */
     @Override
     public boolean equals(Object jonction) {
         return positionXY.equals(((Jonction) jonction).positionXY);
