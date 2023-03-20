@@ -73,7 +73,6 @@ public class DansLChampApp extends Application {
         concepteurControleur.chargerCircuit(file);
         stage.show();
         stage.setMaximized(true);
-        stage.setFullScreen(true);
         stage.setMinWidth(800.0);
         stage.setMinHeight(600.0);
     }

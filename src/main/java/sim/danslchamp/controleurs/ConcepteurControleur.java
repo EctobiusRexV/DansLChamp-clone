@@ -113,10 +113,9 @@ public class ConcepteurControleur {
      * @param file Le fichier à charger.
      */
     public void chargerCircuit(@Nullable File file) throws FileNotFoundException {
-        SvgLoader loader = new SvgLoader();
         circuit = Circuit.chargerCircuit(file);
 
-        Group group = circuit.getDiagramme2D();
+        Group group = circuit.getGroupe2D();
         vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
             if (group.getScaleX() + event.getDeltaY()/100 < 0) return; // empêcher d'obtenir un scale négatif
 
