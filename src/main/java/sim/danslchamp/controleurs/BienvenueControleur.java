@@ -1,19 +1,19 @@
-package sim.danslchamp.controllersApp;
+package sim.danslchamp.controleurs;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sim.danslchamp.DansLChampApp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import static sim.danslchamp.controllersApp.DanslChampApp.FC;
-import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
+import static sim.danslchamp.DansLChampApp.FC;
+import static sim.danslchamp.DansLChampApp.SVG_LOADER;
 
 /**
  * Contrôleur de la fenêtre de Démarrage
@@ -21,7 +21,7 @@ import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
  * @author Antoine Bélisle
  * @author Mathis Rosa-Wilson
  */
-public class SplashScreenController {
+public class BienvenueControleur {
 
     private Stage stage;
 
@@ -72,7 +72,7 @@ public class SplashScreenController {
     @FXML
     void circuitPressed(MouseEvent event) {
         try {
-            DanslChampApp.showConcepteurDeCircuit((File) ((VBox) event.getSource()).getUserData());
+            DansLChampApp.showConcepteurDeCircuit((File) ((VBox) event.getSource()).getUserData());
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage()); // Au moins on va connaître le bug.
         }
@@ -89,24 +89,24 @@ public class SplashScreenController {
 
     @FXML
     void showBibliotheque() {
-        ControllerUtil.loadFenetre("ControllerBibli.fxml").show();
+        DansLChampApp.loadFenetre("Bibliotheque.fxml").show();
     }
 
     @FXML
     void ouvrirCircuit() {
         try {
             File file = FC.showOpenDialog(stage);
-            if (file != null) DanslChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
+            if (file != null) DansLChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
         } catch (FileNotFoundException neSappliquePas) {}
     }
 
     @FXML
     void showAide() {
-        ControllerUtil.loadFenetre("ControllerAide.fxml").show();
+        DansLChampApp.loadFenetre("Aide.fxml").show();
     }
 
     @FXML
     void showAPropos() {
-        ControllerUtil.loadFenetre("ControllerAPropos.fxml").show();
+        DansLChampApp.loadFenetre("APropos.fxml").show();
     }
 }

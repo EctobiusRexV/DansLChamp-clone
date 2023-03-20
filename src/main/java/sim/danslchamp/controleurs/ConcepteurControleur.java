@@ -1,4 +1,4 @@
-package sim.danslchamp.controllersApp;
+package sim.danslchamp.controleurs;
 
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
+import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.Util.ComposantesListCell;
@@ -24,7 +25,7 @@ import sim.danslchamp.svg.SvgLoader;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import static sim.danslchamp.controllersApp.DanslChampApp.FC;
+import static sim.danslchamp.DansLChampApp.FC;
 
 /**
  * Contrôleur de la fenêtre Concepteur de circuit
@@ -33,7 +34,7 @@ import static sim.danslchamp.controllersApp.DanslChampApp.FC;
  * @author Mathis Rosa-Wilson
  * @author Thierry Rhéaume
  */
-public class ControllerPrincipal {
+public class ConcepteurControleur {
 
     private Circuit circuit;
 
@@ -45,7 +46,7 @@ public class ControllerPrincipal {
 
     private Stage stage;
 
-    void setStage(Stage stage) {
+    public void setStage(Stage stage) {
         this.stage = stage;
 
         this.stage.setOnCloseRequest(event -> {
@@ -111,11 +112,11 @@ public class ControllerPrincipal {
      *
      * @param file Le fichier à charger.
      */
-    void chargerCircuit(@Nullable File file) throws FileNotFoundException {
+    public void chargerCircuit(@Nullable File file) throws FileNotFoundException {
         SvgLoader loader = new SvgLoader();
         circuit = Circuit.chargerCircuit(file);
 
-        Group group = circuit.getGroupe2D();
+        Group group = circuit.getDiagramme2D();
         vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
             if (group.getScaleX() + event.getDeltaY()/100 < 0) return; // empêcher d'obtenir un scale négatif
 
@@ -123,7 +124,7 @@ public class ControllerPrincipal {
             group.scaleYProperty().set(group.getScaleY() + event.getDeltaY() / 100);
 
         });
-        vBox2D.getChildren().setAll(circuit.getGroupe2D());
+        vBox2D.getChildren().setAll(group);
 
 
         Group group3D = circuit.getDiagramme3D();
@@ -173,16 +174,16 @@ public class ControllerPrincipal {
 
     @FXML
     void showBibliotheque() {
-        ControllerUtil.loadFenetre("ControllerBibli.fxml").show();
+        DansLChampApp.loadFenetre("Bibliotheque.fxml").show();
     }
 
     @FXML
     void showAide() {
-        ControllerUtil.loadFenetre("ControllerAide.fxml").show();
+        DansLChampApp.loadFenetre("Aide.fxml").show();
     }
 
     @FXML
     void showAPropos() {
-        ControllerUtil.loadFenetre("ControllerAPropos.fxml").show();
+        DansLChampApp.loadFenetre("APropos.fxml").show();
     }
 }

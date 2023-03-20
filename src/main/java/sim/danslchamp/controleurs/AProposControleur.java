@@ -1,13 +1,12 @@
-package sim.danslchamp.controllersApp;
+package sim.danslchamp.controleurs;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextArea;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerAPropos implements Initializable {
+public class AProposControleur implements Initializable {
     public WebView textAreaAPropos;
 
 

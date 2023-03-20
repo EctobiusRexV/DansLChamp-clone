@@ -1,26 +1,21 @@
-package sim.danslchamp.controllersApp;
+package sim.danslchamp.controleurs;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import sim.danslchamp.Util.MathMlUtil;
-import sim.danslchamp.svg.SvgLoader;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
+import static sim.danslchamp.DansLChampApp.SVG_LOADER;
 
-public class ControllerBibli implements Initializable {
+public class BibliothequeControleur implements Initializable {
 
     @FXML
     private WebView textAreaBibliotheque;

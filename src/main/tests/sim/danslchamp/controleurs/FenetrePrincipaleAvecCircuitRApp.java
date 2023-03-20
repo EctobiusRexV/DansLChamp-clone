@@ -1,4 +1,4 @@
-package sim.danslchamp.controllersApp;
+package sim.danslchamp.controleurs;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,12 +13,12 @@ public class FenetrePrincipaleAvecCircuitRApp extends Application {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("."));
 
         primaryStage.setScene(
-                new Scene(loader.load(this.getClass().getResourceAsStream("3DController.fxml"))));
+                new Scene(loader.load(this.getClass().getResourceAsStream("Concepteur.fxml"))));
 
-        ControllerPrincipal controllerPrincipal = loader.getController();
+        ConcepteurControleur concepteurControleur = loader.getController();
 
-        controllerPrincipal.setStage(primaryStage);
-        controllerPrincipal.chargerCircuit(new File(".\\circuits\\circuitR.svg"));
+        concepteurControleur.setStage(primaryStage);
+        concepteurControleur.chargerCircuit(new File(".\\circuits\\circuitR.svg"));
 
         primaryStage.show();
     }

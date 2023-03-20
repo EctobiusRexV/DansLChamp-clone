@@ -1,4 +1,4 @@
-package sim.danslchamp.controllersApp;
+package sim.danslchamp.controleurs;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,7 @@ public class TestBibliothequeControleur extends Application {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("."));
 
         primaryStage.setScene(
-                new Scene(loader.load(this.getClass().getResourceAsStream("ControllerBibli.fxml"))));
+                new Scene(loader.load(this.getClass().getResourceAsStream("Bibliotheque.fxml"))));
 
         primaryStage.show();
     }

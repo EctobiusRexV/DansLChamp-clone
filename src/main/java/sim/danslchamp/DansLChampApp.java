@@ -1,4 +1,4 @@
-package sim.danslchamp.controllersApp;
+package sim.danslchamp;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,13 +7,15 @@ import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
+import sim.danslchamp.controleurs.ConcepteurControleur;
+import sim.danslchamp.controleurs.BienvenueControleur;
 import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class DanslChampApp extends Application {
+public class DansLChampApp extends Application {
 
     // PAS TOUCHE
     // ====================
@@ -37,10 +39,10 @@ public class DanslChampApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader();
 
-        Scene scene = new Scene(fxmlLoader.load(this.getClass().getResourceAsStream("SplashScreenController.fxml")));
+        Scene scene = new Scene(fxmlLoader.load(this.getClass().getResourceAsStream("fxml\\Bienvenue.fxml")));
 
-        SplashScreenController splashScreenController = fxmlLoader.getController();
-        splashScreenController.setStage(primaryStage);
+        BienvenueControleur bienvenueControleur = fxmlLoader.getController();
+        bienvenueControleur.setStage(primaryStage);
         primaryStage.setMinHeight(600.0);
         primaryStage.setMinWidth(600.0);
 
@@ -57,23 +59,40 @@ public class DanslChampApp extends Application {
         Stage stage = new Stage();
 
         try {
-            Scene scene = new Scene(fxmlLoader.load(DanslChampApp.class.getResourceAsStream("3DController.fxml")));
-
+            Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml\\Concepteur.fxml")));
             stage.setScene(scene);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur dans l'ouverture du circuit");
+            alert.setHeaderText("Erreur dans l'ouverture de la fenêtre");
             alert.setContentText("Veuillez réessayer...");
         }
-        ControllerPrincipal controllerPrincipal = fxmlLoader.getController();
-        controllerPrincipal.setStage(stage);
-        controllerPrincipal.chargerCircuit(file);
+
+        ConcepteurControleur concepteurControleur = fxmlLoader.getController();
+        concepteurControleur.setStage(stage);
+        concepteurControleur.chargerCircuit(file);
         stage.show();
         stage.setMaximized(true);
         stage.setFullScreen(true);
         stage.setMinWidth(800.0);
         stage.setMinHeight(600.0);
+    }
+
+    public static Stage loadFenetre(String path){
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Stage stage = new Stage();
+
+        try {
+            Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml\\"+path)));
+            stage.setScene(scene);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Erreur dans l'ouverture de la fenêtre");
+            alert.setContentText("Veuillez réessayer...");
+        }
+
+        return stage;
     }
 
     public static void main(String[] args) {

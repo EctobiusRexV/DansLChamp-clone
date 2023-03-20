@@ -6,7 +6,7 @@ import sim.danslchamp.circuit.Jonction;
 
 import java.util.List;
 
-import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
+import static sim.danslchamp.DansLChampApp.SVG_LOADER;
 
 public class TestJonctions extends Application {
     @Override
