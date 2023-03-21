@@ -8,6 +8,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -161,36 +162,11 @@ public class SplashScreenController {
         stage.setIconified(true);
     }
     public void mouvePressed(MouseEvent event) {
-
-        titleBar.setOnMouseDragged(dragEvent -> {
-            stage.setX(dragEvent.getScreenX() - event.getX());
-            stage.setY(dragEvent.getScreenY() - event.getY());
-        });
+        ControllerUtil.mouveStageUtil(stage, event);
     }
 
     public void dragResize(MouseEvent event) {
-        double originalWidth = stage.getWidth();
-        ((Node)event.getTarget()).setOnMouseDragged(dragEvent ->{
-
-            //filtre pour l'agrandissement fluide par les coter ouest
-            if(((Node)event.getTarget()).getCursor().equals(Cursor.W_RESIZE) ||
-                    ((Node)event.getTarget()).getCursor().equals(Cursor.SW_RESIZE) ) {
-
-                if(stage.getWidth() != stage.getMinWidth()) stage.setX(dragEvent.getScreenX() - event.getX());
-                stage.setWidth(Math.max(event.getScreenX() - dragEvent.getScreenX() + originalWidth, stage.getMinWidth()));
-            }
-
-            else if(!((Node) event.getTarget()).getCursor().equals(Cursor.S_RESIZE)){
-                stage.setWidth(Math.max(dragEvent.getScreenX() - event.getScreenX() + originalWidth, stage.getMinWidth()));
-            }
-
-            if(!(((Node) event.getTarget()).getCursor().equals(Cursor.W_RESIZE) ||
-                    ((Node) event.getTarget()).getCursor().equals(Cursor.E_RESIZE))){
-
-                stage.setHeight(Math.max(dragEvent.getScreenY() - event.getScreenY() + event.getSceneY(), stage.getMinHeight()));
-            }
-
-        });
+        ControllerUtil.resizeUtil(stage, event);
     }
 
 }
