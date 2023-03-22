@@ -104,8 +104,7 @@ public abstract class Composant {
     public final Group getSymbole2D() {
         return SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("symboles\\" + getClass().getSimpleName() + ".svg"));
     }
-    abstract Group getSymbole3D();
-    final void initGroupe3D() {}; //fixme remover
+    abstract Group getSymbole3D(boolean rotation90);
 
     // Getters & Setters
 
@@ -159,4 +158,6 @@ public abstract class Composant {
     public String toString() {
         return getClass().getSimpleName();
     }
+
+    abstract Group getSymbole3D();
 }

@@ -50,15 +50,17 @@ public class Condensateur extends Composant {
 
     @Override
     Group getSymbole3D() {
-        return null;
-    }
-
-    @Override
-    void initGroupe3D() {
         Cylinder c = new Cylinder(15,20);
         c.setMaterial(new PhongMaterial(Color.PINK));
-        c.setRotationAxis(new Point3D(1,0,0));
-        c.setRotate(90);
-        this.getGroupe3D().getChildren().add(c);
+        c.setLayoutX(getPosX());
+        c.setLayoutY(getPosY());
+        if (rotation90){
+            c.setRotationAxis(new Point3D(1,0,0));
+            c.setRotate(90);
+        }
+        Group g = new Group();
+        g.getChildren().addAll(c);
+        return g;
     }
+
 }

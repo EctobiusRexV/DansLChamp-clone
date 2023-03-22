@@ -1,9 +1,11 @@
 package sim.danslchamp.circuit;
 
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Cylinder;
 import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.*;
@@ -41,13 +43,16 @@ public class Pile extends Source {
 
     @Override
     Group getSymbole3D() {
-        return null;
-    }
-
-    @Override
-    void initGroupe3D() {
         Box box = new Box(100, 50, 20);
         box.setMaterial(new PhongMaterial(Color.RED));
-        this.getGroupe3D().getChildren().add(box);
+        box.setLayoutX(getPosX());
+        box.setLayoutY(getPosY());
+        if (rotation90){
+            box.setRotationAxis(new Point3D(1,0,0));
+            box.setRotate(90);
+        }
+        Group g = new Group();
+        g.getChildren().addAll(box);
+        return g;
     }
 }

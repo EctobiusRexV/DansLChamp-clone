@@ -107,7 +107,8 @@ public abstract class Diagramme {
 
         @Override
         public void addComposant(Class<Composant> composant, int posX, int posY, boolean rotation90) {
-
+            composant.setPosXY(posX,posY);
+            this.getGroup().getChildren().add(composant.getSymbole3D(rotation90));
         }
     }
 }

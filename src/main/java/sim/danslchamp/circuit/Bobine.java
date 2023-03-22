@@ -81,7 +81,15 @@ public class Bobine extends Composant {
     }
 
     @Override
-    Group getSymbole3D() {
-        return null;
+    Group getSymbole3D(boolean rotation90) {
+        Group g = new Group();
+        //set layout xy
+        if (rotation90) {
+            g.setRotate(90);// ou la shape
+        }
+        g.getChildren().addAll();
+        return g;
     }
+
+
 }
