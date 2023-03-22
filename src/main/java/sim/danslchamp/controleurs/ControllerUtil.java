@@ -1,11 +1,10 @@
-package sim.danslchamp.controllersApp;
+package sim.danslchamp.controleurs;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -20,11 +19,11 @@ public class ControllerUtil {
         Stage stage = new Stage();
 
         try {
-            Scene scene = new Scene(fxmlLoader.load(ControllerUtil.class.getResourceAsStream(path)));
-
+            Scene scene = new Scene(fxmlLoader.load(ControllerUtil.class.getResourceAsStream("..\\fxml\\" + path)));
 
             stage.setScene(scene);
             stage.initStyle(StageStyle.UNDECORATED);
+            stage.show();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
@@ -34,7 +33,8 @@ public class ControllerUtil {
         return stage;
     }
 
-    public static void resizeUtil(Stage stage, MouseEvent event){
+    public static void resizeUtil(MouseEvent event){
+        Stage stage = ((Stage) ((Node)event.getTarget()).getScene().getWindow());
         double originalWidth = stage.getWidth();
         ((Node) event.getTarget()).setOnMouseDragged(dragEvent -> {
             //filtre pour l'agrandissement fluide par les coter ouest
@@ -55,7 +55,8 @@ public class ControllerUtil {
         });
     }
 
-    public static void mouveStageUtil(Stage stage, MouseEvent event){
+    public static void mouveStageUtil(MouseEvent event){
+        Stage stage = ((Stage) ((Node)event.getTarget()).getScene().getWindow());
         Boolean wasMaximised;
         if(stage.isMaximized()){
             stage.setMaximized(false);
@@ -64,7 +65,7 @@ public class ControllerUtil {
         } else {
             wasMaximised = false;
         }
-        ((BorderPane)event.getTarget()).setOnMouseDragged(dragEvent -> {
+        ((Node)event.getTarget()).setOnMouseDragged(dragEvent -> {
             if(wasMaximised){
                 stage.setX(event.getX());
             }

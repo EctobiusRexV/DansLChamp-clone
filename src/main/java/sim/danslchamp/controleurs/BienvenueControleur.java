@@ -17,7 +17,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import io.github.palexdev.materialfx.controls.MFXTitledPane;
 import javafx.stage.StageStyle;
-import sim.danslchamp.controllersApp.svg.ControllerBibli;
+import sim.danslchamp.controleurs.BibliothequeControleur;
 import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.svg.SvgLoader;
 
@@ -34,7 +34,7 @@ import static sim.danslchamp.DansLChampApp.SVG_LOADER;
  * @author Antoine Bélisle
  * @author Mathis Rosa-Wilson
  */
-public class SplashScreenController {
+public class BienvenueControleur {
     public BorderPane titleBar;
     private Stage stage;
 
@@ -111,26 +111,9 @@ public class SplashScreenController {
 
     @FXML
     void showBibliotheque() {
-        try {
-            Stage bibliStage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader();
-
-            Scene scene = new Scene(fxmlLoader.load(this.getClass().getResourceAsStream("ControllerBibli.fxml")));
-
-           ControllerBibli controllerBibli = fxmlLoader.getController();
-
-            controllerBibli.setStage(bibliStage);
-
-            bibliStage.setScene(scene);
-            bibliStage.initStyle(StageStyle.UNDECORATED);
-            bibliStage.setResizable(true);
-            bibliStage.setMinWidth(610.0);
-            bibliStage.setMinWidth(468.0);
-            bibliStage.show();
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Stage bibliStage = ControllerUtil.loadFenetre("Bibliotheque.fxml");
+        bibliStage.setMinHeight(610);
+        bibliStage.setMinWidth(700);
     }
 
     @FXML
@@ -138,19 +121,22 @@ public class SplashScreenController {
         try {
             File file = FC.showOpenDialog(stage);
             if (file != null)
-                DanslChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
+                DansLChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
         } catch (FileNotFoundException neSappliquePas) {
         }
     }
 
     @FXML
     void showAide() {
-        DansLChampApp.loadFenetre("Aide.fxml").show();
+        ControllerUtil.loadFenetre("Aide.fxml");
+
     }
 
     @FXML
     void showAPropos() {
-        DansLChampApp.loadFenetre("APropos.fxml").show();
+        Stage stageAPropos = ControllerUtil.loadFenetre("APropos.fxml");
+        stageAPropos.setWidth(500);
+        stageAPropos.setHeight(328);
     }
 
     public void resizeApp(ActionEvent actionEvent) {
@@ -164,11 +150,11 @@ public class SplashScreenController {
         stage.setIconified(true);
     }
     public void mouvePressed(MouseEvent event) {
-        ControllerUtil.mouveStageUtil(stage, event);
+        ControllerUtil.mouveStageUtil(event);
     }
 
     public void dragResize(MouseEvent event) {
-        ControllerUtil.resizeUtil(stage, event);
+        ControllerUtil.resizeUtil(event);
     }
 
 }

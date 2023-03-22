@@ -9,7 +9,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 
 
-<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controllersApp.ControllerAide">
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.AideControleur">
    <top>
       <BorderPane fx:id="titleBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#mouvePressed" style="-fx-background-color: dodgerblue;" BorderPane.alignment="CENTER">
          <right>

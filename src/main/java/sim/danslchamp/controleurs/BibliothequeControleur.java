@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import sim.danslchamp.Util.MathMlUtil;
-import sim.danslchamp.controllersApp.ControllerUtil;
+import sim.danslchamp.controleurs.ControllerUtil;
 import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
@@ -31,11 +31,7 @@ import static sim.danslchamp.DansLChampApp.SVG_LOADER;
 public class BibliothequeControleur implements Initializable {
 
     public BorderPane titleBar;
-    private Stage stage;
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
     @FXML
     private WebView textAreaBibliotheque;
 
@@ -97,34 +93,36 @@ public class BibliothequeControleur implements Initializable {
     }
 
     @FXML
-    void fermerApp() throws InterruptedException {
+    void fermerApp(ActionEvent e) throws InterruptedException {
         Thread.sleep(100);
-        stage.close();
+        ((Stage)(((Node)e.getTarget()).getScene().getWindow())).close();
     }
 
 
     @FXML
-    void resizeApp() throws InterruptedException {
+    void resizeApp(ActionEvent e) throws InterruptedException {
         Thread.sleep(50);
-        if(stage.isMaximized()) {
-            stage.setMaximized(false);
+        Stage stage = ((Stage) ((Node)e.getTarget()).getScene().getWindow());
+        if( stage.isMaximized()) {
+           stage.setMaximized(false);
         }
-        else stage.setMaximized(true);
+        else  stage.setMaximized(true);
     }
 
     @FXML
-    public void minimizeApp() throws InterruptedException {
+    public void minimizeApp(ActionEvent e) throws InterruptedException {
         Thread.sleep(50);
+        Stage stage = ((Stage) ((Node)e.getTarget()).getScene().getWindow());
         stage.setIconified(true);
     }
 
     @FXML
     public void mouvePressed(MouseEvent event) {
-        ControllerUtil.mouveStageUtil(stage, event);
+        ControllerUtil.mouveStageUtil(event);
     }
 
     @FXML
     public void dragResize(MouseEvent event) {
-        ControllerUtil.resizeUtil(stage, event);
+        ControllerUtil.resizeUtil(event);
     }
 }
