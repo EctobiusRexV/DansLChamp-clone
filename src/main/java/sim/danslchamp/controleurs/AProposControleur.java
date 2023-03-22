@@ -1,12 +1,9 @@
 package sim.danslchamp.controleurs;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,7 +28,7 @@ public class AProposControleur implements Initializable {
 
 
     public void mouvePressed(MouseEvent mouseEvent) {
-        ControllerUtil.mouveStageUtil(((Stage)textAreaAPropos.getScene().getWindow()), mouseEvent);
+        ControllerUtil.mouveStageUtil(mouseEvent);
     }
 
     public void fermerApp() {

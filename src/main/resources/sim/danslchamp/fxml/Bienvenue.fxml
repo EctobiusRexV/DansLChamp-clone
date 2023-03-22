@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controllersApp.SplashScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
    <top>
       <BorderPane fx:id="titleBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#mouvePressed" style="-fx-background-color: dodgerblue;" BorderPane.alignment="CENTER">
       <left>

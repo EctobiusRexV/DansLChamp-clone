@@ -26,6 +26,6 @@ public class AideControleur implements Initializable {
     }
 
     public void mouvePressed(MouseEvent mouseEvent) {
-        ControllerUtil.mouveStageUtil(((Stage)textAreaAide.getScene().getWindow()), mouseEvent);
+        ControllerUtil.mouveStageUtil(mouseEvent);
     }
 }
