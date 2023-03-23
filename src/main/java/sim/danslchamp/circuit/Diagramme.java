@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.transform.Rotate;
 
 import java.lang.reflect.InvocationTargetException;
@@ -17,13 +18,10 @@ public abstract class Diagramme {
     /**
      * Ajoute un composant au diagramme. Construit le composant avec ses paramètres par défaut.
      *
-     * @param composant  La classe du composant.
-     * @param posX
-     * @param posY
-     * @param rotation90
+     * @param composant La classe du composant.
      * @throws ClassNotFoundException Le classe du composant ne correspond pas à une classe Java du package {@code circuit}.
      */
-    public abstract void addComposant(Class<Composant> composant, int posX, int posY, boolean rotation90);
+    public abstract void addComposant(Composant composant);
 
     /*abstract void afficherSensDuCourant();
 
@@ -54,29 +52,25 @@ public abstract class Diagramme {
     }
 
     public class Diagramme2D extends Diagramme {
+
+        public Diagramme2D() {
+            // Zoom/dézoom
+            group.addEventHandler(ScrollEvent.SCROLL, event -> {
+                if (group.getScaleX() + event.getDeltaY()/100 < 0) return; // empêcher d'obtenir un scale négatif
+
+                group.scaleXProperty().set(group.getScaleX() + event.getDeltaY() / 100);
+                group.scaleYProperty().set(group.getScaleY() + event.getDeltaY() / 100);
+
+            });
+        }
+
         @Override
-        public void addComposant(Class<Composant> composantClass, int posX, int posY, boolean rotation90) {
-            Composant composant;
-            try {
-                // Instancier la classe
-                composant = (Composant) composantClass.getDeclaredConstructors()[0]   // SVP qu'un seul constructeur!
-                        .newInstance(posX, posY, rotation90);
+        public void addComposant(Composant composant) {
+            Group symbole = composant.getSymbole2D();
+            symbole.setTranslateX(composant.getPosX());
+            symbole.setTranslateY(composant.getPosY());
 
-                /*if (composant instanceof Source) circuit.getSources().add((Source) composant);
-
-                addJonction(composant);
-                circuit.getComposants().add(composant);
-
-                // Add group
-                loader.handle(gEl);*/
-
-
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Impossible de charger " + composantClass);
-                alert.getDialogPane().setExpandableContent(new Label(e.getMessage()));
-                alert.showAndWait();
-                e.printStackTrace();
-            }
+            group.getChildren().add(symbole);
         }
     }
 
@@ -106,9 +100,12 @@ public abstract class Diagramme {
         }
 
         @Override
-        public void addComposant(Class<Composant> composant, int posX, int posY, boolean rotation90) {
-            composant.setPosXY(posX,posY);
-            this.getGroup().getChildren().add(composant.getSymbole3D(rotation90));
+        public void addComposant(Composant composant) {
+            Group symbole = composant.getSymbole3D();
+            symbole.setTranslateX(composant.getPosX());
+            symbole.setTranslateY(composant.getPosY());
+
+            group.getChildren().add(symbole);
         }
     }
 }

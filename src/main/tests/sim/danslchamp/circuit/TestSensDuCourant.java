@@ -1,4 +1,4 @@
-package circuit;
+package sim.danslchamp.circuit;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

@@ -1,5 +1,6 @@
 package sim.danslchamp.circuit;
 
+import javafx.scene.Group;
 import javafx.scene.shape.Line;
 
 import java.awt.*;
@@ -12,7 +13,7 @@ public class Fil extends Composant {
     }
 
     @Override
-    void initGroupe3D() {
-//        this.getGroupe3D().getChildren().add(new Line(getPosX(), getPosY()));
+    Group getSymbole3D() {
+        return new Group(new Line(getPosX(), getPosY(), getJonctions()[1].getPositionXY().x, getJonctions()[1].getPositionXY().y));
     }
 }

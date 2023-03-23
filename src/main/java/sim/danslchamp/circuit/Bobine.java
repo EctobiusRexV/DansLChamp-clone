@@ -11,9 +11,9 @@ import java.awt.*;
  */
 public class Bobine extends Composant {
 
-    private int nombreDeSpires = DEFAUT_NOMBRE_DE_SPIRES;
-    private double longueur_mm = DEFAUT_LONGUEUR_mm;
-    private double rayon_mm = DEFAUT_RAYON_mm;
+    private int nombreDeSpires;
+    private double longueur_mm;
+    private double rayon_mm;
 
     /**
      * Permet la construction d'une bobine depuis les attributs SVG
@@ -81,7 +81,7 @@ public class Bobine extends Composant {
     }
 
     @Override
-    Group getSymbole3D(boolean rotation90) {
+    Group getSymbole3D() {
         Group g = new Group();
         //set layout xy
         if (rotation90) {
