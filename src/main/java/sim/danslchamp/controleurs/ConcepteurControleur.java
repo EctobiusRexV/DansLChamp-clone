@@ -20,7 +20,6 @@ import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.Util.ComposantesListCell;
-import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,7 +33,7 @@ import static sim.danslchamp.DansLChampApp.FC;
  * @author Mathis Rosa-Wilson
  * @author Thierry Rhéaume
  */
-public class ConcepteurControleur {
+public class ConcepteurControleur extends ParentControleur {
 
     private Circuit circuit;
 
@@ -168,21 +167,5 @@ public class ConcepteurControleur {
             angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
             angleY.set(anchorAngleY + anchorX - event.getSceneX());
         });
-    }
-
-
-    @FXML
-    void showBibliotheque() {
-        DansLChampApp.loadFenetre("Bibliotheque.fxml").show();
-    }
-
-    @FXML
-    void showAide() {
-        DansLChampApp.loadFenetre("Aide.fxml").show();
-    }
-
-    @FXML
-    void showAPropos() {
-        DansLChampApp.loadFenetre("APropos.fxml").show();
     }
 }

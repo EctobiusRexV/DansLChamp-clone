@@ -3,26 +3,17 @@ package sim.danslchamp.controleurs;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import io.github.palexdev.materialfx.controls.MFXTitledPane;
-import javafx.stage.StageStyle;
-import sim.danslchamp.controleurs.BibliothequeControleur;
 import sim.danslchamp.DansLChampApp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import static sim.danslchamp.DansLChampApp.FC;
 import static sim.danslchamp.DansLChampApp.SVG_LOADER;
@@ -33,26 +24,10 @@ import static sim.danslchamp.DansLChampApp.SVG_LOADER;
  * @author Antoine Bélisle
  * @author Mathis Rosa-Wilson
  */
-public class BienvenueControleur {
+public class BienvenueControleur extends ParentControleur {
     public BorderPane titleBar;
-    private Stage stage;
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
     // FXML
-
-    @FXML
-    private Label labelHautDroite;
-
-    @FXML
-    private Label labelHautMilieu;
-
-    @FXML
-    private Label labelHautGauche;
-
-
     @FXML
     private MFXTitledPane recentsTitlePane;
 
@@ -102,17 +77,11 @@ public class BienvenueControleur {
     // ===============================
     //         ACTIONS MENU
     // ===============================
-    @FXML
+   @FXML
     void fermerApp()  {
         Platform.exit();
     }
 
-    @FXML
-    void showBibliotheque() {
-        Stage bibliStage = ControllerUtil.loadFenetre("Bibliotheque.fxml");
-        bibliStage.setMinHeight(610);
-        bibliStage.setMinWidth(700);
-    }
 
     @FXML
     void ouvrirCircuit() {
@@ -122,37 +91,6 @@ public class BienvenueControleur {
                 DansLChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
         } catch (FileNotFoundException neSappliquePas) {
         }
-    }
-
-    @FXML
-    void showAide() {
-        ControllerUtil.loadFenetre("Aide.fxml");
-
-    }
-
-    @FXML
-    void showAPropos() {
-        Stage stageAPropos = ControllerUtil.loadFenetre("APropos.fxml");
-        stageAPropos.setWidth(500);
-        stageAPropos.setHeight(328);
-    }
-
-    public void resizeApp(ActionEvent actionEvent) {
-        if(stage.isMaximized()) {
-            stage.setMaximized(false);
-        }
-        else stage.setMaximized(true);
-    }
-
-    public void minimizeApp(ActionEvent actionEvent) {
-        stage.setIconified(true);
-    }
-    public void mouvePressed(MouseEvent event) {
-        ControllerUtil.mouveStageUtil(event);
-    }
-
-    public void dragResize(MouseEvent event) {
-        ControllerUtil.resizeUtil(event);
     }
 
 }
