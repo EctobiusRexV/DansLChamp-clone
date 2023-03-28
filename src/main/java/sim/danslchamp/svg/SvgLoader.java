@@ -70,7 +70,7 @@ public class SvgLoader {
         elementMap.put("path", e -> bh.handleElement((SVGOMPathElement) e,
                 useSeparatePathElements));
                 elementMap.put("g", e -> bh.handleElement((SVGOMGElement) e));
-        elementMap.put("use", e -> bh.handleElement((SVGOMUseElement) e));
+        elementMap.put("use", circuit == null ? e -> bh.handleElement((SVGOMUseElement) e) : e->bh.handleCircuitElement((SVGOMUseElement) e));
 
 
         elementMap.put("metadata", e -> bh.handleElement((SVGOMMetadataElement) e));

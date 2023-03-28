@@ -20,15 +20,10 @@ public class Résistor extends Composant {
 
     /**
      * Permet la construction d'un résistor depuis les attributs SVG.
-     *
-     * @param résistance_mOhms
      */
-    public Résistor(int posX, int posY, boolean rotation90,
-                    String résistance_mOhms) {
+    public Résistor(int posX, int posY, boolean rotation90) {
         super(new Jonction[]{new Jonction(new Point(0, 10)), new Jonction(new Point(80, 10))},
                 30, 80, posX, posY, rotation90);
-
-        setRésistance_mOhms(résistance_mOhms);
     }
 
     public long getRésistance_mOhms() {
@@ -55,8 +50,7 @@ public class Résistor extends Composant {
     Group getSymbole3D() {
         Cylinder c = new Cylinder(10,30);
         c.setMaterial(new PhongMaterial(Color.BLUE));
-        c.setLayoutX(getPosX());
-        c.setLayoutY(getPosY());
+
         if (rotation90){
             c.setRotate(90);
         }

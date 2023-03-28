@@ -17,12 +17,9 @@ import java.awt.*;
  */
 public class Pile extends Source {
 
-    public Pile(int posX, int posY, boolean rotation90,
-                String voltage_mV) {
+    public Pile(int posX, int posY, boolean rotation90) {
         super(new Jonction[]{new Jonction(new Point(20, 0)), new Jonction(new Point(20, 30))},
                 30, 40, posX, posY, rotation90);
-
-        setVoltage_mV(voltage_mV);
     }
 
     public void setVoltage_mV(String voltage_mV) {
@@ -45,8 +42,7 @@ public class Pile extends Source {
     Group getSymbole3D() {
         Box box = new Box(100, 50, 20);
         box.setMaterial(new PhongMaterial(Color.RED));
-        box.setLayoutX(getPosX());
-        box.setLayoutY(getPosY());
+
         if (rotation90){
             box.setRotationAxis(new Point3D(1,0,0));
             box.setRotate(90);

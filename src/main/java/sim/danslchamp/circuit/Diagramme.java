@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public abstract class Diagramme {
     private Circuit circuit;
-    private Group group;
+    private final Group group = new Group();
 
     /**
      * Ajoute un composant au diagramme. Construit le composant avec ses paramètres par défaut.
@@ -51,15 +51,15 @@ public abstract class Diagramme {
         return group;
     }
 
-    public class Diagramme2D extends Diagramme {
+    public static class Diagramme2D extends Diagramme {
 
         public Diagramme2D() {
             // Zoom/dézoom
-            group.addEventHandler(ScrollEvent.SCROLL, event -> {
-                if (group.getScaleX() + event.getDeltaY()/100 < 0) return; // empêcher d'obtenir un scale négatif
+            getGroup().addEventHandler(ScrollEvent.SCROLL, event -> {
+                if (getGroup().getScaleX() + event.getDeltaY()/100 < 0) return; // empêcher d'obtenir un scale négatif
 
-                group.scaleXProperty().set(group.getScaleX() + event.getDeltaY() / 100);
-                group.scaleYProperty().set(group.getScaleY() + event.getDeltaY() / 100);
+                getGroup().scaleXProperty().set(getGroup().getScaleX() + event.getDeltaY() / 100);
+                getGroup().scaleYProperty().set(getGroup().getScaleY() + event.getDeltaY() / 100);
 
             });
         }
@@ -70,11 +70,11 @@ public abstract class Diagramme {
             symbole.setTranslateX(composant.getPosX());
             symbole.setTranslateY(composant.getPosY());
 
-            group.getChildren().add(symbole);
+            getGroup().getChildren().add(symbole);
         }
     }
 
-    public class Diagramme3D extends Diagramme {
+    public static class Diagramme3D extends Diagramme {
 
         private final DoubleProperty angleX = new SimpleDoubleProperty(0), angleY = new SimpleDoubleProperty(0);
         private double anchorX, anchorY, anchorAngleX = 0, anchorAngleY = 0;
@@ -105,7 +105,7 @@ public abstract class Diagramme {
             symbole.setTranslateX(composant.getPosX());
             symbole.setTranslateY(composant.getPosY());
 
-            group.getChildren().add(symbole);
+            getGroup().getChildren().add(symbole);
         }
     }
 }

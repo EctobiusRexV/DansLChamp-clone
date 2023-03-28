@@ -21,15 +21,10 @@ public class Condensateur extends Composant {
 
     /**
      * Permet la construction d'un condensateur depuis les attributs SVG
-     *
-     * @param capacité_pf
      */
-    public Condensateur(int posX, int posY, boolean rotation90,
-                        String capacité_pf) {
+    public Condensateur(int posX, int posY, boolean rotation90) {
         super(new Jonction[]{new Jonction(new Point(20, 0)), new Jonction(new Point(20, 30))},
                 30, 40, posX, posY, rotation90);
-
-        setCapacité_pf(capacité_pf);
     }
 
     public void setCapacité_pf(String capacité_pf) {

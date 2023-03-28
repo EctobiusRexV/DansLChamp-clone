@@ -17,19 +17,10 @@ public class Bobine extends Composant {
 
     /**
      * Permet la construction d'une bobine depuis les attributs SVG
-     *
-     * @param longueur_mm
-     * @param nombreDeSpires
-     * @param rayon_mm
      */
-    public Bobine(int posX, int posY, boolean rotation90,
-                  String longueur_mm, String nombreDeSpires, String rayon_mm) {
+    public Bobine(int posX, int posY, boolean rotation90) {
         super(new Jonction[]{new Jonction(new Point(0, 10)), new Jonction(new Point(80, 10))},
                 22, 80, posX, posY, rotation90);
-
-        setLongueur_mm(longueur_mm);
-        setNombreDeSpires(nombreDeSpires);
-        setRayon_mm(rayon_mm);
     }
 
     public void setNombreDeSpires(String nombreDeSpires) {

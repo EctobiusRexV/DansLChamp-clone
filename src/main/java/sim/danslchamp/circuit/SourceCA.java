@@ -15,12 +15,9 @@ import java.awt.*;
  */
 public class SourceCA extends Source {
 
-    public SourceCA(int posX, int posY, boolean rotation90,
-                    String voltage_mV) {
+    public SourceCA(int posX, int posY, boolean rotation90) {
         super(new Jonction[]{new Jonction(new Point(20, 0)), new Jonction(new Point(20, 40))},
                 40, 40,  posX, posY, rotation90);
-
-        setVoltage_mV(voltage_mV);
     }
 
     public void setVoltage_mV(String voltage_mV) {
@@ -43,8 +40,7 @@ public class SourceCA extends Source {
     Group getSymbole3D() {
         Box box = new Box(100, 50, 20);
         box.setMaterial(new PhongMaterial(Color.RED));
-        box.setLayoutX(this.getPosX());
-        box.setLayoutY(this.getPosY());
+
         if (rotation90){
             box.setRotationAxis(new Point3D(1,0,0));
             box.setRotate(90);

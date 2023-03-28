@@ -77,10 +77,11 @@ public class SvgBasicElementHandler {
 
         loader.parentNode.getChildren().add(result);
 
+        if (loader.getCircuit() != null)
         loader.getCircuit().addComposant(new Fil((int) x1, (int) y1, (int) x2, (int) y2));
     }
 
-    void handleElement(SVGOMUseElement element) {
+    void handleCircuitElement(SVGOMUseElement element) {
         String type = element.getHref().getBaseVal().substring(1); // le #
         Composant composant = loader.getCircuit().addComposant(
                 type,
@@ -100,6 +101,16 @@ public class SvgBasicElementHandler {
         }
 
         System.out.println("Loaded use element: " + type);
+    }
+
+    void handleElement(SVGOMUseElement element) {
+        String type = element.getHref().getBaseVal().substring(1); // le #
+        Group group = Composant.getSymbole2D(type);
+
+        group.setTranslateX(element.getX().getBaseVal().getValue());
+        group.setTranslateY(element.getY().getBaseVal().getValue());
+
+        loader.parentNode.getChildren().add(group);
     }
 
     private static boolean estRotationne90(SVGOMUseElement element) {

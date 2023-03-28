@@ -26,9 +26,9 @@ public class Circuit {
     private final ObservableList<Composant> composants = FXCollections.observableArrayList();
     private final List<Source> sources = new ArrayList<>();
 
-    private Diagramme.Diagramme2D diagramme2D;
+    private final Diagramme.Diagramme2D diagramme2D = new Diagramme.Diagramme2D();
 
-    private Diagramme.Diagramme3D diagramme3D;
+    private final Diagramme.Diagramme3D diagramme3D = new Diagramme.Diagramme3D();
 
     /**
      * Un circuit est composé de multiples composants connectés les uns avec les autres.
