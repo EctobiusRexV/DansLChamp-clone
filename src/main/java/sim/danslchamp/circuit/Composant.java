@@ -2,11 +2,11 @@ package sim.danslchamp.circuit;
 
 import javafx.scene.Group;
 
-import java.awt.Point;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
+
+import static sim.danslchamp.DansLChampApp.SVG_LOADER;
 
 public abstract class Composant {
 
@@ -43,13 +43,6 @@ public abstract class Composant {
      */
     private Jonction bornePositive;
 
-
-    //fixme delete
-    Group group3D;
-    public Group getGroupe3D() {
-        return group3D;
-    }
-    abstract void initGroupe3D();
 
     /**
      * Aide aux tests
@@ -106,8 +99,14 @@ public abstract class Composant {
         this.bornePositive = bornePositive;
     }
 
-    //    abstract Group getSymbole2D();
-//    abstract Group getSymbole3D();
+    public Group getSymbole2D() {
+        return SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("symboles\\" + getClass().getSimpleName() + ".svg"));
+    }
+
+    public static Group getSymbole2D(String symbole) {
+        return SVG_LOADER.loadSvg(Composant.class.getResourceAsStream("symboles\\" +  symbole + ".svg"));
+    }
+    abstract Group getSymbole3D();
 
     // Getters & Setters
 
@@ -142,16 +141,10 @@ public abstract class Composant {
     public Jonction getBornePositive() {
         return bornePositive;
     }
-
-    public List<Method> getSetMethodsTriées() {
-        return getSetMethodsTriées(getClass().getDeclaredMethods());
-    }
-
-    public static List<Method> getSetMethodsTriées(Method[] methods) {
-        return Arrays.stream(methods)
+    public Method[] getSetMethods() {
+        return Arrays.stream(getClass().getDeclaredMethods())
                 .filter(method -> method.getName().startsWith("set"))
-                .sorted(Comparator.comparing(Method::getName))
-                .toList();
+                .toArray(Method[]::new);
     }
 
     /**

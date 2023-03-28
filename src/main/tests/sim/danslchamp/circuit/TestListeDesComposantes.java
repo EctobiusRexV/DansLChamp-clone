@@ -1,4 +1,4 @@
-package circuit;
+package sim.danslchamp.circuit;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -18,7 +18,7 @@ public class TestListeDesComposantes extends Application {
         // fixme instancier toutes les classes enfant de Composante
 //        Composante.class
 
-        ListView<Composant> composanteListView = new ListView<Composant>(FXCollections.observableList(List.of(new Bobine(4, 4, false, "4", "4", "4"))));
+        ListView<Composant> composanteListView = new ListView<Composant>(FXCollections.observableList(List.of(new Bobine(4, 4, false))));
 
         composanteListView.setCellFactory(value -> new ComposantesListCell());
 

@@ -17,15 +17,8 @@
 package sim.danslchamp.svg;
 
 import javafx.scene.Group;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.paint.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Affine;
 import org.apache.batik.anim.dom.*;
@@ -33,7 +26,6 @@ import org.apache.batik.anim.dom.SVGOMAnimatedPathData.BaseSVGPathSegList;
 import org.apache.batik.css.dom.CSSOMSVGColor;
 import org.apache.batik.css.dom.CSSOMValue;
 import org.apache.batik.dom.svg.SVGPathSegItem;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.css.CSSPrimitiveValue;
@@ -46,9 +38,9 @@ import sim.danslchamp.circuit.Fil;
 import sim.danslchamp.circuit.Jonction;
 import sim.danslchamp.circuit.Source;
 
-import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -57,24 +49,6 @@ public class SvgBasicElementHandler {
 
     public SvgStyleTools styleTools = null;
     private final SvgLoader loader;
-
-    private final Map<String, SVGOMGElement> defs = new HashMap<>();
-
-    private final ArrayList<Source> sources = new ArrayList<>();
-
-    private final ArrayList<Composant> composants = new ArrayList<>();
-
-    /**
-     * Un circuit est composé de multiples composantes connectées l'une avec les autres.
-     * Pour un point de connexion donné (connecteur), on énumère la liste des composantes qui y sont liées.
-     * <p>
-     * Chaque composante définit relativement la position de ses connecteurs. Ce sont les positions où il est graphiquement
-     * possible de lier la composante à une autre. L'emplacement des connecteurs absolus est calculé suivant l'emplacement absolu
-     * de la composante (x=, y=), additionné de la position relative de ses connecteurs (translation).
-     * <p>
-     * Un connecteur liant plus de deux composantes est un noeud, suivant la loi des noeuds.
-     */
-    private final ArrayList<Jonction> jonctions = new ArrayList<>();
 
 //    GradientFactory gradientFactory = new GradientFactory();
 
@@ -103,77 +77,47 @@ public class SvgBasicElementHandler {
 
         loader.parentNode.getChildren().add(result);
 
-        addJonction(new Fil((int) x1, (int) y1, (int) x2, (int) y2));
+        if (loader.getCircuit() != null)
+        loader.getCircuit().addComposant(new Fil((int) x1, (int) y1, (int) x2, (int) y2));
+    }
+
+    void handleCircuitElement(SVGOMUseElement element) {
+        String type = element.getHref().getBaseVal().substring(1); // le #
+        Composant composant = loader.getCircuit().addComposant(
+                type,
+                (int) element.getX().getBaseVal().getValue(),
+                (int) element.getY().getBaseVal().getValue(),
+                estRotationne90(element)
+        );
+
+        for (Method method :
+                composant.getSetMethods()) {
+            try {
+                method.invoke(composant,
+                        element.getAttribute(method.getName().replace("set", "x")));
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();    // NE DEVRAIT PAS ARRIVER
+            }
+        }
+
+        System.out.println("Loaded use element: " + type);
     }
 
     void handleElement(SVGOMUseElement element) {
-        int     posX = (int) element.getX().getBaseVal().getValue(),
-                posY = (int) element.getY().getBaseVal().getValue();
-
-
-        SVGOMGElement gEl = (SVGOMGElement) defs.get(element.getHref().getBaseVal().substring(1)).cloneNode(true);
-        gEl.setAttribute("transform",
-                "translate(" + posX + "," + posY + ")");
-
-        // Créer la classe Java
         String type = element.getHref().getBaseVal().substring(1); // le #
-        try {
-            Class<Composant> composanteClass = (Class<Composant>) Class.forName("sim.danslchamp.circuit." + type);
-            List<Method> setMethods = Composant.getSetMethodsTriées(composanteClass.getDeclaredMethods());
-            List<String> attributs = setMethods.stream()
-                    .map(method -> {
-                        String attr = method.getName()
-                                .replace("set", "x");
-                        attr = element.getAttribute(attr);
-                        return attr;
-                    }).toList();    // il existe un attribut pour ch. setter
+        Group group = Composant.getSymbole2D(type);
 
-            List<Object> params = new ArrayList<>(List.of(posX, posY, false));
-            Collections.addAll(params, attributs.toArray());
-            Constructor<?> constructor = composanteClass.getDeclaredConstructors()[0];
-            Composant c = (Composant) constructor.newInstance(
-                    params.toArray()
-            );
-            // SVP qu'un seul constructeur!
+        group.setTranslateX(element.getX().getBaseVal().getValue());
+        group.setTranslateY(element.getY().getBaseVal().getValue());
 
-
-            if (c instanceof Source) sources.add((Source) c);
-
-            addJonction(c);
-            composants.add(c);
-
-            loader.handle(gEl);
-
-            System.out.println("Loaded use element: " + type);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Impossible de charger " + type);
-            alert.getDialogPane().setExpandableContent(new Label(e.getMessage()));
-            alert.showAndWait();
-            e.printStackTrace();
-        }
+        loader.parentNode.getChildren().add(group);
     }
 
-    /**
-     * Ajoute les connecteurs de {@code composante} (noeud, intersection) à la liste des connecteurs.
-     * Si le connecteur existe déjà, la composante est ajoutée à la liste.
-     * Sinon, le connecteur est ajouté et une nouvelle liste contenant la composante y est associé.
-     * @see SvgBasicElementHandler#jonctions
-     * @param composant
-     */
-    private void addJonction(Composant composant) {
-        for (Jonction jonction:
-                composant.getJonctions()) {
-
-            int jonctionIdx = jonctions.indexOf(jonction);
-
-            if(jonctionIdx == -1) {
-                jonction.addComposant(composant);
-                jonctions.add(jonction);
-            } else {
-                jonctions.get(jonctionIdx).addComposant(composant);
-            }
-        }
+    private static boolean estRotationne90(SVGOMUseElement element) {
+//        return element.getTransform().getBaseVal()
+        return false;
     }
+
 
     // <svg>
     void handleElement(SVGOMSVGElement element) {
@@ -197,16 +141,6 @@ public class SvgBasicElementHandler {
     // <defs>
     void handleElement(SVGOMDefsElement element) {
         System.out.println("Handling <defs>: " + element);
-        handle(element);
-    }
-
-    private void handle(Node node) {
-        if (node instanceof SVGOMGElement) defs.put(((SVGOMGElement) node).getId(), (SVGOMGElement) node);
-        NodeList children = node.getChildNodes();
-        for (int i = 0; i < children.getLength(); i++) {
-            org.w3c.dom.Node element = children.item(i);
-            handle(element);
-        }
     }
 
 
@@ -410,17 +344,6 @@ public class SvgBasicElementHandler {
         loader.parentNode.getChildren().add(result);
     }
 
-    public ArrayList<Source> getSources() {
-        return sources;
-    }
-
-    public ArrayList<Composant> getComposants() {
-        return composants;
-    }
-
-    public List<Jonction> getJonctions() {
-        return jonctions;
-    }
 
     /**
      * Returns an array with coordinate pairs from an SVGPointList.

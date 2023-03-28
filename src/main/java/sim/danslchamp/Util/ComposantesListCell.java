@@ -28,7 +28,7 @@ public class ComposantesListCell extends ListCell<Composant> {
 
             vBox.getChildren().add(new Label(item.getClass().getSimpleName()));
 
-            for (Method m : item.getSetMethodsTriées()) {
+            for (Method m : item.getSetMethods()) {
                 HBox hBox = new HBox();
                 HBox.setHgrow(hBox, Priority.ALWAYS);
                 hBox.setMinWidth(300);

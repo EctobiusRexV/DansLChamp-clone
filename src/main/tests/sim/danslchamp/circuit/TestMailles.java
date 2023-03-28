@@ -1,27 +1,31 @@
-package circuit;
+package sim.danslchamp.circuit;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Jonction;
 import testUtil.ListPoint2D;
 
+import java.io.File;
 import java.util.List;
 
 import static sim.danslchamp.DansLChampApp.SVG_LOADER;
 
-public class TestNoeuds extends Application {
+public class TestMailles extends Application {
+
     List<Jonction> jonctions;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Pane pane = new Pane(SVG_LOADER.loadSvg(".\\circuits\\circuitLC.svg"));
+        Circuit circuit = Circuit.chargerCircuit(new File(".\\circuits\\circuitLC.svg"));
 
-        jonctions = SVG_LOADER.getSvgElementHandler().getJonctions();
+        jonctions = circuit.getJonctions();
 
         // DEBUG
-        pane.getChildren().add(new ListPoint2D(jonctions.stream().filter(Jonction::estNoeud).toList()).getGroupe());
+        Pane pane = new Pane(circuit.getDiagramme2D().getGroup());
+        pane.getChildren().add(new ListPoint2D(jonctions).getGroupe());
 
         primaryStage.setScene(new Scene(pane));
 

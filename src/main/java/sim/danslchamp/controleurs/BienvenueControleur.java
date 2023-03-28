@@ -19,6 +19,7 @@ import io.github.palexdev.materialfx.controls.MFXTitledPane;
 import javafx.stage.StageStyle;
 import sim.danslchamp.controleurs.BibliothequeControleur;
 import sim.danslchamp.DansLChampApp;
+import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -76,8 +77,9 @@ public class BienvenueControleur {
     }
 
     private VBox getCircuitVBox(String filename) {
+        SvgLoader svgLoader = new SvgLoader(null);
         VBox vBox = new VBox(
-                SVG_LOADER.loadSvg(filename),
+                svgLoader.loadSvg(filename),
                 new Label(filename)
         );
 

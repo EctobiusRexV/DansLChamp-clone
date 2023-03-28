@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package sim.danslchamp;
+package sim.danslchamp.svg;
 
-import sim.danslchamp.svg.SvgLoader;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -68,7 +67,7 @@ public class SvgLoaderResultViewer extends Application {
     private Group imageLayout = new Group();
 
     private final HBox mainLayout = new HBox();
-    private SvgLoader loader = new SvgLoader();
+    private SvgLoader loader = new SvgLoader(null);
     private String currentFile;
 
     public static void main(String[] args) {

@@ -22,6 +22,7 @@ import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.Util.ComposantesListCell;
 import sim.danslchamp.svg.SvgLoader;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -37,12 +38,6 @@ import static sim.danslchamp.DansLChampApp.FC;
 public class ConcepteurControleur {
 
     private Circuit circuit;
-
-    private double anchorX, anchorY;
-    private double anchorAngleX = 0;
-    private double anchorAngleY = 0;
-    private final DoubleProperty angleX = new SimpleDoubleProperty(0);
-    private final DoubleProperty angleY = new SimpleDoubleProperty(0);
 
     private Stage stage;
 
@@ -114,21 +109,13 @@ public class ConcepteurControleur {
      */
     public void chargerCircuit(@Nullable File file) throws FileNotFoundException {
         circuit = Circuit.chargerCircuit(file);
+        composantesListView.setItems(circuit.getComposants());
 
-        Group group = circuit.getGroupe2D();
-        vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
-            if (group.getScaleX() + event.getDeltaY()/100 < 0) return; // empêcher d'obtenir un scale négatif
+        vBox2D.getChildren().setAll(circuit.getDiagramme2D().getGroup());
 
-            group.scaleXProperty().set(group.getScaleX() + event.getDeltaY() / 100);
-            group.scaleYProperty().set(group.getScaleY() + event.getDeltaY() / 100);
-
-        });
-        vBox2D.getChildren().setAll(group);
-
-
-        Group group3D = circuit.getDiagramme3D();
+        Group group3D = circuit.getDiagramme3D().getGroup();
         subScene3D.addEventHandler(ScrollEvent.SCROLL, event -> {
-            group.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY());
+            group3D.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY());
         });
 
         // Centrer
@@ -140,36 +127,8 @@ public class ConcepteurControleur {
 //        scene.setFill(Color.TRANSPARENT);
         subScene3D.setFill(Color.LIGHTGRAY);
         subScene3D.setCamera(camera);
-        subScene3D.setRoot(circuit.getDiagramme3D());
-
-        initMouseControl(group3D, subScene3D);
-
-        composantesListView.setItems(circuit.getComposants());
+        subScene3D.setRoot(group3D);
     }
-
-    private void initMouseControl(Group group, SubScene scene) {
-        Rotate xRotate;
-        Rotate yRotate;
-        group.getTransforms().addAll(
-                xRotate = new Rotate(0, Rotate.X_AXIS),
-                yRotate = new Rotate(0, Rotate.Y_AXIS)
-        );
-        xRotate.angleProperty().bind(angleX);
-        yRotate.angleProperty().bind(angleY);
-
-        scene.setOnMousePressed(event -> {
-            anchorX = event.getSceneX();
-            anchorY = event.getSceneY();
-            anchorAngleX = angleX.get();
-            anchorAngleY = angleY.get();
-        });
-
-        scene.setOnMouseDragged(event -> {
-            angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
-            angleY.set(anchorAngleY + anchorX - event.getSceneX());
-        });
-    }
-
 
     @FXML
     void showBibliotheque() {
@@ -184,5 +143,14 @@ public class ConcepteurControleur {
     @FXML
     void showAPropos() {
         DansLChampApp.loadFenetre("APropos.fxml").show();
+    }
+
+    public class Concepteur {
+        Point posXY;
+        boolean vertical;
+
+        public void addComposant(Class<Composant> composantClass, int posX, int posY, boolean rotation90) {
+
+        }
     }
 }
