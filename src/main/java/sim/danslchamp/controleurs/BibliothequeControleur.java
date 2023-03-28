@@ -17,7 +17,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import org.reflections.Reflections;
 import sim.danslchamp.Util.MathMlUtil;
+import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.controleurs.ControllerUtil;
 import sim.danslchamp.svg.SvgLoader;
 
@@ -25,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import static sim.danslchamp.DansLChampApp.SVG_LOADER;
 
@@ -46,16 +49,14 @@ public class BibliothequeControleur implements Initializable {
 
         vBoxPane.setFillWidth(true);
 
-        CreerVBoxs("bobine");
-        CreerVBoxs("condensateur");
-        CreerVBoxs("resistor");
-        CreerVBoxs("source_batterie");
+        // Un panel pour chaque composant :
+        Reflections reflections = new Reflections("sim.danslchamp.circuit");
 
-        //fixme
-        CreerVBoxs("source_ca");
-        //fixme
-        CreerVBoxs("source_cc");
+        Set<Class<? extends Composant>> composantsClasses = reflections.getSubTypesOf(Composant.class);
 
+        for (Class<? extends Composant> composantClass : composantsClasses) {
+            CreerVBoxs(composantClass.getSimpleName());
+        }
     }
 
     private void CreerVBoxs(String nom) {
@@ -72,8 +73,11 @@ public class BibliothequeControleur implements Initializable {
 
         group.minHeight(50);
 
-
-        group = SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("..\\circuit\\symboles\\" + nom + ".svg"));
+try {
+    group = SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("..\\circuit\\symboles\\" + nom + ".svg"));
+} catch (Exception e) {
+    System.err.println("Incapable de présenter le composant " + nom);;
+}
 
         Label label = new Label(nom);
 

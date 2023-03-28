@@ -4,16 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sim.danslchamp.DansLChampApp;
 
 public class TestBibliothequeControleur extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("."));
-
-        primaryStage.setScene(
-                new Scene(loader.load(this.getClass().getResourceAsStream("Bibliotheque.fxml"))));
-
-        primaryStage.show();
+        DansLChampApp.loadFenetre("Bibliotheque.fxml").show();
     }
 
     public static void main(String[] args) {
