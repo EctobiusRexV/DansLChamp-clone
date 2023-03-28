@@ -119,21 +119,13 @@ public class PrincipaleControleur {
      */
     public void chargerCircuit(@Nullable File file) throws FileNotFoundException {
         circuit = Circuit.chargerCircuit(file);
+        composantesListView.setItems(circuit.getComposants());
 
-        Group group = circuit.getGroupe2D();
-        vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
-            if (group.getScaleX() + event.getDeltaY()/100 < 0) return; // empêcher d'obtenir un scale négatif
+        vBox2D.getChildren().setAll(circuit.getDiagramme2D().getGroup());
 
-            group.scaleXProperty().set(group.getScaleX() + event.getDeltaY() / 100);
-            group.scaleYProperty().set(group.getScaleY() + event.getDeltaY() / 100);
-
-        });
-        vBox2D.getChildren().setAll(group);
-
-
-        Group group3D = circuit.getDiagramme3D();
+        Group group3D = circuit.getDiagramme3D().getGroup();
         subScene3D.addEventHandler(ScrollEvent.SCROLL, event -> {
-            group.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY());
+            group3D.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY());
         });
 
         // Centrer
@@ -145,11 +137,7 @@ public class PrincipaleControleur {
 //        scene.setFill(Color.TRANSPARENT);
         subScene3D.setFill(Color.LIGHTGRAY);
         subScene3D.setCamera(camera);
-        subScene3D.setRoot(circuit.getDiagramme3D());
-
-        initMouseControl(group3D, subScene3D);
-
-        composantesListView.setItems(circuit.getComposants());
+        subScene3D.setRoot(group3D);
     }
 
     private void initMouseControl(Group group, SubScene scene) {

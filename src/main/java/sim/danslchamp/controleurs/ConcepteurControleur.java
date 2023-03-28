@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
@@ -19,6 +20,8 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 public class ConcepteurControleur {
+
+    private static final int TAILLE_QUADRILLAGE_px = 25;
 
     private int posX = 0, posY = 0;
 
@@ -48,13 +51,14 @@ public class ConcepteurControleur {
         for (Class<? extends Composant> composantClass :
                 composantsClasses) {
             try {
-                Method method = Composant.class.getMethod("getSymbole2D", Class.class);
-                Group group = (Group) method.invoke(Composant.class, composantClass);
+                Method method = Composant.class.getMethod("getSymbole2D", String.class);
+                Group group = (Group) method.invoke(Composant.class, composantClass.getSimpleName());
                 Button button = new Button("", group);
+                    button.setTooltip(new Tooltip(composantClass.getSimpleName()));
                 button.setOnAction(event -> {
                     circuit.addComposant(composantClass, posX, posY, vertical);
                 });
-                toolbar.getItems().add();
+                toolbar.getItems().add(button);
             } catch (ClassCastException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException e) {
                 System.out.println(e);        // NE DEVRAIT PAS ARRIVER
@@ -64,7 +68,9 @@ public class ConcepteurControleur {
 
     @FXML
     void mouseClicked(MouseEvent event) {
-        currentLine = new Line(posX, posY, event.getX(), event.getY());
+        currentLine = new Line(posX, posY,
+                Math.round((int) event.getX() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px),
+                Math.round((int) event.getY() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px));
 
         currentLine.setOnMouseEntered(e -> {
                     Line line = (Line) e.getTarget();
@@ -82,13 +88,13 @@ public class ConcepteurControleur {
 
     @FXML
     void mouseDragged(MouseEvent event) {
-        currentLine.setEndX(event.getX());
-        currentLine.setEndY(event.getY());
+        currentLine.setEndX(Math.round((int) event.getX() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px));
+        currentLine.setEndY(Math.round((int) event.getY() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px));
     }
 
     @FXML
     void mouseReleased(MouseEvent event) {
-        posX = (int) event.getX();
-        posY = (int) event.getY();
+        posX = (int) currentLine.getEndX();
+        posY = (int) currentLine.getEndY();
     }
 }
