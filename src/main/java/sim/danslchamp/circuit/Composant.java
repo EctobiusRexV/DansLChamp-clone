@@ -44,6 +44,13 @@ public abstract class Composant {
     private Jonction bornePositive;
 
 
+    //fixme delete
+    Group group3D;
+    public Group getGroupe3D() {
+        return group3D;
+    }
+    abstract void initGroupe3D();
+
     /**
      * Aide aux tests
      */

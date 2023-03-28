@@ -1,14 +1,13 @@
-package sim.danslchamp;
+package sim.danslchamp.controleurs;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import sim.danslchamp.DansLChampApp;
 
-import java.io.File;
-
-public class ConcepteurAvecCircuitRApp extends Application {
+public class TestConcepteurControleurApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        DansLChampApp.showConcepteurDeCircuit(new File(".\\circuits\\circuitLC.svg"));
+        DansLChampApp.loadFenetre("Concepteur.fxml").show();
     }
 
     public static void main(String[] args) {
