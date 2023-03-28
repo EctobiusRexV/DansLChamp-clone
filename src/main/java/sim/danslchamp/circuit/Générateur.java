@@ -13,9 +13,9 @@ import java.awt.*;
  * @author Antoine Bélisle
  * @author Mathis-Rosa Wilson
  */
-public class SourceCA extends Source {
+public class Générateur extends Source {
 
-    public SourceCA(int posX, int posY, boolean rotation90) {
+    public Générateur(int posX, int posY, boolean rotation90) {
         super(new Jonction[]{new Jonction(new Point(20, 0)), new Jonction(new Point(20, 40))},
                 40, 40,  posX, posY, rotation90);
     }
