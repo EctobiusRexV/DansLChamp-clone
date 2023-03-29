@@ -1,29 +1,17 @@
 package sim.danslchamp.controleurs;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import org.reflections.Reflections;
 import sim.danslchamp.Util.MathMlUtil;
 import sim.danslchamp.circuit.Composant;
-import sim.danslchamp.controleurs.ControllerUtil;
-import sim.danslchamp.svg.SvgLoader;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -84,12 +72,12 @@ public class BibliothequeControleur implements Initializable {
 
         vBox.setOnMouseClicked(event -> {
             try {
-                if(nom.contains("source") && !nom.contains("batterie")){
-                    textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt("source"+".txt"));
-                }else textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt(nom+".txt"));
+                if (nom.contains("source") && !nom.contains("batterie")) {
+                    textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt("source" + ".txt"));
+                } else textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt(nom + ".txt"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        } );
+        });
     }
 }
