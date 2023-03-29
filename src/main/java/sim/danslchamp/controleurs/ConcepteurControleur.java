@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
+import sim.danslchamp.Config;
 import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
@@ -109,6 +110,7 @@ public class ConcepteurControleur extends ParentControleur {
      */
     public void chargerCircuit(@Nullable File file) throws FileNotFoundException {
         circuit = Circuit.chargerCircuit(file);
+        pousserCircuitRecent(file);
         composantesListView.setItems(circuit.getComposants());
 
         vBox2D.getChildren().setAll(circuit.getDiagramme2D().getGroup());
@@ -140,5 +142,11 @@ vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
         });
         subScene3D.setRoot(group3D);
         circuit.getDiagramme3D().initMouseControl(group3D, subScene3D);
+    }
+
+    private static void pousserCircuitRecent(File file) {
+        Config.circuitRecent3 = Config.circuitRecent2;
+        Config.circuitRecent2 = Config.circuitRecent1;
+        Config.circuitRecent1 = file.getAbsolutePath();
     }
 }

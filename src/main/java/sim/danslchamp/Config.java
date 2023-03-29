@@ -21,12 +21,18 @@ public abstract class Config {
 
     public static int defautComposantStrokeWidth = 3;
 
+    public static String circuitRecent1 = "";
+    public static String circuitRecent2 = "";
+    public static String circuitRecent3 = "";
+
     static void charger() {
         try {
             Field[] champs = Config.class.getFields();
             List<String> lines = Files.readAllLines(Path.of("config"));
             for (int i = 0; i < champs.length; i++) {
-                champs[i].setInt(null, Integer.parseInt(lines.get(i)));
+                if (champs[i].getType().getName().equals("int"))
+                    champs[i].setInt(null, Integer.parseInt(lines.get(i)));
+                else champs[i].set(null, lines.get(i));
             }
 
         } catch (IOException | IllegalAccessException e) {
