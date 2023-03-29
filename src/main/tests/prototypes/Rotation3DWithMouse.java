@@ -14,6 +14,7 @@ import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
+import sim.danslchamp.circuit.Condensateur;
 import testUtil.ListPoint;
 
 public class Rotation3DWithMouse extends Application {
@@ -99,7 +100,7 @@ public class Rotation3DWithMouse extends Application {
 
         SmartGroup group = new SmartGroup();
         // aa
-        group.getChildren().addAll(c, cone, p);
+        group.getChildren().addAll();
 
         Camera camera = new PerspectiveCamera();
         Scene scene = new Scene(group, WIDTH, HEIGHT);

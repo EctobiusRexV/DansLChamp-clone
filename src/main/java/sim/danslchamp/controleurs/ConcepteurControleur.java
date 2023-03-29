@@ -4,6 +4,8 @@ import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
+
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
@@ -125,10 +127,18 @@ public class ConcepteurControleur {
 
         Camera camera = new PerspectiveCamera();
 //        scene.setFill(Color.TRANSPARENT);
-        subScene3D.setFill(Color.LIGHTGRAY);
+        subScene3D.setFill(Color.WHITE);
         subScene3D.setCamera(camera);
+        subScene3D.addEventHandler(EventType.ROOT, (a) -> {
+            if (subScene3D.getWidth()/2 != group3D.getLayoutX()) {
+                group3D.setLayoutX(subScene3D.getWidth()/3);
+            }
+        });
         subScene3D.setRoot(group3D);
+        circuit.getDiagramme3D().initMouseControl(group3D, subScene3D);
     }
+
+
 
     @FXML
     void showBibliotheque() {
