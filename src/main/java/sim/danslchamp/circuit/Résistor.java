@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
+import sim.danslchamp.Config;
 import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.*;
@@ -16,7 +17,7 @@ import java.awt.*;
  */
 public class Résistor extends Composant {
 
-    private long résistance_mOhms;
+    private long résistance_mOhms = Config.defautResistorResistance_mOhms;
 
     /**
      * Permet la construction d'un résistor depuis les attributs SVG.
