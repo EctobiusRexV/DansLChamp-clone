@@ -155,4 +155,10 @@ vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
         Config.circuitRecent2 = Config.circuitRecent1;
         Config.circuitRecent1 = file.getAbsolutePath();
     }
+
+    private static void pousserCircuitRecent(File file) {
+        Config.circuitRecent3 = Config.circuitRecent2;
+        Config.circuitRecent2 = Config.circuitRecent1;
+        Config.circuitRecent1 = file.getAbsolutePath();
+    }
 }
