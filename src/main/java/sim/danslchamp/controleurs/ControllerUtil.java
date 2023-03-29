@@ -14,10 +14,16 @@ import java.io.IOException;
 public class ControllerUtil {
 
     public static Stage loadFenetre(String path, double minHeight, double minWidht){
+        Stage stage = loadStage(path, minHeight, minWidht);
+        stage.show();
+        return stage;
+    }
+
+    public static Stage loadStage(String path, double minHeight, double minWidht){
         Stage stage = new Stage();
 
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
+            FXMLLoader fxmlLoader = new FXMLLoader(ControllerUtil.class.getResource("."));
 
             Scene scene = new Scene(fxmlLoader.load(ControllerUtil.class.getResourceAsStream("..\\fxml\\" + path)));
 
@@ -28,7 +34,6 @@ public class ControllerUtil {
             stage.setMinHeight(minHeight);
             stage.setMinWidth(minWidht);
             stage.setResizable(true);
-            stage.show();
 
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -38,4 +43,7 @@ public class ControllerUtil {
         }
         return stage;
     }
+
+
+
 }

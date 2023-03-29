@@ -16,6 +16,12 @@ public abstract class ParentControleur {
     @FXML
     BorderPane root;
 
+    static Stage aideStage = ControllerUtil.loadStage("Aide.fxml", 328, 500);
+
+    static Stage stageAPropos = ControllerUtil.loadStage("APropos.fxml", 328, 500);
+
+    static Stage stageBibliotheque = ControllerUtil.loadStage("Bibliotheque.fxml", 610, 700);
+
     public void setStage(Stage stage) {
         this.stage = stage;
         stage.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -53,20 +59,21 @@ public abstract class ParentControleur {
 
     @FXML
     void showBibliotheque() {
-        ControllerUtil.loadFenetre("Bibliotheque.fxml", 610, 700);
+        stageBibliotheque.show();
+        stageBibliotheque.requestFocus();
     }
 
     @FXML
     void showAide() {
-        ControllerUtil.loadFenetre("Aide.fxml", 328, 500);
+        aideStage.show();
+        aideStage.requestFocus();
 
     }
 
     @FXML
     void showAPropos() {
-        Stage stageAPropos = ControllerUtil.loadFenetre("APropos.fxml", 328, 500);
-        stageAPropos.setWidth(500);
-        stageAPropos.setHeight(328);
+        stageAPropos.show();
+        stageAPropos.requestFocus();
     }
 
 

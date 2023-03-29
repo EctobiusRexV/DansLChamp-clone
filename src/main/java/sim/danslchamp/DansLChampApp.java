@@ -50,7 +50,7 @@ public class DansLChampApp extends Application {
      * @param file Le fichier chargé à l'ouverture, ou null.
      */
     public static void showConcepteurDeCircuit(@Nullable File file) throws FileNotFoundException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
+        FXMLLoader fxmlLoader = new FXMLLoader(ControllerUtil.class.getResource("."));
         Stage stage = new Stage();
 
         try {
@@ -66,8 +66,8 @@ public class DansLChampApp extends Application {
         ConcepteurControleur concepteurControleur = fxmlLoader.getController();
         concepteurControleur.setStage(stage);
         concepteurControleur.chargerCircuit(file);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-        stage.setMaximized(true);
         stage.setMinWidth(800.0);
         stage.setMinHeight(600.0);
     }

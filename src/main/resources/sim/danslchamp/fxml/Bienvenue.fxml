@@ -24,7 +24,7 @@ les ressource maven et les ressource que scene builder utilise ne se pas compati
 je vais identifier ou sont les ressource dans le code
 -->
 
-<BorderPane fx:id="root" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
+<BorderPane fx:id="root" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="480.0" prefWidth="575.0" spacing="30.0" style="-fx-background-color: white;">
          <children>
@@ -59,7 +59,7 @@ je vais identifier ou sont les ressource dans le code
 <!--                l'url de scene builder : "@../controleurs/logoComplet.png"-->
 <!--                l'url de intellij sim/danslchamp/controleurs/logoComplet.png-->
                <image>
-                  <Image url="sim/danslchamp/controleurs/logoComplet.png" />
+                  <Image url="@../controleurs/logoComplet.png" />
                </image>
             </ImageView>
          </children>
@@ -143,10 +143,10 @@ je vais identifier ou sont les ressource dans le code
 <!--                        le url pour intellij est "sim/danslchamp/controleurs/logoDansLeChamp.png", il commence aux package sim -->
 <!--                       l'url pour scene builder : @../controleurs/logoDansLeChamp.png-->
                        <image>
-                           <Image url="sim/danslchamp/controleurs/logoDansLeChamp.png" />
+                           <Image url="@../controleurs/logoDansLeChamp.png" />
                        </image>
                    </ImageView>
-                  <MenuBar prefHeight="25.0" prefWidth="261.0" style="-fx-background-color: tranparent; -fx-background-radius: 1;">
+                  <MenuBar prefHeight="25.0" prefWidth="261.0" style="-fx-background-color: dodgerblue;">
                     <menus>
                       <Menu text="_Fichier">
                         <items>
