@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 
+import sim.danslchamp.Config;
 import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.Point;
@@ -17,7 +18,7 @@ import java.awt.Point;
  */
 public class Condensateur extends Composant {
 
-    private long capacité_pf;
+    private long capacité_pf = Config.defautCondensateurCapacite_pF;
 
     /**
      * Permet la construction d'un condensateur depuis les attributs SVG
