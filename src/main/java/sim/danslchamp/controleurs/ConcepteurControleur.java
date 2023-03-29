@@ -38,25 +38,25 @@ import static sim.danslchamp.DansLChampApp.FC;
  * @author Mathis Rosa-Wilson
  * @author Thierry Rhéaume
  */
-public class ConcepteurControleur {
+public class ConcepteurControleur extends ParentControleur {
 
     private Circuit circuit;
 
-    private Stage stage;
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-
-        this.stage.setOnCloseRequest(event -> {
-            new Alert(Alert.AlertType.CONFIRMATION,
-                    "Êtes-vous certain de vouloir quitter?",
-                    ButtonType.YES, ButtonType.NO).showAndWait()
-                    .ifPresent(buttonType -> {
-                        if (buttonType == ButtonType.NO)
-                            event.consume();
-                    });
-        });
-    }
+//    private Stage stage;
+//
+//    public void setStage(Stage stage) {
+//        this.stage = stage;
+//
+//        this.stage.setOnCloseRequest(event -> {
+//            new Alert(Alert.AlertType.CONFIRMATION,
+//                    "Êtes-vous certain de vouloir quitter?",
+//                    ButtonType.YES, ButtonType.NO).showAndWait()
+//                    .ifPresent(buttonType -> {
+//                        if (buttonType == ButtonType.NO)
+//                            event.consume();
+//                    });
+//        });
+//    }
 
 
     // FXML
