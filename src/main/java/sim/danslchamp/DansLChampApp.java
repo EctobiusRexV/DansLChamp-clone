@@ -8,9 +8,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.jetbrains.annotations.Nullable;
-import sim.danslchamp.controleurs.BienvenueControleur;
 import sim.danslchamp.controleurs.ControllerUtil;
-import sim.danslchamp.controleurs.ConcepteurControleur;
+import sim.danslchamp.controleurs.CircuitControleur;
 import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
@@ -57,7 +56,7 @@ public class DansLChampApp extends Application {
         Stage stage = new Stage();
 
         try {
-            Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml\\Concepteur.fxml")));
+            Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml\\Circuit.fxml")));
             stage.setScene(scene);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -66,9 +65,9 @@ public class DansLChampApp extends Application {
             alert.setContentText("Veuillez réessayer...");
         }
 
-        ConcepteurControleur concepteurControleur = fxmlLoader.getController();
-        concepteurControleur.setStage(stage);
-        concepteurControleur.chargerCircuit(file);
+        CircuitControleur circuitControleur = fxmlLoader.getController();
+        circuitControleur.setStage(stage);
+        circuitControleur.chargerCircuit(file);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
         stage.setMinWidth(800.0);

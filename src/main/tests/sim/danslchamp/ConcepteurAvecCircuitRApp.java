@@ -1,10 +1,7 @@
 package sim.danslchamp;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sim.danslchamp.controleurs.ConcepteurControleur;
 
 import java.io.File;
 

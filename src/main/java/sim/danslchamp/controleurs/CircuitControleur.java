@@ -1,31 +1,20 @@
 package sim.danslchamp.controleurs;
 
 import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.*;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.ListView;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
-import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
-import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.Util.ComposantesListCell;
-import sim.danslchamp.svg.SvgLoader;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -38,7 +27,7 @@ import static sim.danslchamp.DansLChampApp.FC;
  * @author Mathis Rosa-Wilson
  * @author Thierry Rhéaume
  */
-public class ConcepteurControleur extends ParentControleur {
+public class CircuitControleur extends ParentControleur {
 
     private Circuit circuit;
 
