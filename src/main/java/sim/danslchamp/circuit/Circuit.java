@@ -2,11 +2,7 @@ package sim.danslchamp.circuit;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import sim.danslchamp.Util.DanslChampUtil;
-import sim.danslchamp.svg.SvgBasicElementHandler;
 import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
@@ -19,7 +15,7 @@ public class Circuit {
 
     private String nom;
 
-    private final List<Maille> mailles;
+    private final List<Composant> circuit;
     private final List<Jonction> noeuds;
 
 
@@ -45,7 +41,7 @@ public class Circuit {
 
     // fixme
     public Circuit() {
-        mailles = null;
+        circuit = null;
         noeuds = null;
     }
 
@@ -56,8 +52,8 @@ public class Circuit {
 
         noeuds = jonctions.stream().filter(Jonction::estNoeud).toList();
 
-        trouverSensDuCourant(jonctions, sources);
-        mailles = trouverMailles();
+        trouverSensDuCourant(sources, noeuds);
+        circuit = trouverCircuit(sources, jonctions);
     }
 
     public static Circuit chargerCircuit(File file) throws FileNotFoundException {
@@ -68,37 +64,96 @@ public class Circuit {
      * Trouve le sens du courant.
      * En partant des bornes positives des sources, définit les bornes positives des composants.
      */
-    private static void trouverSensDuCourant(List<Jonction> jonctions, List<Source> sources) {
-        Set<Jonction> depart = new HashSet<>(sources.stream().map(Composant::getBornePositive).toList());
+    private static void trouverSensDuCourant(List<Source> sources, List<Jonction> noeuds) {
+        List<Jonction> departs = new ArrayList<>(sources.stream().map(Composant::getBornePositive).toList());
+        departs.addAll(noeuds);
 
-        Iterator<Jonction> it = depart.iterator();
-
-        while (it.hasNext()){
-
-            depart.add(parcourirBranche(it.next()));
-
+        for (Jonction jonction:
+                departs) {
+            parcourirBranche(jonction);
         }
     }
 
-    private static Jonction parcourirBranche(Jonction jonction) {
-        if (!jonction.estNoeud()) {
-            for (Composant c : jonction.getComposants()){
-                if (c.getBornePositive() == null){
-                    if (c.getJonctions()[0].equals(jonction)){
-                        c.setBornePositive(c.getJonctions()[1]);
-                        return parcourirBranche(c.getJonctions()[1]);
-                    }else {
-                        c.setBornePositive(c.getJonctions()[0]);
-                        return parcourirBranche(c.getJonctions()[0]);
-                    }
+    private static void parcourirBranche(Jonction aPartirDe) {
+        for (Composant composant : aPartirDe.getComposants()) {
+            if (composant.getBornePositive() == null) {
+                Jonction next = composant.getJonctions()[0].equals(aPartirDe) ?
+                        composant.getJonctions()[1] : composant.getJonctions()[0];
+
+                composant.setBornePositive(next);
+
+                if (next.estNoeud()) return;
+
+                parcourirBranche(next);
+            }
+        }
+    }
+
+    private static List<Composant> trouverCircuit(List<Source> sources, ArrayList<Jonction> jonctions) {
+
+        List<Composant> circuit = new ArrayList<>();
+
+        circuit.add(sources.get(0));
+
+        circuit = parcourirCircuit(circuit, jonctions);
+
+        return circuit;
+    }
+
+    private static List<Composant> parcourirCircuit(List<Composant> circuit, ArrayList<Jonction> jonctions) {
+        Composant dernier = circuit.get(circuit.size() - 1);
+
+        Jonction jonctionPlus = dernier.getBornePositive();
+
+        if (jonctionPlus.estNoeud()){
+            SousCircuit newSousCircuit = null;
+
+            for (int i = 0; i < jonctionPlus.getComposants().size() - 1; i++) {
+                SousCircuit sousCircuit = new SousCircuit();
+                sousCircuit.addComposant(jonctionPlus.getComposants().get(i + 1));
+
+                newSousCircuit = parcourirSousCircuit(sousCircuit, jonctions);
+
+                circuit.add(newSousCircuit);
+
+            }
+            for (Composant c : newSousCircuit.getBornePositive().getComposants()) {
+                if (!circuit.contains(c)){
+                    circuit.add(c);
+                }
+            }
+            parcourirCircuit(circuit, jonctions);
+        }
+        else {
+            for (Composant composant : jonctionPlus.getComposants()){
+                if (!circuit.contains(composant)) {
+                    circuit.add(composant);
+                    parcourirCircuit(circuit, jonctions);
                 }
             }
         }
-        return jonction;
+        return circuit;
     }
 
-    private static List<Maille> trouverMailles() {
-        return new ArrayList<>();
+    private static SousCircuit parcourirSousCircuit(SousCircuit sousCircuit, ArrayList<Jonction> jonctions) {
+        Composant dernier = sousCircuit.getLast();
+
+        Jonction jonctionPlus = dernier.getBornePositive();
+
+        jonctionPlus = jonctions.get(jonctions.indexOf(jonctionPlus));
+
+        if (!jonctionPlus.estNoeud()){
+            for (Composant composant : jonctionPlus.getComposants()){
+                if (!sousCircuit.getComposants().contains(composant)) {
+                    sousCircuit.addComposant(composant);
+                    parcourirSousCircuit(sousCircuit, jonctions);
+                }
+            }
+        }else {
+            sousCircuit.setBornePositive(jonctionPlus);
+        }
+
+        return sousCircuit;
     }
 
     public Composant addComposant(String composantType, int posX, int posY, boolean rotation90) {
@@ -175,5 +230,9 @@ public class Circuit {
     // Pour les tests
     protected ArrayList<Jonction> getJonctions() {
         return jonctions;
+    }
+
+    public List<Composant> getCircuit() {
+        return circuit;
     }
 }

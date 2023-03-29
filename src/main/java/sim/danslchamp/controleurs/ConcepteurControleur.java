@@ -4,6 +4,8 @@ import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
+
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
@@ -23,6 +25,7 @@ import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.Util.ComposantesListCell;
 import sim.danslchamp.svg.SvgLoader;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -39,28 +42,21 @@ public class ConcepteurControleur {
 
     private Circuit circuit;
 
-    private double anchorX, anchorY;
-    private double anchorAngleX = 0;
-    private double anchorAngleY = 0;
-    private final DoubleProperty angleX = new SimpleDoubleProperty(0);
-    private final DoubleProperty angleY = new SimpleDoubleProperty(0);
+    private Stage stage;
 
-//    private Stage stage;
-//
-//    public void setStage(Stage stage) {
-//        this.stage = stage;
-//
-//        this.stage.setOnCloseRequest(event -> {
-//            DialogPane dp = new DialogPane();
-//           Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
-//                   "Êtes-vous certain de vouloir quitter?", ButtonType.YES, ButtonType.NO);
-//           alert.getDialogPane().getStylesheets().add(this.getClass().getResource("alert.css").toExternalForm());
-//            alert.showAndWait().ifPresent(buttonType -> {
-//                        if (buttonType == ButtonType.NO)
-//                            event.consume();
-//                    });
-//        });
-//    }
+    public void setStage(Stage stage) {
+        this.stage = stage;
+
+        this.stage.setOnCloseRequest(event -> {
+            new Alert(Alert.AlertType.CONFIRMATION,
+                    "Êtes-vous certain de vouloir quitter?",
+                    ButtonType.YES, ButtonType.NO).showAndWait()
+                    .ifPresent(buttonType -> {
+                        if (buttonType == ButtonType.NO)
+                            event.consume();
+                    });
+        });
+    }
 
 
     // FXML
@@ -129,31 +125,40 @@ public class ConcepteurControleur {
 
         Camera camera = new PerspectiveCamera();
 //        scene.setFill(Color.TRANSPARENT);
-        subScene3D.setFill(Color.LIGHTGRAY);
+        subScene3D.setFill(Color.WHITE);
         subScene3D.setCamera(camera);
+        subScene3D.addEventHandler(EventType.ROOT, (a) -> {
+            if (subScene3D.getWidth()/2 != group3D.getLayoutX()) {
+                group3D.setLayoutX(subScene3D.getWidth()/3);
+            }
+        });
         subScene3D.setRoot(group3D);
+        circuit.getDiagramme3D().initMouseControl(group3D, subScene3D);
     }
 
-    private void initMouseControl(Group group, SubScene scene) {
-        Rotate xRotate;
-        Rotate yRotate;
-        group.getTransforms().addAll(
-                xRotate = new Rotate(0, Rotate.X_AXIS),
-                yRotate = new Rotate(0, Rotate.Y_AXIS)
-        );
-        xRotate.angleProperty().bind(angleX);
-        yRotate.angleProperty().bind(angleY);
 
-        scene.setOnMousePressed(event -> {
-            anchorX = event.getSceneX();
-            anchorY = event.getSceneY();
-            anchorAngleX = angleX.get();
-            anchorAngleY = angleY.get();
-        });
 
-        scene.setOnMouseDragged(event -> {
-            angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
-            angleY.set(anchorAngleY + anchorX - event.getSceneX());
-        });
+    @FXML
+    void showBibliotheque() {
+        DansLChampApp.loadFenetre("Bibliotheque.fxml").show();
+    }
+
+    @FXML
+    void showAide() {
+        DansLChampApp.loadFenetre("Aide.fxml").show();
+    }
+
+    @FXML
+    void showAPropos() {
+        DansLChampApp.loadFenetre("APropos.fxml").show();
+    }
+
+    public class Concepteur {
+        Point posXY;
+        boolean vertical;
+
+        public void addComposant(Class<Composant> composantClass, int posX, int posY, boolean rotation90) {
+
+        }
     }
 }
