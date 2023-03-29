@@ -1,6 +1,7 @@
 package sim.danslchamp.circuit;
 
 import javafx.scene.Group;
+import sim.danslchamp.Config;
 import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.*;
@@ -11,9 +12,9 @@ import java.awt.*;
  */
 public class Bobine extends Composant {
 
-    private int nombreDeSpires;
-    private double longueur_mm;
-    private double rayon_mm;
+    private int nombreDeSpires = Config.defautBobineNombreDeSpires;
+    private double longueur_mm = Config.defautBobineLongueur_mm;
+    private double rayon_mm = Config.defautBobineRayon_mm;
 
     /**
      * Permet la construction d'une bobine depuis les attributs SVG
