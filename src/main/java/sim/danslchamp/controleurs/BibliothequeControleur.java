@@ -73,11 +73,8 @@ public class BibliothequeControleur implements Initializable {
 
         group.minHeight(50);
 
-try {
-    group = SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("..\\circuit\\symboles\\" + nom + ".svg"));
-} catch (Exception e) {
-    System.err.println("Incapable de présenter le composant " + nom);;
-}
+
+        group = SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("..\\circuit\\symboles\\" + nom + ".svg"));
 
         Label label = new Label(nom);
 
@@ -94,39 +91,5 @@ try {
                 throw new RuntimeException(e);
             }
         } );
-    }
-
-    @FXML
-    void fermerApp(ActionEvent e) throws InterruptedException {
-        Thread.sleep(100);
-        ((Stage)(((Node)e.getTarget()).getScene().getWindow())).close();
-    }
-
-
-    @FXML
-    void resizeApp(ActionEvent e) throws InterruptedException {
-        Thread.sleep(50);
-        Stage stage = ((Stage) ((Node)e.getTarget()).getScene().getWindow());
-        if( stage.isMaximized()) {
-           stage.setMaximized(false);
-        }
-        else  stage.setMaximized(true);
-    }
-
-    @FXML
-    public void minimizeApp(ActionEvent e) throws InterruptedException {
-        Thread.sleep(50);
-        Stage stage = ((Stage) ((Node)e.getTarget()).getScene().getWindow());
-        stage.setIconified(true);
-    }
-
-    @FXML
-    public void mouvePressed(MouseEvent event) {
-        ControllerUtil.mouveStageUtil(event);
-    }
-
-    @FXML
-    public void dragResize(MouseEvent event) {
-        ControllerUtil.resizeUtil(event);
     }
 }
