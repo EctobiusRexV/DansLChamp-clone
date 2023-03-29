@@ -17,6 +17,7 @@ public class Circuit {
     private String nom;
 
     private List<Composant> circuit = new ArrayList<>();
+    private int resistanceEqui = 0;
     private final List<Jonction> noeuds;
 
 
@@ -63,6 +64,17 @@ public class Circuit {
     public void calculCircuit(){
         trouverSensDuCourant();
         circuit = trouverCircuit();
+
+        resistanceEqui = trouverResistanceEqui();
+    }
+
+    private int trouverResistanceEqui() {
+
+        for (Composant c : circuit){
+
+        }
+
+        return 0;
     }
 
     /**

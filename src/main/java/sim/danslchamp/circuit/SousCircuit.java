@@ -9,10 +9,18 @@ public class SousCircuit extends Composant{
 
     private List<Composant> composants;
 
+    private double resistance;
+
 
     public SousCircuit() {
         composants = new ArrayList<>();
     }
+
+
+    public void ISetResistance() {
+
+    }
+
 
     void initGroupe3D() {
 

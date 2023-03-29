@@ -15,6 +15,7 @@ public class Fil extends Composant {
         this.endY=endY-startY;
     }
 
+
     @Override
     public Group getSymbole2D() {
         Line l = new Line(0, 0, endX, endY);

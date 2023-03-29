@@ -47,6 +47,11 @@ public class Résistor extends Composant {
         }
     }
 
+
+    public void calculResistance(long resistance) {
+        IsetReactance_mOhms(resistance);
+    }
+
     @Override
     Group getSymbole3D() {
         Cylinder c = new Cylinder(getLargeur() / 2, getHauteur());

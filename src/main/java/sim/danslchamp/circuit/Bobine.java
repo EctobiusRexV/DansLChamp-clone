@@ -15,6 +15,10 @@ public class Bobine extends Composant {
     private double longueur_mm;
     private double rayon_mm;
 
+    private double resistance;
+
+    private final double mu = (4 * Math.PI) * Math.pow(10, -7);
+
     /**
      * Permet la construction d'une bobine depuis les attributs SVG
      */
@@ -69,6 +73,20 @@ public class Bobine extends Composant {
         } else {
             this.rayon_mm = 0;
         }
+    }
+
+    public void calculResistance(int frequence, int nombreDeSpires, double rayon, double longueur) {
+        this.nombreDeSpires = nombreDeSpires;
+        this.rayon_mm = rayon;
+        this.longueur_mm = longueur;
+
+        double surface = 2 * Math.PI * rayon_mm;
+
+        double L = (mu * surface * Math.pow(this.nombreDeSpires, 2))/longueur;
+
+        IsetReactance_mOhms((long) (2 * Math.PI * frequence * L));
+
+
     }
 
     @Override

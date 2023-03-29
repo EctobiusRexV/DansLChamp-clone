@@ -165,4 +165,8 @@ public abstract class Composant {
     public String toString() {
         return getClass().getSimpleName();
     }
+
+    public void IsetReactance_mOhms(long reactance_mOhms) {
+        this.reactance_mOhms = reactance_mOhms;
+    }
 }

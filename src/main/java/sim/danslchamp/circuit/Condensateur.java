@@ -19,6 +19,8 @@ public class Condensateur extends Composant {
 
     private long capacité_pf;
 
+    private double resistance;
+
     /**
      * Permet la construction d'un condensateur depuis les attributs SVG
      */
@@ -41,6 +43,13 @@ public class Condensateur extends Composant {
         } else {
             this.capacité_pf = 0;
         }
+    }
+
+    public void calculResistance(int frequence, long capacite){
+        this.capacité_pf = capacite;
+
+        IsetReactance_mOhms((long) (1 / (2 * Math.PI * frequence * capacite)));
+
     }
 
     @Override
