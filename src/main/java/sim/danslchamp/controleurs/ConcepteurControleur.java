@@ -1,32 +1,22 @@
 package sim.danslchamp.controleurs;
 
-import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
-
 import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.scene.*;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
+import javafx.scene.Camera;
+import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.SubScene;
 import javafx.scene.control.ListView;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
-import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
 import sim.danslchamp.Config;
-import sim.danslchamp.DansLChampApp;
+import sim.danslchamp.Util.ComposantesListCell;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
-import sim.danslchamp.Util.ComposantesListCell;
-import sim.danslchamp.svg.SvgLoader;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -84,11 +74,6 @@ public class ConcepteurControleur extends ParentControleur {
     // ===============================
     //         ACTIONS MENU
     // ===============================
-    @FXML
-    void fermerRetour() {
-
-        Platform.exit();
-    }
 
     @FXML
     void enregistrerCircuit(ActionEvent event) {
@@ -114,7 +99,7 @@ public class ConcepteurControleur extends ParentControleur {
         composantesListView.setItems(circuit.getComposants());
 
         vBox2D.getChildren().setAll(circuit.getDiagramme2D().getGroup());
-vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
+        vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
             if (vBox2D.getScaleX() + event.getDeltaY() / 100 < 0) return; // empêcher d'obtenir un scale négatif
 
             vBox2D.scaleXProperty().set(vBox2D.getScaleX() + event.getDeltaY() / 100);
@@ -136,24 +121,12 @@ vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
         subScene3D.setFill(Color.WHITE);
         subScene3D.setCamera(camera);
         subScene3D.addEventHandler(EventType.ROOT, (a) -> {
-            if (subScene3D.getWidth()/2 != group3D.getLayoutX()) {
-                group3D.setLayoutX(subScene3D.getWidth()/3);
+            if (subScene3D.getWidth() / 2 != group3D.getLayoutX()) {
+                group3D.setLayoutX(subScene3D.getWidth() / 3);
             }
         });
         subScene3D.setRoot(group3D);
         circuit.getDiagramme3D().initMouseControl(group3D, subScene3D);
-    }
-
-    private static void pousserCircuitRecent(File file) {
-        Config.circuitRecent3 = Config.circuitRecent2;
-        Config.circuitRecent2 = Config.circuitRecent1;
-        Config.circuitRecent1 = file.getAbsolutePath();
-    }
-
-    private static void pousserCircuitRecent(File file) {
-        Config.circuitRecent3 = Config.circuitRecent2;
-        Config.circuitRecent2 = Config.circuitRecent1;
-        Config.circuitRecent1 = file.getAbsolutePath();
     }
 
     private static void pousserCircuitRecent(File file) {
