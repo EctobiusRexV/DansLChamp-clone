@@ -79,7 +79,7 @@ public abstract class Diagramme {
         private final DoubleProperty angleX = new SimpleDoubleProperty(0), angleY = new SimpleDoubleProperty(0);
         private double anchorX, anchorY, anchorAngleX = 0, anchorAngleY = 0;
 
-        private void initMouseControl(Group group, SubScene scene) {
+        public void initMouseControl(Group group, SubScene scene) {
             Rotate xRotate;
             Rotate yRotate;
             group.getTransforms().addAll(xRotate = new Rotate(0, Rotate.X_AXIS), yRotate = new Rotate(0, Rotate.Y_AXIS));

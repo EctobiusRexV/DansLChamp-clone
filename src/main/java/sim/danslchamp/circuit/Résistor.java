@@ -3,6 +3,7 @@ package sim.danslchamp.circuit;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import sim.danslchamp.Util.DanslChampUtil;
@@ -48,15 +49,18 @@ public class Résistor extends Composant {
 
     @Override
     Group getSymbole3D() {
-        Cylinder c = new Cylinder(10,30);
-        c.setMaterial(new PhongMaterial(Color.BLUE));
-
-        if (rotation90){
+        Cylinder c = new Cylinder(getLargeur() / 2, getHauteur());
+        if (getLargeur() > getHauteur()) {
+            c = new Cylinder(getHauteur() / 2, getLargeur());
+        }
+        c.setLayoutX(c.getLayoutX() + c.getHeight()/2);
+        c.setRotate(90);
+        if (!rotation90) {
             c.setRotate(90);
         }
         Group g = new Group();
         g.getChildren().addAll(c);
-     return g;
+        return g;
     }
 
 }
