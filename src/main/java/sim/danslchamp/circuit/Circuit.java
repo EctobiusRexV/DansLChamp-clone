@@ -10,12 +10,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Circuit {
 
     private String nom;
 
-    private final List<Composant> circuit;
+    private List<Composant> circuit = new ArrayList<>();
     private final List<Jonction> noeuds;
 
 
@@ -52,19 +53,23 @@ public class Circuit {
 
         noeuds = jonctions.stream().filter(Jonction::estNoeud).toList();
 
-        trouverSensDuCourant(sources, noeuds);
-        circuit = trouverCircuit(sources, jonctions);
+
     }
 
     public static Circuit chargerCircuit(File file) throws FileNotFoundException {
         return new Circuit(file);
     }
 
+    public void calculCircuit(){
+        trouverSensDuCourant();
+        circuit = trouverCircuit();
+    }
+
     /**
      * Trouve le sens du courant.
      * En partant des bornes positives des sources, définit les bornes positives des composants.
      */
-    private static void trouverSensDuCourant(List<Source> sources, List<Jonction> noeuds) {
+    private void trouverSensDuCourant() {
         List<Jonction> departs = new ArrayList<>(sources.stream().map(Composant::getBornePositive).toList());
         departs.addAll(noeuds);
 
@@ -74,7 +79,7 @@ public class Circuit {
         }
     }
 
-    private static void parcourirBranche(Jonction aPartirDe) {
+    private void parcourirBranche(Jonction aPartirDe) {
         for (Composant composant : aPartirDe.getComposants()) {
             if (composant.getBornePositive() == null) {
                 Jonction next = composant.getJonctions()[0].equals(aPartirDe) ?
@@ -89,18 +94,16 @@ public class Circuit {
         }
     }
 
-    private static List<Composant> trouverCircuit(List<Source> sources, ArrayList<Jonction> jonctions) {
-
-        List<Composant> circuit = new ArrayList<>();
+    private List<Composant> trouverCircuit() {
 
         circuit.add(sources.get(0));
 
-        circuit = parcourirCircuit(circuit, jonctions);
+        circuit = parcourirCircuit();
 
         return circuit;
     }
 
-    private static List<Composant> parcourirCircuit(List<Composant> circuit, ArrayList<Jonction> jonctions) {
+    private List<Composant> parcourirCircuit() {
         Composant dernier = circuit.get(circuit.size() - 1);
 
         Jonction jonctionPlus = dernier.getBornePositive();
@@ -112,7 +115,7 @@ public class Circuit {
                 SousCircuit sousCircuit = new SousCircuit();
                 sousCircuit.addComposant(jonctionPlus.getComposants().get(i + 1));
 
-                newSousCircuit = parcourirSousCircuit(sousCircuit, jonctions);
+                newSousCircuit = parcourirSousCircuit(sousCircuit);
 
                 circuit.add(newSousCircuit);
 
@@ -122,20 +125,20 @@ public class Circuit {
                     circuit.add(c);
                 }
             }
-            parcourirCircuit(circuit, jonctions);
+            parcourirCircuit();
         }
         else {
             for (Composant composant : jonctionPlus.getComposants()){
                 if (!circuit.contains(composant)) {
                     circuit.add(composant);
-                    parcourirCircuit(circuit, jonctions);
+                    parcourirCircuit();
                 }
             }
         }
         return circuit;
     }
 
-    private static SousCircuit parcourirSousCircuit(SousCircuit sousCircuit, ArrayList<Jonction> jonctions) {
+    private SousCircuit parcourirSousCircuit(SousCircuit sousCircuit) {
         Composant dernier = sousCircuit.getLast();
 
         Jonction jonctionPlus = dernier.getBornePositive();
@@ -146,7 +149,7 @@ public class Circuit {
             for (Composant composant : jonctionPlus.getComposants()){
                 if (!sousCircuit.getComposants().contains(composant)) {
                     sousCircuit.addComposant(composant);
-                    parcourirSousCircuit(sousCircuit, jonctions);
+                    parcourirSousCircuit(sousCircuit);
                 }
             }
         }else {
