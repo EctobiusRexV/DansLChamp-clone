@@ -28,6 +28,7 @@ public class DansLChampApp extends Application {
     public static final SvgLoader SVG_LOADER = new SvgLoader(null);
 
     static {
+        // pas touche -Thierry
         SVG_LOADER.setAddViewboxRect(true);
     }
     // ====================

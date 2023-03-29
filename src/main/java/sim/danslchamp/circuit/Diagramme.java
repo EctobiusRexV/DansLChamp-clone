@@ -2,13 +2,16 @@ package sim.danslchamp.circuit;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
+import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -54,8 +57,8 @@ public abstract class Diagramme {
     abstract void mesurerChampMagnetique();*/
     private void genererInfobulle(Composant composant, Group composantGroup) {
         Tooltip tooltip = new Tooltip();
-        for (Method method:
-             composant.getGetMethods()) {
+        for (Method method :
+                composant.getGetMethods()) {
             try {
                 tooltip.setText(tooltip.getText()
                         .concat(Composant.getUniteTypeFromMethod(method) + " : " + method.invoke(composant)));
@@ -63,22 +66,24 @@ public abstract class Diagramme {
                 e.printStackTrace();        // NE DEVRAIT PAS ARRIVER !
             }
         }
-
-        composantGroup.setOnMouseEntered(event -> {
-            tooltip.show(composantGroup, event.getScreenX(), event.getScreenY());
+        composantGroup.setOnMousePressed(event -> {
+                tooltip.show(composantGroup, event.getScreenX(), event.getScreenY());
         });
-        composantGroup.setOnMouseExited(event -> tooltip.hide());
+        composantGroup.setOnMouseReleased(event -> {
+            tooltip.hide();
+        });
     }
 
     public Group getGroup() {
         return group;
     }
+
     public static class Diagramme2D extends Diagramme {
 
         public Diagramme2D() {
             // Zoom/dézoom
             getGroup().addEventHandler(ScrollEvent.SCROLL, event -> {
-                if (getGroup().getScaleX() + event.getDeltaY()/100 < 0) return; // empêcher d'obtenir un scale négatif
+                if (getGroup().getScaleX() + event.getDeltaY() / 100 < 0) return; // empêcher d'obtenir un scale négatif
 
                 getGroup().scaleXProperty().set(getGroup().getScaleX() + event.getDeltaY() / 100);
                 getGroup().scaleYProperty().set(getGroup().getScaleY() + event.getDeltaY() / 100);
@@ -125,8 +130,8 @@ public abstract class Diagramme {
         @Override
         Group addComposant_internal(Composant composant) {
             Group symbole = composant.getSymbole3D();
-            symbole.setTranslateX(composant.getPosX()*1.5);
-            symbole.setTranslateY(composant.getPosY()*1.5);
+            symbole.setTranslateX(composant.getPosX());
+            symbole.setTranslateY(composant.getPosY());
 
             getGroup().getChildren().add(symbole);
             return symbole;

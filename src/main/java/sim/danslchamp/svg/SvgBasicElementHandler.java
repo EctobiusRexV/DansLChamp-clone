@@ -128,9 +128,9 @@ public class SvgBasicElementHandler {
             SVGRect viewPort = element.getViewBox().getBaseVal();
             float height = viewPort.getHeight();
             float width = viewPort.getWidth();
-            Rectangle result = new Rectangle(width, height, null);
+            Rectangle result = new Rectangle(width, height, Color.TRANSPARENT);
             result.setId(element.getId());
-            result.setStroke(Color.BLACK);
+            result.setStroke(Color.TRANSPARENT);
             result.getStrokeDashArray().addAll(3.0, 7.0, 3.0, 7.0);
 
             loader.parentNode.getChildren().add(result);
