@@ -4,7 +4,6 @@ import javafx.scene.Group;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Comparator;
 
 import static sim.danslchamp.DansLChampApp.SVG_LOADER;
 
@@ -145,6 +144,18 @@ public abstract class Composant {
         return Arrays.stream(getClass().getDeclaredMethods())
                 .filter(method -> method.getName().startsWith("set"))
                 .toArray(Method[]::new);
+    }
+
+    public Method[] getGetMethods() {
+        return Arrays.stream(getClass().getDeclaredMethods())
+                .filter(method -> method.getName().startsWith("get"))
+                .toArray(Method[]::new);
+    }
+
+    public static String getUniteTypeFromMethod(Method methode) {
+        return methode.getName()
+                .substring(3)   // set/get
+                .split("_")[0];
     }
 
     /**

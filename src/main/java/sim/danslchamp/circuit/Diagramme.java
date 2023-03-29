@@ -4,12 +4,13 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public abstract class Diagramme {
     private Circuit circuit;
@@ -21,7 +22,12 @@ public abstract class Diagramme {
      * @param composant La classe du composant.
      * @throws ClassNotFoundException Le classe du composant ne correspond pas à une classe Java du package {@code circuit}.
      */
-    public abstract void addComposant(Composant composant);
+    public final void addComposant(Composant composant) {
+        genererInfobulle(composant, addComposant_internal(composant));
+    }
+
+    abstract Group addComposant_internal(Composant composant);
+
 
     /*abstract void afficherSensDuCourant();
 
@@ -46,11 +52,27 @@ public abstract class Diagramme {
     abstract void mesurerChampElectrique();
 
     abstract void mesurerChampMagnetique();*/
+    private void genererInfobulle(Composant composant, Group composantGroup) {
+        Tooltip tooltip = new Tooltip();
+        for (Method method:
+             composant.getGetMethods()) {
+            try {
+                tooltip.setText(tooltip.getText()
+                        .concat(Composant.getUniteTypeFromMethod(method) + " : " + method.invoke(composant)));
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();        // NE DEVRAIT PAS ARRIVER !
+            }
+        }
+
+        composantGroup.setOnMouseEntered(event -> {
+            tooltip.show(composantGroup, event.getScreenX(), event.getScreenY());
+        });
+        composantGroup.setOnMouseExited(event -> tooltip.hide());
+    }
 
     public Group getGroup() {
         return group;
     }
-
     public static class Diagramme2D extends Diagramme {
 
         public Diagramme2D() {
@@ -65,12 +87,13 @@ public abstract class Diagramme {
         }
 
         @Override
-        public void addComposant(Composant composant) {
+        Group addComposant_internal(Composant composant) {
             Group symbole = composant.getSymbole2D();
             symbole.setTranslateX(composant.getPosX());
             symbole.setTranslateY(composant.getPosY());
 
             getGroup().getChildren().add(symbole);
+            return symbole;
         }
     }
 
@@ -100,12 +123,13 @@ public abstract class Diagramme {
         }
 
         @Override
-        public void addComposant(Composant composant) {
+        Group addComposant_internal(Composant composant) {
             Group symbole = composant.getSymbole3D();
-            symbole.setTranslateX(composant.getPosX());
-            symbole.setTranslateY(composant.getPosY());
+            symbole.setTranslateX(composant.getPosX()*1.5);
+            symbole.setTranslateY(composant.getPosY()*1.5);
 
             getGroup().getChildren().add(symbole);
+            return symbole;
         }
     }
 }

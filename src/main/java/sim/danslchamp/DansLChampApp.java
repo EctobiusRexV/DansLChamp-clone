@@ -8,8 +8,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.jetbrains.annotations.Nullable;
-import sim.danslchamp.controleurs.ConcepteurControleur;
 import sim.danslchamp.controleurs.BienvenueControleur;
+import sim.danslchamp.controleurs.ConcepteurControleur;
 import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
@@ -26,6 +26,10 @@ public class DansLChampApp extends Application {
             new FileChooser.ExtensionFilter("Circuit DANS L'CHAMP", FILE_EXTENSION);
 
     public static final SvgLoader SVG_LOADER = new SvgLoader(null);
+
+    static {
+        SVG_LOADER.setAddViewboxRect(true);
+    }
     // ====================
 
     @Override
