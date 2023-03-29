@@ -18,7 +18,7 @@ public class Fil extends Composant {
     @Override
     public Group getSymbole2D() {
         Line l = new Line(0, 0, endX, endY);
-        l.setStrokeWidth(3);
+        l.setStrokeWidth(getStrokeWidth());
         return new Group(l);
     }
 

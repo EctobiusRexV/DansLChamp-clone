@@ -1,6 +1,8 @@
 package sim.danslchamp.circuit;
 
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import sim.danslchamp.Config;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -14,18 +16,8 @@ public abstract class Composant {
      */
     private Jonction[] jonctionsRelatives;
 
-    /**
-     * Hauteur, largeur de l'image de la composant
-     */
-    private int hauteur, largeur;
-
 
     private String label;
-
-    private int posX, posY;
-
-    // Indique si la composante est tournée de 90°
-    boolean rotation90;
 
 
     private long    reactance_mOhms,
@@ -41,6 +33,22 @@ public abstract class Composant {
      * Référence sur la jonction de la borne positive
      */
     private Jonction bornePositive;
+
+    // STYLE
+    // ==================
+    /**
+     * Hauteur, largeur de l'image du composant
+     */
+    private int hauteur, largeur;
+
+    private int posX, posY;
+
+    // Indique si la composante est tournée de 90°
+    boolean rotation90;
+
+    private int strokeWidth = Config.defautComposantStrokeWidth;
+
+    private Color strokeColor = Color.valueOf(Config.defautComposantStrokeColor);
 
 
     /**
@@ -131,6 +139,22 @@ public abstract class Composant {
 
     public int getLargeur() {
         return largeur;
+    }
+
+    public int getStrokeWidth() {
+        return strokeWidth;
+    }
+
+    public void setStrokeWidth(int strokeWidth) {
+        this.strokeWidth = strokeWidth;
+    }
+
+    public Color getStrokeColor() {
+        return strokeColor;
+    }
+
+    public void setStrokeColor(Color strokeColor) {
+        this.strokeColor = strokeColor;
     }
 
     public Jonction[] getJonctions() {
