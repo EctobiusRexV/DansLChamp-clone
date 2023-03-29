@@ -20,7 +20,7 @@
    <top>
       <BorderPane fx:id="titleBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#mouvePressed" style="-fx-background-color: dodgerblue;" BorderPane.alignment="CENTER">
       <left>
-            <MenuBar prefHeight="25.0" prefWidth="261.0" style="-fx-background-color: tranparent; -fx-background-radius: 1;">
+            <MenuBar prefHeight="25.0" prefWidth="261.0" style="-fx-background-color: dodgerblue; -fx-background-radius: 1;">
               <menus>
                 <Menu text="_Fichier">
                   <items>
