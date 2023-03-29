@@ -56,7 +56,7 @@ public class Circuit {
 
         noeuds = jonctions.stream().filter(Jonction::estNoeud).toList();
 
-        trouverSensDuCourant(jonctions, sources);
+        trouverSensDuCourant(sources, noeuds);
         mailles = trouverMailles();
     }
 
@@ -68,33 +68,28 @@ public class Circuit {
      * Trouve le sens du courant.
      * En partant des bornes positives des sources, définit les bornes positives des composants.
      */
-    private static void trouverSensDuCourant(List<Jonction> jonctions, List<Source> sources) {
-        Set<Jonction> depart = new HashSet<>(sources.stream().map(Composant::getBornePositive).toList());
+    private static void trouverSensDuCourant(List<Source> sources, List<Jonction> noeuds) {
+        List<Jonction> departs = new ArrayList<>(sources.stream().map(Composant::getBornePositive).toList());
+        departs.addAll(noeuds);
 
-        Iterator<Jonction> it = depart.iterator();
-
-        while (it.hasNext()){
-
-            depart.add(parcourirBranche(it.next()));
-
+        for (Jonction jonction:
+                departs) {
+            parcourirBranche(jonction);
         }
     }
 
-    private static Jonction parcourirBranche(Jonction jonction) {
-        if (!jonction.estNoeud()) {
-            for (Composant c : jonction.getComposants()){
-                if (c.getBornePositive() == null){
-                    if (c.getJonctions()[0].equals(jonction)){
-                        c.setBornePositive(c.getJonctions()[1]);
-                        return parcourirBranche(c.getJonctions()[1]);
-                    }else {
-                        c.setBornePositive(c.getJonctions()[0]);
-                        return parcourirBranche(c.getJonctions()[0]);
-                    }
-                }
+    private static void parcourirBranche(Jonction aPartirDe) {
+        for (Composant composant : aPartirDe.getComposants()) {
+            if (composant.getBornePositive() == null) {
+                Jonction next = composant.getJonctions()[0].equals(aPartirDe) ?
+                        composant.getJonctions()[1] : composant.getJonctions()[0];
+
+                composant.setBornePositive(next);
+                if (next.estNoeud()) return;
+
+                parcourirBranche(next);
             }
         }
-        return jonction;
     }
 
     private static List<Maille> trouverMailles() {
