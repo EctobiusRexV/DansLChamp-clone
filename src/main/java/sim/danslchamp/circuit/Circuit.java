@@ -53,7 +53,7 @@ public class Circuit {
         noeuds = jonctions.stream().filter(Jonction::estNoeud).toList();
 
         trouverSensDuCourant(sources, noeuds);
-        circuit = trouverCircuit(sources);
+        circuit = trouverCircuit(sources, jonctions);
     }
 
     public static Circuit chargerCircuit(File file) throws FileNotFoundException {
@@ -81,6 +81,7 @@ public class Circuit {
                         composant.getJonctions()[1] : composant.getJonctions()[0];
 
                 composant.setBornePositive(next);
+
                 if (next.estNoeud()) return;
 
                 parcourirBranche(next);
@@ -88,58 +89,68 @@ public class Circuit {
         }
     }
 
-    private static List<Composant> trouverCircuit(List<Source> sources) {
+    private static List<Composant> trouverCircuit(List<Source> sources, ArrayList<Jonction> jonctions) {
 
         List<Composant> circuit = new ArrayList<>();
 
         circuit.add(sources.get(0));
 
-        circuit = parcourirCircuit(circuit);
+        circuit = parcourirCircuit(circuit, jonctions);
 
         return circuit;
     }
 
-    private static List<Composant> parcourirCircuit(List<Composant> circuit) {
+    private static List<Composant> parcourirCircuit(List<Composant> circuit, ArrayList<Jonction> jonctions) {
         Composant dernier = circuit.get(circuit.size() - 1);
 
         Jonction jonctionPlus = dernier.getBornePositive();
 
         if (jonctionPlus.estNoeud()){
+            SousCircuit newSousCircuit = null;
 
             for (int i = 0; i < jonctionPlus.getComposants().size() - 1; i++) {
-
                 SousCircuit sousCircuit = new SousCircuit();
-
                 sousCircuit.addComposant(jonctionPlus.getComposants().get(i + 1));
 
-                circuit.add(parcourirSousCircuit(sousCircuit));
+                newSousCircuit = parcourirSousCircuit(sousCircuit, jonctions);
+
+                circuit.add(newSousCircuit);
 
             }
-
+            for (Composant c : newSousCircuit.getBornePositive().getComposants()) {
+                if (!circuit.contains(c)){
+                    circuit.add(c);
+                }
+            }
+            parcourirCircuit(circuit, jonctions);
         }
         else {
             for (Composant composant : jonctionPlus.getComposants()){
                 if (!circuit.contains(composant)) {
                     circuit.add(composant);
-                    parcourirCircuit(circuit);
+                    parcourirCircuit(circuit, jonctions);
                 }
             }
         }
         return circuit;
     }
 
-    private static SousCircuit parcourirSousCircuit(SousCircuit sousCircuit) {
+    private static SousCircuit parcourirSousCircuit(SousCircuit sousCircuit, ArrayList<Jonction> jonctions) {
         Composant dernier = sousCircuit.getLast();
 
         Jonction jonctionPlus = dernier.getBornePositive();
+
+        jonctionPlus = jonctions.get(jonctions.indexOf(jonctionPlus));
 
         if (!jonctionPlus.estNoeud()){
             for (Composant composant : jonctionPlus.getComposants()){
                 if (!sousCircuit.getComposants().contains(composant)) {
                     sousCircuit.addComposant(composant);
-                    parcourirSousCircuit(sousCircuit);
+                    parcourirSousCircuit(sousCircuit, jonctions);
                 }
             }
+        }else {
+            sousCircuit.setBornePositive(jonctionPlus);
         }
 
         return sousCircuit;

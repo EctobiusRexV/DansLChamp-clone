@@ -58,8 +58,8 @@
 	<line x1="25" y1="150" x2="25" y2="110" />
 
 	<line x1="140" y1="20" x2="140" y2="40" />
-	<use xlink:href="#Résistor" xRésistance_mOhms="1500" x="140" y="40" transform="rotate(90 145 45)"/>
-	<line x1="140" y1="120" x2="140" y2="150" />
+	<use xlink:href="#Condensateur" xRésistance_mOhms="1500" x="120" y="40" />
+	<line x1="140" y1="70" x2="140" y2="150" />
 
 
 </svg>

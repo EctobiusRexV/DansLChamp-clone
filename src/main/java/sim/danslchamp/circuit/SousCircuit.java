@@ -41,4 +41,8 @@ public class SousCircuit extends Composant{
                 "composants=" + composants +
                 '}';
     }
+
+    public void add(SousCircuit sousCircuit) {
+        composants.add(sousCircuit);
+    }
 }
