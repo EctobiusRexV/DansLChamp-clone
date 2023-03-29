@@ -31,7 +31,7 @@ import java.util.Set;
 
 import static sim.danslchamp.DansLChampApp.SVG_LOADER;
 
-public class BibliothequeControleur implements Initializable {
+public class BibliothequeControleur extends ParentControleur implements Initializable {
 
     public BorderPane titleBar;
 
@@ -94,39 +94,5 @@ try {
                 throw new RuntimeException(e);
             }
         } );
-    }
-
-    @FXML
-    void fermerApp(ActionEvent e) throws InterruptedException {
-        Thread.sleep(100);
-        ((Stage)(((Node)e.getTarget()).getScene().getWindow())).close();
-    }
-
-
-    @FXML
-    void resizeApp(ActionEvent e) throws InterruptedException {
-        Thread.sleep(50);
-        Stage stage = ((Stage) ((Node)e.getTarget()).getScene().getWindow());
-        if( stage.isMaximized()) {
-           stage.setMaximized(false);
-        }
-        else  stage.setMaximized(true);
-    }
-
-    @FXML
-    public void minimizeApp(ActionEvent e) throws InterruptedException {
-        Thread.sleep(50);
-        Stage stage = ((Stage) ((Node)e.getTarget()).getScene().getWindow());
-        stage.setIconified(true);
-    }
-
-    @FXML
-    public void mouvePressed(MouseEvent event) {
-        ControllerUtil.mouveStageUtil(event);
-    }
-
-    @FXML
-    public void dragResize(MouseEvent event) {
-        ControllerUtil.resizeUtil(event);
     }
 }

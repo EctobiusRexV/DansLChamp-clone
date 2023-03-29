@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ListView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
@@ -37,31 +38,28 @@ import static sim.danslchamp.DansLChampApp.FC;
  * @author Mathis Rosa-Wilson
  * @author Thierry Rhéaume
  */
-public class ConcepteurControleur {
+public class ConcepteurControleur extends ParentControleur {
 
     private Circuit circuit;
 
-    private Stage stage;
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-
-        this.stage.setOnCloseRequest(event -> {
-            new Alert(Alert.AlertType.CONFIRMATION,
-                    "Êtes-vous certain de vouloir quitter?",
-                    ButtonType.YES, ButtonType.NO).showAndWait()
-                    .ifPresent(buttonType -> {
-                        if (buttonType == ButtonType.NO)
-                            event.consume();
-                    });
-        });
-    }
+//    private Stage stage;
+//
+//    public void setStage(Stage stage) {
+//        this.stage = stage;
+//
+//        this.stage.setOnCloseRequest(event -> {
+//            new Alert(Alert.AlertType.CONFIRMATION,
+//                    "Êtes-vous certain de vouloir quitter?",
+//                    ButtonType.YES, ButtonType.NO).showAndWait()
+//                    .ifPresent(buttonType -> {
+//                        if (buttonType == ButtonType.NO)
+//                            event.consume();
+//                    });
+//        });
+//    }
 
 
     // FXML
-
-    @FXML
-    private BorderPane borderPane;
     @FXML
     private ListView<Composant> composantesListView;
     @FXML
@@ -114,7 +112,13 @@ public class ConcepteurControleur {
         composantesListView.setItems(circuit.getComposants());
 
         vBox2D.getChildren().setAll(circuit.getDiagramme2D().getGroup());
+vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
+            if (vBox2D.getScaleX() + event.getDeltaY() / 100 < 0) return; // empêcher d'obtenir un scale négatif
 
+            vBox2D.scaleXProperty().set(vBox2D.getScaleX() + event.getDeltaY() / 100);
+            vBox2D.scaleYProperty().set(vBox2D.getScaleY() + event.getDeltaY() / 100);
+
+        });
         Group group3D = circuit.getDiagramme3D().getGroup();
         subScene3D.addEventHandler(ScrollEvent.SCROLL, event -> {
             group3D.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY());

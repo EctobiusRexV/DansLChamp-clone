@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.SubScene?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -11,77 +14,166 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.ConcepteurControleur">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu text="_Fichier">
-            <items>
-                  <MenuItem text="_Nouveau">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem onAction="#ouvrirCircuit" text="_Ouvrir">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem text="_Enregistrer">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-              <MenuItem onAction="#enregistrerCircuit" text="Enregistrer _sous..." />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#fermerRetour" text="Fermer" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Bibliothèque">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Ouvrir la bibliothèque de composants" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Aide">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#showAide" text="Informations sur l'application" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="À propos">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#showAPropos" text="Informations sur les créateurs" />
-              </items>
-            </Menu>
-        </menus>
-      </MenuBar>
-   </top>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import io.github.palexdev.materialfx.controls.MFXListView?>
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.ConcepteurControleur">
    <center>
-      <SplitPane dividerPositions="0.5, 0.5" BorderPane.alignment="CENTER">
-         <items>
-            <VBox fx:id="vBox2D" alignment="CENTER" minWidth="0.0" prefHeight="200.0" prefWidth="100.0" />
-            <VBox fx:id="vBox3D" minWidth="0.0">
-               <children>
-                  <SubScene fx:id="subScene3D" height="200.0" width="200.0" VBox.vgrow="ALWAYS">
-                    <root>
-                      <Region />
-                    </root>
-                  </SubScene>
-               </children>
-            </VBox>
-            <TabPane minWidth="0.0" prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="Composantes">
-                     <content>
-                        <ListView fx:id="composantesListView" prefHeight="200.0" prefWidth="200.0" />
-                     </content>
-                </Tab>
-              </tabs>
-            </TabPane>
-         </items>
-      </SplitPane>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+         <children>
+             <BorderPane fx:id="titleBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#mouvePressed" style="-fx-background-color: dodgerblue;" VBox.vgrow="NEVER">
+                 <left>
+                     <HBox>
+                         <children>
+                             <ImageView fitHeight="27.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                     <Image url="@../controleurs/logoDansLeChamp.png" />
+                                 </image>
+                             </ImageView>
+                             <MenuBar prefHeight="25.0" prefWidth="261.0" style="-fx-background-color: dodgerblue;">
+                                 <menus>
+                                     <Menu text="_Fichier">
+                                         <items>
+                                             <MenuItem onAction="#ouvrirCircuit" text="_Ouvrir">
+                                                 <accelerator>
+                                                     <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                                 </accelerator>
+                                             </MenuItem>
+                                             <SeparatorMenuItem mnemonicParsing="false" />
+                                             <MenuItem mnemonicParsing="false" onAction="#fermerApp" text="Fermer" />
+                                         </items>
+                                     </Menu>
+                                     <Menu mnemonicParsing="false" text="Bibliothèque">
+                                         <items>
+                                             <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Ouvrir la Bibliothèque de composantes" />
+                                         </items>
+                                     </Menu>
+                                     <Menu mnemonicParsing="false" text="Aide">
+                                         <items>
+                                             <MenuItem mnemonicParsing="false" onAction="#showAide" text="Informations sur l'application" />
+                                         </items>
+                                     </Menu>
+                                     <Menu mnemonicParsing="false" text="À propos">
+                                         <items>
+                                             <MenuItem mnemonicParsing="false" onAction="#showAPropos" text="Informations sur les créateurs" />
+                                         </items>
+                                     </Menu>
+                                 </menus>
+                             </MenuBar>
+                         </children>
+                     </HBox>
+                 </left>
+                 <right>
+                     <HBox alignment="CENTER_RIGHT" layoutX="504.0">
+                         <children>
+                             <MFXButton depthLevel="LEVEL5" onAction="#minimizeApp" prefHeight="26.0" prefWidth="31.0" rippleAnimateShadow="true" rippleAnimationSpeed="3.0" rippleColor="#d9ff00" style="-fx-background-color: transparent;" text="＿" textAlignment="JUSTIFY">
+                                 <font>
+                                     <Font name="Agency FB" size="13.0" />
+                                 </font>
+                             </MFXButton>
+                             <MFXButton depthLevel="LEVEL5" onAction="#resizeApp" prefHeight="26.0" prefWidth="31.0" rippleAnimateShadow="true" rippleAnimationSpeed="3.0" rippleColor="#00ff24" style="-fx-background-color: transparent;" text="⃞" textAlignment="JUSTIFY">
+                                 <font>
+                                     <Font name="Open Sans SemiBold" size="13.0" />
+                                 </font>
+                             </MFXButton>
+                             <MFXButton depthLevel="LEVEL5" onAction="#fermerApp" prefHeight="25.0" prefWidth="31.0" rippleAnimateShadow="true" rippleAnimationSpeed="3.0" rippleColor="#da0303" style="-fx-background-color: transparent;" text="⛌">
+                                 <font>
+                                     <Font name="Open Sans SemiBold" size="13.0" />
+                                 </font>
+                             </MFXButton>
+                         </children>
+                     </HBox>
+                 </right>
+             </BorderPane>
+            <SplitPane dividerPositions="0.5, 0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="375.0" prefWidth="596.0" VBox.vgrow="ALWAYS">
+               <items>
+                  <VBox fx:id="vBox2D" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="0.0" prefHeight="200.0" prefWidth="100.0" />
+                  <VBox fx:id="vBox3D" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="0.0">
+                     <children>
+                        <SubScene fx:id="subScene3D" height="200.0" width="200.0" VBox.vgrow="ALWAYS">
+                          <root>
+                            <Region />
+                          </root>
+                        </SubScene>
+                     </children>
+                  </VBox>
+                  <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="Composantes">
+                           <content>
+                              <ListView fx:id="composantesListView" minHeight="200.0" prefHeight="200.0" prefWidth="200.0" />
+                           </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+               </items>
+            </SplitPane>
+         </children>
+      </VBox>
    </center>
+    <left>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <Region maxHeight="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="590.0" prefWidth="2.0">
+                    <cursor>
+                        <Cursor fx:constant="W_RESIZE" />
+                    </cursor>
+                </Region>
+                <Region maxHeight="10.0" maxWidth="2.0" onMousePressed="#dragResize" prefHeight="10.0" prefWidth="2.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="SW_RESIZE" />
+                    </cursor>
+                </Region>
+            </children>
+        </VBox>
+    </left>
+    <right>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <Region maxHeight="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="590.0" prefWidth="2.0">
+                    <cursor>
+                        <Cursor fx:constant="E_RESIZE" />
+                    </cursor>
+                </Region>
+                <Region maxHeight="10.0" maxWidth="2.0" onMousePressed="#dragResize" prefHeight="10.0" prefWidth="2.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="SE_RESIZE" />
+                    </cursor>
+                </Region>
+            </children>
+        </VBox>
+    </right>
+    <bottom>
+        <BorderPane prefHeight="1.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <left>
+                <Region maxHeight="2.0" maxWidth="10.0" onMousePressed="#dragResize" prefHeight="2.0" prefWidth="10.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="SW_RESIZE" />
+                    </cursor>
+                </Region>
+            </left>
+            <right>
+                <Region maxHeight="2.0" maxWidth="10.0" onMousePressed="#dragResize" prefHeight="2.0" prefWidth="10.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="SE_RESIZE" />
+                    </cursor>
+                </Region>
+            </right>
+            <center>
+                <Region maxHeight="2.0" maxWidth="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="2.0" prefWidth="580.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="S_RESIZE" />
+                    </cursor>
+                </Region>
+            </center>
+        </BorderPane>
+    </bottom>
+   <padding>
+      <Insets top="1.0" />
+   </padding>
 </BorderPane>
