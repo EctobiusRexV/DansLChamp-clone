@@ -112,7 +112,13 @@ public class ConcepteurControleur extends ParentControleur {
         composantesListView.setItems(circuit.getComposants());
 
         vBox2D.getChildren().setAll(circuit.getDiagramme2D().getGroup());
+vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
+            if (vBox2D.getScaleX() + event.getDeltaY() / 100 < 0) return; // empêcher d'obtenir un scale négatif
 
+            vBox2D.scaleXProperty().set(vBox2D.getScaleX() + event.getDeltaY() / 100);
+            vBox2D.scaleYProperty().set(vBox2D.getScaleY() + event.getDeltaY() / 100);
+
+        });
         Group group3D = circuit.getDiagramme3D().getGroup();
         subScene3D.addEventHandler(ScrollEvent.SCROLL, event -> {
             group3D.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY());

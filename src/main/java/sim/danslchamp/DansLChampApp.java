@@ -1,8 +1,6 @@
 package sim.danslchamp;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -10,9 +8,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.jetbrains.annotations.Nullable;
-import sim.danslchamp.controleurs.ConcepteurControleur;
 import sim.danslchamp.controleurs.BienvenueControleur;
 import sim.danslchamp.controleurs.ControllerUtil;
+import sim.danslchamp.controleurs.ConcepteurControleur;
 import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
@@ -29,6 +27,11 @@ public class DansLChampApp extends Application {
             new FileChooser.ExtensionFilter("Circuit DANS L'CHAMP", FILE_EXTENSION);
 
     public static final SvgLoader SVG_LOADER = new SvgLoader(null);
+
+    static {
+        // pas touche -Thierry
+        SVG_LOADER.setAddViewboxRect(true);
+    }
     // ====================
 
     @Override
