@@ -8,8 +8,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.jetbrains.annotations.Nullable;
-import sim.danslchamp.controleurs.PrincipaleControleur;
-import sim.danslchamp.controleurs.BienvenueControleur;
+import sim.danslchamp.controleurs.ControllerUtil;
+import sim.danslchamp.controleurs.CircuitControleur;
 import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
@@ -26,6 +26,11 @@ public class DansLChampApp extends Application {
             new FileChooser.ExtensionFilter("Circuit DANS L'CHAMP", FILE_EXTENSION);
 
     public static final SvgLoader SVG_LOADER = new SvgLoader(null);
+
+    static {
+        // pas touche -Thierry
+        SVG_LOADER.setAddViewboxRect(true);
+    }
     // ====================
 
     @Override
@@ -38,21 +43,8 @@ public class DansLChampApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader();
+        ControllerUtil.loadFenetre("Bienvenue.fxml", 600, 600);
 
-        Scene scene = new Scene(fxmlLoader.load(this.getClass().getResourceAsStream("fxml\\Bienvenue.fxml")));
-
-        BienvenueControleur bienvenueControleur = fxmlLoader.getController();
-        bienvenueControleur.setStage(primaryStage);
-        primaryStage.setMinHeight(600.0);
-        primaryStage.setMinWidth(600.0);
-
-        primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setResizable(true);
-        primaryStage.setMinHeight(600);
-        primaryStage.setMinWidth(600);
-        primaryStage.show();
     }
 
     /**
@@ -60,11 +52,11 @@ public class DansLChampApp extends Application {
      * @param file Le fichier chargé à l'ouverture, ou null.
      */
     public static void showConcepteurDeCircuit(@Nullable File file) throws FileNotFoundException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
+        FXMLLoader fxmlLoader = new FXMLLoader(ControllerUtil.class.getResource("."));
         Stage stage = new Stage();
 
         try {
-            Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml\\Principale.fxml")));
+            Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml\\Circuit.fxml")));
             stage.setScene(scene);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -73,11 +65,11 @@ public class DansLChampApp extends Application {
             alert.setContentText("Veuillez réessayer...");
         }
 
-        PrincipaleControleur principaleControleur = fxmlLoader.getController();
-        principaleControleur.setStage(stage);
-        principaleControleur.chargerCircuit(file);
+        CircuitControleur circuitControleur = fxmlLoader.getController();
+        circuitControleur.setStage(stage);
+        circuitControleur.chargerCircuit(file);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-        stage.setMaximized(true);
         stage.setMinWidth(800.0);
         stage.setMinHeight(600.0);
     }

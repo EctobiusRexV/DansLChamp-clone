@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 
+import sim.danslchamp.Config;
 import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.Point;
@@ -17,7 +18,7 @@ import java.awt.Point;
  */
 public class Condensateur extends Composant {
 
-    private long capacité_pf;
+    private long capacité_pf = Config.defautCondensateurCapacite_pF;
 
     /**
      * Permet la construction d'un condensateur depuis les attributs SVG
@@ -45,10 +46,10 @@ public class Condensateur extends Composant {
 
     @Override
     Group getSymbole3D() {
-        Cylinder c = new Cylinder(15,20);
+        Cylinder c = new Cylinder(getLargeur()/2,getHauteur());
         c.setMaterial(new PhongMaterial(Color.PINK));
-        c.setLayoutX(getPosX());
-        c.setLayoutY(getPosY());
+//        c.setLayoutX(getPosX()* 1.5);
+//        c.setLayoutY(getPosY()* 1.5);
         if (rotation90){
             c.setRotationAxis(new Point3D(1,0,0));
             c.setRotate(90);

@@ -13,11 +13,11 @@ import java.awt.*;
  * @author Antoine Bélisle
  * @author Mathis-Rosa Wilson
  */
-public class SourceCA extends Source {
+public class Générateur extends Source {
 
-    public SourceCA(int posX, int posY, boolean rotation90) {
+    public Générateur(int posX, int posY, boolean rotation90) {
         super(new Jonction[]{new Jonction(new Point(20, 0)), new Jonction(new Point(20, 40))},
-                40, 40,  posX, posY, rotation90);
+                40, 40, posX, posY, rotation90);
     }
 
     public void setVoltage_mV(String voltage_mV) {
@@ -38,11 +38,14 @@ public class SourceCA extends Source {
 
     @Override
     Group getSymbole3D() {
-        Box box = new Box(100, 50, 20);
+        Box box = new Box(getLargeur(), getHauteur(), 20);
         box.setMaterial(new PhongMaterial(Color.RED));
+        box.setLayoutX(box.getLayoutX() + box.getWidth()/2);
+box.setLayoutY(box.getHeight()/2 + box.getLayoutY()
+);
 
-        if (rotation90){
-            box.setRotationAxis(new Point3D(1,0,0));
+        if (rotation90) {
+            box.setRotationAxis(new Point3D(1, 0, 0));
             box.setRotate(90);
         }
         Group g = new Group();
