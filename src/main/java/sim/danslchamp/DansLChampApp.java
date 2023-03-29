@@ -1,6 +1,8 @@
 package sim.danslchamp;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -10,6 +12,7 @@ import javafx.stage.StageStyle;
 import org.jetbrains.annotations.Nullable;
 import sim.danslchamp.controleurs.ConcepteurControleur;
 import sim.danslchamp.controleurs.BienvenueControleur;
+import sim.danslchamp.controleurs.ControllerUtil;
 import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
@@ -38,21 +41,8 @@ public class DansLChampApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader();
+        ControllerUtil.loadFenetre("Bienvenue.fxml", 600, 600);
 
-        Scene scene = new Scene(fxmlLoader.load(this.getClass().getResourceAsStream("fxml\\Bienvenue.fxml")));
-
-        BienvenueControleur bienvenueControleur = fxmlLoader.getController();
-        bienvenueControleur.setStage(primaryStage);
-        primaryStage.setMinHeight(600.0);
-        primaryStage.setMinWidth(600.0);
-
-        primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setResizable(true);
-        primaryStage.setMinHeight(600);
-        primaryStage.setMinWidth(600);
-        primaryStage.show();
     }
 
     /**
@@ -60,7 +50,7 @@ public class DansLChampApp extends Application {
      * @param file Le fichier chargé à l'ouverture, ou null.
      */
     public static void showConcepteurDeCircuit(@Nullable File file) throws FileNotFoundException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
+        FXMLLoader fxmlLoader = new FXMLLoader(ControllerUtil.class.getResource("."));
         Stage stage = new Stage();
 
         try {
@@ -76,8 +66,8 @@ public class DansLChampApp extends Application {
         ConcepteurControleur concepteurControleur = fxmlLoader.getController();
         concepteurControleur.setStage(stage);
         concepteurControleur.chargerCircuit(file);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-        stage.setMaximized(true);
         stage.setMinWidth(800.0);
         stage.setMinHeight(600.0);
     }

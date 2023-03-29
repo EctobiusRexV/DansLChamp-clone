@@ -31,7 +31,7 @@ import java.util.Set;
 
 import static sim.danslchamp.DansLChampApp.SVG_LOADER;
 
-public class BibliothequeControleur implements Initializable {
+public class BibliothequeControleur extends ParentControleur implements Initializable {
 
     public BorderPane titleBar;
 

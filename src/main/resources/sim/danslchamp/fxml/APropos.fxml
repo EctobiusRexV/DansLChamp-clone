@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.AProposControleur">
+<BorderPane fx:id="root" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.AProposControleur">
    <top>
       <BorderPane fx:id="titleBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#mouvePressed" style="-fx-background-color: dodgerblue;" BorderPane.alignment="CENTER">
          <right>
@@ -33,4 +34,7 @@
    <center>
       <WebView fx:id="textAreaAPropos" prefHeight="400.0" />
    </center>
+   <padding>
+      <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+   </padding>
 </BorderPane>

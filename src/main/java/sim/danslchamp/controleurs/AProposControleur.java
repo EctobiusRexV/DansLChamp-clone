@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AProposControleur implements Initializable {
+public class AProposControleur extends ParentControleur implements Initializable {
     public WebView textAreaAPropos;
 
 
@@ -27,9 +27,6 @@ public class AProposControleur implements Initializable {
     }
 
 
-    public void mouvePressed(MouseEvent mouseEvent) {
-        ControllerUtil.mouveStageUtil(mouseEvent);
-    }
 
     public void fermerApp() {
         ((Stage)textAreaAPropos.getScene().getWindow()).close();

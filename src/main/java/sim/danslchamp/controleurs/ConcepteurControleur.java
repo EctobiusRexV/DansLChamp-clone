@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ListView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
@@ -22,7 +23,6 @@ import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.Util.ComposantesListCell;
 import sim.danslchamp.svg.SvgLoader;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -39,27 +39,31 @@ public class ConcepteurControleur {
 
     private Circuit circuit;
 
-    private Stage stage;
+    private double anchorX, anchorY;
+    private double anchorAngleX = 0;
+    private double anchorAngleY = 0;
+    private final DoubleProperty angleX = new SimpleDoubleProperty(0);
+    private final DoubleProperty angleY = new SimpleDoubleProperty(0);
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-
-        this.stage.setOnCloseRequest(event -> {
-            new Alert(Alert.AlertType.CONFIRMATION,
-                    "Êtes-vous certain de vouloir quitter?",
-                    ButtonType.YES, ButtonType.NO).showAndWait()
-                    .ifPresent(buttonType -> {
-                        if (buttonType == ButtonType.NO)
-                            event.consume();
-                    });
-        });
-    }
+//    private Stage stage;
+//
+//    public void setStage(Stage stage) {
+//        this.stage = stage;
+//
+//        this.stage.setOnCloseRequest(event -> {
+//            DialogPane dp = new DialogPane();
+//           Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+//                   "Êtes-vous certain de vouloir quitter?", ButtonType.YES, ButtonType.NO);
+//           alert.getDialogPane().getStylesheets().add(this.getClass().getResource("alert.css").toExternalForm());
+//            alert.showAndWait().ifPresent(buttonType -> {
+//                        if (buttonType == ButtonType.NO)
+//                            event.consume();
+//                    });
+//        });
+//    }
 
 
     // FXML
-
-    @FXML
-    private BorderPane borderPane;
     @FXML
     private ListView<Composant> composantesListView;
     @FXML
@@ -130,27 +134,26 @@ public class ConcepteurControleur {
         subScene3D.setRoot(group3D);
     }
 
-    @FXML
-    void showBibliotheque() {
-        DansLChampApp.loadFenetre("Bibliotheque.fxml").show();
-    }
+    private void initMouseControl(Group group, SubScene scene) {
+        Rotate xRotate;
+        Rotate yRotate;
+        group.getTransforms().addAll(
+                xRotate = new Rotate(0, Rotate.X_AXIS),
+                yRotate = new Rotate(0, Rotate.Y_AXIS)
+        );
+        xRotate.angleProperty().bind(angleX);
+        yRotate.angleProperty().bind(angleY);
 
-    @FXML
-    void showAide() {
-        DansLChampApp.loadFenetre("Aide.fxml").show();
-    }
+        scene.setOnMousePressed(event -> {
+            anchorX = event.getSceneX();
+            anchorY = event.getSceneY();
+            anchorAngleX = angleX.get();
+            anchorAngleY = angleY.get();
+        });
 
-    @FXML
-    void showAPropos() {
-        DansLChampApp.loadFenetre("APropos.fxml").show();
-    }
-
-    public class Concepteur {
-        Point posXY;
-        boolean vertical;
-
-        public void addComposant(Class<Composant> composantClass, int posX, int posY, boolean rotation90) {
-
-        }
+        scene.setOnMouseDragged(event -> {
+            angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
+            angleY.set(anchorAngleY + anchorX - event.getSceneX());
+        });
     }
 }
