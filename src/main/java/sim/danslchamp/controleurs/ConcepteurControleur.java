@@ -141,30 +141,4 @@ vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
         subScene3D.setRoot(group3D);
         circuit.getDiagramme3D().initMouseControl(group3D, subScene3D);
     }
-
-
-
-    @FXML
-    void showBibliotheque() {
-        DansLChampApp.loadFenetre("Bibliotheque.fxml").show();
-    }
-
-    @FXML
-    void showAide() {
-        DansLChampApp.loadFenetre("Aide.fxml").show();
-    }
-
-    @FXML
-    void showAPropos() {
-        DansLChampApp.loadFenetre("APropos.fxml").show();
-    }
-
-    public class Concepteur {
-        Point posXY;
-        boolean vertical;
-
-        public void addComposant(Class<Composant> composantClass, int posX, int posY, boolean rotation90) {
-
-        }
-    }
 }
