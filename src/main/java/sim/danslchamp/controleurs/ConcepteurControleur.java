@@ -7,28 +7,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
-import org.reflections.Reflections;
 import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.Util.ComposantesListCell;
-import sim.danslchamp.circuit.Fil;
-import sim.danslchamp.circuit.Source;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Set;
 
 import static sim.danslchamp.DansLChampApp.FC;
 
@@ -39,7 +31,7 @@ import static sim.danslchamp.DansLChampApp.FC;
  * @author Mathis Rosa-Wilson
  * @author Thierry Rhéaume
  */
-public class PrincipaleControleur {
+public class ConcepteurControleur {
 
     private Circuit circuit;
 
