@@ -4,6 +4,10 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import sim.danslchamp.Config;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -22,9 +26,9 @@ public abstract class Composant {
     private String label;
 
 
-    private long    reactance_mOhms,
-                    voltage_mV,
-                    courant_uA;
+    private Valeur  reactance = new Valeur(0, Unite.UNITE, "Ω"),
+                    voltage = new Valeur(0, Unite.UNITE, "V"),
+                    courant = new Valeur(0, Unite.UNITE, "A");
 
     /**
      * Position absolue des connecteurs
@@ -182,6 +186,26 @@ public abstract class Composant {
         return methode.getName()
                 .substring(3)   // set/get
                 .split("_")[0];
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    public @interface Affichable {
+    }
+
+    @Affichable
+    public Valeur getReactance(Unite unite) {
+        return reactance.convertir(unite);
+    }
+
+    @Affichable
+    public Valeur getVoltage(Unite unite) {
+        return voltage.convertir(unite);
+    }
+
+    @Affichable
+    public Valeur getCourant(Unite unite) {
+        return courant.convertir(unite);
     }
 
     /**
