@@ -60,14 +60,14 @@ public abstract class Diagramme {
 
     abstract void mesurerChampMagnetique();*/
     private void genererInfobulle(Composant composant, Group composantGroup) {
-        Tooltip tooltip = new Tooltip();
+        Tooltip infobulle = new Tooltip();
         Label valeursLabel = new Label();
-        VBox tooltipVBox = new VBox(
+        VBox infobulleVBox = new VBox(
                 new Label(composant.toString()),
                 new Separator(Orientation.HORIZONTAL),
                 valeursLabel);
 
-        tooltip.setGraphic(tooltipVBox);
+        infobulle.setGraphic(infobulleVBox);
 
         for (Composant.Valeur valeur :
                 composant.getValeursAffichables()) {
@@ -75,10 +75,10 @@ public abstract class Diagramme {
         }
 
         composantGroup.setOnMousePressed(event -> {
-                tooltip.show(composantGroup, event.getScreenX(), event.getScreenY());
+                infobulle.show(composantGroup, event.getScreenX(), event.getScreenY());
         });
         composantGroup.setOnMouseReleased(event -> {
-            tooltip.hide();
+            infobulle.hide();
         });
     }
 
