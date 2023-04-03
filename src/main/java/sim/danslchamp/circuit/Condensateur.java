@@ -20,7 +20,7 @@ public class Condensateur extends Composant {
 
     @Affichable
     @Modifiable
-    private Valeur capacite = new Valeur(Config.defautCondensateurCapacite_pF, Unite.UNITE, "F");
+    public Valeur capacite = new Valeur(Config.defautCondensateurCapacite_pF, Unite.UNITE, "F");
 
     /**
      * Permet la construction d'un condensateur depuis les attributs SVG

@@ -16,7 +16,7 @@ public class Résistor extends Composant {
 
     // Pas afficher! (duplic. avec réactance)
     @Modifiable
-    private Valeur resistance = new Valeur(Config.defautResistorResistance_mOhms, Unite.UNITE, "Ω");
+    public Valeur resistance = new Valeur(Config.defautResistorResistance_mOhms, Unite.UNITE, "Ω");
 
     /**
      * Permet la construction d'un résistor depuis les attributs SVG.

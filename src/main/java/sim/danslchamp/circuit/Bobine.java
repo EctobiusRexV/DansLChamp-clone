@@ -14,7 +14,7 @@ public class Bobine extends Composant {
 
     @Affichable
     @Modifiable
-    private Valeur  nombreDeSpires = new Valeur(Config.defautBobineNombreDeSpires, Unite.UNITE, ""),
+    public Valeur  nombreDeSpires = new Valeur(Config.defautBobineNombreDeSpires, Unite.UNITE, ""),
                     longueur = new Valeur(Config.defautBobineLongueur_mm, Unite.UNITE, "m"),
                     rayon = new Valeur(Config.defautBobineRayon_mm, Unite.UNITE, "m");
 

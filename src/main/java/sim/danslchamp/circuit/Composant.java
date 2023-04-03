@@ -42,7 +42,7 @@ public abstract class Composant {
     private String label;
 
     @Affichable
-    private Valeur  reactance = new Valeur(0, Unite.UNITE, "Ω"),
+    public Valeur  reactance = new Valeur(0, Unite.UNITE, "Ω"),
                     voltage = new Valeur(0, Unite.UNITE, "V"),
                     courant = new Valeur(0, Unite.UNITE, "A");
 
@@ -184,7 +184,7 @@ public abstract class Composant {
     }
 
     private Valeur[] getValeurs(Class annotationClass) {
-        return Arrays.stream(getClass().getDeclaredFields())
+        return Arrays.stream(getClass().getFields())
                 .filter(field -> field.isAnnotationPresent(annotationClass))
                 .map(field -> {
                     try {
