@@ -18,6 +18,8 @@ import java.awt.Point;
  */
 public class Condensateur extends Composant {
 
+    @Affichable
+    @Modifiable
     private Valeur capacite = new Valeur(Config.defautCondensateurCapacite_pF, Unite.UNITE, "F");
 
     /**
@@ -26,22 +28,6 @@ public class Condensateur extends Composant {
     public Condensateur(int posX, int posY, boolean rotation90) {
         super(new Jonction[]{new Jonction(new Point(20, 0)), new Jonction(new Point(20, 30))},
                 30, 40, posX, posY, rotation90);
-    }
-
-    public void setCapacité_pf(String capacité_pf) {
-        if (!capacité_pf.isEmpty()) {
-            if (capacité_pf.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "Capacité (pf)");
-            } else {
-                try {
-                    this.capacité_pf = Long.parseLong(capacité_pf);
-                } catch (NumberFormatException e) {
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "Capacité (pf)");
-                }
-            }
-        } else {
-            this.capacité_pf = 0;
-        }
     }
 
     @Override

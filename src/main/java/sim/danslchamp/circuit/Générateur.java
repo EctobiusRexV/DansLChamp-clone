@@ -20,22 +20,6 @@ public class Générateur extends Source {
                 40, 40, posX, posY, rotation90);
     }
 
-    public void setVoltage_mV(String voltage_mV) {
-        if (!voltage_mV.isEmpty()) {
-            if (voltage_mV.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "Voltage (mV)");
-            } else {
-                try {
-                    setVoltage_mV(Long.parseLong(voltage_mV));
-                } catch (NumberFormatException e) {
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "Voltage (mV)");
-                }
-            }
-        } else {
-            setVoltage_mV(0);
-        }
-    }
-
     @Override
     Group getSymbole3D() {
         Box box = new Box(getLargeur(), getHauteur(), 20);

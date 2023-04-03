@@ -14,6 +14,8 @@ import java.awt.*;
  */
 public class Résistor extends Composant {
 
+    // Pas afficher! (duplic. avec réactance)
+    @Modifiable
     private Valeur resistance = new Valeur(Config.defautResistorResistance_mOhms, Unite.UNITE, "Ω");
 
     /**
@@ -22,26 +24,6 @@ public class Résistor extends Composant {
     public Résistor(int posX, int posY, boolean rotation90) {
         super(new Jonction[]{new Jonction(new Point(0, 10)), new Jonction(new Point(80, 10))},
                 30, 80, posX, posY, rotation90);
-    }
-
-    public long getRésistance_mOhms() {
-        return résistance_mOhms;
-    }
-
-    public void setRésistance_mOhms(String résistance_mOhms) {
-        if (!résistance_mOhms.isEmpty()) {
-            if (résistance_mOhms.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "Résistance (mOhms)");
-            } else {
-                try {
-                    this.résistance_mOhms = Long.parseLong(résistance_mOhms);
-                } catch (NumberFormatException e) {
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "Résistance (mOhms)");
-                }
-            }
-        } else {
-            this.résistance_mOhms = 0;
-        }
     }
 
     @Override
@@ -59,5 +41,4 @@ public class Résistor extends Composant {
         g.getChildren().addAll(c);
         return g;
     }
-
 }

@@ -3,6 +3,7 @@ package sim.danslchamp.circuit;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import sim.danslchamp.Config;
+import sim.danslchamp.Util.DanslChampUtil;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -25,7 +26,7 @@ public abstract class Composant {
 
     private String label;
 
-
+    @Affichable
     private Valeur  reactance = new Valeur(0, Unite.UNITE, "Ω"),
                     voltage = new Valeur(0, Unite.UNITE, "V"),
                     courant = new Valeur(0, Unite.UNITE, "A");
@@ -92,10 +93,6 @@ public abstract class Composant {
         this.posY = posY;
 
         setJonctions();
-    }
-
-    public void setVoltage_mV(long voltage_mV) {
-        this.voltage_mV = voltage_mV;
     }
 
     /**
@@ -188,24 +185,42 @@ public abstract class Composant {
                 .split("_")[0];
     }
 
+    // GETTERS
+
     @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
+    @Target(ElementType.FIELD)
     public @interface Affichable {
     }
 
-    @Affichable
-    public Valeur getReactance(Unite unite) {
-        return reactance.convertir(unite);
+    // SETTERS
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    public @interface Modifiable {
     }
 
-    @Affichable
-    public Valeur getVoltage(Unite unite) {
-        return voltage.convertir(unite);
+    public void setReactance(double reactance) {
+        setReactance(reactance, Unite.UNITE);
     }
 
-    @Affichable
-    public Valeur getCourant(Unite unite) {
-        return courant.convertir(unite);
+    public void setReactance(double reactance, Unite unite) {
+        this.reactance.setValeur(reactance, unite);
+    }
+
+    public void setVoltage(double voltage) {
+        setVoltage(voltage, Unite.UNITE);
+    }
+
+    public void setVoltage(double voltage, Unite unite) {
+        this.voltage.setValeur(voltage, Unite.UNITE);
+    }
+
+    public void setCourant(double courant) {
+        setCourant(courant, Unite.UNITE);
+    }
+
+    public void setCourant(double courant, Unite unite) {
+        this.courant.setValeur(courant, Unite.UNITE);
     }
 
     /**
@@ -238,21 +253,36 @@ public abstract class Composant {
     public static class Valeur {
         private double valeur;
         private Unite unite;
-        private String symbole;
+        private final String symbole;
 
         private final static NumberFormat formatter = new DecimalFormat();
 
         public Valeur(double valeur, Unite unite, String symbole) {
-            if (unite == Unite.PLUS_PETITE_POSSIBLE)
-                throw new IllegalArgumentException("L'argument Unite.PLUS_PETITE_POSSIBLE ne peut être utilisé que dans une conversion.");
+            setValeur(valeur, unite);
 
-            this.valeur = valeur;
-            this.unite = unite;
             this.symbole = symbole;
         }
 
         public double getValeur() {
             return valeur;
+        }
+
+        public void setValeur(String valeur, Unite unite) {
+            if (valeur.isEmpty()) this.valeur = 0;
+            else
+                try {
+                    setValeur(Double.parseDouble(valeur), unite);
+                } catch (NumberFormatException e) {
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme", ""/*fixme*/);
+                }
+        }
+
+        public void setValeur(double valeur, Unite unite) {
+            if (unite == Unite.PLUS_PETITE_POSSIBLE)
+                throw new IllegalArgumentException("L'argument Unite.PLUS_PETITE_POSSIBLE ne peut être utilisé que dans une conversion.");
+
+            this.valeur = valeur;
+            this.unite = unite;
         }
 
         @Override
