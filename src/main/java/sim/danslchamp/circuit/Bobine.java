@@ -12,9 +12,9 @@ import java.awt.*;
  */
 public class Bobine extends Composant {
 
-    private int nombreDeSpires = Config.defautBobineNombreDeSpires;
-    private double longueur_mm = Config.defautBobineLongueur_mm;
-    private double rayon_mm = Config.defautBobineRayon_mm;
+    private Valeur  nombreDeSpires = new Valeur(Config.defautBobineNombreDeSpires, Unite.UNITE, ""),
+                    longueur = new Valeur(Config.defautBobineLongueur_mm, Unite.UNITE, "m"),
+                    rayon = new Valeur(Config.defautBobineRayon_mm, Unite.UNITE, "m");
 
     /**
      * Permet la construction d'une bobine depuis les attributs SVG
@@ -46,13 +46,13 @@ public class Bobine extends Composant {
                 DanslChampUtil.lanceAlerte("Entrée non-conforme", "Longueur (m)");
             } else {
                 try {
-                    this.longueur_mm = Double.parseDouble(longueur_mm);
+                    this.longueur = Double.parseDouble(longueur_mm);
                 } catch (NumberFormatException e) {
                     DanslChampUtil.lanceAlerte("Entrée non-conforme", "Longueur (m)");
                 }
             }
         } else {
-            this.longueur_mm = 0;
+            this.longueur = 0;
         }
     }
 
@@ -62,13 +62,13 @@ public class Bobine extends Composant {
                 DanslChampUtil.lanceAlerte("Entrée non-conforme", "Rayon (m)");
             } else {
                 try {
-                    this.rayon_mm = Double.parseDouble(rayon_mm);
+                    this.rayon = Double.parseDouble(rayon_mm);
                 } catch (NumberFormatException e) {
                     DanslChampUtil.lanceAlerte("Entrée non-conforme", "Rayon (m)");
                 }
             }
         } else {
-            this.rayon_mm = 0;
+            this.rayon = 0;
         }
     }
 

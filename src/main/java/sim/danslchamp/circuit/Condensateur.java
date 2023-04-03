@@ -18,7 +18,7 @@ import java.awt.Point;
  */
 public class Condensateur extends Composant {
 
-    private long capacité_pf = Config.defautCondensateurCapacite_pF;
+    private Valeur capacite = new Valeur(Config.defautCondensateurCapacite_pF, Unite.UNITE, "F");
 
     /**
      * Permet la construction d'un condensateur depuis les attributs SVG
