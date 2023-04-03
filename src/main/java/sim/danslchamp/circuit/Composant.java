@@ -5,6 +5,8 @@ import javafx.scene.paint.Color;
 import sim.danslchamp.Config;
 
 import java.lang.reflect.Method;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Arrays;
 
 import static sim.danslchamp.DansLChampApp.SVG_LOADER;
@@ -188,5 +190,76 @@ public abstract class Composant {
     @Override
     public String toString() {
         return getClass().getSimpleName();
+    }
+
+    enum Unite {
+        PLUS_PETITE_POSSIBLE(""), PICO("p"), NANO("n"), MICRO("μ"), MILLI("m"), UNITE( ""), KILO("K"), MEGA("M"), GIGA("G");
+
+        private final String symbole;
+
+        Unite(String symbole) {
+            this.symbole = symbole;
+        }
+
+        public String getSymbole() {
+            return symbole;
+        }
+
+        @Override
+        public String toString() {
+            return getSymbole();
+        }
+    }
+
+    public static class Valeur {
+        private double valeur;
+        private Unite unite;
+        private String symbole;
+
+        private final static NumberFormat formatter = new DecimalFormat();
+
+        public Valeur(double valeur, Unite unite, String symbole) {
+            if (unite == Unite.PLUS_PETITE_POSSIBLE)
+                throw new IllegalArgumentException("L'argument Unite.PLUS_PETITE_POSSIBLE ne peut être utilisé que dans une conversion.");
+
+            this.valeur = valeur;
+            this.unite = unite;
+            this.symbole = symbole;
+        }
+
+        public double getValeur() {
+            return valeur;
+        }
+
+        @Override
+        public String toString() {
+            return formatter.format(valeur) + " " + unite + symbole;
+        }
+
+        /**
+         * @return Une <u>NOUVELLE</u> valeur convertie à l'unité désirée.
+         */
+        public Valeur convertir(Unite unite) {
+            if (unite == Unite.PLUS_PETITE_POSSIBLE) return convertirPlusPetitePossible();
+
+            int facteur = unite.ordinal() - this.unite.ordinal();
+            return new Valeur(valeur * Math.pow(10, -(3*facteur)), unite, symbole);
+        }
+
+        /**
+         * @return La valeur convertie à la plus petite unité possible au format ingénieur (micro, milli, ..., kilo, méga, etc.)
+         */
+        private Valeur convertirPlusPetitePossible() {
+            double valeur = this.valeur;
+            int i;
+            if (valeur > 1_000)
+                for (i = 0; valeur > 1_000; i--)
+                    valeur /= 1_000;
+            else
+                for (i = 0; valeur < 1; i++)
+                    valeur *= 1_000;
+
+            return new Valeur(valeur, Unite.values()[this.unite.ordinal() - i], symbole);
+        }
     }
 }
