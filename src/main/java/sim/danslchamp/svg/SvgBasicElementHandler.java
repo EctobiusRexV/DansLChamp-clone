@@ -26,8 +26,6 @@ import org.apache.batik.anim.dom.SVGOMAnimatedPathData.BaseSVGPathSegList;
 import org.apache.batik.css.dom.CSSOMSVGColor;
 import org.apache.batik.css.dom.CSSOMValue;
 import org.apache.batik.dom.svg.SVGPathSegItem;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.svg.SVGPoint;
@@ -35,11 +33,9 @@ import org.w3c.dom.svg.SVGPointList;
 import org.w3c.dom.svg.SVGRect;
 import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.circuit.Fil;
-import sim.danslchamp.circuit.Jonction;
-import sim.danslchamp.circuit.Source;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,17 +86,12 @@ public class SvgBasicElementHandler {
                 estRotationne90(element)
         );
 
-        for (Method method :
-                composant.getSetMethods()) {
-            try {
-                method.invoke(composant,
-                        element.getAttribute(method.getName().replace("set", "x")));
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();    // NE DEVRAIT PAS ARRIVER
-            }
+        for (Composant.Valeur valeur :
+                composant.getValeursModifiables()) {
+//            valeur.setValeur();     // TODO: 2023-04-03 Lecture des valeurs sauvegardées
         }
 
-        System.out.println("Loaded use element: " + type);
+        System.out.println(type + " chargé");
     }
 
     void handleElement(SVGOMUseElement element) {

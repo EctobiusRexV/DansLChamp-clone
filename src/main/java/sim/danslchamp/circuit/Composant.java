@@ -9,7 +9,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -17,6 +17,21 @@ import java.util.Arrays;
 import static sim.danslchamp.DansLChampApp.SVG_LOADER;
 
 public abstract class Composant {
+
+    /**
+     * Désigne les champs affichables dans l'infobulle d'un composant
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    public @interface Affichable { }
+
+    /**
+     * Désigne les champs modifiables dans la liste des composants (par le fait même sauvegardés)
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    public @interface Modifiable { }
+
 
     /**
      * Les composants concrets doivent définir leurs connecteurs relativement à la position (0, 0)
@@ -167,37 +182,37 @@ public abstract class Composant {
     public Jonction getBornePositive() {
         return bornePositive;
     }
-    public Method[] getSetMethods() {
-        return Arrays.stream(getClass().getDeclaredMethods())
-                .filter(method -> method.getName().startsWith("set"))
-                .toArray(Method[]::new);
+
+    private Valeur[] getValeurs(Class annotationClass) {
+        return Arrays.stream(getClass().getDeclaredFields())
+                .filter(field -> field.isAnnotationPresent(annotationClass))
+                .map(field -> {
+                    try {
+                        field.setAccessible(true);
+                        return (Valeur) field.get(this);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .toArray(Valeur[]::new);
     }
 
-    public Method[] getGetMethods() {
-        return Arrays.stream(getClass().getDeclaredMethods())
-                .filter(method -> method.getName().startsWith("get"))
-                .toArray(Method[]::new);
+    /**
+     * @return Un tableau de Valeurs portant l'annotation Affichable
+     */
+    public Valeur[] getValeursAffichables() {
+        return getValeurs(Affichable.class);
     }
 
-    public static String getUniteTypeFromMethod(Method methode) {
-        return methode.getName()
-                .substring(3)   // set/get
-                .split("_")[0];
+    /**
+     * @return Un tableau de Valeurs portant l'annotation Modifiable
+     */
+    public Valeur[] getValeursModifiables() {
+        return getValeurs(Modifiable.class);
     }
 
-    // GETTERS
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.FIELD)
-    public @interface Affichable {
-    }
 
     // SETTERS
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.FIELD)
-    public @interface Modifiable {
-    }
 
     public void setReactance(double reactance) {
         setReactance(reactance, Unite.UNITE);
@@ -231,7 +246,7 @@ public abstract class Composant {
         return getClass().getSimpleName();
     }
 
-    enum Unite {
+    public enum Unite {
         PLUS_PETITE_POSSIBLE(""), PICO("p"), NANO("n"), MICRO("μ"), MILLI("m"), UNITE( ""), KILO("K"), MEGA("M"), GIGA("G");
 
         private final String symbole;

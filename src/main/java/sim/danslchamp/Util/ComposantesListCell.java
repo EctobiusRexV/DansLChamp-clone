@@ -28,48 +28,20 @@ public class ComposantesListCell extends ListCell<Composant> {
 
             vBox.getChildren().add(new Label(item.getClass().getSimpleName()));
 
-            for (Method m : item.getSetMethods()) {
+            for (Composant.Valeur valeur :
+                    item.getValeursModifiables()) {
                 HBox hBox = new HBox();
                 HBox.setHgrow(hBox, Priority.ALWAYS);
                 hBox.setMinWidth(300);
                 hBox.setSpacing(10);
 
                 TextField textField = new TextField();
-                textField.setOnKeyTyped(eh -> {
-                    try {
-                        if (textField.getText() != null) {
-                            m.invoke(item, textField.getText());
-                        }
+                textField.setOnKeyTyped(eh -> valeur.setValeur(textField.getText(), Composant.Unite.UNITE));    // TODO: 2023-04-03 Unités (ComboBox)
 
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-
-                hBox.getChildren().addAll(getLabelFromMethod(m), textField);
+                hBox.getChildren().addAll(/*getLabelFromMethod(),*/ textField);     // TODO: 2023-04-03 Afficher nom
                 vBox.getChildren().add(hBox);
                 setGraphic(vBox);
             }
         }
-    }
-
-    /**
-     * Crée un fx.Label depuis un nom de méthode au format set_Attribut_Unités au format Attribut (Unités) :
-     * @param method
-     * @return fx.Label
-     */
-    // fixme ou method.getAnnotation()
-    private Label getLabelFromMethod(Method method) {
-        String[] parts =        // attribut, unités
-                method.getName()
-                        .substring(3)   // set
-                        .split("_");
-
-        Label label = new Label(
-                parts[0].replaceAll("[A-Z]", " $0")
-                + (parts.length > 1 ? " (" + parts[1] + ") :" : ""));
-        label.setMinWidth(120);
-
-        return label;
     }
 }

@@ -57,15 +57,11 @@ public abstract class Diagramme {
     abstract void mesurerChampMagnetique();*/
     private void genererInfobulle(Composant composant, Group composantGroup) {
         Tooltip tooltip = new Tooltip();
-        for (Method method :
-                composant.getGetMethods()) {
-            try {
-                tooltip.setText(tooltip.getText()
-                        .concat(Composant.getUniteTypeFromMethod(method) + " : " + method.invoke(composant)));
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();        // NE DEVRAIT PAS ARRIVER !
-            }
+        for (Composant.Valeur valeur :
+                composant.getValeursAffichables()) {
+                tooltip.setText(tooltip.getText().concat(valeur + "\n"));
         }
+
         composantGroup.setOnMousePressed(event -> {
                 tooltip.show(composantGroup, event.getScreenX(), event.getScreenY());
         });
