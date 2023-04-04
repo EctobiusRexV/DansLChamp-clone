@@ -17,7 +17,7 @@ public class Circuit {
     private String nom;
 
     private List<Composant> circuit = new ArrayList<>();
-    private int resistanceEqui = 0;
+    private double resistanceEqui = 0;
 
     private int frequence = 0;
     private final List<Jonction> noeuds;
@@ -71,18 +71,32 @@ public class Circuit {
         resistanceEqui = trouverResistanceEqui();
     }
 
-    private int trouverResistanceEqui() {
+    private double trouverResistanceEqui() {
 
-        int resistance = 0;
-        int reactanceBobine = 0;
-        int reactanceCondensateur = 0;
+        double resistance = 0;
+        double reactanceBobine = 0;
+        double reactanceCondensateur = 0;
+        double inverseImpedenceSousCircuit = 0;
+        double impedenceTotaleSousCircuit = 0;
 
-        for (Composant c : circuit){
+        for (int i = 0; i < circuit.size() - 1; i++) {
 
-            resistance += c.calculResistance(frequence);
+            Composant c = circuit.get(i);
+
+            if (c instanceof Condensateur){
+                reactanceCondensateur += c.calculResistance(frequence);
+            } else if (c instanceof Bobine) {
+                reactanceBobine += c.calculResistance(frequence);
+            } else if (c instanceof SousCircuit) {
+                inverseImpedenceSousCircuit += 1 / c.calculResistance(frequence);
+                if (!(circuit.get(i + 1) instanceof SousCircuit)){
+                    impedenceTotaleSousCircuit += 1 / inverseImpedenceSousCircuit;
+                }
+            } else resistance += c.calculResistance(frequence);
+
         }
 
-        return (int) Math.sqrt(Math.pow(resistance, 2) + Math.pow(reactanceCondensateur - reactanceBobine, 2));
+        return Math.sqrt(Math.pow(resistance, 2) + Math.pow(reactanceCondensateur - reactanceBobine, 2)) + impedenceTotaleSousCircuit;
     }
 
     /**
