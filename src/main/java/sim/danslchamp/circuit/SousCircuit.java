@@ -45,7 +45,14 @@ public class SousCircuit extends Composant{
 
     @Override
     public double calculResistance(int frequence) {
-        return 0;
+
+        int resistance = 0;
+
+        for (Composant c : composants){
+            resistance += c.calculResistance(frequence);
+        }
+
+        return resistance;
     }
 
     @Override

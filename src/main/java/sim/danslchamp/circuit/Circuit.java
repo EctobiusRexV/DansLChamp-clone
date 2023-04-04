@@ -74,12 +74,15 @@ public class Circuit {
     private int trouverResistanceEqui() {
 
         int resistance = 0;
+        int reactanceBobine = 0;
+        int reactanceCondensateur = 0;
 
         for (Composant c : circuit){
+
             resistance += c.calculResistance(frequence);
         }
 
-        return resistance;
+        return (int) Math.sqrt(Math.pow(resistance, 2) + Math.pow(reactanceCondensateur - reactanceBobine, 2));
     }
 
     /**
