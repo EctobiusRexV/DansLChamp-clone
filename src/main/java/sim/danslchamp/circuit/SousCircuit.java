@@ -9,10 +9,18 @@ public class SousCircuit extends Composant{
 
     private List<Composant> composants;
 
+    private double resistance;
+
 
     public SousCircuit() {
         composants = new ArrayList<>();
     }
+
+
+    public void ISetResistance() {
+
+    }
+
 
     void initGroupe3D() {
 
@@ -33,6 +41,11 @@ public class SousCircuit extends Composant{
     @Override
     Group getSymbole3D() {
         return null;
+    }
+
+    @Override
+    public long calculResistance(int frequence) {
+        return 0;
     }
 
     @Override

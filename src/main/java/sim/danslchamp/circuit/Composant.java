@@ -238,6 +238,8 @@ public abstract class Composant {
         this.courant.setValeur(courant, Unite.UNITE);
     }
 
+    public abstract long calculResistance(int frequence);
+
     /**
      * @return le nom de la composante (Résistor, Condensateur, etc.)
      */

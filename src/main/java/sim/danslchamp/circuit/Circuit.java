@@ -17,6 +17,9 @@ public class Circuit {
     private String nom;
 
     private List<Composant> circuit = new ArrayList<>();
+    private int resistanceEqui = 0;
+
+    private int frequence = 0;
     private final List<Jonction> noeuds;
 
 
@@ -53,7 +56,8 @@ public class Circuit {
 
         noeuds = jonctions.stream().filter(Jonction::estNoeud).toList();
 
-
+        calculCircuit();
+        System.out.println(resistanceEqui);
     }
 
     public static Circuit chargerCircuit(File file) throws FileNotFoundException {
@@ -63,6 +67,19 @@ public class Circuit {
     public void calculCircuit(){
         trouverSensDuCourant();
         circuit = trouverCircuit();
+
+        resistanceEqui = trouverResistanceEqui();
+    }
+
+    private int trouverResistanceEqui() {
+
+        int resistance = 0;
+
+        for (Composant c : circuit){
+            resistance += c.calculResistance(frequence);
+        }
+
+        return resistance;
     }
 
     /**

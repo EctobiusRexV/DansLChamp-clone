@@ -15,6 +15,7 @@ public class Fil extends Composant {
         this.endY=endY-startY;
     }
 
+
     @Override
     public Group getSymbole2D() {
         Line l = new Line(0, 0, endX, endY);
@@ -25,5 +26,10 @@ public class Fil extends Composant {
     @Override
     Group getSymbole3D() {
         return getSymbole2D();
+    }
+
+    @Override
+    public long calculResistance(int frequence) {
+        return 0;
     }
 }

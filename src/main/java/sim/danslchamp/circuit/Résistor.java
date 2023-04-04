@@ -41,4 +41,9 @@ public class Résistor extends Composant {
         g.getChildren().addAll(c);
         return g;
     }
+
+    public long calculResistance(int frequence) {
+        IsetReactance_mOhms(résistance_mOhms);
+        return résistance_mOhms;
+    }
 }

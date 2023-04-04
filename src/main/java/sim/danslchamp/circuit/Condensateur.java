@@ -22,6 +22,8 @@ public class Condensateur extends Composant {
     @Modifiable
     public Valeur capacite = new Valeur(Config.defautCondensateurCapacite_pF, Unite.UNITE, "F");
 
+    private double resistance;
+
     /**
      * Permet la construction d'un condensateur depuis les attributs SVG
      */
@@ -43,6 +45,17 @@ public class Condensateur extends Composant {
         Group g = new Group();
         g.getChildren().addAll(c);
         return g;
+    }
+
+    public long calculResistance(int frequence){
+
+        if (frequence == 0){
+            return 999999999;
+        }
+
+        IsetReactance_mOhms((long) (1 / (2 * Math.PI * frequence * capacité_pf)));
+
+        return (long) (1 / (2 * Math.PI * frequence * capacité_pf));
     }
 
 }

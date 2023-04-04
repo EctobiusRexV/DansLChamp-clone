@@ -18,12 +18,28 @@ public class Bobine extends Composant {
                     longueur = new Valeur(Config.defautBobineLongueur_mm, Unite.UNITE, "m"),
                     rayon = new Valeur(Config.defautBobineRayon_mm, Unite.UNITE, "m");
 
+    private double resistance;
+
+    private final double mu = (4 * Math.PI) * Math.pow(10, -7);
+
     /**
      * Permet la construction d'une bobine depuis les attributs SVG
      */
     public Bobine(int posX, int posY, boolean rotation90) {
         super(new Jonction[]{new Jonction(new Point(0, 10)), new Jonction(new Point(80, 10))},
                 22, 80, posX, posY, rotation90);
+    }
+
+    public long calculResistance(int frequence) {
+
+
+        double surface = 2 * Math.PI * rayon_mm;
+
+        double L = (mu * surface * Math.pow(this.nombreDeSpires, 2))/longueur_mm;
+
+        IsetReactance_mOhms((long) (2 * Math.PI * frequence * L));
+
+        return (long) (2 * Math.PI * frequence * L);
     }
 
     @Override
