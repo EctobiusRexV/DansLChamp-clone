@@ -38,7 +38,7 @@ public class ComposantesListCell extends ListCell<Composant> {
                 Label label = new Label(valeurNomWrapper.nom + ": ");
                 label.setMinWidth(120);
 
-                TextField textField = new TextField();
+                TextField textField = new TextField(valeurNomWrapper.valeur.getValeurStr());
                 textField.setOnKeyTyped(eh -> valeurNomWrapper.valeur.setValeur(textField.getText(), Composant.Unite.UNITE));    // TODO: 2023-04-03 Unités (ComboBox)
 
                 hBox.getChildren().addAll(label, textField);

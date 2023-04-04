@@ -258,6 +258,10 @@ public abstract class Composant {
             return valeur;
         }
 
+        public String getValeurStr() {
+            return formatter.format(valeur);
+        }
+
         public void setValeur(String valeur, Unite unite) {
             if (valeur.isEmpty()) this.valeur = 0;
             else
