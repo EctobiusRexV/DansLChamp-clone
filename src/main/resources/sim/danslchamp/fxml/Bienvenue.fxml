@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTitledPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!--
+IMPORTANT
+les ressource maven et les ressource que scene builder utilise ne se pas compatible, donc pour modifier cette scene il est nécésaire de commenter les image
+je vais identifier ou sont les ressource dans le code
+-->
+
+<BorderPane fx:id="root" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
+    <center>
+        <VBox alignment="TOP_CENTER" prefHeight="480.0" prefWidth="575.0" spacing="30.0" style="-fx-background-color: white;">
+            <children>
+                <MFXTitledPane fx:id="recentsTitlePane" expanded="true" title="Circuits Récents">
+                    <content>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <VBox onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label fx:id="labelHautGauche" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" />
+                                    </children>
+                                </VBox>
+                                <VBox onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label fx:id="labelHautMilieu" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" />
+                                    </children>
+                                </VBox>
+                                <VBox minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label fx:id="labelHautDroite" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </content>
+                    <VBox.margin>
+                        <Insets top="30.0" />
+                    </VBox.margin>
+                </MFXTitledPane>
+                <MFXTitledPane fx:id="deBaseTitledPane" expanded="true" prefHeight="32.0" prefWidth="425.0" title="Circuit de Base" />
+                <ImageView fitHeight="115.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true">
+                    <!--                l'url de scene builder : "@../controleurs/logoComplet.png"-->
+                    <!--                l'url de intellij sim/danslchamp/controleurs/logoComplet.png-->
+                    <image>
+                        <Image url="@../controleurs/logoComplet.png" />
+                    </image>
+                </ImageView>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+            <padding>
+                <Insets left="2.0" right="2.0" />
+            </padding>
+        </VBox>
+    </center>
+    <left>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <Region maxHeight="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="590.0" prefWidth="2.0">
+                    <cursor>
+                        <Cursor fx:constant="W_RESIZE" />
+                    </cursor>
+                </Region>
+                <Region maxHeight="10.0" maxWidth="2.0" onMousePressed="#dragResize" prefHeight="10.0" prefWidth="2.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="SW_RESIZE" />
+                    </cursor>
+                </Region>
+            </children>
+        </VBox>
+    </left>
+    <right>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <Region maxHeight="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="590.0" prefWidth="2.0">
+                    <cursor>
+                        <Cursor fx:constant="E_RESIZE" />
+                    </cursor>
+                </Region>
+                <Region maxHeight="10.0" maxWidth="2.0" onMousePressed="#dragResize" prefHeight="10.0" prefWidth="2.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="SE_RESIZE" />
+                    </cursor>
+                </Region>
+            </children>
+        </VBox>
+    </right>
+    <bottom>
+        <BorderPane prefHeight="1.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <left>
+                <Region maxHeight="2.0" maxWidth="10.0" onMousePressed="#dragResize" prefHeight="2.0" prefWidth="10.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="SW_RESIZE" />
+                    </cursor>
+                </Region>
+            </left>
+            <right>
+                <Region maxHeight="2.0" maxWidth="10.0" onMousePressed="#dragResize" prefHeight="2.0" prefWidth="10.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="SE_RESIZE" />
+                    </cursor>
+                </Region>
+            </right>
+            <center>
+                <Region maxHeight="2.0" maxWidth="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="2.0" prefWidth="580.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="S_RESIZE" />
+                    </cursor>
+                </Region>
+            </center>
+        </BorderPane>
+    </bottom>
+    <padding>
+        <Insets top="1.0" />
+    </padding>
+    <top>
+        <BorderPane fx:id="titleBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#mouvePressed" style="-fx-background-color: dodgerblue;" BorderPane.alignment="CENTER">
+            <left>
+                <HBox>
+                    <children>
+                        <ImageView fitHeight="27.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                            <!--                        le url pour intellij est "sim/danslchamp/controleurs/logoDansLeChamp.png", il commence aux package sim -->
+                            <!--                       l'url pour scene builder : @../controleurs/logoDansLeChamp.png-->
+                            <image>
+                                <Image url="@../controleurs/logoDansLeChamp.png" />
+                            </image>
+                        </ImageView>
+                        <MenuBar prefHeight="25.0" prefWidth="261.0" style="-fx-background-color: dodgerblue;">
+                            <menus>
+                                <Menu text="_Fichier">
+                                    <items>
+                                        <MenuItem onAction="#ouvrirCircuit" text="_Ouvrir">
+                                            <accelerator>
+                                                <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                            </accelerator>
+                                        </MenuItem>
+                                        <SeparatorMenuItem mnemonicParsing="false" />
+                                        <MenuItem mnemonicParsing="false" onAction="#fermerApp" text="Fermer" />
+                                    </items>
+                                </Menu>
+                                <Menu mnemonicParsing="false" text="Bibliothèque">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Ouvrir la Bibliothèque de composantes" />
+                                    </items>
+                                </Menu>
+                                <Menu mnemonicParsing="false" text="Aide">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#showAide" text="Informations sur l'application" />
+                                    </items>
+                                </Menu>
+                                <Menu mnemonicParsing="false" text="À propos">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#showAPropos" text="Informations sur les créateurs" />
+                                    </items>
+                                </Menu>
+                            </menus>
+                        </MenuBar>
+                    </children>
+                </HBox>
+            </left>
+            <right>
+                <HBox alignment="CENTER_RIGHT" layoutX="504.0">
+                    <children>
+                        <MFXButton depthLevel="LEVEL5" onAction="#minimizeApp" prefHeight="26.0" prefWidth="31.0" rippleAnimateShadow="true" rippleAnimationSpeed="3.0" rippleColor="#d9ff00" style="-fx-background-color: transparent;" text="＿" textAlignment="JUSTIFY">
+                            <font>
+                                <Font name="Agency FB" size="13.0" />
+                            </font>
+                        </MFXButton>
+                        <MFXButton depthLevel="LEVEL5" onAction="#resizeApp" prefHeight="26.0" prefWidth="31.0" rippleAnimateShadow="true" rippleAnimationSpeed="3.0" rippleColor="#00ff24" style="-fx-background-color: transparent;" text="⃞" textAlignment="JUSTIFY">
+                            <font>
+                                <Font name="Open Sans SemiBold" size="13.0" />
+                            </font>
+                        </MFXButton>
+                        <MFXButton depthLevel="LEVEL5" onAction="#fermerApp" prefHeight="25.0" prefWidth="31.0" rippleAnimateShadow="true" rippleAnimationSpeed="3.0" rippleColor="#da0303" style="-fx-background-color: transparent;" text="⛌">
+                            <font>
+                                <Font name="Open Sans SemiBold" size="13.0" />
+                            </font>
+                        </MFXButton>
+                    </children>
+                </HBox>
+            </right>
+            <BorderPane.margin>
+                <Insets left="2.0" right="2.0" />
+            </BorderPane.margin>
+        </BorderPane>
+    </top>
+</BorderPane>

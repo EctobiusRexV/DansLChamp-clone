@@ -216,7 +216,7 @@ public class SvgStyleTools {
             }
         }
 
-        System.out.println("Font: " + fontFamily + "/" + fontSize);
+
         Font font = Font.font(fontFamily, fontSize);
         fxObj.setFont(font);
 

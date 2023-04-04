@@ -1,0 +1,39 @@
+<p align="justify" style="font-family: Open Sans Light">
+Une résistance est un composant électronique qui limite le courant électrique dans un circuit. Elle est généralement constituée d'un matériau conducteur, tel que le carbone ou le métal, avec une résistivité élevée. La résistance d'un composant est définie comme la proportionnalité entre la tension appliquée et le courant qui le traverse, et est donnée par l'équation suivante :
+<br>
+<p align="center">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow>
+    <mi>R</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>V</mi>
+      <mi>I</mi>
+    </mfrac>
+  </mrow>
+</math>
+<br>
+<p aligne="justify" style="font-family: Open Sans Light">
+où R est la résistance en ohms, V est la tension en volts et I est le courant en ampères.
+
+La puissance dissipée par une résistance est donnée par l'équation suivante :
+<br>
+<p align="center">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow>
+    <mi>P</mi>
+    <mo>=</mo>
+    <msup>
+      <mi>V</mi>
+      <mn>2</mn>
+    </msup>
+    <mo>&#x2215;</mo>
+    <mi>R</mi>
+  </mrow>
+</math>
+<br>
+<p aligne="justify" style="font-family: Open Sans Light">
+où P est la puissance dissipée en watts.
+
+Les résistances ont de nombreuses applications dans les circuits électrique, notamment pour le réglage de la tension et du courant, la réduction du bruit et la protection contre les surtensions.
+</p>

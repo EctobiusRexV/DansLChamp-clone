@@ -1,0 +1,7 @@
+.dialog{
+    -fx-background-color: linear-gradient(to right, yellow, dodgerblue);
+}
+
+.dialog:header *.header-panel{
+    -fx-background-color: linear-gradient(to right, yellow, dodgerblue);
+}

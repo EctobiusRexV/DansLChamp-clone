@@ -21,6 +21,7 @@ import org.apache.batik.anim.dom.*;
 import org.apache.batik.bridge.*;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.w3c.dom.NodeList;
+import sim.danslchamp.circuit.Circuit;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,6 +32,12 @@ import java.util.function.Consumer;
 
 
 public class SvgLoader {
+
+
+    private final Circuit circuit;
+    protected Circuit getCircuit() {
+        return circuit;
+    }
 
 
     Group parentNode;
@@ -53,7 +60,8 @@ public class SvgLoader {
     /**
      * Creates a new SVGLoader.
      */
-    public SvgLoader() {
+    public SvgLoader(Circuit circuit) {
+        this.circuit = circuit;
         bh = new SvgBasicElementHandler(this);
 
         elementMap.put("svg", e -> bh.handleElement((SVGOMSVGElement) e));
@@ -62,7 +70,7 @@ public class SvgLoader {
         elementMap.put("path", e -> bh.handleElement((SVGOMPathElement) e,
                 useSeparatePathElements));
                 elementMap.put("g", e -> bh.handleElement((SVGOMGElement) e));
-        elementMap.put("use", e -> bh.handleElement((SVGOMUseElement) e));
+        elementMap.put("use", circuit == null ? e -> bh.handleElement((SVGOMUseElement) e) : e->bh.handleCircuitElement((SVGOMUseElement) e));
 
 
         elementMap.put("metadata", e -> bh.handleElement((SVGOMMetadataElement) e));
@@ -136,7 +144,7 @@ public class SvgLoader {
             if (consumer != null) {
                 consumer.accept((SVGOMElement) node);
             } else {
-                System.out.println("Unknown element " + node.getLocalName() + " (" + node + "):");
+
             }
         }
 

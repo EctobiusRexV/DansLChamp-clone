@@ -1,6 +1,7 @@
 package sim.danslchamp.Util;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 
 public class DanslChampUtil {
 
@@ -13,4 +14,19 @@ public class DanslChampUtil {
         alert.showAndWait();
     }
 
+    public static void erreur(String contentText, String expandableText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, contentText);
+        alert.getDialogPane().setExpandableContent(new Label(expandableText));
+        alert.showAndWait();
+    }
+
+    public static void warning(String contentText, String expandableText) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, contentText);
+        alert.getDialogPane().setExpandableContent(new Label(expandableText));
+        alert.showAndWait();
+    }
+
+    public static String Capitalize(String str) {
+        return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+    }
 }

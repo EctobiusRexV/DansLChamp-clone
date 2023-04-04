@@ -17,8 +17,6 @@
 package sim.danslchamp.svg;
 
 import javafx.scene.Group;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
@@ -28,41 +26,87 @@ import org.apache.batik.anim.dom.SVGOMAnimatedPathData.BaseSVGPathSegList;
 import org.apache.batik.css.dom.CSSOMSVGColor;
 import org.apache.batik.css.dom.CSSOMValue;
 import org.apache.batik.dom.svg.SVGPathSegItem;
-
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.svg.SVGPoint;
 import org.w3c.dom.svg.SVGPointList;
 import org.w3c.dom.svg.SVGRect;
-import sim.danslchamp.*;
+import sim.danslchamp.circuit.Composant;
+import sim.danslchamp.circuit.Fil;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.util.*;
-
-import static sim.danslchamp.controllersApp.DanslChampApp.SVG_LOADER;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SvgBasicElementHandler {
 
 
     public SvgStyleTools styleTools = null;
-    private SvgLoader loader = null;
-
-    private Map<String, SVGOMGElement> defs = new HashMap<>();
-
-    private ArrayList<Composante> composantes = new ArrayList<>();
-
-    private ArrayList<Source> sources = new ArrayList<>();
-
-    private int[][] current_connectors_px;
+    private final SvgLoader loader;
 
 //    GradientFactory gradientFactory = new GradientFactory();
 
     SvgBasicElementHandler(SvgLoader svgLoader) {
         this.loader = svgLoader;
+    }
+
+
+    void handleElement(SVGOMLineElement element) {
+        // Get attributes from SVG node
+        float x1 = element.getX1().getBaseVal().getValue();
+        float y1 = element.getY1().getBaseVal().getValue();
+        float x2 = element.getX2().getBaseVal().getValue();
+        float y2 = element.getY2().getBaseVal().getValue();
+
+        // Create JavaFX Line object
+        Line result = new Line(x1, y1, x2, y2);
+        result.setId(element.getId());
+
+        Affine transformation = styleTools.getTransform(element);
+        if (transformation != null) {
+            result.getTransforms().add(transformation);
+        }
+
+        styleTools.applyStyle(result, element);
+
+        loader.parentNode.getChildren().add(result);
+
+        if (loader.getCircuit() != null)
+        loader.getCircuit().addComposant(new Fil((int) x1, (int) y1, (int) x2, (int) y2));
+    }
+
+    void handleCircuitElement(SVGOMUseElement element) {
+        String type = element.getHref().getBaseVal().substring(1); // le #
+        Composant composant = loader.getCircuit().addComposant(
+                type,
+                (int) element.getX().getBaseVal().getValue(),
+                (int) element.getY().getBaseVal().getValue(),
+                estRotationne90(element)
+        );
+
+        for (Composant.ValeurNomWrapper valeurNomWrapper :
+                composant.getValeursModifiables()) {
+            valeurNomWrapper.valeur.setValeur(element.getAttribute(valeurNomWrapper.id), Composant.Unite.UNITE);   // FIXME: 2023-04-04 Hotfix Les valeurs sont toutes considérées à l'unité
+        }
+
+        System.out.println(type + " chargé");
+    }
+
+    void handleElement(SVGOMUseElement element) {
+        String type = element.getHref().getBaseVal().substring(1); // le #
+        Group group = Composant.getSymbole2D(type);
+
+        group.setTranslateX(element.getX().getBaseVal().getValue());
+        group.setTranslateY(element.getY().getBaseVal().getValue());
+
+        loader.parentNode.getChildren().add(group);
+    }
+
+    private static boolean estRotationne90(SVGOMUseElement element) {
+//        return element.getTransform().getBaseVal()
+        return false;
     }
 
 
@@ -75,9 +119,9 @@ public class SvgBasicElementHandler {
             SVGRect viewPort = element.getViewBox().getBaseVal();
             float height = viewPort.getHeight();
             float width = viewPort.getWidth();
-            Rectangle result = new Rectangle(width, height, null);
+            Rectangle result = new Rectangle(width, height, Color.TRANSPARENT);
             result.setId(element.getId());
-            result.setStroke(Color.BLACK);
+            result.setStroke(Color.TRANSPARENT);
             result.getStrokeDashArray().addAll(3.0, 7.0, 3.0, 7.0);
 
             loader.parentNode.getChildren().add(result);
@@ -87,17 +131,7 @@ public class SvgBasicElementHandler {
 
     // <defs>
     void handleElement(SVGOMDefsElement element) {
-        System.out.println("Handling <defs>: " + element);
-        handle(element);
-    }
-
-    private void handle(Node node) {
-        if (node instanceof SVGOMGElement) defs.put(((SVGOMGElement) node).getId(), (SVGOMGElement) node);
-        NodeList children = node.getChildNodes();
-        for (int i = 0; i < children.getLength(); i++) {
-            org.w3c.dom.Node element = children.item(i);
-            handle(element);
-        }
+//        System.out.println("Handling <defs>: " + element);
     }
 
 
@@ -187,26 +221,7 @@ public class SvgBasicElementHandler {
     }
 
 
-    void handleElement(SVGOMLineElement element) {
-        // Get attributes from SVG node
-        float x1 = element.getX1().getBaseVal().getValue();
-        float y1 = element.getY1().getBaseVal().getValue();
-        float x2 = element.getX2().getBaseVal().getValue();
-        float y2 = element.getY2().getBaseVal().getValue();
 
-        // Create JavaFX Line object
-        Line result = new Line(x1, y1, x2, y2);
-        result.setId(element.getId());
-
-        Affine transformation = styleTools.getTransform(element);
-        if (transformation != null) {
-            result.getTransforms().add(transformation);
-        }
-
-        styleTools.applyStyle(result, element);
-
-        loader.parentNode.getChildren().add(result);
-    }
 
 
     void handleElement(SVGOMCircleElement element) {
@@ -320,84 +335,8 @@ public class SvgBasicElementHandler {
         loader.parentNode.getChildren().add(result);
     }
 
-    void handleElement(SVGOMUseElement element) {
-        float posX = element.getX().getBaseVal().getValue(),
-                posY = element.getY().getBaseVal().getValue();
 
-        SVGOMGElement gEl = (SVGOMGElement) defs.get(element.getHref().getBaseVal().substring(1)).cloneNode(true);
-        gEl.removeAttribute("id");
-
-        gEl.setAttribute("transform", "translate(" +
-                (int) posX + "," +
-                (int) posY + ")");
-
-
-        String type = element.getHref().getBaseVal().substring(1); // le #
-        try {
-            Class<Composante> composanteClass = (Class<Composante>) Class.forName("sim.danslchamp." + type);
-            List<Method> setMethods = Composante.getSetMethods(composanteClass.getDeclaredMethods());
-            List<String> attributs = setMethods.stream()
-                    .map(method -> {
-                            String attr = method.getName()
-                            .replace("set", "x");
-                    attr = element.getAttribute(attr);
-                    return attr;
-                    }).toList();    // il existe un attribut pour ch. setter
-
-            Constructor<?> constructor = composanteClass.getDeclaredConstructors()[0];
-            Composante c = (Composante) constructor.newInstance(attributs.toArray());
-                // SVP qu'un seul constructeur!
-
-                /*
-                    ANCIEN
-                ===============
-                switch (type) {
-                    case "#resistor" -> new Resistor(
-                            element.getAttribute("resistance")
-                    );
-                    case "#condensateur" -> new Condensateur(
-                            element.getAttribute("capacite")
-                    );
-                    case "#bobine" -> new Bobine(
-                            element.getAttribute("nombreDeSpires"),
-                            element.getAttribute("longueur"),
-                            element.getAttribute("rayon")
-                    );
-                    case "#source_cc" -> {
-                        Source source_cc = new SourceCC(
-                                element.getAttribute("voltage")
-                        );
-
-                        sources.add(source_cc); // prendre la 1re?
-                        yield source_cc;
-                    }
-                    default -> throw new RuntimeException("Error");
-                };*/
-
-            c.setPosX((int) posX);
-            c.setPosY((int) posY);
-//        c.setHauteur();   // scaleX, scaleY?
-//        c.setLargeur();
-
-            composantes.add(c);
-
-            SVG_LOADER.handle(gEl);
-
-            System.out.println("Loaded use element: " + type);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Impossible de charger " + type);
-            alert.getDialogPane().setExpandableContent(new Label(e.getMessage()));
-            alert.showAndWait();
-            e.printStackTrace();
-        }
-    }
-
-    public ArrayList<Composante> getComposantes() {
-        return composantes;
-    }
-
-
-        /**
+    /**
      * Returns an array with coordinate pairs from an SVGPointList.
      *
      * @param points The SVGPointList which contains the svg points.

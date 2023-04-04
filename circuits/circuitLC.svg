@@ -1,0 +1,65 @@
+<svg version="1.1"
+	 width="350" height="200"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill:none;stroke:black;stroke-width:3">
+	<defs>
+		<g id="Résistor">
+			<polyline points="0,10 5,0 15,30 25,0 35,30 45,0 55,30 65,0 75,30 80,10" style="fill:none;stroke:black;stroke-width:3" />
+		</g>
+		<g id="Pile" style="fill:none;stroke:black;stroke-width:3">
+			<polyline points="0,10 20,10 20,0 20,10 40,10" />
+			<text x="25" y="7" style="stroke-width:1">+</text>
+
+			<polyline points="5,20 35,20" style="stroke-width:5" />
+			<text x="25" y="29" style="stroke-width:1">-</text>
+
+			<polyline points="20,20 20,30" />
+
+		</g>
+
+		<g id="Générateur" style="fill:none;stroke:black;stroke-width:3">
+			<circle cx="20" cy="20" r="20" />
+			<path d="m 5 20 c 10 -25 20 25 30 1" />
+		</g>
+
+		<g id="SourceBatterie" style="fill:none;stroke:black;stroke-width:3">
+			<polyline points="0,10 20,10 20,0 20,10 40,10" />
+			<text x="25" y="7" style="stroke-width:1">+</text>
+
+			<polyline points="5,15 35,15" />
+			<polyline points="0,20 40,20" />
+			<polyline points="5,25 20,25 20,35 20,25 35,25" />
+			<text x="25" y="34" style="stroke-width:1">-</text>
+		</g>
+
+		<g id="Condensateur" style="fill:none;stroke:black;stroke-width:3">
+			<polyline points="0,10 20,10 20,0 20,10 40,10" />
+			<polyline points="0,20 20,20 20,30 20,20 40,20" />
+		</g>
+
+		<g id="Bobine" style="fill:none;stroke:black;stroke-width:3">
+			<path d="m 0 10 a 2 2 0 0 0 20 0 a 2 2 0 0 0 20 0 a 2 2 0 0 0 20 0 a 2 2 0 0 0 20 0" />
+			<ellipse cx="20" cy="2" rx="5" ry="10" />
+			<ellipse cx="40" cy="2" rx="5" ry="10" />
+			<ellipse cx="60" cy="2" rx="5" ry="10" />
+		</g>
+	</defs>
+
+	<use xlink:href="#Générateur" voltage="5" x="5" y="70" />
+	<line x1="25" y1="70" x2="25" y2="20" />
+	<line x1="25" y1="20" x2="140" y2="20" />
+	<line x1="140" y1="20" x2="200" y2="20" />
+	<use xlink:href="#Bobine" x="200" y="10"/>
+	<line x1="280" y1="20" x2="300" y2="20" />
+	<line x1="300" y1="20" x2="300" y2="60" />
+	<use xlink:href="#Condensateur" capacite="15" x="280" y="60"/>
+	<line x1="300" y1="90" x2="300" y2="150" />
+	<line x1="300" y1="150" x2="140" y2="150" />
+	<line x1="140" y1="150" x2="25" y2="150" />
+	<line x1="25" y1="150" x2="25" y2="110" />
+
+	<line x1="140" y1="20" x2="140" y2="40" />
+	<use xlink:href="#Condensateur" x="120" y="40" />
+	<line x1="140" y1="70" x2="140" y2="150" />
+
+
+</svg>

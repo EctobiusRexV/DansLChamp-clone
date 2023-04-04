@@ -3,32 +3,23 @@ package prototypes;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
-import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-
-import java.io.File;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
+import sim.danslchamp.circuit.Condensateur;
+import testUtil.ListPoint;
 
 public class Rotation3DWithMouse extends Application {
 
-    private SmartGroup group = new SmartGroup();
+    private final SmartGroup group = new SmartGroup();
     private static final int WIDTH = 1400;
     private static final int HEIGHT = 1000;
 
@@ -66,29 +57,40 @@ public class Rotation3DWithMouse extends Application {
 //        }
 
 
-        CubicCurve c = new CubicCurve(0, 0, 20, 20, 40, 40, 100, 0);
+        CubicCurve c = new CubicCurve(0, 0, 80, -80, 160, -80, 240, 0);
+        Polygon p = new Polygon();
+        p.getPoints().addAll(0.0, 0.0, 10.0, 10.0, 5.0, 20.0);
+        p.setFill(Color.RED);
+        Sphere s = new Sphere();
+
         c.setStrokeWidth(4);
         c.setStroke(Color.FORESTGREEN);
         c.setStrokeLineCap(StrokeLineCap.ROUND);
         c.setFill(Color.LIGHTGRAY);
-
+        ConeMesh cone = new ConeMesh();
+        cone.setLayoutY(c.getControlY1());
+        cone.setLayoutX((c.getControlX1() + c.getControlX2()) / 2);
+        cone.setHeight(40);
+        cone.setRadius(15);
+        cone.setRotationAxis(new Point3D(0, 0, 1));
+        cone.setRotate(90);
 //        Circuit c = new Circuit(new Composante2[]{new Source(), new Condensateur(), new Resistor(), new Condensateur(), new Condensateur(), new Condensateur()});
 
         Rectangle r = new Rectangle(100, 100);
-        PhongMaterial a = new PhongMaterial();
-        try {
-            a.setDiffuseMap(new Image(new File("i.png").toURI().toURL().toExternalForm()));
-
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-        Image img = null;
-        try {
-            img = new Image(new File("i.png").toURI().toURL().toExternalForm());
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-        r.setFill(new ImagePattern(img));
+//        PhongMaterial a = new PhongMaterial();
+//        try {
+//            a.setDiffuseMap(new Image(new File("i.png").toURI().toURL().toExternalForm()));
+//
+//        } catch (MalformedURLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        Image img = null;
+//        try {
+//            img = new Image(new File("i.png").toURI().toURL().toExternalForm());
+//        } catch (MalformedURLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        r.setFill(new ImagePattern(img));
 
 
         ListPoint list = new ListPoint();
@@ -97,7 +99,8 @@ public class Rotation3DWithMouse extends Application {
         }
 
         SmartGroup group = new SmartGroup();
-        group.getChildren().add(c);
+        // aa
+        group.getChildren().addAll();
 
         Camera camera = new PerspectiveCamera();
         Scene scene = new Scene(group, WIDTH, HEIGHT);
@@ -105,23 +108,17 @@ public class Rotation3DWithMouse extends Application {
         scene.setFill(Color.LIGHTGRAY);
         scene.setCamera(camera);
 
-        group.translateXProperty().set(WIDTH / 2);
-        group.translateYProperty().set(HEIGHT / 2);
+        group.translateXProperty().set(WIDTH >> 1);
+        group.translateYProperty().set(HEIGHT >> 1);
         group.translateZProperty().set(-500);
 
         initMouseControl(group, scene);
 
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
-                case W:
-                    group.translateZProperty().set(group.getTranslateZ() + 100);
-                    break;
-                case S:
-                    group.translateZProperty().set(group.getTranslateZ() - 100);
-                    break;
-                case ESCAPE:
-                    primaryStage.close();
-                    break;
+                case W -> group.translateZProperty().set(group.getTranslateZ() + 100);
+                case S -> group.translateZProperty().set(group.getTranslateZ() - 100);
+                case ESCAPE -> primaryStage.close();
             }
         });
 
@@ -158,7 +155,7 @@ public class Rotation3DWithMouse extends Application {
     }
 
 
-    class SmartGroup extends Group {
+    static class SmartGroup extends Group {
 
         Rotate r;
         Transform t = new Rotate();
@@ -178,4 +175,3 @@ public class Rotation3DWithMouse extends Application {
         }
     }
 }
-
