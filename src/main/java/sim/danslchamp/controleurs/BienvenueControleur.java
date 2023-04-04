@@ -3,11 +3,14 @@ package sim.danslchamp.controleurs;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import io.github.palexdev.materialfx.controls.MFXTitledPane;
 import sim.danslchamp.DansLChampApp;
@@ -15,6 +18,7 @@ import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Path;
 
 import static sim.danslchamp.DansLChampApp.FC;
 import static sim.danslchamp.DansLChampApp.SVG_LOADER;
@@ -42,8 +46,9 @@ public class BienvenueControleur extends ParentControleur {
     @FXML
     public void initialize() {
         FlowPane flowPane = new FlowPane();
-        flowPane.getChildren().add(
-                getCircuitVBox(".\\circuits\\circuitR.svg")
+        flowPane.getChildren().addAll(
+                getCircuitVBox(".\\circuits\\circuitR.svg"),
+                getCircuitVBox(".\\circuits\\circuitLC.svg")
         );
         deBaseTitledPane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
         deBaseTitledPane.setContent(flowPane);
@@ -53,9 +58,13 @@ public class BienvenueControleur extends ParentControleur {
 
     private VBox getCircuitVBox(String filename) {
         SvgLoader svgLoader = new SvgLoader(null);
+        Label label = new Label(Path.of(filename).getFileName().toString());
+        label.setMaxWidth(Double.MAX_VALUE);
+        label.setAlignment(Pos.CENTER);
+        label.setFont(Font.font("System", FontWeight.BOLD, 12));
         VBox vBox = new VBox(
                 svgLoader.loadSvg(filename),
-                new Label(filename)
+                label
         );
 
         vBox.setUserData(new File(filename));
