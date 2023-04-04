@@ -28,17 +28,20 @@ public class ComposantesListCell extends ListCell<Composant> {
 
             vBox.getChildren().add(new Label(item.getClass().getSimpleName()));
 
-            for (Composant.Valeur valeur :
+            for (Composant.ValeurNomWrapper valeurNomWrapper :
                     item.getValeursModifiables()) {
                 HBox hBox = new HBox();
                 HBox.setHgrow(hBox, Priority.ALWAYS);
                 hBox.setMinWidth(300);
                 hBox.setSpacing(10);
 
-                TextField textField = new TextField();
-                textField.setOnKeyTyped(eh -> valeur.setValeur(textField.getText(), Composant.Unite.UNITE));    // TODO: 2023-04-03 Unités (ComboBox)
+                Label label = new Label(valeurNomWrapper.nom + ": ");
+                label.setMinWidth(120);
 
-                hBox.getChildren().addAll(/*getLabelFromMethod(),*/ textField);     // TODO: 2023-04-03 Afficher nom
+                TextField textField = new TextField();
+                textField.setOnKeyTyped(eh -> valeurNomWrapper.valeur.setValeur(textField.getText(), Composant.Unite.UNITE));    // TODO: 2023-04-03 Unités (ComboBox)
+
+                hBox.getChildren().addAll(label, textField);
                 vBox.getChildren().add(hBox);
                 setGraphic(vBox);
             }

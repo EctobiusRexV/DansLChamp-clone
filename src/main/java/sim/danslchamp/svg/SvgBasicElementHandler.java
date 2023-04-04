@@ -86,9 +86,9 @@ public class SvgBasicElementHandler {
                 estRotationne90(element)
         );
 
-        for (Composant.Valeur valeur :
+        for (Composant.ValeurNomWrapper valeurNomWrapper :
                 composant.getValeursModifiables()) {
-//            valeur.setValeur();     // TODO: 2023-04-03 Lecture des valeurs sauvegardées
+            valeurNomWrapper.valeur.setValeur(element.getAttribute(valeurNomWrapper.id), Composant.Unite.UNITE);   // FIXME: 2023-04-04 Hotfix Les valeurs sont toutes considérées à l'unité
         }
 
         System.out.println(type + " chargé");
@@ -131,7 +131,7 @@ public class SvgBasicElementHandler {
 
     // <defs>
     void handleElement(SVGOMDefsElement element) {
-        System.out.println("Handling <defs>: " + element);
+//        System.out.println("Handling <defs>: " + element);
     }
 
 

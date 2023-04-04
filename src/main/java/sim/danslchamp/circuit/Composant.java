@@ -14,6 +14,7 @@ import java.text.NumberFormat;
 import java.util.Arrays;
 
 import static sim.danslchamp.DansLChampApp.SVG_LOADER;
+import static sim.danslchamp.Util.DanslChampUtil.Capitalize;
 
 public abstract class Composant {
 
@@ -182,60 +183,34 @@ public abstract class Composant {
         return bornePositive;
     }
 
-    private Valeur[] getValeurs(Class annotationClass) {
+    private ValeurNomWrapper[] getValeurs(Class annotationClass) {
         return Arrays.stream(getClass().getFields())
                 .filter(field -> field.isAnnotationPresent(annotationClass))
                 .map(field -> {
                     try {
                         field.setAccessible(true);
-                        return (Valeur) field.get(this);
+                        return new ValeurNomWrapper(field.getName(), (Valeur) field.get(this));
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);
                     }
                 })
-                .toArray(Valeur[]::new);
+                .toArray(ValeurNomWrapper[]::new);
     }
 
     /**
      * @return Un tableau de Valeurs portant l'annotation Affichable
      */
-    public Valeur[] getValeursAffichables() {
+    public ValeurNomWrapper[] getValeursAffichables() {
         return getValeurs(Affichable.class);
     }
 
     /**
      * @return Un tableau de Valeurs portant l'annotation Modifiable
      */
-    public Valeur[] getValeursModifiables() {
+    public ValeurNomWrapper[] getValeursModifiables() {
         return getValeurs(Modifiable.class);
     }
 
-
-    // SETTERS
-
-    public void setReactance(double reactance) {
-        setReactance(reactance, Unite.UNITE);
-    }
-
-    public void setReactance(double reactance, Unite unite) {
-        this.reactance.setValeur(reactance, unite);
-    }
-
-    public void setVoltage(double voltage) {
-        setVoltage(voltage, Unite.UNITE);
-    }
-
-    public void setVoltage(double voltage, Unite unite) {
-        this.voltage.setValeur(voltage, Unite.UNITE);
-    }
-
-    public void setCourant(double courant) {
-        setCourant(courant, Unite.UNITE);
-    }
-
-    public void setCourant(double courant, Unite unite) {
-        this.courant.setValeur(courant, Unite.UNITE);
-    }
 
     public abstract double calculResistance(int frequence);
 
@@ -330,6 +305,28 @@ public abstract class Composant {
                     valeur *= 1_000;
 
             return new Valeur(valeur, Unite.values()[this.unite.ordinal() - i], symbole);
+        }
+    }
+
+    /**
+     * Permet de coupler une valeur avec le nom d'un champ.
+     */
+    public static class ValeurNomWrapper {
+        public String id;
+        public String nom;
+        public Valeur valeur;
+
+        public ValeurNomWrapper(String nom, Valeur valeur) {
+            this.id = nom;
+            this.nom = Capitalize(espacerCamelCase(nom));
+            this.valeur = valeur;
+        }
+
+        /**
+         * Dans un mot en camelCase, espace les majuscules (ex.: camel Case)
+         */
+        private static String espacerCamelCase(String str) {
+            return str.replaceAll("[A-Z]", " $0");
         }
     }
 }
