@@ -43,7 +43,8 @@ public class BibliothequeControleur extends ParentControleur implements Initiali
         Set<Class<? extends Composant>> composantsClasses = reflections.getSubTypesOf(Composant.class);
 
         for (Class<? extends Composant> composantClass : composantsClasses) {
-            CreerVBoxs(composantClass.getSimpleName());
+            if (this.getClass().getResource("..\\circuit\\symboles\\" + composantClass.getSimpleName() + ".svg") != null)   // FIXME: 2023-04-04 Hotfix
+                CreerVBoxs(composantClass.getSimpleName());
         }
     }
 
