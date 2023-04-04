@@ -3,7 +3,6 @@ package sim.danslchamp.circuit;
 import javafx.scene.Group;
 import javafx.scene.shape.Cylinder;
 import sim.danslchamp.Config;
-import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.*;
 
@@ -42,8 +41,8 @@ public class Résistor extends Composant {
         return g;
     }
 
-    public long calculResistance(int frequence) {
-        IsetReactance_mOhms(résistance_mOhms);
-        return résistance_mOhms;
+    public double calculResistance(int frequence) {
+        reactance.setValeur(resistance.getValeur(), Unite.UNITE);
+        return resistance.getValeur();
     }
 }

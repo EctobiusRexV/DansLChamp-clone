@@ -9,7 +9,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Field;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -238,7 +237,7 @@ public abstract class Composant {
         this.courant.setValeur(courant, Unite.UNITE);
     }
 
-    public abstract long calculResistance(int frequence);
+    public abstract double calculResistance(int frequence);
 
     /**
      * @return le nom de la composante (Résistor, Condensateur, etc.)

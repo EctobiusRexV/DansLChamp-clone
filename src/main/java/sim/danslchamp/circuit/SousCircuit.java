@@ -44,7 +44,7 @@ public class SousCircuit extends Composant{
     }
 
     @Override
-    public long calculResistance(int frequence) {
+    public double calculResistance(int frequence) {
         return 0;
     }
 

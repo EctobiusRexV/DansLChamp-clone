@@ -7,7 +7,6 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 
 import sim.danslchamp.Config;
-import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.Point;
 
@@ -47,15 +46,15 @@ public class Condensateur extends Composant {
         return g;
     }
 
-    public long calculResistance(int frequence){
+    public double calculResistance(int frequence){
 
         if (frequence == 0){
-            return 999999999;
+            return Double.MAX_VALUE;
         }
 
-        IsetReactance_mOhms((long) (1 / (2 * Math.PI * frequence * capacité_pf)));
+        reactance.setValeur(1 / (2 * Math.PI * frequence * capacite.getValeur()), Unite.UNITE);
 
-        return (long) (1 / (2 * Math.PI * frequence * capacité_pf));
+        return reactance.getValeur();
     }
 
 }

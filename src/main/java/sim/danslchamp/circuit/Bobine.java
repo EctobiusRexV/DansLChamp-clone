@@ -2,7 +2,6 @@ package sim.danslchamp.circuit;
 
 import javafx.scene.Group;
 import sim.danslchamp.Config;
-import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.*;
 
@@ -30,16 +29,16 @@ public class Bobine extends Composant {
                 22, 80, posX, posY, rotation90);
     }
 
-    public long calculResistance(int frequence) {
+    public double calculResistance(int frequence) {
 
 
-        double surface = 2 * Math.PI * rayon_mm;
+        double surface = 2 * Math.PI * rayon.getValeur();
 
-        double L = (mu * surface * Math.pow(this.nombreDeSpires, 2))/longueur_mm;
+        double L = (mu * surface * Math.pow(nombreDeSpires.getValeur(), 2))/longueur.getValeur();
 
-        IsetReactance_mOhms((long) (2 * Math.PI * frequence * L));
+        reactance.setValeur(2 * Math.PI * frequence * L, Unite.UNITE);
 
-        return (long) (2 * Math.PI * frequence * L);
+        return reactance.getValeur();
     }
 
     @Override
