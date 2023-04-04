@@ -75,18 +75,16 @@ public class Bobine extends Composant {
         }
     }
 
-    public void calculResistance(int frequence, int nombreDeSpires, double rayon, double longueur) {
-        this.nombreDeSpires = nombreDeSpires;
-        this.rayon_mm = rayon;
-        this.longueur_mm = longueur;
+    public long calculResistance(int frequence) {
+
 
         double surface = 2 * Math.PI * rayon_mm;
 
-        double L = (mu * surface * Math.pow(this.nombreDeSpires, 2))/longueur;
+        double L = (mu * surface * Math.pow(this.nombreDeSpires, 2))/longueur_mm;
 
         IsetReactance_mOhms((long) (2 * Math.PI * frequence * L));
 
-
+        return (long) (2 * Math.PI * frequence * L);
     }
 
     @Override

@@ -45,11 +45,15 @@ public class Condensateur extends Composant {
         }
     }
 
-    public void calculResistance(int frequence, long capacite){
-        this.capacité_pf = capacite;
+    public long calculResistance(int frequence){
 
-        IsetReactance_mOhms((long) (1 / (2 * Math.PI * frequence * capacite)));
+        if (frequence == 0){
+            return 999999999;
+        }
 
+        IsetReactance_mOhms((long) (1 / (2 * Math.PI * frequence * capacité_pf)));
+
+        return (long) (1 / (2 * Math.PI * frequence * capacité_pf));
     }
 
     @Override

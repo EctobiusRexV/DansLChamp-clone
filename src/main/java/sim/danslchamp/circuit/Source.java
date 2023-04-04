@@ -12,4 +12,9 @@ public abstract class Source extends Composant {
 
         setBornePositive(inversee? getJonctions()[1] : getJonctions()[0]);
     }
+
+    @Override
+    public long calculResistance(int frequence) {
+        return 0;
+    }
 }

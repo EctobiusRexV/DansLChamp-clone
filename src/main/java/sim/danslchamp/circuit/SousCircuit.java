@@ -44,6 +44,11 @@ public class SousCircuit extends Composant{
     }
 
     @Override
+    public long calculResistance(int frequence) {
+        return 0;
+    }
+
+    @Override
     public String toString() {
         return "SousCircuit{" +
                 "composants=" + composants +

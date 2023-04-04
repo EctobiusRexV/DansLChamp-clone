@@ -158,6 +158,8 @@ public abstract class Composant {
                 .split("_")[0];
     }
 
+    public abstract long calculResistance(int frequence);
+
     /**
      * @return le nom de la composante (Résistor, Condensateur, etc.)
      */

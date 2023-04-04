@@ -48,8 +48,9 @@ public class Résistor extends Composant {
     }
 
 
-    public void calculResistance(long resistance) {
-        IsetReactance_mOhms(resistance);
+    public long calculResistance(int frequence) {
+        IsetReactance_mOhms(résistance_mOhms);
+        return résistance_mOhms;
     }
 
     @Override

@@ -27,4 +27,9 @@ public class Fil extends Composant {
     Group getSymbole3D() {
         return getSymbole2D();
     }
+
+    @Override
+    public long calculResistance(int frequence) {
+        return 0;
+    }
 }
