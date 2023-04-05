@@ -44,10 +44,10 @@
 		</g>
 	</defs>
 
-	<use xlink:href="#Pile" xVoltage_mV="5000" x="5" y="100" />
+	<use xlink:href="#Pile" voltage="5" x="5" y="100" />
 	<line x1="25" y1="100" x2="25" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
 	<line x1="25" y1="20" x2="100" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
-	<use xlink:href="#Résistor" xRésistance_mOhms="1500" x="100" y="10"/>
+	<use xlink:href="#Résistor" resistance="50" x="100" y="10"/>
 	<line x1="180" y1="20" x2="300" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
 	<line x1="300" y1="20" x2="300" y2="150" style="fill:none;stroke:black;stroke-width:3"/>
 	<line x1="300" y1="150" x2="25" y2="150" style="fill:none;stroke:black;stroke-width:3"/>

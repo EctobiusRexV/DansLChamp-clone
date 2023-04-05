@@ -25,4 +25,8 @@ public class DanslChampUtil {
         alert.getDialogPane().setExpandableContent(new Label(expandableText));
         alert.showAndWait();
     }
+
+    public static String Capitalize(String str) {
+        return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+    }
 }

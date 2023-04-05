@@ -69,12 +69,14 @@ public abstract class Diagramme {
 
         infobulle.setGraphic(infobulleVBox);
 
-        for (Composant.Valeur valeur :
-                composant.getValeursAffichables()) {
-                valeursLabel.setText(valeursLabel.getText().concat(valeur + "\n"));
-        }
-
         composantGroup.setOnMousePressed(event -> {
+            valeursLabel.setText("");     // Clear
+
+            for (Composant.ValeurNomWrapper valeurNomWrapper :
+                    composant.getValeursAffichables()) {
+                valeursLabel.setText(valeursLabel.getText().concat(valeurNomWrapper.nom + ": " + valeurNomWrapper.valeur + "\n"));
+            }
+
                 infobulle.show(composantGroup, event.getScreenX(), event.getScreenY());
         });
         composantGroup.setOnMouseReleased(event -> {

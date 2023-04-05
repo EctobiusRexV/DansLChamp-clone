@@ -44,21 +44,21 @@
 		</g>
 	</defs>
 
-	<use xlink:href="#Générateur" xVoltage_mV="5000" x="5" y="70" />
+	<use xlink:href="#Générateur" voltage="5" x="5" y="70" />
 	<line x1="25" y1="70" x2="25" y2="20" />
 	<line x1="25" y1="20" x2="140" y2="20" />
 	<line x1="140" y1="20" x2="200" y2="20" />
-	<use xlink:href="#Bobine" xRésistance_mOhms="1500" x="200" y="10"/>
+	<use xlink:href="#Bobine" x="200" y="10"/>
 	<line x1="280" y1="20" x2="300" y2="20" />
 	<line x1="300" y1="20" x2="300" y2="60" />
-	<use xlink:href="#Condensateur" xCapacité_pf="150000" x="280" y="60"/>
+	<use xlink:href="#Condensateur" capacite="15" x="280" y="60"/>
 	<line x1="300" y1="90" x2="300" y2="150" />
 	<line x1="300" y1="150" x2="140" y2="150" />
 	<line x1="140" y1="150" x2="25" y2="150" />
 	<line x1="25" y1="150" x2="25" y2="110" />
 
 	<line x1="140" y1="20" x2="140" y2="40" />
-	<use xlink:href="#Condensateur" xRésistance_mOhms="1500" x="120" y="40" />
+	<use xlink:href="#Condensateur" x="120" y="40" />
 	<line x1="140" y1="70" x2="140" y2="150" />
 
 
