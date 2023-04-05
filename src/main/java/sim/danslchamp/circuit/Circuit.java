@@ -10,7 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Circuit {
 
@@ -69,6 +68,54 @@ public class Circuit {
         circuit = trouverCircuit();
 
         resistanceEqui = trouverResistanceEqui();
+        trouverCourantSimple();
+        trouverDDPSimple();
+        trouverCourantBranchesParaleles();
+    }
+
+    private void trouverCourantBranchesParaleles() {
+
+    }
+
+    private void trouverDDPSimple() {
+
+        double resistanceEquiSousCircuit = 0;
+
+        for (int i = 0; i < circuit.size(); i++) {
+
+            Composant actuel = circuit.get(i);
+
+            if (actuel instanceof SousCircuit){
+
+                if (!(circuit.get(i - 1) instanceof SousCircuit)){
+                    actuel.voltage.setValeur(actuel.courant.getValeur() * actuel.reactance.getValeur(), Composant.Unite.UNITE);
+                } else {
+                    actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(), Composant.Unite.UNITE);
+                }
+
+            } else actuel.setVoltage(actuel.courant.getValeur() * actuel.reactance.getValeur());
+
+        }
+
+
+    }
+
+    private void trouverCourantSimple() {
+        double ddpSource = sources.get(0).voltage.getValeur();
+
+        if (resistanceEqui != 0){
+            double courantSimple = ddpSource / resistanceEqui;
+
+            for (Composant c : circuit){
+                c.setCourant(courantSimple);
+            }
+        } else {
+            for (Composant c : circuit){
+                c.setCourant(Double.MAX_VALUE);
+            }
+        }
+
+
     }
 
     private double trouverResistanceEqui() {
