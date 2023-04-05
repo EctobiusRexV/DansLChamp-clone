@@ -36,4 +36,9 @@ box.setLayoutY(box.getHeight()/2 + box.getLayoutY()
         g.getChildren().addAll(box);
         return g;
     }
+
+    @Override
+    Group getChamp() {
+        return new Group();
+    }
 }

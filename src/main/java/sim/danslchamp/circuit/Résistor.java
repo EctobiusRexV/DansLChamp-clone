@@ -1,7 +1,11 @@
 package sim.danslchamp.circuit;
 
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.StrokeLineCap;
 import sim.danslchamp.Config;
 
 import java.awt.*;
@@ -31,7 +35,7 @@ public class Résistor extends Composant {
         if (getLargeur() > getHauteur()) {
             c = new Cylinder(getHauteur() / 2, getLargeur());
         }
-        c.setLayoutX(c.getLayoutX() + c.getHeight()/2);
+        c.setLayoutX(c.getLayoutX() + c.getHeight() / 2);
         c.setRotate(90);
         if (!rotation90) {
             c.setRotate(90);
@@ -39,6 +43,11 @@ public class Résistor extends Composant {
         Group g = new Group();
         g.getChildren().addAll(c);
         return g;
+    }
+
+    @Override
+    Group getChamp() {
+        return new Group();
     }
 
     public double calculResistance(int frequence) {
