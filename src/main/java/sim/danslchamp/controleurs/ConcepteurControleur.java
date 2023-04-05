@@ -76,7 +76,7 @@ public class ConcepteurControleur {
     @FXML
     public void initialize() {
         composantesListView.setCellFactory(item ->
-                new ComposantesListCell());
+                new ComposantesListCell(circuit));
 
         subScene3D.heightProperty().bind(vBox3D.heightProperty());
         subScene3D.widthProperty().bind(vBox3D.widthProperty());

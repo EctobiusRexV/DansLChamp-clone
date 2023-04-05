@@ -18,7 +18,7 @@ public class TestListeDesComposantes extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         ListView<Composant> composantsListView = new ListView<>();
-        composantsListView.setCellFactory(value -> new ComposantesListCell());
+        composantsListView.setCellFactory(value -> new ComposantesListCell(new Circuit()));
 
         List<Class> excludes = List.of(Fil.class, SousCircuit.class, Source.class);
         for (Class<? extends Composant> composantClass :
