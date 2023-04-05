@@ -44,6 +44,11 @@ public class SousCircuit extends Composant{
     }
 
     @Override
+    Group getChamp() {
+        return new Group();
+    }
+
+    @Override
     public double calculResistance(int frequence) {
 
         double resistance = 0.0;

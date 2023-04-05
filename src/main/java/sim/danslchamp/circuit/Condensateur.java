@@ -4,8 +4,10 @@ import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 
+import javafx.scene.shape.Rectangle;
 import sim.danslchamp.Config;
 
 import java.awt.Point;
@@ -33,22 +35,28 @@ public class Condensateur extends Composant {
 
     @Override
     Group getSymbole3D() {
-        Cylinder c = new Cylinder(getLargeur()/2,getHauteur());
+        Box r = new Box(getLargeur(), getLargeur(), getHauteur()/5);
+        Cylinder c = new Cylinder(getLargeur() / 2, getHauteur());
+        r.setMaterial(new PhongMaterial(Color.DEEPPINK));
         c.setMaterial(new PhongMaterial(Color.PINK));
-//        c.setLayoutX(getPosX()* 1.5);
-//        c.setLayoutY(getPosY()* 1.5);
-        if (rotation90){
-            c.setRotationAxis(new Point3D(1,0,0));
-            c.setRotate(90);
-        }
+        c.setRotationAxis(new Point3D(1, 0, 0));
+        c.setRotate(90);
         Group g = new Group();
-        g.getChildren().addAll(c);
+        g.getChildren().addAll(r,c);
+        r.setTranslateZ(getHauteur()/2);
+        g.setLayoutX(g.getLayoutX() + getLargeur()/2);
+        g.setLayoutY(g.getLayoutY() + getLargeur()/2);
         return g;
     }
 
-    public double calculResistance(int frequence){
+    @Override
+    Group getChamp() {
+        return new Group();
+    }
 
-        if (frequence == 0){
+    public double calculResistance(int frequence) {
+
+        if (frequence == 0) {
             return Double.MAX_VALUE;
         }
 

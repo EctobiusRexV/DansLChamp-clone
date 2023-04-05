@@ -36,6 +36,8 @@ public abstract class Diagramme {
     abstract Group addComposant_internal(Composant composant);
 
 
+    abstract void afficherChampMagnetique();
+
     /*abstract void afficherSensDuCourant();
 
     abstract void afficherNoeuds();
@@ -54,7 +56,6 @@ public abstract class Diagramme {
 
     abstract void afficherChampElectrique();
 
-    abstract void afficherChampMagnetique();
 
     abstract void mesurerChampElectrique();
 
@@ -77,7 +78,7 @@ public abstract class Diagramme {
                 valeursLabel.setText(valeursLabel.getText().concat(valeurNomWrapper.nom + ": " + valeurNomWrapper.valeur + "\n"));
             }
 
-                infobulle.show(composantGroup, event.getScreenX(), event.getScreenY());
+            infobulle.show(composantGroup, event.getScreenX(), event.getScreenY());
         });
         composantGroup.setOnMouseReleased(event -> {
             infobulle.hide();
@@ -106,9 +107,14 @@ public abstract class Diagramme {
             Group symbole = composant.getSymbole2D();
             symbole.setTranslateX(composant.getPosX());
             symbole.setTranslateY(composant.getPosY());
-
+            getGroup().getChildren().add(composant.getChamp());
             getGroup().getChildren().add(symbole);
             return symbole;
+        }
+
+        @Override
+        void afficherChampMagnetique() {
+
         }
     }
 
@@ -142,9 +148,15 @@ public abstract class Diagramme {
             Group symbole = composant.getSymbole3D();
             symbole.setTranslateX(composant.getPosX());
             symbole.setTranslateY(composant.getPosY());
-
             getGroup().getChildren().add(symbole);
+            System.out.println(composant.getClass());
+            getGroup().getChildren().add(composant.getChamp());
             return symbole;
+        }
+
+        @Override
+        void afficherChampMagnetique() {
+
         }
     }
 }

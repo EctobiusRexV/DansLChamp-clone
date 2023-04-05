@@ -36,4 +36,9 @@ public class Pile extends Source {
         g.getChildren().addAll(box);
         return g;
     }
+
+    @Override
+    Group getChamp() {
+        return new Group();
+    }
 }

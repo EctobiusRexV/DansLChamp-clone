@@ -29,6 +29,11 @@ public class Fil extends Composant {
     }
 
     @Override
+    Group getChamp() {
+        return new Group();
+    }
+
+    @Override
     public double calculResistance(int frequence) {
         return 0;
     }

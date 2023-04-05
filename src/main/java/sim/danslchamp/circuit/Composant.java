@@ -133,6 +133,8 @@ public abstract class Composant {
     }
     abstract Group getSymbole3D();
 
+    abstract Group getChamp();
+
     // Getters & Setters
 
     public String getLabel() {

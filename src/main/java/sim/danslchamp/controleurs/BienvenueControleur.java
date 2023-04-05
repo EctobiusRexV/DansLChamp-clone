@@ -44,6 +44,10 @@ public class BienvenueControleur extends ParentControleur {
         FlowPane flowPane = new FlowPane();
         flowPane.getChildren().add(
                 getCircuitVBox(".\\circuits\\circuitR.svg")
+        );// ajouter 2ieme circuit de base
+        //TODO si sa bug
+        flowPane.getChildren().add(
+                getCircuitVBox(".\\circuits\\circuitLC.svg")
         );
         deBaseTitledPane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
         deBaseTitledPane.setContent(flowPane);
