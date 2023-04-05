@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import sim.danslchamp.Config;
 import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.*;
@@ -14,6 +15,10 @@ import java.awt.*;
  * @author Mathis-Rosa Wilson
  */
 public class Générateur extends Source {
+
+    @Affichable
+    @Modifiable
+    public Valeur frequence = new Valeur(Config.defautGenerateurFrequence_Hz, Unite.UNITE, "Hz");
 
     public Générateur(int posX, int posY, boolean rotation90) {
         super(new Jonction[]{new Jonction(new Point(20, 0)), new Jonction(new Point(20, 40))},
