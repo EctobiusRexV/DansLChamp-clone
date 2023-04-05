@@ -93,7 +93,7 @@ public class Circuit {
                     actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(), Composant.Unite.UNITE);
                 }
 
-            } else actuel.setVoltage(actuel.courant.getValeur() * actuel.reactance.getValeur());
+            } else actuel.voltage.setValeur(actuel.courant.getValeur() * actuel.reactance.getValeur(), Composant.Unite.UNITE);
 
         }
 
@@ -107,11 +107,11 @@ public class Circuit {
             double courantSimple = ddpSource / resistanceEqui;
 
             for (Composant c : circuit){
-                c.setCourant(courantSimple);
+                c.courant.setValeur(courantSimple, Composant.Unite.UNITE);
             }
         } else {
             for (Composant c : circuit){
-                c.setCourant(Double.MAX_VALUE);
+                c.courant.setValeur(Double.MAX_VALUE, Composant.Unite.UNITE);
             }
         }
 
