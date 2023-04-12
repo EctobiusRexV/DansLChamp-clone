@@ -37,4 +37,12 @@ public class Fil extends Composant {
     public double calculResistance(int frequence) {
         return 0;
     }
+
+    public int getEndX() {
+        return endX;
+    }
+
+    public int getEndY() {
+        return endY;
+    }
 }
