@@ -1,8 +1,10 @@
 package sim.danslchamp.controleurs;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
@@ -14,9 +16,16 @@ import javafx.scene.shape.Sphere;
 import org.reflections.Reflections;
 import sim.danslchamp.Config;
 import sim.danslchamp.circuit.*;
+import sim.danslchamp.svg.FXASvg;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -33,6 +42,12 @@ public class ConcepteurControleur {
 
     @FXML
     private ToolBar toolbar;
+
+    @FXML
+    private ToggleButton    curseurToggleButton,
+                            filToggleButton,
+                            lockToggleButton;
+
     private Line currentLine = new Line();
 
     private boolean vertical;
@@ -119,6 +134,15 @@ public class ConcepteurControleur {
 
         conceptionAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
     }
+
+    @FXML
+    void sauvegarder() throws IOException {
+        FXASvg.aSvg(circuit);
+        Path sortie = Path.of("./circuitsExportsTests/sauvegardeDepuisConcepteur" + LocalDateTime.now().toString().replaceAll(":", "") + ".svg");
+
+        Files.write(sortie, Collections.singleton(FXASvg.aSvg(circuit)), StandardOpenOption.CREATE);
+    }
+
 
     public class ListPoint2D {
 

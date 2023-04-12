@@ -10,7 +10,7 @@ import sim.danslchamp.circuit.Circuit;
 public class ConcepteurTestApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader();
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("."));
 
         primaryStage.setScene(new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml"))));
         ((ConcepteurControleur) fxmlLoader.getController()).setCircuit(new Circuit());
