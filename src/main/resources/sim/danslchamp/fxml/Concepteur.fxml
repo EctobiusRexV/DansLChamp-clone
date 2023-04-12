@@ -34,7 +34,10 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -42,8 +45,38 @@
   <children>
       <ToolBar fx:id="toolbar" prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
+            <ToggleButton fx:id="curseurToggleButton" mnemonicParsing="false">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../controleurs/curseur.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="filToggleButton" mnemonicParsing="false">
+               <graphic>
+                  <ImageView fx:id="fil" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </ToggleButton>
+            <Button mnemonicParsing="false" onAction="#sauvegarder">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../controleurs/disquette.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <ToggleButton fx:id="lockToggleButton" mnemonicParsing="false">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../controleurs/lock.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </ToggleButton>
             <Separator orientation="VERTICAL" prefHeight="40.0" />
         </items>
       </ToolBar>
