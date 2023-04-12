@@ -76,7 +76,7 @@ public class ConcepteurControleur {
     @FXML
     public void initialize() {
         composantesListView.setCellFactory(item ->
-                new ComposantesListCell());
+                new ComposantesListCell(circuit));
 
         subScene3D.heightProperty().bind(vBox3D.heightProperty());
         subScene3D.widthProperty().bind(vBox3D.widthProperty());
@@ -122,7 +122,7 @@ public class ConcepteurControleur {
 
         // Centrer
         group3D.translateXProperty().set(subScene3D.getWidth() + 100);
-        group3D.translateYProperty().set(subScene3D.getHeight() + 150);
+        group3D.translateYProperty().set(subScene3D.getHeight() +200);
         //group3D.translateZProperty().set(-500);
 
         Camera camera = new PerspectiveCamera();
@@ -132,28 +132,7 @@ public class ConcepteurControleur {
         subScene3D.setRoot(group3D);
     }
 
-    private void initMouseControl(Group group, SubScene scene) {
-        Rotate xRotate;
-        Rotate yRotate;
-        group.getTransforms().addAll(
-                xRotate = new Rotate(0, Rotate.X_AXIS),
-                yRotate = new Rotate(0, Rotate.Y_AXIS)
-        );
-        xRotate.angleProperty().bind(angleX);
-        yRotate.angleProperty().bind(angleY);
 
-        scene.setOnMousePressed(event -> {
-            anchorX = event.getSceneX();
-            anchorY = event.getSceneY();
-            anchorAngleX = angleX.get();
-            anchorAngleY = angleY.get();
-        });
-
-        scene.setOnMouseDragged(event -> {
-            angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
-            angleY.set(anchorAngleY + anchorX - event.getSceneX());
-        });
-    }
 
 
     @FXML

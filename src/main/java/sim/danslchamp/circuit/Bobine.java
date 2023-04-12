@@ -81,8 +81,6 @@ public class Bobine extends Composant {
             if (i == 2) {
                 champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur() + getHauteur()), endX + 20, -1*(courant.getValeur() + getHauteur()), endX, endY);
                 champ.setRotationAxis(new Point3D(1, 0, 0));
-                System.out.println(champ.getStartX());
-                System.out.println(champ.getStartY());
                 champ.setRotate(-90);
                 champ.setLayoutY(champ.getStartY());
                 champ.setTranslateZ(-champ.getControlY1());

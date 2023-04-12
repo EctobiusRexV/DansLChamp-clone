@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
@@ -100,8 +102,15 @@ public class Rotation3DWithMouse extends Application {
 
         SmartGroup group = new SmartGroup();
         // aa
-        group.getChildren().addAll();
+        Text text = new Text("This is a test");
+        Text text2 = new Text("This is a test");
+        text.setX(10);
+        text.setY(50);
+        text.setFont(new Font(20));
 
+        group.getChildren().addAll(text,text2);
+        text.getTransforms().add(new Rotate(10, 50, 30));
+        System.out.println(group.getLayoutX());
         Camera camera = new PerspectiveCamera();
         Scene scene = new Scene(group, WIDTH, HEIGHT);
 //        scene.setFill(Color.TRANSPARENT);
@@ -123,7 +132,7 @@ public class Rotation3DWithMouse extends Application {
         });
 
         primaryStage.setScene(scene);
-//        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        //primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
     }
 
