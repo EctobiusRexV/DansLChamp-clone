@@ -7,7 +7,7 @@ import sim.danslchamp.DansLChampApp;
 public class BievenueTestApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        DansLChampApp.loadFenetre("Bienvenue.fxml").show();
+        ControllerUtil.loadFenetre("Bienvenue.fxml", 600, 500).show();
     }
 
     public static void main(String[] args) {

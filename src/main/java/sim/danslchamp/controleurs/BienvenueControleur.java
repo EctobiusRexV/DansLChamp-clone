@@ -18,6 +18,8 @@ import sim.danslchamp.svg.SvgLoader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static sim.danslchamp.DansLChampApp.FC;
@@ -46,29 +48,34 @@ public class BienvenueControleur extends ParentControleur {
     @FXML
     public void initialize() {
         FlowPane flowPane = new FlowPane();
-        flowPane.getChildren().addAll(
-                getCircuitVBox(".\\circuits\\circuitR.svg"),
-                getCircuitVBox(".\\circuits\\circuitLC.svg")
-        );
+        try {
+            Files.list(Path.of("circuits")).forEach(circuit ->
+            flowPane.getChildren().add(
+                    getCircuitVBox(circuit)
+                    )
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         deBaseTitledPane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
         deBaseTitledPane.setContent(flowPane);
         recentsTitlePane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
 
     }
 
-    private VBox getCircuitVBox(String filename) {
+    private VBox getCircuitVBox(Path path) {
         SvgLoader svgLoader = new SvgLoader(null);
-        Label label = new Label(Path.of(filename).getFileName().toString());
+        Label label = new Label(path.getFileName().toString());
         label.setMaxWidth(Double.MAX_VALUE);
         label.setAlignment(Pos.CENTER);
         label.setFont(Font.font("System", FontWeight.BOLD, 12));
         VBox vBox = new VBox(
-                svgLoader.loadSvg(filename),
+                svgLoader.loadSvg(path.toString()),
                 label
         );
 
 
-        vBox.setUserData(new File(filename));
+        vBox.setUserData(path.toFile());
         vBox.setOnMouseClicked(this::circuitPressed);
         return vBox;
     }
