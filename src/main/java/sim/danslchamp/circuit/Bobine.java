@@ -74,32 +74,27 @@ public class Bobine extends Composant {
 
         Group group = new Group();
         for (int i = 0; i < 4; i++) {
-            CubicCurve champ = new CubicCurve(startX, startY, startX - 20, courant.getValeur() + getHauteur(), endX + 20, courant.getValeur() + getHauteur(), endX, endY);
+            CubicCurve champ = new CubicCurve(startX, startY, startX - 20, 2*getHauteur(), endX + 20, 2*getHauteur(),endX, endY);
             if (i == 1) {
                 champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur() + getHauteur()), endX + 20, -1*(courant.getValeur() + getHauteur()), endX, endY);
             }
             if (i == 2) {
                 champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur() + getHauteur()), endX + 20, -1*(courant.getValeur() + getHauteur()), endX, endY);
                 champ.setRotationAxis(new Point3D(1, 0, 0));
-                System.out.println(champ.getStartX());
-                System.out.println(champ.getStartY());
                 champ.setRotate(-90);
                 champ.setLayoutY(champ.getStartY());
                 champ.setTranslateZ(-champ.getControlY1());
-
             }
             if (i == 3) {
                 champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur() + getHauteur()), endX + 20, -1*(courant.getValeur() + getHauteur()), endX, endY);
                 champ.setRotationAxis(new Point3D(1, 0, 0));
-                System.out.println(champ.getStartX());
-                System.out.println(champ.getStartY());
                 champ.setRotate(90);
                 champ.setLayoutY(champ.getStartY());
                 champ.setTranslateZ(champ.getControlY1());
 
             }
             champ.setStrokeWidth(4);
-            champ.setStroke(javafx.scene.paint.Color.YELLOW);
+            champ.setStroke(Color.ORANGERED);
             champ.setStrokeLineCap(StrokeLineCap.ROUND);
             champ.setFill(Color.TRANSPARENT);
             group.getChildren().add(champ);
