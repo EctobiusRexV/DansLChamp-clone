@@ -266,8 +266,7 @@ public class Circuit {
     }
 
     public Composant addComposant(Composant composant) {
-        if (!(composant instanceof Fil))
-            composants.add(composant);      // FIXME: 2023-04-04 Hotfix Liste des composants
+        composants.add(composant);
         if (composant instanceof Source) sources.add((Source) composant);
 
         addJonction(composant);
