@@ -17,15 +17,24 @@ public abstract class FXASvg {
                 ).append("\n")
         );
 
-        return svg.toString();
+        return svg.append("</svg>").toString();
     }
 
-    static String convertirFil(Fil fil) {
-        return "<line x1=\"" + fil.getPosX() + "\" y1=\"" + fil.getPosY() + "\" x2=\"" + fil.getEndX() + "\" y2=\"" + fil.getEndY() + "\" />";
+    private static String convertirFil(Fil fil) {
+        return "\t<line x1=\"" + fil.getPosX() + "\" y1=\"" + fil.getPosY() + "\" x2=\"".concat(String.valueOf(fil.getPosX()+fil.getEndX())).concat("\" y2=\"").concat(String.valueOf(fil.getPosY()+fil.getEndY())).concat("\" />");
     }
 
-    static String convertirComposant(Composant composant) {
-        return "<use xlink:href=\"#" + composant + "\" x=\"" + composant.getPosX() + "\" y=\"" + composant.getPosY() + "\" />";
+    private static String convertirComposant(Composant composant) {
+        return ajouterAttributsEtFermer(composant, new StringBuilder("\t<use xlink:href=\"#" + composant + "\" x=\"" + composant.getPosX() + "\" y=\"" + composant.getPosY() + "\" "));
+    }
+
+    private static String ajouterAttributsEtFermer(Composant composant, StringBuilder sb) {
+        for (Composant.ValeurNomWrapper valeur :
+                composant.getValeursModifiables()) {
+            sb.append(valeur.id).append("=\"").append(valeur.valeur.getValeur()).append("\" ");
+        }
+
+        return sb.append("/>").toString();
     }
 
     private static String creerEntete() {
