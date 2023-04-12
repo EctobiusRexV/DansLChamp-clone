@@ -56,7 +56,7 @@ public class DansLChampApp extends Application {
         Stage stage = new Stage();
 
         try {
-            Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml\\Circuit.fxml")));
+            Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Circuit.fxml")));
             stage.setScene(scene);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -79,7 +79,7 @@ public class DansLChampApp extends Application {
         Stage stage = new Stage();
 
         try {
-            Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml\\"+path)));
+            Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/"+path)));
             stage.setScene(scene);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

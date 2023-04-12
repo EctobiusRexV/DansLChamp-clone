@@ -55,6 +55,7 @@ public class Circuit {
 
         noeuds = jonctions.stream().filter(Jonction::estNoeud).toList();
 
+        circuit = trouverCircuit();
         calculCircuit();
         System.out.println(resistanceEqui);
     }
@@ -64,9 +65,6 @@ public class Circuit {
     }
 
     public void calculCircuit(){
-        trouverSensDuCourant();
-        circuit = trouverCircuit();
-
         resistanceEqui = trouverResistanceEqui();
         trouverCourantSimple();
         trouverDDPSimple();
@@ -176,7 +174,7 @@ public class Circuit {
     }
 
     private List<Composant> trouverCircuit() {
-
+        trouverSensDuCourant();
         circuit.add(sources.get(0));
 
         circuit = parcourirCircuit();
@@ -325,7 +323,7 @@ public class Circuit {
     }
 
     // Pour les tests
-    protected ArrayList<Jonction> getJonctions() {
+    public ArrayList<Jonction> getJonctions() {
         return jonctions;
     }
 

@@ -125,11 +125,11 @@ public abstract class Composant {
     }
 
     public Group getSymbole2D() {
-        return SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("symboles\\" + getClass().getSimpleName() + ".svg"));
+        return SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("symboles/" + getClass().getSimpleName() + ".svg"));
     }
 
     public static Group getSymbole2D(String symbole) {
-        return SVG_LOADER.loadSvg(Composant.class.getResourceAsStream("symboles\\" +  symbole + ".svg"));
+        return SVG_LOADER.loadSvg(Composant.class.getResourceAsStream("symboles/" +  symbole + ".svg"));
     }
     abstract Group getSymbole3D();
 

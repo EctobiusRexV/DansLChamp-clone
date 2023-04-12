@@ -25,7 +25,7 @@ public class ControllerUtil {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ControllerUtil.class.getResource("."));
 
-            Scene scene = new Scene(fxmlLoader.load(ControllerUtil.class.getResourceAsStream("..\\fxml\\" + path)));
+            Scene scene = new Scene(fxmlLoader.load(ControllerUtil.class.getResourceAsStream("../fxml/" + path)));
 
             ParentControleur bienvenueControleur = fxmlLoader.getController();
             bienvenueControleur.setStage(stage);

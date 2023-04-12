@@ -19,6 +19,8 @@ public abstract class Config {
 
     public static int defautSourceVoltage_mV = 0;
 
+    public static int defautGenerateurFrequence_Hz = 60;
+
     public static int defautComposantStrokeWidth = 3;
     public static String defautComposantStrokeColor = "0x000000ff";
 
