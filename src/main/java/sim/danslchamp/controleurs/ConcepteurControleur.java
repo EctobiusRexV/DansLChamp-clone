@@ -44,7 +44,7 @@ public class ConcepteurControleur extends ParentControleur {
     private BorderPane root = new BorderPane();    // Evite un stackTrace
 
     @FXML
-    private AnchorPane conceptionAnchorPane;
+    protected AnchorPane diagrammeAnchorPane;
 
     @FXML
     private ToolBar toolbar;
@@ -121,7 +121,7 @@ public class ConcepteurControleur extends ParentControleur {
 
         ajouterComportementDuComposant();
 
-        conceptionAnchorPane.getChildren().add(currentLine);
+        diagrammeAnchorPane.getChildren().add(currentLine);       // FIXME: 2023-04-12 Les lignes ne sont jamais enlevées!
     }
 
     private void ajouterComportementDuComposant() {
@@ -153,7 +153,7 @@ public class ConcepteurControleur extends ParentControleur {
 
             circuit.addComposant(new Fil((int) currentLine.getStartX(), (int) currentLine.getStartY(), posX, posY));
 
-            conceptionAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
+            diagrammeAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
         }
     }
 
