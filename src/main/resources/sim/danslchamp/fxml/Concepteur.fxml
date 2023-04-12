@@ -80,6 +80,6 @@
             <Separator orientation="VERTICAL" prefHeight="40.0" />
         </items>
       </ToolBar>
-    <AnchorPane fx:id="conceptionAnchorPane" maxHeight="-1.0" maxWidth="-1.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
+    <AnchorPane fx:id="diagrammeAnchorPane" maxHeight="-1.0" maxWidth="-1.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
   </children>
 </VBox>

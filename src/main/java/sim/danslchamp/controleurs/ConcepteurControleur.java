@@ -10,6 +10,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -33,15 +34,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class ConcepteurControleur extends ParentControleur {
+public class ConcepteurControleur {
 
     private static final int TAILLE_QUADRILLAGE_px = 25;
 
     private int posX = 0, posY = 0;
 
     private Circuit circuit;
-
-    private BorderPane root = new BorderPane();    // Evite un stackTrace
 
     @FXML
     protected AnchorPane diagrammeAnchorPane;
@@ -87,16 +86,21 @@ public class ConcepteurControleur extends ParentControleur {
                 System.out.println(e);        // NE DEVRAIT PAS ARRIVER
             }
         }
+
+        diagrammeAnchorPane.addEventHandler(ScrollEvent.SCROLL, event -> {
+            if (diagrammeAnchorPane.getScaleX() + event.getDeltaY() / 100 < 0) return; // empêcher d'obtenir un scale négatif
+
+            diagrammeAnchorPane.scaleXProperty().set(diagrammeAnchorPane.getScaleX() + event.getDeltaY() / 100);
+            diagrammeAnchorPane.scaleYProperty().set(diagrammeAnchorPane.getScaleY() + event.getDeltaY() / 100);
+
+        });
     }
 
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
     }
 
-    @Override
     public void setStage(Stage stage) {
-        super.setStage(stage);
-
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 annule = true;
