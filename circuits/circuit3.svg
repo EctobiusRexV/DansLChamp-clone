@@ -40,8 +40,8 @@
     <line x1="130" y1="70" x2="210" y2="70" style="fill:none;stroke:black;stroke-width:3"/>
     <line x1="210" y1="70" x2="210" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
     <line x1="210" y1="70" x2="210" y2="120" style="fill:none;stroke:black;stroke-width:3"/>
-    <use xlink:href="#Résistor" resistance="25" x="250" y="10"/>
     <line x1="210" y1="20" x2="250" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
+    <use xlink:href="#Résistor" resistance="25" x="250" y="10"/>
     <line x1="210" y1="120" x2="250" y2="120" style="fill:none;stroke:black;stroke-width:3"/>
     <use xlink:href="#Résistor" resistance="25" x="250" y="110"/>
     <line x1="330" y1="120" x2="370" y2="120" style="fill:none;stroke:black;stroke-width:3"/>
