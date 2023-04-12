@@ -1,28 +1,35 @@
 package sim.danslchamp.circuit;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import sim.danslchamp.circuit.Bobine;
-import sim.danslchamp.circuit.Composant;
+import org.reflections.Reflections;
 import sim.danslchamp.Util.ComposantesListCell;
 
 import java.util.List;
 
 public class TestListeDesComposantes extends Application {
+
+    private static final int MOCK_POS = 0;
+    private static final boolean MOCK_ROTATION90 = false;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        // fixme instancier toutes les classes enfant de Composante
-//        Composante.class
+        ListView<Composant> composantsListView = new ListView<>();
+        composantsListView.setCellFactory(value -> new ComposantesListCell(new Circuit()));
 
-        ListView<Composant> composanteListView = new ListView<Composant>(FXCollections.observableList(List.of(new Bobine(4, 4, false))));
+        List<Class> excludes = List.of(Fil.class, SousCircuit.class, Source.class);
+        for (Class<? extends Composant> composantClass :
+                new Reflections("sim.danslchamp.circuit")
+                        .getSubTypesOf(Composant.class)) {
+            if (excludes.contains(composantClass)) continue;
+            composantsListView.getItems().add(
+                    (Composant) composantClass.getConstructors()[0].newInstance(MOCK_POS, MOCK_POS, MOCK_ROTATION90));
+        }
 
-        composanteListView.setCellFactory(value -> new ComposantesListCell());
-
-        primaryStage.setScene(new Scene(composanteListView));
+        primaryStage.setScene(new Scene(composantsListView));
         primaryStage.show();
     }
 

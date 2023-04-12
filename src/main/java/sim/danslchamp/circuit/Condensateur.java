@@ -4,10 +4,11 @@ import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 
+import javafx.scene.shape.Rectangle;
 import sim.danslchamp.Config;
-import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.Point;
 
@@ -18,7 +19,11 @@ import java.awt.Point;
  */
 public class Condensateur extends Composant {
 
-    private long capacité_pf = Config.defautCondensateurCapacite_pF;
+    @Affichable
+    @Modifiable
+    public Valeur capacite = new Valeur(Config.defautCondensateurCapacite_pF, Unite.UNITE, "F");
+
+    private double resistance;
 
     /**
      * Permet la construction d'un condensateur depuis les attributs SVG
@@ -28,35 +33,36 @@ public class Condensateur extends Composant {
                 30, 40, posX, posY, rotation90);
     }
 
-    public void setCapacité_pf(String capacité_pf) {
-        if (!capacité_pf.isEmpty()) {
-            if (capacité_pf.matches("[a-z]")) {
-                DanslChampUtil.lanceAlerte("Entrée non-conforme", "Capacité (pf)");
-            } else {
-                try {
-                    this.capacité_pf = Long.parseLong(capacité_pf);
-                } catch (NumberFormatException e) {
-                    DanslChampUtil.lanceAlerte("Entrée non-conforme", "Capacité (pf)");
-                }
-            }
-        } else {
-            this.capacité_pf = 0;
-        }
+    @Override
+    Group getSymbole3D() {
+        Box r = new Box(getLargeur(), getLargeur(), getHauteur()/5);
+        Cylinder c = new Cylinder(getLargeur() / 2, getHauteur());
+        r.setMaterial(new PhongMaterial(Color.DEEPPINK));
+        c.setMaterial(new PhongMaterial(Color.PINK));
+        c.setRotationAxis(new Point3D(1, 0, 0));
+        c.setRotate(90);
+        Group g = new Group();
+        g.getChildren().addAll(r,c);
+        r.setTranslateZ(getHauteur()/2);
+        g.setLayoutX(g.getLayoutX() + getLargeur()/2);
+        g.setLayoutY(g.getLayoutY() + getLargeur()/2);
+        return g;
     }
 
     @Override
-    Group getSymbole3D() {
-        Cylinder c = new Cylinder(getLargeur()/2,getHauteur());
-        c.setMaterial(new PhongMaterial(Color.PINK));
-//        c.setLayoutX(getPosX()* 1.5);
-//        c.setLayoutY(getPosY()* 1.5);
-        if (rotation90){
-            c.setRotationAxis(new Point3D(1,0,0));
-            c.setRotate(90);
+    Group getChamp() {
+        return new Group();
+    }
+
+    public double calculResistance(int frequence) {
+
+        if (frequence == 0) {
+            return Double.MAX_VALUE;
         }
-        Group g = new Group();
-        g.getChildren().addAll(c);
-        return g;
+
+        reactance.setValeur(1 / (2 * Math.PI * frequence * capacite.getValeur()), Unite.UNITE);
+
+        return reactance.getValeur();
     }
 
 }

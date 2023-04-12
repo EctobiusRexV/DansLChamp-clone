@@ -3,11 +3,15 @@ package sim.danslchamp.circuit;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventType;
+import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
@@ -32,6 +36,8 @@ public abstract class Diagramme {
     abstract Group addComposant_internal(Composant composant);
 
 
+    abstract void afficherChampMagnetique();
+
     /*abstract void afficherSensDuCourant();
 
     abstract void afficherNoeuds();
@@ -50,27 +56,32 @@ public abstract class Diagramme {
 
     abstract void afficherChampElectrique();
 
-    abstract void afficherChampMagnetique();
 
     abstract void mesurerChampElectrique();
 
     abstract void mesurerChampMagnetique();*/
     private void genererInfobulle(Composant composant, Group composantGroup) {
-        Tooltip tooltip = new Tooltip();
-        for (Method method :
-                composant.getGetMethods()) {
-            try {
-                tooltip.setText(tooltip.getText()
-                        .concat(Composant.getUniteTypeFromMethod(method) + " : " + method.invoke(composant)));
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();        // NE DEVRAIT PAS ARRIVER !
-            }
-        }
+        Tooltip infobulle = new Tooltip();
+        Label valeursLabel = new Label();
+        VBox infobulleVBox = new VBox(
+                new Label(composant.toString()),
+                new Separator(Orientation.HORIZONTAL),
+                valeursLabel);
+
+        infobulle.setGraphic(infobulleVBox);
+
         composantGroup.setOnMousePressed(event -> {
-                tooltip.show(composantGroup, event.getScreenX(), event.getScreenY());
+            valeursLabel.setText("");     // Clear
+
+            for (Composant.ValeurNomWrapper valeurNomWrapper :
+                    composant.getValeursAffichables()) {
+                valeursLabel.setText(valeursLabel.getText().concat(valeurNomWrapper.nom + ": " + valeurNomWrapper.valeur + "\n"));
+            }
+
+            infobulle.show(composantGroup, event.getScreenX(), event.getScreenY());
         });
         composantGroup.setOnMouseReleased(event -> {
-            tooltip.hide();
+            infobulle.hide();
         });
     }
 
@@ -96,9 +107,14 @@ public abstract class Diagramme {
             Group symbole = composant.getSymbole2D();
             symbole.setTranslateX(composant.getPosX());
             symbole.setTranslateY(composant.getPosY());
-
+            getGroup().getChildren().add(composant.getChamp());
             getGroup().getChildren().add(symbole);
             return symbole;
+        }
+
+        @Override
+        void afficherChampMagnetique() {
+
         }
     }
 
@@ -132,9 +148,15 @@ public abstract class Diagramme {
             Group symbole = composant.getSymbole3D();
             symbole.setTranslateX(composant.getPosX());
             symbole.setTranslateY(composant.getPosY());
-
             getGroup().getChildren().add(symbole);
+            System.out.println(composant.getClass());
+            getGroup().getChildren().add(composant.getChamp());
             return symbole;
+        }
+
+        @Override
+        void afficherChampMagnetique() {
+
         }
     }
 }

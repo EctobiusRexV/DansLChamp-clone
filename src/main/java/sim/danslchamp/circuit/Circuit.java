@@ -10,13 +10,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Circuit {
 
     private String nom;
 
     private List<Composant> circuit = new ArrayList<>();
+    private double resistanceEqui = 0;
+
+    private int frequence = 0;
     private final List<Jonction> noeuds;
 
 
@@ -53,7 +55,9 @@ public class Circuit {
 
         noeuds = jonctions.stream().filter(Jonction::estNoeud).toList();
 
-
+        circuit = trouverCircuit();
+        calculCircuit();
+        System.out.println(resistanceEqui);
     }
 
     public static Circuit chargerCircuit(File file) throws FileNotFoundException {
@@ -61,8 +65,83 @@ public class Circuit {
     }
 
     public void calculCircuit(){
-        trouverSensDuCourant();
-        circuit = trouverCircuit();
+        resistanceEqui = trouverResistanceEqui();
+        trouverCourantSimple();
+        trouverDDPSimple();
+        trouverCourantBranchesParaleles();
+    }
+
+    private void trouverCourantBranchesParaleles() {
+
+    }
+
+    private void trouverDDPSimple() {
+
+        double resistanceEquiSousCircuit = 0;
+
+        for (int i = 0; i < circuit.size(); i++) {
+
+            Composant actuel = circuit.get(i);
+
+            if (actuel instanceof SousCircuit){
+
+                if (!(circuit.get(i - 1) instanceof SousCircuit)){
+                    actuel.voltage.setValeur(actuel.courant.getValeur() * actuel.reactance.getValeur(), Composant.Unite.UNITE);
+                } else {
+                    actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(), Composant.Unite.UNITE);
+                }
+
+            } else actuel.voltage.setValeur(actuel.courant.getValeur() * actuel.reactance.getValeur(), Composant.Unite.UNITE);
+
+        }
+
+
+    }
+
+    private void trouverCourantSimple() {
+        double ddpSource = sources.get(0).voltage.getValeur();
+
+        if (resistanceEqui != 0){
+            double courantSimple = ddpSource / resistanceEqui;
+
+            for (Composant c : circuit){
+                c.courant.setValeur(courantSimple, Composant.Unite.UNITE);
+            }
+        } else {
+            for (Composant c : circuit){
+                c.courant.setValeur(Double.MAX_VALUE, Composant.Unite.UNITE);
+            }
+        }
+
+
+    }
+
+    private double trouverResistanceEqui() {
+
+        double resistance = 0;
+        double reactanceBobine = 0;
+        double reactanceCondensateur = 0;
+        double inverseImpedenceSousCircuit = 0;
+        double impedenceTotaleSousCircuit = 0;
+
+        for (int i = 0; i < circuit.size() - 1; i++) {
+
+            Composant c = circuit.get(i);
+
+            if (c instanceof Condensateur){
+                reactanceCondensateur += c.calculResistance(frequence);
+            } else if (c instanceof Bobine) {
+                reactanceBobine += c.calculResistance(frequence);
+            } else if (c instanceof SousCircuit) {
+                inverseImpedenceSousCircuit += 1 / c.calculResistance(frequence);
+                if (!(circuit.get(i + 1) instanceof SousCircuit)){
+                    impedenceTotaleSousCircuit += 1 / inverseImpedenceSousCircuit;
+                }
+            } else resistance += c.calculResistance(frequence);
+
+        }
+
+        return Math.sqrt(Math.pow(resistance, 2) + Math.pow(reactanceCondensateur - reactanceBobine, 2)) + impedenceTotaleSousCircuit;
     }
 
     /**
@@ -95,7 +174,7 @@ public class Circuit {
     }
 
     private List<Composant> trouverCircuit() {
-
+        trouverSensDuCourant();
         circuit.add(sources.get(0));
 
         circuit = parcourirCircuit();
@@ -187,7 +266,8 @@ public class Circuit {
     }
 
     public Composant addComposant(Composant composant) {
-        composants.add(composant);
+        if (!(composant instanceof Fil))
+            composants.add(composant);      // FIXME: 2023-04-04 Hotfix Liste des composants
         if (composant instanceof Source) sources.add((Source) composant);
 
         addJonction(composant);

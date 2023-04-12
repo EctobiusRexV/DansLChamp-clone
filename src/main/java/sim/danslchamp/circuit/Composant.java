@@ -3,13 +3,35 @@ package sim.danslchamp.circuit;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import sim.danslchamp.Config;
+import sim.danslchamp.Util.DanslChampUtil;
 
-import java.lang.reflect.Method;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Arrays;
 
 import static sim.danslchamp.DansLChampApp.SVG_LOADER;
+import static sim.danslchamp.Util.DanslChampUtil.Capitalize;
 
 public abstract class Composant {
+
+    /**
+     * Désigne les champs affichables dans l'infobulle d'un composant
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    public @interface Affichable { }
+
+    /**
+     * Désigne les champs modifiables dans la liste des composants (par le fait même sauvegardés)
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    public @interface Modifiable { }
+
 
     /**
      * Les composants concrets doivent définir leurs connecteurs relativement à la position (0, 0)
@@ -19,10 +41,10 @@ public abstract class Composant {
 
     private String label;
 
-
-    private long    reactance_mOhms,
-                    voltage_mV,
-                    courant_uA;
+    @Affichable
+    public Valeur  reactance = new Valeur(0, Unite.UNITE, "Ω"),
+                    voltage = new Valeur(0, Unite.UNITE, "V"),
+                    courant = new Valeur(0, Unite.UNITE, "A");
 
     /**
      * Position absolue des connecteurs
@@ -88,10 +110,6 @@ public abstract class Composant {
         setJonctions();
     }
 
-    public void setVoltage_mV(long voltage_mV) {
-        this.voltage_mV = voltage_mV;
-    }
-
     /**
      * Ajuste les jonctions en fonction de la position absolue
      */
@@ -107,13 +125,15 @@ public abstract class Composant {
     }
 
     public Group getSymbole2D() {
-        return SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("symboles\\" + getClass().getSimpleName() + ".svg"));
+        return SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("symboles/" + getClass().getSimpleName() + ".svg"));
     }
 
     public static Group getSymbole2D(String symbole) {
-        return SVG_LOADER.loadSvg(Composant.class.getResourceAsStream("symboles\\" +  symbole + ".svg"));
+        return SVG_LOADER.loadSvg(Composant.class.getResourceAsStream("symboles/" +  symbole + ".svg"));
     }
     abstract Group getSymbole3D();
+
+    abstract Group getChamp();
 
     // Getters & Setters
 
@@ -164,23 +184,37 @@ public abstract class Composant {
     public Jonction getBornePositive() {
         return bornePositive;
     }
-    public Method[] getSetMethods() {
-        return Arrays.stream(getClass().getDeclaredMethods())
-                .filter(method -> method.getName().startsWith("set"))
-                .toArray(Method[]::new);
+
+    private ValeurNomWrapper[] getValeurs(Class annotationClass) {
+        return Arrays.stream(getClass().getFields())
+                .filter(field -> field.isAnnotationPresent(annotationClass))
+                .map(field -> {
+                    try {
+                        field.setAccessible(true);
+                        return new ValeurNomWrapper(field.getName(), (Valeur) field.get(this));
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .toArray(ValeurNomWrapper[]::new);
     }
 
-    public Method[] getGetMethods() {
-        return Arrays.stream(getClass().getDeclaredMethods())
-                .filter(method -> method.getName().startsWith("get"))
-                .toArray(Method[]::new);
+    /**
+     * @return Un tableau de Valeurs portant l'annotation Affichable
+     */
+    public ValeurNomWrapper[] getValeursAffichables() {
+        return getValeurs(Affichable.class);
     }
 
-    public static String getUniteTypeFromMethod(Method methode) {
-        return methode.getName()
-                .substring(3)   // set/get
-                .split("_")[0];
+    /**
+     * @return Un tableau de Valeurs portant l'annotation Modifiable
+     */
+    public ValeurNomWrapper[] getValeursModifiables() {
+        return getValeurs(Modifiable.class);
     }
+
+
+    public abstract double calculResistance(int frequence);
 
     /**
      * @return le nom de la composante (Résistor, Condensateur, etc.)
@@ -188,5 +222,117 @@ public abstract class Composant {
     @Override
     public String toString() {
         return getClass().getSimpleName();
+    }
+
+    public enum Unite {
+        PLUS_PETITE_POSSIBLE(""), PICO("p"), NANO("n"), MICRO("μ"), MILLI("m"), UNITE( ""), KILO("K"), MEGA("M"), GIGA("G");
+
+        private final String symbole;
+
+        Unite(String symbole) {
+            this.symbole = symbole;
+        }
+
+        public String getSymbole() {
+            return symbole;
+        }
+
+        @Override
+        public String toString() {
+            return getSymbole();
+        }
+    }
+
+    public static class Valeur {
+        private double valeur;
+        private Unite unite;
+        private final String symbole;
+
+        private final static NumberFormat formatter = new DecimalFormat();
+
+        public Valeur(double valeur, Unite unite, String symbole) {
+            setValeur(valeur, unite);
+
+            this.symbole = symbole;
+        }
+
+        public double getValeur() {
+            return valeur;
+        }
+
+        public String getValeurStr() {
+            return formatter.format(valeur);
+        }
+
+        public void setValeur(String valeur, Unite unite) {
+            if (valeur.isEmpty()) this.valeur = 0;
+            else
+                try {
+                    setValeur(Double.parseDouble(valeur), unite);
+                } catch (NumberFormatException e) {
+                    DanslChampUtil.lanceAlerte("Entrée non-conforme", ""/*fixme*/);
+                }
+        }
+
+        public void setValeur(double valeur, Unite unite) {
+            if (unite == Unite.PLUS_PETITE_POSSIBLE)
+                throw new IllegalArgumentException("L'argument Unite.PLUS_PETITE_POSSIBLE ne peut être utilisé que dans une conversion.");
+
+            this.valeur = valeur;
+            this.unite = unite;
+        }
+
+        @Override
+        public String toString() {
+            return formatter.format(valeur) + " " + unite + symbole;
+        }
+
+        /**
+         * @return Une <u>NOUVELLE</u> valeur convertie à l'unité désirée.
+         */
+        public Valeur convertir(Unite unite) {
+            if (unite == Unite.PLUS_PETITE_POSSIBLE) return convertirPlusPetitePossible();
+
+            int facteur = unite.ordinal() - this.unite.ordinal();
+            return new Valeur(valeur * Math.pow(10, -(3*facteur)), unite, symbole);
+        }
+
+        /**
+         * @return La valeur convertie à la plus petite unité possible au format ingénieur (micro, milli, ..., kilo, méga, etc.)
+         */
+        private Valeur convertirPlusPetitePossible() {
+            double valeur = this.valeur;
+            int i;
+            if (valeur > 1_000)
+                for (i = 0; valeur > 1_000; i--)
+                    valeur /= 1_000;
+            else
+                for (i = 0; valeur < 1; i++)
+                    valeur *= 1_000;
+
+            return new Valeur(valeur, Unite.values()[this.unite.ordinal() - i], symbole);
+        }
+    }
+
+    /**
+     * Permet de coupler une valeur avec le nom d'un champ.
+     */
+    public static class ValeurNomWrapper {
+        public String id;
+        public String nom;
+        public Valeur valeur;
+
+        public ValeurNomWrapper(String nom, Valeur valeur) {
+            this.id = nom;
+            this.nom = Capitalize(espacerCamelCase(nom));
+            this.valeur = valeur;
+        }
+
+        /**
+         * Dans un mot en camelCase, espace les majuscules (ex.: camel Case)
+         */
+        private static String espacerCamelCase(String str) {
+            return str.replaceAll("[A-Z]", " $0");
+        }
     }
 }
