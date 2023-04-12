@@ -149,7 +149,7 @@ public abstract class Diagramme {
             symbole.setTranslateX(composant.getPosX());
             symbole.setTranslateY(composant.getPosY());
             getGroup().getChildren().add(symbole);
-            System.out.println(composant.getClass());
+            //System.out.println(composant.getClass());
             getGroup().getChildren().add(composant.getChamp());
             return symbole;
         }

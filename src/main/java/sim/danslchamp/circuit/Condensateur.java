@@ -4,10 +4,8 @@ import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.*;
 
-import javafx.scene.shape.Rectangle;
 import sim.danslchamp.Config;
 
 import java.awt.Point;
@@ -35,23 +33,34 @@ public class Condensateur extends Composant {
 
     @Override
     Group getSymbole3D() {
-        Box r = new Box(getLargeur(), getLargeur(), getHauteur()/5);
-        Cylinder c = new Cylinder(getLargeur() / 2, getHauteur());
-        r.setMaterial(new PhongMaterial(Color.DEEPPINK));
-        c.setMaterial(new PhongMaterial(Color.PINK));
-        c.setRotationAxis(new Point3D(1, 0, 0));
-        c.setRotate(90);
+        Cylinder r = new Cylinder(getLargeur()/2, getHauteur()/5);
+        Cylinder r2 = new Cylinder(getLargeur()/2, getHauteur()/5);
+        r.setMaterial(new PhongMaterial(Color.GRAY));
+        r2.setMaterial(new PhongMaterial(Color.GRAY));
+        r2.setTranslateY(getHauteur()*3/5);
         Group g = new Group();
-        g.getChildren().addAll(r,c);
-        r.setTranslateZ(getHauteur()/2);
+        g.getChildren().addAll(r,r2);
         g.setLayoutX(g.getLayoutX() + getLargeur()/2);
-        g.setLayoutY(g.getLayoutY() + getLargeur()/2);
+        g.setLayoutY(g.getLayoutY() + getHauteur()/5);
         return g;
+        /**Cylinder c = new Cylinder(getLargeur() / 2, getHauteur());
+         c.setMaterial(new PhongMaterial(Color.PINK));
+         c.setRotationAxis(new Point3D(1, 0, 0));
+         c.setRotate(90);**/
     }
 
     @Override
     Group getChamp() {
-        return new Group();
+        Circle c = new Circle(getLargeur()*3/5);
+        c.setStrokeWidth(3);
+        c.setStroke(Color.DARKRED);
+        c.setStrokeLineCap(StrokeLineCap.ROUND);
+        c.setFill(Color.TRANSPARENT);
+        c.setRotationAxis(new Point3D(1,0,0));
+        c.setRotate(80);
+        c.setCenterX(getPosX() + getLargeur()/2);
+        c.setCenterY(getPosY() + getHauteur()*3/5);
+        return new Group(c);
     }
 
     public double calculResistance(int frequence) {
