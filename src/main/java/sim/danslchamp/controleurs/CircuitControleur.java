@@ -118,7 +118,7 @@ public class CircuitControleur extends ParentControleur {
         pousserCircuitRecent(file);
         composantesListView.setItems(circuit.getComposants());
 
-        concepteurControleur.diagrammeVBox.getChildren().setAll(circuit.getDiagramme2D().getGroup());
+        concepteurControleur.diagrammeAnchorPane.getChildren().setAll(circuit.getDiagramme2D().getGroup());
         concepteurControleur.setCircuit(circuit);
 
         Group group3D = circuit.getDiagramme3D().getGroup();
