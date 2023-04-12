@@ -75,7 +75,9 @@ public class SousCircuit extends Composant{
 
         }
 
-        return Math.sqrt(Math.pow(resistance, 2) + Math.pow(reactanceCondensateur - reactanceBobine, 2)) + impedenceTotaleSousCircuit;
+        reactance.setValeur(Math.sqrt(Math.pow(resistance, 2) + Math.pow(reactanceCondensateur - reactanceBobine, 2)) + impedenceTotaleSousCircuit, Unite.UNITE);
+
+        return reactance.getValeur();
 
 //        int resistance = 0;
 //
