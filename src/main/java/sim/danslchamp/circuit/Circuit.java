@@ -243,7 +243,7 @@ public class Circuit {
     }
 
     // Pour les tests
-    protected ArrayList<Jonction> getJonctions() {
+    public ArrayList<Jonction> getJonctions() {
         return jonctions;
     }
 
