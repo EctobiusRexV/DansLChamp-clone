@@ -68,6 +68,7 @@ public class ConcepteurControleur extends ParentControleur {
         Set<Class<? extends Composant>> composantsClasses = reflections.getSubTypesOf(Composant.class);
         composantsClasses.remove(Fil.class);
         composantsClasses.remove(Source.class);
+        composantsClasses.remove(SousCircuit.class);
 //        composantsClasses.remove(SousCircuit.class)
 //        Set<Class<? extends Composant>> composantsClasses = Set.of(Bobine.class);
         for (Class<? extends Composant> composantClass :
