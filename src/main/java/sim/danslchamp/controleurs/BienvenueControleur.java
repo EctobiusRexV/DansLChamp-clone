@@ -67,6 +67,7 @@ public class BienvenueControleur extends ParentControleur {
                 label
         );
 
+
         vBox.setUserData(new File(filename));
         vBox.setOnMouseClicked(this::circuitPressed);
         return vBox;
