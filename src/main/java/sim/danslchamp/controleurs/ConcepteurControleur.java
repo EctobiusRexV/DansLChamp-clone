@@ -7,12 +7,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Sphere;
+import javafx.stage.Stage;
 import org.reflections.Reflections;
 import sim.danslchamp.Config;
 import sim.danslchamp.circuit.*;
@@ -29,13 +33,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class ConcepteurControleur {
+public class ConcepteurControleur extends ParentControleur {
 
     private static final int TAILLE_QUADRILLAGE_px = 25;
 
     private int posX = 0, posY = 0;
 
     private Circuit circuit;
+
+    private BorderPane root = new BorderPane();    // Evite un stackTrace
 
     @FXML
     private AnchorPane conceptionAnchorPane;
@@ -50,7 +56,7 @@ public class ConcepteurControleur {
 
     private Line currentLine = new Line();
 
-    private boolean vertical;
+    private boolean vertical, annule;
 
     @FXML
     void initialize() {
@@ -86,6 +92,18 @@ public class ConcepteurControleur {
         this.circuit = circuit;
     }
 
+    @Override
+    public void setStage(Stage stage) {
+        super.setStage(stage);
+
+        stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                annule = true;
+                currentLine.setVisible(false);
+            }
+        });
+    }
+
     void setPos(int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
@@ -93,6 +111,8 @@ public class ConcepteurControleur {
 
     @FXML
     void mousePressed(MouseEvent event) {
+        annule = false;
+
         currentLine = new Line(posX, posY,
                 Math.round((int) event.getX() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px),
                 Math.round((int) event.getY() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px));
@@ -127,12 +147,14 @@ public class ConcepteurControleur {
 
     @FXML
     void mouseReleased() {
-        posX = (int) currentLine.getEndX();
-        posY = (int) currentLine.getEndY();
+        if (!annule) {
+            posX = (int) currentLine.getEndX();
+            posY = (int) currentLine.getEndY();
 
-        circuit.addComposant(new Fil((int) currentLine.getStartX(), (int) currentLine.getStartY(), posX, posY));
+            circuit.addComposant(new Fil((int) currentLine.getStartX(), (int) currentLine.getStartY(), posX, posY));
 
-        conceptionAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
+            conceptionAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
+        }
     }
 
     @FXML
