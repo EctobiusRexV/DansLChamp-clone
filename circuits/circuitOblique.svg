@@ -51,12 +51,17 @@
 	<use xlink:href="#Résistor" resistance="50" x="100" y="10"/>
 	<line x1="180" y1="20" x2="225" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
 
-<!--	longeur de la ligne oblique: 282.84271245-->
-	<g transform="rotate(-45) translate(-138, 154)">
-	<line x1="0" y1="20" x2="80" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
-	<use xlink:href="#Résistor" resistance="50" x="80" y="10"/>
-	<line x1="160" y1="20" x2="282.8427124" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
-	</g>
+	<line x1="153.5822151" y1="91.41778489" x2="225" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
+	<use xlink:href="#Résistor" resistance="50" x="-36.2" y="163.5" transform="rotate(-45)"/>
+	<line x1="25" y1="220" x2="97.01357260" y2="147.9863273" style="fill:none;stroke:black;stroke-width:3"/>
+
+<!--	longeur de la ligne oblique: 282.84271245     71.41778489-->
+
+<!--	<g transform="rotate(-45) translate(-138, 155)">-->
+<!--	<line x1="0" y1="20" x2="80" y2="20" style="fill:none;stroke:blue;stroke-width:3"/>-->
+<!--	<use xlink:href="#Résistor" resistance="50" x="80" y="10"/>-->
+<!--	<line x1="160" y1="20" x2="282.8427124" y2="20" style="fill:none;stroke:blue;stroke-width:3"/>-->
+<!--	</g>-->
 
 	<line x1="25" y1="220" x2="25" y2="130" style="fill:none;stroke:black;stroke-width:3"/>
 </svg>
