@@ -55,6 +55,7 @@
 	<use xlink:href="#Résistor" resistance="50" x="-36.2" y="163.5" transform="rotate(-45)"/>
 	<line x1="25" y1="220" x2="97.01357260" y2="147.9863273" style="fill:none;stroke:black;stroke-width:3"/>
 
+
 <!--	longeur de la ligne oblique: 282.84271245     71.41778489-->
 
 <!--	<g transform="rotate(-45) translate(-138, 155)">-->
