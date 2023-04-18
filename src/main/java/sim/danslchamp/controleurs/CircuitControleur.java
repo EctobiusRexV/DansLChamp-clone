@@ -130,6 +130,10 @@ public class CircuitControleur extends ParentControleur {
         concepteurControleur.diagrammeAnchorPane.getChildren().setAll(circuit.getDiagramme2D().getGroup());
         concepteurControleur.setCircuit(circuit);
 
+        init3D();
+    }
+
+    private void init3D() {
         Group group3D = circuit.getDiagramme3D().getGroup();
         subScene3D.addEventHandler(ScrollEvent.SCROLL, event -> {
             group3D.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY());
@@ -137,14 +141,9 @@ public class CircuitControleur extends ParentControleur {
 
 
         Camera camera = new PerspectiveCamera();
-//        scene.setFill(Color.TRANSPARENT);
         subScene3D.setFill(Color.WHITE);
         subScene3D.setCamera(camera);
-        subScene3D.addEventHandler(EventType.ROOT, (a) -> {
-            if (subScene3D.getWidth() / 2 != group3D.getLayoutX()) {
-                group3D.setLayoutX(subScene3D.getWidth() / 3);
-            }
-        });
+
         VBox vBox = new VBox(group3D);
         vBox.setAlignment(Pos.CENTER);
         HBox hBox = new HBox(vBox);
