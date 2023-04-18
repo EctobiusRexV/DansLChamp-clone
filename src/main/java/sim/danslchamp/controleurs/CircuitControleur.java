@@ -136,7 +136,7 @@ public class CircuitControleur extends ParentControleur {
     private void init3D() {
         Group group3D = circuit.getDiagramme3D().getGroup();
         subScene3D.addEventHandler(ScrollEvent.SCROLL, event -> {
-            group3D.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY());
+            group3D.translateZProperty().set(group3D.getTranslateZ() - event.getDeltaY());
         });
 
 
