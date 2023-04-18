@@ -4,12 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SubScene;
 import javafx.scene.control.ListView;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -126,10 +128,6 @@ public class CircuitControleur extends ParentControleur {
             group3D.translateZProperty().set(group3D.getTranslateZ() + event.getDeltaY());
         });
 
-        // Centrer
-        group3D.translateXProperty().set(subScene3D.getWidth() + 100);
-        group3D.translateYProperty().set(subScene3D.getHeight() + 150);
-        //group3D.translateZProperty().set(-500);
 
         Camera camera = new PerspectiveCamera();
 //        scene.setFill(Color.TRANSPARENT);
@@ -140,7 +138,11 @@ public class CircuitControleur extends ParentControleur {
                 group3D.setLayoutX(subScene3D.getWidth() / 3);
             }
         });
-        subScene3D.setRoot(group3D);
+        VBox vBox = new VBox(group3D);
+        vBox.setAlignment(Pos.CENTER);
+        HBox hBox = new HBox(vBox);
+        hBox.setAlignment(Pos.CENTER);
+        subScene3D.setRoot(hBox);
         circuit.getDiagramme3D().initMouseControl(group3D, subScene3D);
     }
 
