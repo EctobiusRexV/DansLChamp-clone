@@ -3,13 +3,11 @@ package sim.danslchamp.controleurs;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToolBar;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -33,7 +31,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class ConcepteurControleur extends ParentControleur {
+public class ConcepteurControleur {
 
     private static final int TAILLE_QUADRILLAGE_px = 25;
 
@@ -41,10 +39,8 @@ public class ConcepteurControleur extends ParentControleur {
 
     private Circuit circuit;
 
-    private BorderPane root = new BorderPane();    // Evite un stackTrace
-
     @FXML
-    private AnchorPane conceptionAnchorPane;
+    protected AnchorPane diagrammeAnchorPane;
 
     @FXML
     private ToolBar toolbar;
@@ -60,6 +56,12 @@ public class ConcepteurControleur extends ParentControleur {
 
     @FXML
     void initialize() {
+        initBoutonsComposants();
+        initZoom();
+        initToggleGroup();
+    }
+
+    private void initBoutonsComposants() {
         Reflections reflections = new Reflections("sim.danslchamp.circuit");
 
 //        Résistor résistor = new Résistor(10, 10, false, "10");
@@ -68,6 +70,7 @@ public class ConcepteurControleur extends ParentControleur {
         Set<Class<? extends Composant>> composantsClasses = reflections.getSubTypesOf(Composant.class);
         composantsClasses.remove(Fil.class);
         composantsClasses.remove(Source.class);
+        composantsClasses.remove(SousCircuit.class);
 //        composantsClasses.remove(SousCircuit.class)
 //        Set<Class<? extends Composant>> composantsClasses = Set.of(Bobine.class);
         for (Class<? extends Composant> composantClass :
@@ -79,6 +82,7 @@ public class ConcepteurControleur extends ParentControleur {
                 button.setTooltip(new Tooltip(composantClass.getSimpleName()));
                 button.setOnAction(event -> {
                     circuit.addComposant(composantClass, posX, posY, vertical);
+                    diagrammeAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
                 });
                 toolbar.getItems().add(button);
             } catch (ClassCastException | IllegalAccessException | InvocationTargetException |
@@ -88,14 +92,26 @@ public class ConcepteurControleur extends ParentControleur {
         }
     }
 
+    private void initZoom() {
+        diagrammeAnchorPane.addEventHandler(ScrollEvent.SCROLL, event -> {
+            if (diagrammeAnchorPane.getScaleX() + event.getDeltaY() / 100 < 0) return; // empêcher d'obtenir un scale négatif
+
+            diagrammeAnchorPane.scaleXProperty().set(diagrammeAnchorPane.getScaleX() + event.getDeltaY() / 1000);
+            diagrammeAnchorPane.scaleYProperty().set(diagrammeAnchorPane.getScaleY() + event.getDeltaY() / 1000);
+
+        });
+    }
+
+    private void initToggleGroup() {
+        ToggleGroup group = new ToggleGroup();
+        group.getToggles().setAll(curseurToggleButton, filToggleButton);
+    }
+
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
     }
 
-    @Override
     public void setStage(Stage stage) {
-        super.setStage(stage);
-
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 annule = true;
@@ -111,7 +127,9 @@ public class ConcepteurControleur extends ParentControleur {
 
     @FXML
     void mousePressed(MouseEvent event) {
-        annule = false;
+        annule = curseurToggleButton.isSelected();
+
+        if (annule) return;
 
         currentLine = new Line(posX, posY,
                 Math.round((int) event.getX() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px),
@@ -121,7 +139,7 @@ public class ConcepteurControleur extends ParentControleur {
 
         ajouterComportementDuComposant();
 
-        conceptionAnchorPane.getChildren().add(currentLine);
+        diagrammeAnchorPane.getChildren().add(currentLine);       // FIXME: 2023-04-12 Les lignes ne sont jamais enlevées!
     }
 
     private void ajouterComportementDuComposant() {
@@ -153,7 +171,7 @@ public class ConcepteurControleur extends ParentControleur {
 
             circuit.addComposant(new Fil((int) currentLine.getStartX(), (int) currentLine.getStartY(), posX, posY));
 
-            conceptionAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
+            diagrammeAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
         }
     }
 

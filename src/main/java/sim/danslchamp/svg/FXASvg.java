@@ -40,7 +40,6 @@ public abstract class FXASvg {
     private static String creerEntete() {
         return """
                 <svg version="1.1"
-                	 width="350" height="200"
                 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill:none;stroke:black;stroke-width:3">
                 	<defs>
                 		<g id="Bobine" style="fill:none;stroke:black;stroke-width:3">
