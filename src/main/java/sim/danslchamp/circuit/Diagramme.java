@@ -92,14 +92,6 @@ public abstract class Diagramme {
     public static class Diagramme2D extends Diagramme {
 
         public Diagramme2D() {
-            // Zoom/dézoom
-            getGroup().addEventHandler(ScrollEvent.SCROLL, event -> {
-                if (getGroup().getScaleX() + event.getDeltaY() / 100 < 0) return; // empêcher d'obtenir un scale négatif
-
-                getGroup().scaleXProperty().set(getGroup().getScaleX() + event.getDeltaY() / 100);
-                getGroup().scaleYProperty().set(getGroup().getScaleY() + event.getDeltaY() / 100);
-
-            });
         }
 
         @Override
