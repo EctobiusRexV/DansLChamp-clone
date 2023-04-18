@@ -152,7 +152,7 @@ je vais identifier ou sont les ressource dans le code
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Bibliothèque">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Ouvrir la Bibliothèque de composantes" />
+                                        <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Ouvrir la Bibliothèque de composants" />
                                     </items>
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Aide">

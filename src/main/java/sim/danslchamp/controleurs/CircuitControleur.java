@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
 import sim.danslchamp.Config;
 import sim.danslchamp.DansLChampApp;
-import sim.danslchamp.Util.ComposantesListCell;
+import sim.danslchamp.Util.ComposantsListCell;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
 
@@ -67,7 +67,7 @@ public class CircuitControleur extends ParentControleur {
 
     // FXML
     @FXML
-    private ListView<Composant> composantesListView;
+    private ListView<Composant> composantsListView;
     @FXML
     private VBox vBox2D, vBox3D;
     @FXML
@@ -80,8 +80,8 @@ public class CircuitControleur extends ParentControleur {
     // ===============================
     @FXML
     public void initialize() {
-        composantesListView.setCellFactory(item ->
-                new ComposantesListCell(circuit));
+        composantsListView.setCellFactory(item ->
+                new ComposantsListCell(circuit));
 
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("."));
         try {
@@ -125,7 +125,7 @@ public class CircuitControleur extends ParentControleur {
     public void chargerCircuit(@Nullable File file) throws FileNotFoundException {
         circuit = Circuit.chargerCircuit(file);
         pousserCircuitRecent(file);
-        composantesListView.setItems(circuit.getComposants());
+        composantsListView.setItems(circuit.getComposants());
 
         concepteurControleur.diagrammeAnchorPane.getChildren().setAll(circuit.getDiagramme2D().getGroup());
         concepteurControleur.setCircuit(circuit);

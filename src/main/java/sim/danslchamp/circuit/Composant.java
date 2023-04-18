@@ -65,7 +65,7 @@ public abstract class Composant {
 
     private int posX, posY;
 
-    // Indique si la composante est tournée de 90°
+    // Indique si le composant est tournée de 90°
     boolean rotation90;
 
     private int strokeWidth = Config.defautComposantStrokeWidth;
@@ -79,14 +79,14 @@ public abstract class Composant {
     protected Composant() {}
 
     /**
-     * Construit une composante à partir d'un élément SVG.
+     * Construit un composant à partir d'un élément SVG.
      *
      * @param jonctionsRelatives
      * @param hauteur
      * @param largeur
      * @param posX la position en X
      * @param posY la position en Y
-     * @param rotation90 la composante est tournée de 90°?
+     * @param rotation90 le composant est tournée de 90°?
      */
     protected Composant(Jonction[] jonctionsRelatives, int hauteur, int largeur, int posX, int posY, boolean rotation90) {
         this.jonctionsRelatives = jonctionsRelatives;
@@ -217,7 +217,7 @@ public abstract class Composant {
     public abstract double calculResistance(int frequence);
 
     /**
-     * @return le nom de la composante (Résistor, Condensateur, etc.)
+     * @return le nom du composant (Résistor, Condensateur, etc.)
      */
     @Override
     public String toString() {

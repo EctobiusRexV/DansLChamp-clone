@@ -9,13 +9,10 @@ import javafx.scene.layout.VBox;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-public class ComposantesListCell extends ListCell<Composant> {
+public class ComposantsListCell extends ListCell<Composant> {
 
     private Circuit circuit;
-    public ComposantesListCell(Circuit circuit) {
+    public ComposantsListCell(Circuit circuit) {
         this.circuit = circuit;
     }
 
