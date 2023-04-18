@@ -3,10 +3,7 @@ package sim.danslchamp.controleurs;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToolBar;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -59,6 +56,12 @@ public class ConcepteurControleur {
 
     @FXML
     void initialize() {
+        initBoutonsComposants();
+        initZoom();
+        initToggleGroup();
+    }
+
+    private void initBoutonsComposants() {
         Reflections reflections = new Reflections("sim.danslchamp.circuit");
 
 //        Résistor résistor = new Résistor(10, 10, false, "10");
@@ -79,6 +82,7 @@ public class ConcepteurControleur {
                 button.setTooltip(new Tooltip(composantClass.getSimpleName()));
                 button.setOnAction(event -> {
                     circuit.addComposant(composantClass, posX, posY, vertical);
+                    diagrammeAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
                 });
                 toolbar.getItems().add(button);
             } catch (ClassCastException | IllegalAccessException | InvocationTargetException |
@@ -86,14 +90,21 @@ public class ConcepteurControleur {
                 System.out.println(e);        // NE DEVRAIT PAS ARRIVER
             }
         }
+    }
 
+    private void initZoom() {
         diagrammeAnchorPane.addEventHandler(ScrollEvent.SCROLL, event -> {
             if (diagrammeAnchorPane.getScaleX() + event.getDeltaY() / 100 < 0) return; // empêcher d'obtenir un scale négatif
 
-            diagrammeAnchorPane.scaleXProperty().set(diagrammeAnchorPane.getScaleX() + event.getDeltaY() / 100);
-            diagrammeAnchorPane.scaleYProperty().set(diagrammeAnchorPane.getScaleY() + event.getDeltaY() / 100);
+            diagrammeAnchorPane.scaleXProperty().set(diagrammeAnchorPane.getScaleX() + event.getDeltaY() / 1000);
+            diagrammeAnchorPane.scaleYProperty().set(diagrammeAnchorPane.getScaleY() + event.getDeltaY() / 1000);
 
         });
+    }
+
+    private void initToggleGroup() {
+        ToggleGroup group = new ToggleGroup();
+        group.getToggles().setAll(curseurToggleButton, filToggleButton);
     }
 
     public void setCircuit(Circuit circuit) {
@@ -116,7 +127,9 @@ public class ConcepteurControleur {
 
     @FXML
     void mousePressed(MouseEvent event) {
-        annule = false;
+        annule = curseurToggleButton.isSelected();
+
+        if (annule) return;
 
         currentLine = new Line(posX, posY,
                 Math.round((int) event.getX() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px),
