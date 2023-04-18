@@ -58,6 +58,13 @@ public class CircuitControleur extends ParentControleur {
 //    }
 
 
+    @Override
+    public void setStage(Stage stage) {
+        super.setStage(stage);
+
+        concepteurControleur.setStage(stage);
+    }
+
     // FXML
     @FXML
     private ListView<Composant> composantesListView;
