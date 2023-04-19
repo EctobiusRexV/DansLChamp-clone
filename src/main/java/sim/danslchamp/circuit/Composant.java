@@ -214,7 +214,7 @@ public abstract class Composant {
     }
 
 
-    public abstract double calculResistance(int frequence);
+    public abstract double calculResistance(double frequence);
 
     /**
      * @return le nom du composant (Résistor, Condensateur, etc.)

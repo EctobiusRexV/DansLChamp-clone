@@ -63,7 +63,8 @@ public class Condensateur extends Composant {
         return new Group(c);
     }
 
-    public double calculResistance(int frequence) {
+    @Override
+    public double calculResistance(double frequence) {
 
         if (frequence == 0) {
             return Double.MAX_VALUE;

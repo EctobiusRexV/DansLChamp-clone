@@ -18,7 +18,7 @@ public class Circuit {
     private List<Composant> circuit = new ArrayList<>();
     private double resistanceEqui = 0;
 
-    private int frequence = 0;
+    private double frequence = 0;
     private final List<Jonction> noeuds;
 
 

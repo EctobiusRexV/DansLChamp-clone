@@ -49,7 +49,7 @@ public class SousCircuit extends Composant{
     }
 
     @Override
-    public double calculResistance(int frequence) {
+    public double calculResistance(double frequence) {
 
         double resistance = 0.0;
         double reactanceBobine;
