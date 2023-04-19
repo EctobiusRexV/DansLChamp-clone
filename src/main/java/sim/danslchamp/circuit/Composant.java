@@ -312,6 +312,14 @@ public abstract class Composant {
 
             return new Valeur(valeur, Unite.values()[this.unite.ordinal() - i], symbole);
         }
+
+        public Unite getUnite() {
+            return unite;
+        }
+
+        public String getSymbole() {
+            return symbole;
+        }
     }
 
     /**
