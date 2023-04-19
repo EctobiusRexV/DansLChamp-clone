@@ -76,7 +76,7 @@ public class Rotation3DWithMouse extends Application {
         cone.setRadius(15);
         cone.setRotationAxis(new Point3D(0, 0, 1));
         cone.setRotate(90);
-//        Circuit c = new Circuit(new Composante2[]{new Source(), new Condensateur(), new Resistor(), new Condensateur(), new Condensateur(), new Condensateur()});
+//        Circuit c = new Circuit(new Composant2[]{new Source(), new Condensateur(), new Resistor(), new Condensateur(), new Condensateur(), new Condensateur()});
 
         Rectangle r = new Rectangle(100, 100);
 //        PhongMaterial a = new PhongMaterial();

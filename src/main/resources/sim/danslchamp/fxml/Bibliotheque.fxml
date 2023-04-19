@@ -54,8 +54,8 @@
    <right>
       <HBox BorderPane.alignment="CENTER">
          <children>
-   
-      
+
+
             <VBox fx:id="vBoxPane" style="-fx-background-color: dodgerblue;" HBox.hgrow="SOMETIMES" />
             <Region onMousePressed="#dragResize" prefHeight="200.0" prefWidth="2.0" style="-fx-background-color: dodgerblue;">
                <cursor>
@@ -92,7 +92,7 @@
             </HBox>
          </right>
          <left>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="591.0" style="-fx-background-color: dodgerblue;" text="Bibliothèque d'information sur les composantes" BorderPane.alignment="CENTER">
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="591.0" style="-fx-background-color: dodgerblue;" text="Bibliothèque d'information sur les composants" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Open Sans SemiBold" size="24.0" />
                </font>

@@ -74,9 +74,9 @@
             </VBox>
             <TabPane minWidth="0.0" prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab text="Composantes">
+                <Tab text="Composants">
                      <content>
-                        <ListView fx:id="composantesListView" prefHeight="200.0" prefWidth="200.0" />
+                        <ListView fx:id="composantsListView" prefHeight="200.0" prefWidth="200.0" />
                      </content>
                 </Tab>
               </tabs>

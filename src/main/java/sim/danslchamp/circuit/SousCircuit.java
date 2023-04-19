@@ -9,7 +9,7 @@ public class SousCircuit extends Composant{
 
     private List<Composant> composants;
 
-    private double resistance;
+    private double resistanceEquiSousCircuits;
 
 
     public SousCircuit() {
@@ -17,10 +17,14 @@ public class SousCircuit extends Composant{
     }
 
 
-    public void ISetResistance() {
+    public void ISetResistanceEquiSousCircuits(double resistanceEquiSousCircuits) {
 
+        this.resistanceEquiSousCircuits = resistanceEquiSousCircuits;
     }
 
+    public double getResistanceEquiSousCircuits() {
+        return resistanceEquiSousCircuits;
+    }
 
     void initGroupe3D() {
 
@@ -49,7 +53,7 @@ public class SousCircuit extends Composant{
     }
 
     @Override
-    public double calculResistance(int frequence) {
+    public double calculResistance(double frequence) {
 
         double resistance = 0.0;
         double reactanceBobine;
@@ -77,7 +81,7 @@ public class SousCircuit extends Composant{
 
         reactance.setValeur(Math.sqrt(Math.pow(resistance, 2) + Math.pow(reactanceCondensateur - reactanceBobine, 2)) + impedenceTotaleSousCircuit, Unite.UNITE);
 
-        return reactance.getValeur();
+        return reactance.getValeur(Unite.UNITE);
 
 //        int resistance = 0;
 //
@@ -87,6 +91,8 @@ public class SousCircuit extends Composant{
 //
 //        return resistance;
     }
+
+
 
     @Override
     public String toString() {

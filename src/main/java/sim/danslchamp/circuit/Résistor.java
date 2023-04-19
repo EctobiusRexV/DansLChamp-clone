@@ -36,6 +36,7 @@ public class Résistor extends Composant {
             c = new Cylinder(getHauteur() / 2, getLargeur());
         }
         c.setLayoutX(c.getLayoutX() + c.getHeight() / 2);
+        c.setTranslateY(getHauteur()/2);
         c.setRotate(90);
         if (!rotation90) {
             c.setRotate(90);
@@ -50,8 +51,10 @@ public class Résistor extends Composant {
         return new Group();
     }
 
-    public double calculResistance(int frequence) {
-        reactance.setValeur(resistance.getValeur(), Unite.UNITE);
-        return resistance.getValeur();
+
+    @Override
+    public double calculResistance(double frequence) {
+        reactance.setValeur(resistance.getValeur(Unite.UNITE), Unite.UNITE);
+        return resistance.getValeur(Unite.UNITE);
     }
 }

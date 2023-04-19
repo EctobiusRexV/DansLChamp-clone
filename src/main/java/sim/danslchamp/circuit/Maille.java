@@ -9,22 +9,22 @@ public class Maille {
 
     private final int id;
 
-    private final List<Composant> composantes;
+    private final List<Composant> composants;
 
     public Maille(int id) {
         this.id = id;
-        composantes = new ArrayList<>();
+        composants = new ArrayList<>();
     }
 
-    public void addComposante(Composant c){
-        composantes.add(c);
+    public void addComposant(Composant c){
+        composants.add(c);
     }
 
     public int getId() {
         return id;
     }
 
-    public List<Composant> getComposantes() {
-        return composantes;
+    public List<Composant> getComposants() {
+        return composants;
     }
 }

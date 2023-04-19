@@ -5,11 +5,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import org.reflections.Reflections;
-import sim.danslchamp.Util.ComposantesListCell;
+import sim.danslchamp.Util.ComposantsListCell;
 
 import java.util.List;
 
-public class TestListeDesComposantes extends Application {
+public class TestListeDesComposants extends Application {
 
     private static final int MOCK_POS = 0;
     private static final boolean MOCK_ROTATION90 = false;
@@ -18,7 +18,7 @@ public class TestListeDesComposantes extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         ListView<Composant> composantsListView = new ListView<>();
-        composantsListView.setCellFactory(value -> new ComposantesListCell(new Circuit()));
+        composantsListView.setCellFactory(value -> new ComposantsListCell(new Circuit()));
 
         List<Class> excludes = List.of(Fil.class, SousCircuit.class, Source.class);
         for (Class<? extends Composant> composantClass :

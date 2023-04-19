@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.input.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import io.github.palexdev.materialfx.controls.MFXTitledPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <!--
 IMPORTANT
@@ -15,55 +25,59 @@ les ressource maven et les ressource que scene builder utilise ne se pas compati
 je vais identifier ou sont les ressource dans le code
 -->
 
-<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="650.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
+<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="650.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
     <center>
-        <VBox alignment="TOP_CENTER" prefHeight="480.0" prefWidth="575.0" spacing="30.0" style="-fx-background-color: white;">
-            <children>
-                <MFXTitledPane fx:id="recentsTitlePane" expanded="true" title="Circuits Récents">
-                    <content>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                            <children>
-                                <VBox onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <Label fx:id="labelHautGauche" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" />
-                                    </children>
-                                </VBox>
-                                <VBox onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <Label fx:id="labelHautMilieu" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" />
-                                    </children>
-                                </VBox>
-                                <VBox minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <Label fx:id="labelHautDroite" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" />
-                                    </children>
-                                </VBox>
-                            </children>
-                        </HBox>
-                    </content>
-                    <VBox.margin>
-                        <Insets top="30.0" />
-                    </VBox.margin>
-                </MFXTitledPane>
-                <MFXTitledPane fx:id="deBaseTitledPane" expanded="true" prefHeight="32.0" prefWidth="425.0" title="Circuit de Base" />
-                <ImageView fitHeight="115.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true">
-                    <!--                l'url de scene builder : "@../controleurs/logoComplet.png"-->
-                    <!--                l'url de intellij sim/danslchamp/controleurs/logoComplet.png-->
-                    <image>
-                        <Image url="@../controleurs/logoComplet.png" />
-                    </image>
-                </ImageView>
-            </children>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-            <BorderPane.margin>
-                <Insets />
-            </BorderPane.margin>
-            <padding>
-                <Insets left="2.0" right="2.0" />
-            </padding>
-        </VBox>
+      <MFXScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="TOP_CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <content>
+              <VBox alignment="TOP_CENTER" prefHeight="768.0" prefWidth="644.0" spacing="30.0" style="-fx-background-color: white;">
+                  <children>
+                      <MFXTitledPane fx:id="recentsTitlePane" expanded="true" title="Circuits Récents">
+                          <content>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                  <children>
+                                      <VBox onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
+                                          <children>
+                                              <Label fx:id="labelHautGauche" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" />
+                                          </children>
+                                      </VBox>
+                                      <VBox onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
+                                          <children>
+                                              <Label fx:id="labelHautMilieu" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" />
+                                          </children>
+                                      </VBox>
+                                      <VBox minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
+                                          <children>
+                                              <Label fx:id="labelHautDroite" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" />
+                                          </children>
+                                      </VBox>
+                                  </children>
+                              </HBox>
+                          </content>
+                          <VBox.margin>
+                              <Insets top="30.0" />
+                          </VBox.margin>
+                      </MFXTitledPane>
+                      <MFXTitledPane fx:id="deBaseTitledPane" expanded="true" prefHeight="32.0" prefWidth="425.0" title="Circuit de Base" />
+                      <ImageView fitHeight="115.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true">
+                          <!--                l'url de scene builder : "@../controleurs/logoComplet.png"-->
+                          <!--                l'url de intellij sim/danslchamp/controleurs/logoComplet.png-->
+                          <image>
+                              <Image url="@../controleurs/logoComplet.png" />
+                          </image>
+                      </ImageView>
+                  </children>
+                  <opaqueInsets>
+                      <Insets />
+                  </opaqueInsets>
+                  <padding>
+                      <Insets left="2.0" right="2.0" />
+                  </padding>
+              </VBox>
+         </content>
+      </MFXScrollPane>
     </center>
     <left>
         <VBox BorderPane.alignment="CENTER">
@@ -152,7 +166,7 @@ je vais identifier ou sont les ressource dans le code
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Bibliothèque">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Ouvrir la Bibliothèque de composantes" />
+                                        <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Ouvrir la Bibliothèque de composants" />
                                     </items>
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Aide">

@@ -16,13 +16,17 @@ public class Circuit {
     private String nom;
 
     private List<Composant> circuit = new ArrayList<>();
+
+    private List<SousCircuit> sousCircuits;
     private double resistanceEqui = 0;
 
-    private int frequence = 0;
+    private double frequence = 0;
     private final List<Jonction> noeuds;
 
 
     private final ObservableList<Composant> composants = FXCollections.observableArrayList();
+    private final ObservableList<Composant> composantsSansFils = FXCollections.observableArrayList();
+
     private final List<Source> sources = new ArrayList<>();
 
     private final Diagramme.Diagramme2D diagramme2D = new Diagramme.Diagramme2D();
@@ -55,6 +59,10 @@ public class Circuit {
 
         noeuds = jonctions.stream().filter(Jonction::estNoeud).toList();
 
+        sousCircuits = new ArrayList<>();
+
+
+
         circuit = trouverCircuit();
         calculCircuit();
         System.out.println(resistanceEqui);
@@ -65,19 +73,41 @@ public class Circuit {
     }
 
     public void calculCircuit(){
+
+        if (sources.get(0) instanceof Générateur){
+            frequence = ((Générateur) sources.get(0)).frequence.getValeur(Composant.Unite.UNITE);
+        } else {
+            frequence = 0;
+        }
+
         resistanceEqui = trouverResistanceEqui();
         trouverCourantSimple();
         trouverDDPSimple();
-        trouverCourantBranchesParaleles();
+        trouverCourantBranchesParalleles();
+        trouverDDPBranchesParalleles();
+
+
     }
 
-    private void trouverCourantBranchesParaleles() {
+    private void trouverDDPBranchesParalleles() {
+        for (SousCircuit sousCircuit : sousCircuits){
+            for (Composant c : sousCircuit.getComposants()){
+                c.voltage.setValeur(c.reactance.getValeur(Composant.Unite.UNITE) * c.courant.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+            }
+        }
+    }
 
+    private void trouverCourantBranchesParalleles() {
+
+        for (SousCircuit sousCircuit : sousCircuits){
+            sousCircuit.courant.setValeur(sousCircuit.voltage.getValeur(Composant.Unite.UNITE) / sousCircuit.reactance.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+            for (Composant c : sousCircuit.getComposants()){
+                c.courant.setValeur(sousCircuit.courant.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+            }
+        }
     }
 
     private void trouverDDPSimple() {
-
-        double resistanceEquiSousCircuit = 0;
 
         for (int i = 0; i < circuit.size(); i++) {
 
@@ -85,13 +115,15 @@ public class Circuit {
 
             if (actuel instanceof SousCircuit){
 
+//                actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(), Composant.Unite.UNITE);
+
                 if (!(circuit.get(i - 1) instanceof SousCircuit)){
-                    actuel.voltage.setValeur(actuel.courant.getValeur() * actuel.reactance.getValeur(), Composant.Unite.UNITE);
+                    actuel.voltage.setValeur(actuel.courant.getValeur(Composant.Unite.UNITE) * ((SousCircuit) actuel).getResistanceEquiSousCircuits(), Composant.Unite.UNITE);
                 } else {
-                    actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(), Composant.Unite.UNITE);
+                    actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
                 }
 
-            } else actuel.voltage.setValeur(actuel.courant.getValeur() * actuel.reactance.getValeur(), Composant.Unite.UNITE);
+            } else actuel.voltage.setValeur(actuel.courant.getValeur(Composant.Unite.UNITE) * actuel.reactance.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
 
         }
 
@@ -99,7 +131,7 @@ public class Circuit {
     }
 
     private void trouverCourantSimple() {
-        double ddpSource = sources.get(0).voltage.getValeur();
+        double ddpSource = sources.get(0).voltage.getValeur(Composant.Unite.UNITE);
 
         if (resistanceEqui != 0){
             double courantSimple = ddpSource / resistanceEqui;
@@ -136,6 +168,14 @@ public class Circuit {
                 inverseImpedenceSousCircuit += 1 / c.calculResistance(frequence);
                 if (!(circuit.get(i + 1) instanceof SousCircuit)){
                     impedenceTotaleSousCircuit += 1 / inverseImpedenceSousCircuit;
+
+                    for (int j = i; j > 0; j--){
+                        if (!(circuit.get(j) instanceof SousCircuit)){
+                            break;
+                        }
+
+                        ((SousCircuit) circuit.get(j)).ISetResistanceEquiSousCircuits(impedenceTotaleSousCircuit);
+                    }
                 }
             } else resistance += c.calculResistance(frequence);
 
@@ -152,8 +192,7 @@ public class Circuit {
         List<Jonction> departs = new ArrayList<>(sources.stream().map(Composant::getBornePositive).toList());
         departs.addAll(noeuds);
 
-        for (Jonction jonction:
-                departs) {
+        for (Jonction jonction : departs) {
             parcourirBranche(jonction);
         }
     }
@@ -177,7 +216,15 @@ public class Circuit {
         trouverSensDuCourant();
         circuit.add(sources.get(0));
 
+
+
         circuit = parcourirCircuit();
+
+        for (Composant c : circuit){
+            if (c instanceof SousCircuit){
+                sousCircuits.add((SousCircuit) c);
+            }
+        }
 
         return circuit;
     }
@@ -267,6 +314,7 @@ public class Circuit {
 
     public Composant addComposant(Composant composant) {
         composants.add(composant);
+        if (!(composant instanceof Fil)) composantsSansFils.add(composant);
         if (composant instanceof Source) sources.add((Source) composant);
 
         addJonction(composant);
@@ -307,6 +355,10 @@ public class Circuit {
 
     public ObservableList<Composant> getComposants() {
         return composants;
+    }
+
+    public ObservableList<Composant> getComposantsSansFils() {
+        return composantsSansFils;
     }
 
     public Diagramme.Diagramme2D getDiagramme2D() {

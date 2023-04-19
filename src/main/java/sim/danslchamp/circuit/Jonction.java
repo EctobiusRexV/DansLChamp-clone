@@ -14,19 +14,19 @@ import java.util.List;
 public class Jonction {
 
     private final Point positionXY;
-    private final List<Composant> composantes;
+    private final List<Composant> composants;
     private boolean estNoeud;
 
     public Jonction(Point positionXY) {
         this.positionXY = positionXY;
-        composantes = new ArrayList<>();
+        composants = new ArrayList<>();
         estNoeud = false;
     }
 
     public void addComposant(Composant c) {
-        composantes.add(c);
+        composants.add(c);
 
-        if (composantes.size() > 2) {
+        if (composants.size() > 2) {
             estNoeud = true;
         }
     }
@@ -44,7 +44,7 @@ public class Jonction {
     }
 
     public List<Composant> getComposants() {
-        return composantes;
+        return composants;
     }
 
     /**

@@ -82,7 +82,7 @@
                               </Menu>
                                      <Menu mnemonicParsing="false" text="Bibliothèque">
                                          <items>
-                                             <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Ouvrir la Bibliothèque de composantes" />
+                                             <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Ouvrir la Bibliothèque de composants" />
                                          </items>
                                      </Menu>
                               <Menu text="_Affichage">
@@ -135,7 +135,13 @@
              </BorderPane>
             <SplitPane fx:id="diagrammesSplitPane" dividerPositions="0.5, 0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="375.0" prefWidth="596.0" VBox.vgrow="ALWAYS">
                <items>
-                  <VBox fx:id="vBox2D" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="0.0" prefHeight="200.0" prefWidth="100.0" />
+                   <VBox fx:id="vBox2D" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="0.0">
+                       <SubScene fx:id="subSceneConcepteur" height="200.0" width="200.0" VBox.vgrow="ALWAYS">
+                           <root>
+                               <Region />
+                           </root>
+                       </SubScene>
+                   </VBox>
                   <VBox fx:id="vBox3D" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="0.0">
                      <children>
                         <SubScene fx:id="subScene3D" height="200.0" width="200.0" VBox.vgrow="ALWAYS">
@@ -147,9 +153,9 @@
                   </VBox>
                   <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <Tab text="Composantes">
+                      <Tab text="Composants">
                            <content>
-                              <ListView fx:id="composantesListView" minHeight="200.0" prefHeight="200.0" prefWidth="200.0" />
+                              <ListView fx:id="composantsListView" minHeight="200.0" prefHeight="200.0" prefWidth="200.0" />
                            </content>
                       </Tab>
                     </tabs>
