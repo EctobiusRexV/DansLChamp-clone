@@ -34,7 +34,7 @@ public class Fil extends Composant {
     }
 
     @Override
-    public double calculResistance(int frequence) {
+    public double calculResistance(double frequence) {
         return 0;
     }
 

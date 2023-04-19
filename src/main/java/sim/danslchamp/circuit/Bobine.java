@@ -36,7 +36,8 @@ public class Bobine extends Composant {
                 22, 80, posX, posY, rotation90);
     }
 
-    public double calculResistance(int frequence) {
+    @Override
+    public double calculResistance(double frequence) {
 
 
         double surface = 2 * Math.PI * rayon.getValeur(Unite.UNITE);
