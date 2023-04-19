@@ -61,6 +61,8 @@ public class Circuit {
 
         sousCircuits = new ArrayList<>();
 
+
+
         circuit = trouverCircuit();
         calculCircuit();
         System.out.println(resistanceEqui);
@@ -71,6 +73,13 @@ public class Circuit {
     }
 
     public void calculCircuit(){
+
+        if (sources.get(0) instanceof Générateur){
+            frequence = ((Générateur) sources.get(0)).frequence.getValeur(Composant.Unite.UNITE);
+        } else {
+            frequence = 0;
+        }
+
         resistanceEqui = trouverResistanceEqui();
         trouverCourantSimple();
         trouverDDPSimple();
@@ -183,8 +192,7 @@ public class Circuit {
         List<Jonction> departs = new ArrayList<>(sources.stream().map(Composant::getBornePositive).toList());
         departs.addAll(noeuds);
 
-        for (Jonction jonction:
-                departs) {
+        for (Jonction jonction : departs) {
             parcourirBranche(jonction);
         }
     }
@@ -207,6 +215,8 @@ public class Circuit {
     private List<Composant> trouverCircuit() {
         trouverSensDuCourant();
         circuit.add(sources.get(0));
+
+
 
         circuit = parcourirCircuit();
 
