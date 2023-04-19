@@ -33,35 +33,59 @@ public class Condensateur extends Composant {
 
     @Override
     Group getSymbole3D() {
-        Cylinder r = new Cylinder(getLargeur()/2, getHauteur()/5);
-        Cylinder r2 = new Cylinder(getLargeur()/2, getHauteur()/5);
+        Cylinder r = new Cylinder(getLargeur() / 2, getHauteur() / 5);
+        Cylinder r2 = new Cylinder(getLargeur() / 2, getHauteur() / 5);
         r.setMaterial(new PhongMaterial(Color.GRAY));
         r2.setMaterial(new PhongMaterial(Color.GRAY));
-        r2.setTranslateY(getHauteur()*3/5);
+        r2.setTranslateY(getHauteur() * 3 / 5);
         Group g = new Group();
-        g.getChildren().addAll(r,r2);
-        g.setLayoutX(g.getLayoutX() + getLargeur()/2);
-        g.setLayoutY(g.getLayoutY() + getHauteur()/5);
+        g.getChildren().addAll(r, r2);
+        g.setLayoutX(g.getLayoutX() + getLargeur() / 2);
+        g.setLayoutY(g.getLayoutY() + getHauteur() / 5);
         return g;
-        /**Cylinder c = new Cylinder(getLargeur() / 2, getHauteur());
-         c.setMaterial(new PhongMaterial(Color.PINK));
-         c.setRotationAxis(new Point3D(1, 0, 0));
-         c.setRotate(90);**/
+    }
+
+    public Group getElectric() {
+        Cylinder c = new Cylinder(2, getHauteur() / 5 * 2);
+        c.setMaterial(new PhongMaterial(Color.YELLOW));
+        c.setLayoutY(getPosY() + getHauteur() / 2);
+        c.setLayoutX(getPosX() + getLargeur() / 2);
+        Cylinder c2 = new Cylinder(2, getHauteur() / 5 * 2);
+        c2.setMaterial(new PhongMaterial(Color.YELLOW));
+        c2.setLayoutY(getPosY() + getHauteur() / 2);
+        c2.setLayoutX(getPosX() + getLargeur() / 2);
+        c2.setTranslateZ(getLargeur()/4);
+        Cylinder c3 = new Cylinder(2, getHauteur() / 5 * 2);
+        c3.setMaterial(new PhongMaterial(Color.YELLOW));
+        c3.setLayoutY(getPosY() + getHauteur() / 2);
+        c3.setLayoutX(getPosX() + getLargeur() / 2);
+        c3.setTranslateZ(- getLargeur()/4);
+        Cylinder c4 = new Cylinder(2, getHauteur() / 5 * 2);
+        c4.setMaterial(new PhongMaterial(Color.YELLOW));
+        c4.setLayoutY(getPosY() + getHauteur() / 2);
+        c4.setLayoutX(getPosX() + getLargeur() / 4);
+        Cylinder c5 = new Cylinder(2, getHauteur() / 5 * 2);
+        c5.setMaterial(new PhongMaterial(Color.YELLOW));
+        c5.setLayoutY(getPosY() + getHauteur() / 2);
+        c5.setLayoutX(getPosX() + getLargeur() / 4*3);
+
+        return new Group(c,c2,c3,c4,c5);
     }
 
     @Override
     Group getChamp() {
-        Circle c = new Circle(getLargeur()*3/5);
+        Circle c = new Circle(getLargeur() * 3 / 5);
         c.setStrokeWidth(3);
         c.setStroke(Color.DARKRED);
         c.setStrokeLineCap(StrokeLineCap.ROUND);
         c.setFill(Color.TRANSPARENT);
-        c.setRotationAxis(new Point3D(1,0,0));
+        c.setRotationAxis(new Point3D(1, 0, 0));
         c.setRotate(80);
-        c.setCenterX(getPosX() + getLargeur()/2);
-        c.setCenterY(getPosY() + getHauteur()*3/5);
-        return new Group(c);
+        c.setCenterX(getPosX() + getLargeur() / 2);
+        c.setCenterY(getPosY() + getHauteur() * 3 / 5);
+        return new Group(c, getElectric());
     }
+
 
     @Override
     public double calculResistance(double frequence) {

@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
-import sim.danslchamp.circuit.Condensateur;
+import sim.danslchamp.circuit.ConeMesh;
 import testUtil.ListPoint;
 
 public class Rotation3DWithMouse extends Application {

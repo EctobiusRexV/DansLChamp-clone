@@ -56,7 +56,7 @@ public class Bobine extends Composant {
             c = new Cylinder(getHauteur() / 2, getLargeur());
         }
         c.setLayoutX(c.getLayoutX() + c.getHeight() / 2);
-        c.setLayoutY(getPosY());
+        c.setTranslateY(getHauteur() / 2);
         c.setRotate(90);
         if (!rotation90) {
             c.setRotate(90);
@@ -72,32 +72,44 @@ public class Bobine extends Composant {
         double startY = this.getJonctions()[0].getPositionXY().getY();
         double endX = this.getJonctions()[1].getPositionXY().getX();
         double endY = this.getJonctions()[1].getPositionXY().getY();
-
+        double criss = courant.getValeur(Unite.UNITE);
+        if (criss == 0){
+            criss = getHauteur() + startY;
+        }
         Group group = new Group();
         for (int i = 0; i < 4; i++) {
-            CubicCurve champ = new CubicCurve(startX, startY, startX - 20, 2*getHauteur(), endX + 20, 2*getHauteur(),endX, endY);
+            CubicCurve champ = new CubicCurve(startX, startY, ((endX - startX) / 3) + startX, criss, ((endX - startX) * 2 / 3) + startX, criss, endX, endY);
+            if (i == 0) {
+                champ.setControlX1(startX - 20);
+                champ.setControlX2(endX + 20);
+            }
             if (i == 1) {
-                champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur(Unite.UNITE) + getHauteur()), endX + 20, -1*(courant.getValeur(Unite.UNITE) + getHauteur()), endX, endY);
+                champ.setRotationAxis(new Point3D(1, 0, 0));
+                champ.setRotate(180);
+                champ.setControlX1(startX - 20);
+                champ.setControlX2(endX + 20);
+                champ.setTranslateY(startY-criss);
             }
             if (i == 2) {
-                champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur(Unite.UNITE) + getHauteur()), endX + 20, -1*(courant.getValeur(Unite.UNITE) + getHauteur()), endX, endY);
                 champ.setRotationAxis(new Point3D(1, 0, 0));
                 champ.setRotate(-90);
-                champ.setLayoutY(champ.getStartY());
-                champ.setTranslateZ(-champ.getControlY1());
+                champ.setControlX1(startX - 20);
+                champ.setControlX2(endX + 20);
+                champ.setTranslateY((startY-criss)/2);
+                champ.setTranslateZ(startY-criss);
             }
             if (i == 3) {
-                champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur(Unite.UNITE) + getHauteur()), endX + 20, -1*(courant.getValeur(Unite.UNITE) + getHauteur()), endX, endY);
                 champ.setRotationAxis(new Point3D(1, 0, 0));
                 champ.setRotate(90);
-                champ.setLayoutY(champ.getStartY());
-                champ.setTranslateZ(champ.getControlY1());
-
+                champ.setControlX1(startX - 20);
+                champ.setControlX2(endX + 20);
+                champ.setTranslateY((startY-criss)/2);
+                champ.setTranslateZ(criss- startY);
             }
             champ.setStrokeWidth(4);
             champ.setStroke(Color.ORANGERED);
             champ.setStrokeLineCap(StrokeLineCap.ROUND);
-            champ.setFill(Color.TRANSPARENT);
+            champ.setFill(null);
             group.getChildren().add(champ);
         }
         return group;

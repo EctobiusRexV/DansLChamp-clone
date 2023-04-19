@@ -5,11 +5,12 @@ import javafx.scene.Group;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
+import sim.danslchamp.circuit.ConeMesh;
 
 public class Fleche {
     // Set up the start and end points of the arrow
-    Point3D start = new Point3D(0, 0, 0);
-    Point3D end = new Point3D(100, 0, 0);
+    Point3D start;
+    Point3D end;
 
     // Calculate the middle point of the arrow
     Point3D middle = start.midpoint(end);
@@ -23,7 +24,9 @@ public class Fleche {
     Group groupe = new Group(cylinder,c);
 
 
-    public Fleche() {
+    public Fleche(double sx,double sy,double sz, double ex,double ey, double ez) {
+        start = new Point3D(sx,sy,sz);
+        end = new Point3D(ex,ey,ez);
         createCylinder();
         createArrow();
         c.setRotationAxis(new Point3D(0,0,1));

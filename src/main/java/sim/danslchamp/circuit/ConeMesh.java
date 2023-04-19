@@ -1,4 +1,4 @@
-package prototypes;
+package sim.danslchamp.circuit;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
