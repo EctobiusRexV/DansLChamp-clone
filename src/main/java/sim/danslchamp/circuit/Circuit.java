@@ -25,6 +25,8 @@ public class Circuit {
 
 
     private final ObservableList<Composant> composants = FXCollections.observableArrayList();
+    private final ObservableList<Composant> composantsSansFils = FXCollections.observableArrayList();
+
     private final List<Source> sources = new ArrayList<>();
 
     private final Diagramme.Diagramme2D diagramme2D = new Diagramme.Diagramme2D();
@@ -294,6 +296,7 @@ public class Circuit {
 
     public Composant addComposant(Composant composant) {
         composants.add(composant);
+        if (!(composant instanceof Fil)) composantsSansFils.add(composant);
         if (composant instanceof Source) sources.add((Source) composant);
 
         addJonction(composant);
@@ -334,6 +337,10 @@ public class Circuit {
 
     public ObservableList<Composant> getComposants() {
         return composants;
+    }
+
+    public ObservableList<Composant> getComposantsSansFils() {
+        return composantsSansFils;
     }
 
     public Diagramme.Diagramme2D getDiagramme2D() {
