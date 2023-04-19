@@ -98,14 +98,6 @@ public class CircuitControleur extends ParentControleur {
 
     }
 
-    @FXML
-    void ouvrirCircuit() {
-        try {
-            chargerCircuit(FC.showOpenDialog(stage));   // Nullable
-        } catch (FileNotFoundException neSappliquePas) {
-        }
-    }
-
     /**
      * Charge un circuit depuis SVG.
      *
