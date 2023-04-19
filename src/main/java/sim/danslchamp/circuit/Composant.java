@@ -268,6 +268,7 @@ public abstract class Composant {
             if (valeur.isEmpty()) this.valeur = 0;
             else
                 try {
+                    valeur = valeur.replace(',', '.');
                     setValeur(Double.parseDouble(valeur), unite);
                 } catch (NumberFormatException e) {
                     DanslChampUtil.lanceAlerte("Entrée non-conforme", ""/*fixme*/);
