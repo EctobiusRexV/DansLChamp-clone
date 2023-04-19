@@ -49,10 +49,12 @@
 
     <!--    chemin vers le bas-->
     <line x1="210" y1="120" x2="210" y2="170" style="fill:none;stroke:black;stroke-width:3"/>
-    <use xlink:href="#Condensateur" capacite="0.005" x="190" y="170" />
-    <line x1="210" y1="200" x2="210" y2="300" style="fill:none;stroke:black;stroke-width:3"/>
+    <line x1="210" y1="170" x2="250" y2="170" style="fill:none;stroke:black;stroke-width:3"/>
+    <use xlink:href="#Résistor" resistance="25" x="250" y="160"/>
+    <line x1="330" y1="170" x2="370" y2="120" style="fill:none;stroke:black;stroke-width:3"/>
 
-<!--    chemin apres resistor bas-->
+
+    <!--    chemin apres resistor bas-->
     <line x1="330" y1="120" x2="370" y2="120" style="fill:none;stroke:black;stroke-width:3"/>
     <line x1="370" y1="70" x2="370" y2="120" style="fill:none;stroke:black;stroke-width:3"/>
 
