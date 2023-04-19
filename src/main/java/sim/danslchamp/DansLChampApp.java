@@ -43,6 +43,7 @@ public class DansLChampApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Config.charger();
         ControllerUtil.loadFenetre("Bienvenue.fxml", 800, 650);
 
     }
@@ -68,6 +69,7 @@ public class DansLChampApp extends Application {
         CircuitControleur circuitControleur = fxmlLoader.getController();
         circuitControleur.setStage(stage);
         circuitControleur.chargerCircuit(file);
+        stage.setOnHidden(event -> Config.sauvegarder());
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
         stage.setMinWidth(800.0);

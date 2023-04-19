@@ -44,7 +44,7 @@ public abstract class Config {
         }
     }
 
-    static void sauvegarder() {
+    public static void sauvegarder() {
         try {
             Files.write(Path.of("config"), Arrays.stream(Config.class.getFields()).map(field ->
                     {
