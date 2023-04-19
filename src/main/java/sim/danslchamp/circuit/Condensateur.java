@@ -69,9 +69,9 @@ public class Condensateur extends Composant {
             return Double.MAX_VALUE;
         }
 
-        reactance.setValeur(1 / (2 * Math.PI * frequence * capacite.getValeur()), Unite.UNITE);
+        reactance.setValeur(1 / (2 * Math.PI * frequence * capacite.getValeur(Unite.UNITE)), Unite.UNITE);
 
-        return reactance.getValeur();
+        return reactance.getValeur(Unite.UNITE);
     }
 
 }

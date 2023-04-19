@@ -51,7 +51,7 @@ public class Résistor extends Composant {
     }
 
     public double calculResistance(int frequence) {
-        reactance.setValeur(resistance.getValeur(), Unite.UNITE);
-        return resistance.getValeur();
+        reactance.setValeur(resistance.getValeur(Unite.UNITE), Unite.UNITE);
+        return resistance.getValeur(Unite.UNITE);
     }
 }

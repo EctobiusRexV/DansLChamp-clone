@@ -38,11 +38,12 @@ public class ComposantsListCell extends ListCell<Composant> {
                 Label label = new Label(valeurNomWrapper.nom + ": ");
                 label.setMinWidth(120);
                 // Spinner avec la valeur qui s'incrémente à coup de 10% de la valeur actuelle
+                double val = valeurNomWrapper.valeur.getValeur(Composant.Unite.PLUS_PETITE_POSSIBLE);
                 Spinner spinner = new Spinner(
                         Double.MIN_VALUE,
                         Double.MAX_VALUE, // TODO: 2023-04-18 Ne devrait-il pas y avoir une limite?
-                        valeurNomWrapper.valeur.getValeur(),
-                        valeurNomWrapper.valeur.getValeur() * 0.1);
+                        val,
+                        val * 0.1);
                 // set Spinner Editable
                 spinner.setEditable(true);
                 // handle ParseException
@@ -55,11 +56,15 @@ public class ComposantsListCell extends ListCell<Composant> {
                 uniteComboBox.getItems().addAll(List.of(Composant.Unite.values()));
                 uniteComboBox.setValue(valeurNomWrapper.valeur.getUnite());
 
-                spinner.getEditor().setOnAction(eh -> {
-                    valeurNomWrapper.valeur.setValeur(spinner.getEditor().getText(), uniteComboBox.getValue());
+                spinner.valueProperty().addListener((l, oldvalue, newvalue) -> {
+                    if (newvalue != null) {
+                        valeurNomWrapper.valeur.setValeur(newvalue.toString(), uniteComboBox.getValue());
+                        circuit.calculCircuit();
+                    }
+
                     // TODO: 2023-04-18 Le spinner devrait recalculer son step de 10%.
-                    // FIXME: 2023-04-18 setOnAction ne gère pas l'incrémentation avec les boutons-flèches ou les flèches du clavier
-                    circuit.calculCircuit();
+
+//                    circuit.calculCircuit();
                 });
 
                 uniteComboBox.setOnAction(event -> {

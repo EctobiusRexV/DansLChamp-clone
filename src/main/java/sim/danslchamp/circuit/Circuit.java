@@ -86,12 +86,12 @@ public class Circuit {
             if (actuel instanceof SousCircuit){
 
                 if (!(circuit.get(i - 1) instanceof SousCircuit)){
-                    actuel.voltage.setValeur(actuel.courant.getValeur() * actuel.reactance.getValeur(), Composant.Unite.UNITE);
+                    actuel.voltage.setValeur(actuel.courant.getValeur(Composant.Unite.UNITE) * actuel.reactance.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
                 } else {
-                    actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(), Composant.Unite.UNITE);
+                    actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
                 }
 
-            } else actuel.voltage.setValeur(actuel.courant.getValeur() * actuel.reactance.getValeur(), Composant.Unite.UNITE);
+            } else actuel.voltage.setValeur(actuel.courant.getValeur(Composant.Unite.UNITE) * actuel.reactance.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
 
         }
 
@@ -99,7 +99,7 @@ public class Circuit {
     }
 
     private void trouverCourantSimple() {
-        double ddpSource = sources.get(0).voltage.getValeur();
+        double ddpSource = sources.get(0).voltage.getValeur(Composant.Unite.UNITE);
 
         if (resistanceEqui != 0){
             double courantSimple = ddpSource / resistanceEqui;
