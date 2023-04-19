@@ -1,13 +1,13 @@
 package sim.danslchamp.Util;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
+
+import java.util.List;
 
 public class ComposantsListCell extends ListCell<Composant> {
 
@@ -37,14 +37,42 @@ public class ComposantsListCell extends ListCell<Composant> {
 
                 Label label = new Label(valeurNomWrapper.nom + ": ");
                 label.setMinWidth(120);
+                // Spinner avec la valeur qui s'incrémente à coup de 10% de la valeur actuelle
+                double val = valeurNomWrapper.valeur.getValeur(Composant.Unite.PLUS_PETITE_POSSIBLE);
+                Spinner spinner = new Spinner(
+                        Double.MIN_VALUE,
+                        Double.MAX_VALUE, // TODO: 2023-04-18 Ne devrait-il pas y avoir une limite?
+                        val,
+                        val * 0.1);
+                // set Spinner Editable
+                spinner.setEditable(true);
+                // handle ParseException
 
-                TextField textField = new TextField(valeurNomWrapper.valeur.getValeurStr());
-                textField.setOnKeyTyped(eh -> {
-                    valeurNomWrapper.valeur.setValeur(textField.getText(), Composant.Unite.UNITE);
+//                TextField textField = new TextField(valeurNomWrapper.valeur.getValeurStr());
+
+
+                // ComboBox pour choisir l'unité avec le symbole
+                ComboBox<Composant.Unite> uniteComboBox = new ComboBox<>();
+                uniteComboBox.getItems().addAll(List.of(Composant.Unite.values()));
+                uniteComboBox.setValue(valeurNomWrapper.valeur.getUnite());
+
+                spinner.valueProperty().addListener((l, oldvalue, newvalue) -> {
+                    if (newvalue != null) {
+                        valeurNomWrapper.valeur.setValeur(newvalue.toString(), uniteComboBox.getValue());
+                        circuit.calculCircuit();
+                    }
+
+                    // TODO: 2023-04-18 Le spinner devrait recalculer son step de 10%.
+
+//                    circuit.calculCircuit();
+                });
+
+                uniteComboBox.setOnAction(event -> {
+                    valeurNomWrapper.valeur.setValeur(spinner.getEditor().getText(), uniteComboBox.getValue());
                     circuit.calculCircuit();
-                });    // TODO: 2023-04-03 Unités (ComboBox)
+                });
 
-                hBox.getChildren().addAll(label, textField);
+                hBox.getChildren().addAll(label, spinner, uniteComboBox, new Label(valeurNomWrapper.valeur.getSymbole()));
                 vBox.getChildren().add(hBox);
                 setGraphic(vBox);
             }

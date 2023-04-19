@@ -31,7 +31,7 @@ public abstract class FXASvg {
     private static String ajouterAttributsEtFermer(Composant composant, StringBuilder sb) {
         for (Composant.ValeurNomWrapper valeur :
                 composant.getValeursModifiables()) {
-            sb.append(valeur.id).append("=\"").append(valeur.valeur.getValeur()).append("\" ");
+            sb.append(valeur.id).append("=\"").append(valeur.valeur.getValeur(Composant.Unite.UNITE)).append("\" ");    // FIXME: 2023-04-19 Valeur à l'unité?
         }
 
         return sb.append("/>").toString();

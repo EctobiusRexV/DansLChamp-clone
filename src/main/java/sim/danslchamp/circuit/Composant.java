@@ -23,14 +23,16 @@ public abstract class Composant {
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)
-    public @interface Affichable { }
+    public @interface Affichable {
+    }
 
     /**
      * Désigne les champs modifiables dans la liste des composants (par le fait même sauvegardés)
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)
-    public @interface Modifiable { }
+    public @interface Modifiable {
+    }
 
 
     /**
@@ -42,9 +44,9 @@ public abstract class Composant {
     private String label;
 
     @Affichable
-    public Valeur  reactance = new Valeur(0, Unite.UNITE, "Ω"),
-                    voltage = new Valeur(0, Unite.UNITE, "V"),
-                    courant = new Valeur(0, Unite.UNITE, "A");
+    public Valeur reactance = new Valeur(0, Unite.UNITE, "Ω"),
+            voltage = new Valeur(0, Unite.UNITE, "V"),
+            courant = new Valeur(0, Unite.UNITE, "A");
 
     /**
      * Position absolue des connecteurs
@@ -76,7 +78,8 @@ public abstract class Composant {
     /**
      * Aide aux tests
      */
-    protected Composant() {}
+    protected Composant() {
+    }
 
     /**
      * Construit un composant à partir d'un élément SVG.
@@ -84,9 +87,9 @@ public abstract class Composant {
      * @param jonctionsRelatives
      * @param hauteur
      * @param largeur
-     * @param posX la position en X
-     * @param posY la position en Y
-     * @param rotation90 le composant est tournée de 90°?
+     * @param posX               la position en X
+     * @param posY               la position en Y
+     * @param rotation90         le composant est tournée de 90°?
      */
     protected Composant(Jonction[] jonctionsRelatives, int hauteur, int largeur, int posX, int posY, boolean rotation90) {
         this.jonctionsRelatives = jonctionsRelatives;
@@ -129,8 +132,9 @@ public abstract class Composant {
     }
 
     public static Group getSymbole2D(String symbole) {
-        return SVG_LOADER.loadSvg(Composant.class.getResourceAsStream("symboles/" +  symbole + ".svg"));
+        return SVG_LOADER.loadSvg(Composant.class.getResourceAsStream("symboles/" + symbole + ".svg"));
     }
+
     abstract Group getSymbole3D();
 
     abstract Group getChamp();
@@ -225,7 +229,7 @@ public abstract class Composant {
     }
 
     public enum Unite {
-        PLUS_PETITE_POSSIBLE(""), PICO("p"), NANO("n"), MICRO("μ"), MILLI("m"), UNITE( ""), KILO("K"), MEGA("M"), GIGA("G");
+        PLUS_PETITE_POSSIBLE(""), PICO("p"), NANO("n"), MICRO("μ"), MILLI("m"), UNITE(""), KILO("K"), MEGA("M"), GIGA("G");
 
         private final String symbole;
 
@@ -256,10 +260,6 @@ public abstract class Composant {
             this.symbole = symbole;
         }
 
-        public double getValeur() {
-            return valeur;
-        }
-
         public String getValeurStr() {
             return formatter.format(valeur);
         }
@@ -268,6 +268,7 @@ public abstract class Composant {
             if (valeur.isEmpty()) this.valeur = 0;
             else
                 try {
+                    valeur = valeur.replace(',', '.');
                     setValeur(Double.parseDouble(valeur), unite);
                 } catch (NumberFormatException e) {
                     DanslChampUtil.lanceAlerte("Entrée non-conforme", ""/*fixme*/);
@@ -284,25 +285,26 @@ public abstract class Composant {
 
         @Override
         public String toString() {
+            double valeur = getValeur(Unite.PLUS_PETITE_POSSIBLE);
             return formatter.format(valeur) + " " + unite + symbole;
         }
 
         /**
          * @return Une <u>NOUVELLE</u> valeur convertie à l'unité désirée.
          */
-        public Valeur convertir(Unite unite) {
+        public double getValeur(Unite unite) {
             if (unite == Unite.PLUS_PETITE_POSSIBLE) return convertirPlusPetitePossible();
 
             int facteur = unite.ordinal() - this.unite.ordinal();
-            return new Valeur(valeur * Math.pow(10, -(3*facteur)), unite, symbole);
+            return valeur * Math.pow(10, -(3 * facteur));
         }
 
         /**
          * @return La valeur convertie à la plus petite unité possible au format ingénieur (micro, milli, ..., kilo, méga, etc.)
          */
-        private Valeur convertirPlusPetitePossible() {
-            double valeur = this.valeur;
+        private double convertirPlusPetitePossible() {
             int i;
+            if (valeur==0) return 0;
             if (valeur > 1_000)
                 for (i = 0; valeur > 1_000; i--)
                     valeur /= 1_000;
@@ -310,7 +312,16 @@ public abstract class Composant {
                 for (i = 0; valeur < 1; i++)
                     valeur *= 1_000;
 
-            return new Valeur(valeur, Unite.values()[this.unite.ordinal() - i], symbole);
+            unite = Unite.values()[this.unite.ordinal() - i];   // FIXME: 2023-04-19 Index out of bounds (-108)
+            return valeur;
+        }
+
+        public Unite getUnite() {
+            return unite;
+        }
+
+        public String getSymbole() {
+            return symbole;
         }
     }
 

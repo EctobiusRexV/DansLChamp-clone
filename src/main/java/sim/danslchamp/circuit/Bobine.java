@@ -40,13 +40,13 @@ public class Bobine extends Composant {
     public double calculResistance(double frequence) {
 
 
-        double surface = 2 * Math.PI * rayon.getValeur();
+        double surface = 2 * Math.PI * rayon.getValeur(Unite.UNITE);
 
-        double L = (mu * surface * Math.pow(nombreDeSpires.getValeur(), 2)) / longueur.getValeur();
+        double L = (mu * surface * Math.pow(nombreDeSpires.getValeur(Unite.UNITE), 2)) / longueur.getValeur(Unite.UNITE);
 
         reactance.setValeur(2 * Math.PI * frequence * L, Unite.UNITE);
 
-        return reactance.getValeur();
+        return reactance.getValeur(Unite.UNITE);
     }
 
     @Override
@@ -77,17 +77,17 @@ public class Bobine extends Composant {
         for (int i = 0; i < 4; i++) {
             CubicCurve champ = new CubicCurve(startX, startY, startX - 20, 2*getHauteur(), endX + 20, 2*getHauteur(),endX, endY);
             if (i == 1) {
-                champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur() + getHauteur()), endX + 20, -1*(courant.getValeur() + getHauteur()), endX, endY);
+                champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur(Unite.UNITE) + getHauteur()), endX + 20, -1*(courant.getValeur(Unite.UNITE) + getHauteur()), endX, endY);
             }
             if (i == 2) {
-                champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur() + getHauteur()), endX + 20, -1*(courant.getValeur() + getHauteur()), endX, endY);
+                champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur(Unite.UNITE) + getHauteur()), endX + 20, -1*(courant.getValeur(Unite.UNITE) + getHauteur()), endX, endY);
                 champ.setRotationAxis(new Point3D(1, 0, 0));
                 champ.setRotate(-90);
                 champ.setLayoutY(champ.getStartY());
                 champ.setTranslateZ(-champ.getControlY1());
             }
             if (i == 3) {
-                champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur() + getHauteur()), endX + 20, -1*(courant.getValeur() + getHauteur()), endX, endY);
+                champ = new CubicCurve(startX, startY, startX - 20, -1*(courant.getValeur(Unite.UNITE) + getHauteur()), endX + 20, -1*(courant.getValeur(Unite.UNITE) + getHauteur()), endX, endY);
                 champ.setRotationAxis(new Point3D(1, 0, 0));
                 champ.setRotate(90);
                 champ.setLayoutY(champ.getStartY());
