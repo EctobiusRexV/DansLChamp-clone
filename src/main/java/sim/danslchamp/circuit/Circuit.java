@@ -102,15 +102,15 @@ public class Circuit {
 
             Composant actuel = circuit.get(i);
 
-            if (actuel instanceof SousCircuit || actuel instanceof Fil){
+            if (actuel instanceof SousCircuit){
 
-                actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+//                actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(), Composant.Unite.UNITE);
 
-//                if (!(circuit.get(i - 1) instanceof SousCircuit)){
-//                    actuel.voltage.setValeur(actuel.courant.getValeur() * actuel.reactance.getValeur(), Composant.Unite.UNITE);
-//                } else {
-//                    actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(), Composant.Unite.UNITE);
-//                }
+                if (!(circuit.get(i - 1) instanceof SousCircuit)){
+                    actuel.voltage.setValeur(actuel.courant.getValeur(Composant.Unite.UNITE) * ((SousCircuit) actuel).getResistanceEquiSousCircuits(), Composant.Unite.UNITE);
+                } else {
+                    actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+                }
 
             } else actuel.voltage.setValeur(actuel.courant.getValeur(Composant.Unite.UNITE) * actuel.reactance.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
 
@@ -157,6 +157,14 @@ public class Circuit {
                 inverseImpedenceSousCircuit += 1 / c.calculResistance(frequence);
                 if (!(circuit.get(i + 1) instanceof SousCircuit)){
                     impedenceTotaleSousCircuit += 1 / inverseImpedenceSousCircuit;
+
+                    for (int j = i; j > 0; j--){
+                        if (!(circuit.get(j) instanceof SousCircuit)){
+                            break;
+                        }
+
+                        ((SousCircuit) circuit.get(j)).ISetResistanceEquiSousCircuits(impedenceTotaleSousCircuit);
+                    }
                 }
             } else resistance += c.calculResistance(frequence);
 
