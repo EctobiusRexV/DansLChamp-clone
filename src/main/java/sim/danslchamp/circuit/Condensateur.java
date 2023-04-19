@@ -1,7 +1,12 @@
 package sim.danslchamp.circuit;
 
+import javafx.geometry.Orientation;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
@@ -54,12 +59,12 @@ public class Condensateur extends Composant {
         c2.setMaterial(new PhongMaterial(Color.YELLOW));
         c2.setLayoutY(getPosY() + getHauteur() / 2);
         c2.setLayoutX(getPosX() + getLargeur() / 2);
-        c2.setTranslateZ(getLargeur()/4);
+        c2.setTranslateZ(getLargeur() / 4);
         Cylinder c3 = new Cylinder(2, getHauteur() / 5 * 2);
         c3.setMaterial(new PhongMaterial(Color.YELLOW));
         c3.setLayoutY(getPosY() + getHauteur() / 2);
         c3.setLayoutX(getPosX() + getLargeur() / 2);
-        c3.setTranslateZ(- getLargeur()/4);
+        c3.setTranslateZ(-getLargeur() / 4);
         Cylinder c4 = new Cylinder(2, getHauteur() / 5 * 2);
         c4.setMaterial(new PhongMaterial(Color.YELLOW));
         c4.setLayoutY(getPosY() + getHauteur() / 2);
@@ -67,9 +72,32 @@ public class Condensateur extends Composant {
         Cylinder c5 = new Cylinder(2, getHauteur() / 5 * 2);
         c5.setMaterial(new PhongMaterial(Color.YELLOW));
         c5.setLayoutY(getPosY() + getHauteur() / 2);
-        c5.setLayoutX(getPosX() + getLargeur() / 4*3);
+        c5.setLayoutX(getPosX() + getLargeur() / 4 * 3);
+        Group group = new Group(c, c2, c3, c4, c5);
+        Tooltip infobulle = new Tooltip();
+        Label valeursLabel = new Label();
+        VBox infobulleVBox = new VBox(
+                new Label(this.toString()),
+                new Separator(Orientation.HORIZONTAL),
+                valeursLabel);
 
-        return new Group(c,c2,c3,c4,c5);
+        infobulle.setGraphic(infobulleVBox);
+
+        group.setOnMousePressed(event -> {
+            valeursLabel.setText("");     // Clear
+
+
+            valeursLabel.setText(valeursLabel.getText().concat("La force du champ électrique" + "/n" +
+                    " est de" + ": " +
+                    (voltage.getValeur(Unite.UNITE))/0.01*1.6) + "e-19 N");
+
+            System.out.println(voltage.getValeur(Unite.UNITE));
+            infobulle.show(group, event.getScreenX(), event.getScreenY());
+        });
+        group.setOnMouseReleased(event -> {
+            infobulle.hide();
+        });
+        return group;
     }
 
     @Override
