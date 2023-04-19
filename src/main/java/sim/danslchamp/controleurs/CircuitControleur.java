@@ -3,11 +3,10 @@ package sim.danslchamp.controleurs;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.scene.Camera;
-import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.SubScene;
+import javafx.scene.*;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -57,6 +56,13 @@ public class CircuitControleur extends ParentControleur {
     private VBox vBox2D, vBox3D;
     @FXML
     private SubScene subScene3D;
+
+    // FXML fields for each CheckMenuItem in Circuit.fxml
+    @FXML
+    private CheckMenuItem diagramme2DCheckMenuItem, diagramme3DCheckMenuItem, listeDesComposantsCheckMenuItem, barreDOutilsCheckMenuItem, titreCheckMenuItem;
+
+    @FXML
+    private SplitPane diagrammesSplitPane;
 
 
     // ===============================
