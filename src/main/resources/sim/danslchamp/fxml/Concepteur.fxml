@@ -46,7 +46,7 @@
   <children>
       <ToolBar fx:id="toolbar" prefHeight="40.0" prefWidth="200.0">
         <items>
-            <ToggleButton fx:id="curseurToggleButton" mnemonicParsing="false">
+            <ToggleButton fx:id="curseurToggleButton" mnemonicParsing="false" selected="true">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>

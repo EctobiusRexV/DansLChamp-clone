@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -43,6 +44,7 @@ public class DansLChampApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Config.charger();
         ControllerUtil.loadFenetre("Bienvenue.fxml", 800, 650);
 
     }
@@ -54,6 +56,9 @@ public class DansLChampApp extends Application {
     public static void showConcepteurDeCircuit(@Nullable File file) throws FileNotFoundException {
         FXMLLoader fxmlLoader = new FXMLLoader(ControllerUtil.class.getResource("."));
         Stage stage = new Stage();
+
+        stage.setTitle("Dans l'Champ - Concepteur");
+        stage.getIcons().add(new Image(ControllerUtil.class.getResourceAsStream("logoDansLeChamp.png")));
 
         try {
             Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Circuit.fxml")));
@@ -68,9 +73,10 @@ public class DansLChampApp extends Application {
         CircuitControleur circuitControleur = fxmlLoader.getController();
         circuitControleur.setStage(stage);
         circuitControleur.chargerCircuit(file);
+        stage.setOnHidden(event -> Config.sauvegarder());
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-        stage.setMinWidth(800.0);
+        stage.setMinWidth(1000.0);
         stage.setMinHeight(600.0);
     }
 

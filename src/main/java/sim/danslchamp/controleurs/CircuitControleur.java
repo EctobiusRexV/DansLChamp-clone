@@ -9,7 +9,12 @@ import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SubScene;
+import javafx.scene.*;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.control.SplitPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -41,28 +46,15 @@ public class CircuitControleur extends ParentControleur {
 
     private ConcepteurControleur concepteurControleur;
 
-//    private Stage stage;
-//
-//    public void setStage(Stage stage) {
-//        this.stage = stage;
-//
-//        this.stage.setOnCloseRequest(event -> {
-//            new Alert(Alert.AlertType.CONFIRMATION,
-//                    "Êtes-vous certain de vouloir quitter?",
-//                    ButtonType.YES, ButtonType.NO).showAndWait()
-//                    .ifPresent(buttonType -> {
-//                        if (buttonType == ButtonType.NO)
-//                            event.consume();
-//                    });
-//        });
-//    }
-
-
     @Override
     public void setStage(Stage stage) {
         super.setStage(stage);
 
-        concepteurControleur.setStage(stage);
+        stage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                concepteurControleur.annulerEdition();
+            }
+        });
     }
 
     // FXML
@@ -73,6 +65,13 @@ public class CircuitControleur extends ParentControleur {
     @FXML
     private SubScene subSceneConcepteur,
                      subScene3D;
+
+    // FXML fields for each CheckMenuItem in Circuit.fxml
+    @FXML
+    private CheckMenuItem diagramme2DCheckMenuItem, diagramme3DCheckMenuItem, listeDesComposantsCheckMenuItem, barreDOutilsCheckMenuItem, titreCheckMenuItem;
+
+    @FXML
+    private SplitPane diagrammesSplitPane;
 
 
     // ===============================
@@ -109,14 +108,6 @@ public class CircuitControleur extends ParentControleur {
 
     }
 
-    @FXML
-    void ouvrirCircuit() {
-        try {
-            chargerCircuit(FC.showOpenDialog(stage));   // Nullable
-        } catch (FileNotFoundException neSappliquePas) {
-        }
-    }
-
     /**
      * Charge un circuit depuis SVG.
      *
@@ -125,7 +116,7 @@ public class CircuitControleur extends ParentControleur {
     public void chargerCircuit(@Nullable File file) throws FileNotFoundException {
         circuit = Circuit.chargerCircuit(file);
         pousserCircuitRecent(file);
-        composantsListView.setItems(circuit.getComposants());
+        composantsListView.setItems(circuit.getComposantsSansFils());
 
         concepteurControleur.diagrammeAnchorPane.getChildren().setAll(circuit.getDiagramme2D().getGroup());
         concepteurControleur.setCircuit(circuit);

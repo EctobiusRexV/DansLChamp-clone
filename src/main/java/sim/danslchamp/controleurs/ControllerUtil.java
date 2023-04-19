@@ -5,9 +5,11 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sim.danslchamp.Config;
 
 import java.io.IOException;
 
@@ -15,12 +17,19 @@ public class ControllerUtil {
 
     public static Stage loadFenetre(String path, double minHeight, double minWidht){
         Stage stage = loadStage(path, minHeight, minWidht);
+
+        stage.setTitle("Dans l'Champ - " + path.replace(".fxml", ""));
+        stage.getIcons().add(new Image(ControllerUtil.class.getResourceAsStream("logoDansLeChamp.png")));
+
         stage.show();
         return stage;
     }
 
     public static Stage loadStage(String path, double minHeight, double minWidht){
         Stage stage = new Stage();
+
+        stage.setTitle("Dans l'Champ - " + path.replace(".fxml", ""));
+        stage.getIcons().add(new Image(ControllerUtil.class.getResourceAsStream("logoDansLeChamp.png")));
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ControllerUtil.class.getResource("."));
@@ -34,6 +43,7 @@ public class ControllerUtil {
             stage.setMinHeight(minHeight);
             stage.setMinWidth(minWidht);
             stage.setResizable(true);
+            stage.setOnHidden(event -> Config.sauvegarder());
 
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

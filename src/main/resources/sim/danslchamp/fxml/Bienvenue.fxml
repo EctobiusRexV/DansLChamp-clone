@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
-<?import io.github.palexdev.materialfx.controls.MFXTitledPane?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.input.KeyCodeCombination?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <!--
 IMPORTANT
@@ -25,7 +15,7 @@ les ressource maven et les ressource que scene builder utilise ne se pas compati
 je vais identifier ou sont les ressource dans le code
 -->
 
-<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="650.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
+<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="650.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
     <center>
       <MFXScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="TOP_CENTER">
          <BorderPane.margin>
@@ -208,6 +198,9 @@ je vais identifier ou sont les ressource dans le code
             <BorderPane.margin>
                 <Insets left="2.0" right="2.0" />
             </BorderPane.margin>
+         <center>
+            <Label text="Dans l'Champ - Bienvenue" BorderPane.alignment="CENTER" />
+         </center>
         </BorderPane>
     </top>
 </BorderPane>
