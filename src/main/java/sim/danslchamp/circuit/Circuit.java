@@ -80,6 +80,8 @@ public class Circuit {
             frequence = 0;
         }
 
+        ((Composant)sources.get(0)).voltage.setValeur(sources.get(0).voltage.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+
         resistanceEqui = trouverResistanceEqui();
         trouverCourantSimple();
         trouverDDPSimple();
