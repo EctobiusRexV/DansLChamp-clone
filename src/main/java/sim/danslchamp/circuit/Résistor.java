@@ -36,6 +36,7 @@ public class Résistor extends Composant {
             c = new Cylinder(getHauteur() / 2, getLargeur());
         }
         c.setLayoutX(c.getLayoutX() + c.getHeight() / 2);
+        c.setTranslateY(getHauteur()/2);
         c.setRotate(90);
         if (!rotation90) {
             c.setRotate(90);
