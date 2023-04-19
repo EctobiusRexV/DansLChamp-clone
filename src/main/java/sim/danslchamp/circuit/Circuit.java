@@ -89,7 +89,7 @@ public class Circuit {
     private void trouverCourantBranchesParalleles() {
 
         for (SousCircuit sousCircuit : sousCircuits){
-            sousCircuit.courant.setValeur(sousCircuit.voltage.getValeur(Composant.Unite.UNITE) / sousCircuit.reactance.getValeur(), Composant.Unite.UNITE);
+            sousCircuit.courant.setValeur(sousCircuit.voltage.getValeur(Composant.Unite.UNITE) / sousCircuit.reactance.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
             for (Composant c : sousCircuit.getComposants()){
                 c.courant.setValeur(sousCircuit.courant.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
             }
