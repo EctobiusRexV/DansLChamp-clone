@@ -3,16 +3,17 @@ package sim.danslchamp.controleurs;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import io.github.palexdev.materialfx.controls.MFXTitledPane;
+import sim.danslchamp.Config;
 import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.svg.SvgLoader;
 
@@ -47,23 +48,31 @@ public class BienvenueControleur extends ParentControleur {
     // ===============================
     @FXML
     public void initialize() {
-        FlowPane flowPane = new FlowPane();
+        FlowPane recentsFlowPane = new FlowPane();
+        recentsFlowPane.getChildren().addAll(
+                getCircuitVBox(Path.of(Config.circuitRecent1)),
+                getCircuitVBox(Path.of(Config.circuitRecent2)),
+                getCircuitVBox(Path.of(Config.circuitRecent3))
+        );
+        FlowPane deBaseFlowPane = new FlowPane();
         try {
             Files.list(Path.of("circuits")).forEach(circuit ->
-            flowPane.getChildren().add(
+            deBaseFlowPane.getChildren().add(
                     getCircuitVBox(circuit)
                     )
             );
         } catch (IOException e) {
             e.printStackTrace();
         }
+        recentsTitlePane.setContent(recentsFlowPane);
         deBaseTitledPane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
-        deBaseTitledPane.setContent(flowPane);
+        deBaseTitledPane.setContent(deBaseFlowPane);
         recentsTitlePane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
 
     }
 
     private VBox getCircuitVBox(Path path) {
+        if (!path.toFile().exists()) return new VBox();
         SvgLoader svgLoader = new SvgLoader(null);
         Label label = new Label(path.getFileName().toString());
         label.setMaxWidth(Double.MAX_VALUE);
@@ -73,8 +82,13 @@ public class BienvenueControleur extends ParentControleur {
                 svgLoader.loadSvg(path.toString()),
                 label
         );
-
-
+Group group = new Group();
+group.setAutoSizeChildren(true);
+        vBox.setPrefWidth(200);
+        vBox.setMaxWidth(200);
+        vBox.setFillWidth(true);
+vBox.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.RED, CornerRadii.EMPTY, new Insets(10))));
+vBox.setBorder(new Border(new BorderStroke(javafx.scene.paint.Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
         vBox.setUserData(path.toFile());
         vBox.setOnMouseClicked(this::circuitPressed);
         return vBox;
