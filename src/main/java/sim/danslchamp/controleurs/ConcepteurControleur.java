@@ -111,15 +111,6 @@ public class ConcepteurControleur {
         this.circuit = circuit;
     }
 
-    public void setStage(Stage stage) {
-        stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
-                annule = true;
-                currentLine.setVisible(false);
-            }
-        });
-    }
-
     void setPos(int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
@@ -181,6 +172,11 @@ public class ConcepteurControleur {
         Path sortie = Path.of("./circuitsExportsTests/sauvegardeDepuisConcepteur" + LocalDateTime.now().toString().replaceAll(":", "") + ".svg");
 
         Files.write(sortie, Collections.singleton(FXASvg.aSvg(circuit)), StandardOpenOption.CREATE);
+    }
+
+    public void annulerEdition() {
+        annule=true;
+        currentLine.setVisible(false);
     }
 
 
