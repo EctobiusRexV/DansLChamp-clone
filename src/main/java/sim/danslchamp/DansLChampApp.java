@@ -76,7 +76,7 @@ public class DansLChampApp extends Application {
         stage.setOnHidden(event -> Config.sauvegarder());
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-        stage.setMinWidth(800.0);
+        stage.setMinWidth(1000.0);
         stage.setMinHeight(600.0);
     }
 
