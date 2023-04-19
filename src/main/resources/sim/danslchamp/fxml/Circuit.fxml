@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.SubScene?>
+<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -12,6 +13,8 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -19,9 +22,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import io.github.palexdev.materialfx.controls.MFXListView?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.CircuitControleur">
    <center>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
@@ -48,11 +48,54 @@
                                              <MenuItem mnemonicParsing="false" onAction="#fermerApp" text="Fermer" />
                                          </items>
                                      </Menu>
+                              <Menu text="_Éditer">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="Copier">
+                                       <accelerator>
+                                          <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                       </accelerator>
+                                    </MenuItem>
+                                    <MenuItem mnemonicParsing="false" text="Coller">
+                                       <accelerator>
+                                          <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                       </accelerator>
+                                    </MenuItem>
+                                    <MenuItem mnemonicParsing="false" text="Couper">
+                                       <accelerator>
+                                          <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                       </accelerator>
+                                    </MenuItem>
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" text="Annuler">
+                                       <accelerator>
+                                          <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                       </accelerator>
+                                    </MenuItem>
+                                    <MenuItem mnemonicParsing="false" text="Refaire">
+                                       <accelerator>
+                                          <KeyCodeCombination alt="UP" code="Y" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                       </accelerator>
+                                    </MenuItem>
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem text="_Titre du circuit..." />
+                                </items>
+                              </Menu>
                                      <Menu mnemonicParsing="false" text="Bibliothèque">
                                          <items>
                                              <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Ouvrir la Bibliothèque de composantes" />
                                          </items>
                                      </Menu>
+                              <Menu text="_Affichage">
+                                <items>
+                                  <CheckMenuItem fx:id="diagramme2DCheckMenuItem" text="Diagramme _2D" />
+                                    <CheckMenuItem fx:id="diagramme3DCheckMenuItem" text="Diagramme _3D" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <CheckMenuItem fx:id="listeDesComposantsCheckMenuItem" text="Liste des _composants" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <CheckMenuItem fx:id="barreDOutilsCheckMenuItem" text="Barre d'_outils" />
+                                    <CheckMenuItem fx:id="titreCheckMenuItem" text="_Titre" />
+                                </items>
+                              </Menu>
                                      <Menu mnemonicParsing="false" text="Aide">
                                          <items>
                                              <MenuItem mnemonicParsing="false" onAction="#showAide" text="Informations sur l'application" />
@@ -90,7 +133,7 @@
                      </HBox>
                  </right>
              </BorderPane>
-            <SplitPane dividerPositions="0.5, 0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="375.0" prefWidth="596.0" VBox.vgrow="ALWAYS">
+            <SplitPane fx:id="diagrammesSplitPane" dividerPositions="0.5, 0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="375.0" prefWidth="596.0" VBox.vgrow="ALWAYS">
                <items>
                   <VBox fx:id="vBox2D" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="0.0" prefHeight="200.0" prefWidth="100.0" />
                   <VBox fx:id="vBox3D" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="0.0">
