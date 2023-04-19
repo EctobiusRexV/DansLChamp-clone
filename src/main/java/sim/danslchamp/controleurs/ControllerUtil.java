@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sim.danslchamp.Config;
 
 import java.io.IOException;
 
@@ -34,6 +35,7 @@ public class ControllerUtil {
             stage.setMinHeight(minHeight);
             stage.setMinWidth(minWidht);
             stage.setResizable(true);
+            stage.setOnHidden(event -> Config.sauvegarder());
 
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
