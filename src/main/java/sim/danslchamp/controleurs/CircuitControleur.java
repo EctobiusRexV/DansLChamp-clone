@@ -9,9 +9,12 @@ import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SubScene;
+import javafx.scene.*;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.control.SplitPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -63,6 +66,13 @@ public class CircuitControleur extends ParentControleur {
     private SubScene subSceneConcepteur,
                      subScene3D;
 
+    // FXML fields for each CheckMenuItem in Circuit.fxml
+    @FXML
+    private CheckMenuItem diagramme2DCheckMenuItem, diagramme3DCheckMenuItem, listeDesComposantsCheckMenuItem, barreDOutilsCheckMenuItem, titreCheckMenuItem;
+
+    @FXML
+    private SplitPane diagrammesSplitPane;
+
 
     // ===============================
     //             INIT
@@ -96,14 +106,6 @@ public class CircuitControleur extends ParentControleur {
     @FXML
     void enregistrerCircuit(ActionEvent event) {
 
-    }
-
-    @FXML
-    void ouvrirCircuit() {
-        try {
-            chargerCircuit(FC.showOpenDialog(stage));   // Nullable
-        } catch (FileNotFoundException neSappliquePas) {
-        }
     }
 
     /**

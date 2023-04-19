@@ -9,6 +9,12 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import sim.danslchamp.DansLChampApp;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import static sim.danslchamp.DansLChampApp.FC;
 
 public abstract class ParentControleur {
     Stage stage;
@@ -114,5 +120,15 @@ public abstract class ParentControleur {
             stage.setX(dragEvent.getScreenX() - event.getX());
             stage.setY(dragEvent.getScreenY() - event.getY());
         });
+    }
+
+    @FXML
+    void ouvrirCircuit() {
+        try {
+            File file = FC.showOpenDialog(stage);
+            if (file != null)
+                DansLChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
+        } catch (FileNotFoundException neSappliquePas) {
+        }
     }
 }

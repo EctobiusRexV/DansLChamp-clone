@@ -116,14 +116,4 @@ vBox.setBorder(new Border(new BorderStroke(javafx.scene.paint.Color.BLACK, Borde
     }
 
 
-    @FXML
-    void ouvrirCircuit() {
-        try {
-            File file = FC.showOpenDialog(stage);
-            if (file != null)
-                DansLChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
-        } catch (FileNotFoundException neSappliquePas) {
-        }
-    }
-
 }
