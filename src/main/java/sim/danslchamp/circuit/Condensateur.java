@@ -90,7 +90,7 @@ public class Condensateur extends Composant {
             valeursLabel.setText(valeursLabel.getText().concat("La force du champ électrique dans un condensateur plan distancé de 5 mm" + " est de" + ": " + "\n" +
                     (voltage.getValeur(Unite.UNITE)) / 0.005 * 1.6) + "e-19 N");
 
-            System.out.println(voltage.getValeur(Unite.UNITE));
+
             infobulle.show(group, event.getScreenX(), event.getScreenY());
         });
         group.setOnMouseReleased(event -> {
