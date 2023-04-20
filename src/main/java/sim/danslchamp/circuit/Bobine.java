@@ -127,11 +127,12 @@ public class Bobine extends Composant {
         infobulle.setGraphic(infobulleVBox);
 
         group.setOnMousePressed(event -> {
-            valeursLabel.setText("");     // Clear
+            double B = 4 * Math.PI * (nombreDeSpires.getValeur(Unite.UNITE) / longueur.getValeur(Unite.UNITE)) * courant.getValeur(Unite.UNITE) / 100;
+            double Bext = (B * Math.pow(rayon.getValeur(Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(rayon.getValeur(Unite.UNITE), 2) + 0.0625, (3 / 2)));
+            valeursLabel.setText("La force du champ magnétique à 0.25 mètre de la bobine est de: " + "\n" + Bext + "e-5 T");     // Clear
 
-
-            valeursLabel.setText(valeursLabel.getText().concat("La force du champ magnétique dans la bobine" + " est de" + ": "
-                    + "\n" + "valeur" + "e?N"));
+            valeursLabel.setText(valeursLabel.getText().concat("\n" + "La force du champ magnétique dans la bobine" + " est de" + ": "
+                    + "\n" + B + "e-5 T"));
 
             infobulle.show(group, event.getScreenX(), event.getScreenY());
         });

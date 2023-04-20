@@ -108,7 +108,9 @@ public class Rotation3DWithMouse extends Application {
         text.setY(50);
         text.setFont(new Font(20));
 
-        group.getChildren().addAll(text,text2);
+
+
+        group.getChildren().addAll();
         text.getTransforms().add(new Rotate(10, 50, 30));
         System.out.println(group.getLayoutX());
         Camera camera = new PerspectiveCamera();
