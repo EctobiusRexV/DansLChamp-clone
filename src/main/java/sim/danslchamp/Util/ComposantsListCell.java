@@ -60,6 +60,16 @@ public class ComposantsListCell extends ListCell<Composant> {
                     if (newvalue != null) {
                         valeurNomWrapper.valeur.setValeur(newvalue.toString(), uniteComboBox.getValue());
                         circuit.calculCircuit();
+                        //TODO pas sur lala
+                        System.out.println("test");
+                        circuit.getDiagramme2D().getGroup().getChildren().clear();
+                        circuit.getDiagramme3D().getGroup().getChildren().clear();
+                        for (int i = 0; i < circuit.getComposants().size(); i++) {
+                            circuit.getDiagramme2D().addComposant(circuit.getComposants().get(i));
+                        }
+                        for (int i = 0; i < circuit.getComposants().size(); i++) {
+                            circuit.getDiagramme3D().addComposant(circuit.getComposants().get(i));
+                        }
                     }
 
                     // TODO: 2023-04-18 Le spinner devrait recalculer son step de 10%.
@@ -70,6 +80,7 @@ public class ComposantsListCell extends ListCell<Composant> {
                 uniteComboBox.setOnAction(event -> {
                     valeurNomWrapper.valeur.setValeur(spinner.getEditor().getText(), uniteComboBox.getValue());
                     circuit.calculCircuit();
+
                 });
 
                 hBox.getChildren().addAll(label, spinner, uniteComboBox, new Label(valeurNomWrapper.valeur.getSymbole()));
