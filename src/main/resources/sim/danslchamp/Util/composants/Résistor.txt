@@ -14,7 +14,7 @@ Une résistance est un composant électronique qui limite le courant électrique
 </math>
 <br>
 <p aligne="justify" style="font-family: Open Sans Light">
-où R est la résistance en ohms, V est la tension en volts et I est le courant en ampères.
+où R est la résistance en ohms, V est la tension en volts et I est le courant en ampères.  C'est ce qu'on appele la loi d'Ohm.
 
 La puissance dissipée par une résistance est donnée par l'équation suivante :
 <br>

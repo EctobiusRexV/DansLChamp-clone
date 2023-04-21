@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+
+<BorderPane fx:id="root" maxHeight="400.0" maxWidth="1000.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BibliothequePersonnagesController">
+    <center>
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;">
+            <children>
+                <WebView fx:id="textAreaBibliotheque" minHeight="-1.0" minWidth="-1.0" />
+            </children>
+        </VBox>
+    </center>
+    <bottom>
+        <BorderPane prefHeight="2.0" prefWidth="600.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+            <left>
+                <Region maxHeight="10.0" maxWidth="10.0" onMousePressed="#dragResize" prefHeight="10.0" prefWidth="10.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="SW_RESIZE" />
+                    </cursor>
+                </Region>
+            </left>
+            <right>
+                <Region maxHeight="10.0" maxWidth="10.0" onMousePressed="#dragResize" prefHeight="10.0" prefWidth="10.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="SE_RESIZE" />
+                    </cursor>
+                </Region>
+            </right>
+            <center>
+                <Region onMousePressed="#dragResize" prefHeight="4.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="S_RESIZE" />
+                    </cursor>
+                </Region>
+            </center>
+        </BorderPane>
+    </bottom>
+    <left>
+        <Region onMousePressed="#dragResize" prefHeight="200.0" prefWidth="2.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+            <cursor>
+                <Cursor fx:constant="W_RESIZE" />
+            </cursor>
+        </Region>
+    </left>
+    <right>
+        <HBox BorderPane.alignment="CENTER">
+            <children>
+
+
+                <VBox style="-fx-background-color: dodgerblue;" HBox.hgrow="ALWAYS">
+               <children>
+                  <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="150.0" VBox.vgrow="ALWAYS">
+                     <content>
+                        <VBox fx:id="vBoxPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: dodgerblue;" />
+                     </content>
+                  </ScrollPane>
+               </children></VBox>
+                <Region onMousePressed="#dragResize" prefHeight="200.0" prefWidth="2.0" style="-fx-background-color: dodgerblue;">
+                    <cursor>
+                        <Cursor fx:constant="E_RESIZE" />
+                    </cursor>
+                </Region>
+            </children>
+        </HBox>
+    </right>
+    <padding>
+        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+    </padding>
+    <top>
+        <BorderPane fx:id="titleBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#mouvePressed" style="-fx-background-color: dodgerblue;" BorderPane.alignment="CENTER">
+            <right>
+                <HBox alignment="CENTER_RIGHT" layoutX="504.0">
+                    <children>
+                        <MFXButton depthLevel="LEVEL5" onAction="#minimizeApp" prefHeight="26.0" prefWidth="31.0" rippleAnimateShadow="true" rippleAnimationSpeed="3.0" rippleColor="#d9ff00" style="-fx-background-color: transparent;" text="＿" textAlignment="JUSTIFY">
+                            <font>
+                                <Font name="Agency FB" size="13.0" />
+                            </font>
+                        </MFXButton>
+                        <MFXButton depthLevel="LEVEL5" onAction="#resizeApp" prefHeight="26.0" prefWidth="31.0" rippleAnimateShadow="true" rippleAnimationSpeed="3.0" rippleColor="#00ff24" style="-fx-background-color: transparent;" text="⃞" textAlignment="JUSTIFY">
+                            <font>
+                                <Font name="Open Sans SemiBold" size="13.0" />
+                            </font>
+                        </MFXButton>
+                        <MFXButton depthLevel="LEVEL5" onAction="#fermerApp" prefHeight="25.0" prefWidth="31.0" rippleAnimateShadow="true" rippleAnimationSpeed="3.0" rippleColor="#da0303" style="-fx-background-color: transparent;" text="⛌">
+                            <font>
+                                <Font name="Open Sans SemiBold" size="13.0" />
+                            </font>
+                        </MFXButton>
+                    </children>
+                </HBox>
+            </right>
+            <left>
+                <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="591.0" style="-fx-background-color: dodgerblue;" text="Bibliothèque d'information sur les personnages" BorderPane.alignment="CENTER">
+                    <font>
+                        <Font name="Open Sans SemiBold" size="24.0" />
+                    </font>
+                </Label>
+            </left>
+        </BorderPane>
+    </top>
+</BorderPane>

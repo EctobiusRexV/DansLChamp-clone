@@ -1,0 +1,11 @@
+<p align="justify" style="font-family: Open Sans Light">
+
+Alessandro Volta est un physicien Italien.  Ses observations commencent alors qu'un professeur de l'université de Bologne, Luigi Galvani, lui-même observe lorsque des grenouilles suspendues pour son cours du lendemain se mettent à bouger au gré du vent et qu'ils touchent une plaque de fer, que les patte de l'animal se mettent à bouger !  Pour celui-ci, il s'agissait d'une « électrité animale ».  Volta, pour sa part, croyait qu'il s'agissait d'une forme d'électricité extérieure qui venait perturber les pattes de la grenouille.
+<br>
+<br>
+Il commença alors à expérimenter sur ce mandat et se rendit compte que lorsqu'il approche deux plaques de métal différents près d'une solution d'eau salée, une électricité était produite.  Alessandro Volta construit alors la première pile électrique, surnommée pile voltaïque, en faisant une pile de plaques de cuivre, entremêlées de plaques de zinc, séparées par des cartons imbibés d'eau salée !  Il présentera son invention en 1800 à Paris, où Napoléon lui remmetra une médaille d'or.
+<br>
+<br>
+On nommera l'unité de la différence de potentiel, le volt, en son honneur.
+
+</p>
