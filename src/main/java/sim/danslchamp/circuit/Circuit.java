@@ -72,15 +72,15 @@ public class Circuit {
         return new Circuit(file);
     }
 
-    public void calculCircuit(){
+    public void calculCircuit() {
 
-        if (sources.get(0) instanceof Générateur){
+        if (sources.get(0) instanceof Générateur) {
             frequence = ((Générateur) sources.get(0)).frequence.getValeur(Composant.Unite.UNITE);
         } else {
             frequence = 0;
         }
 
-        ((Composant)sources.get(0)).voltage.setValeur(sources.get(0).voltage.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+        ((Composant) sources.get(0)).voltage.setValeur(sources.get(0).voltage.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
 
         resistanceEqui = trouverResistanceEqui();
         trouverCourantSimple();
@@ -92,8 +92,8 @@ public class Circuit {
     }
 
     private void trouverDDPBranchesParalleles() {
-        for (SousCircuit sousCircuit : sousCircuits){
-            for (Composant c : sousCircuit.getComposants()){
+        for (SousCircuit sousCircuit : sousCircuits) {
+            for (Composant c : sousCircuit.getComposants()) {
                 c.voltage.setValeur(c.reactance.getValeur(Composant.Unite.UNITE) * c.courant.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
             }
         }
@@ -101,9 +101,9 @@ public class Circuit {
 
     private void trouverCourantBranchesParalleles() {
 
-        for (SousCircuit sousCircuit : sousCircuits){
+        for (SousCircuit sousCircuit : sousCircuits) {
             sousCircuit.courant.setValeur(sousCircuit.voltage.getValeur(Composant.Unite.UNITE) / sousCircuit.reactance.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
-            for (Composant c : sousCircuit.getComposants()){
+            for (Composant c : sousCircuit.getComposants()) {
                 c.courant.setValeur(sousCircuit.courant.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
             }
         }
@@ -115,17 +115,18 @@ public class Circuit {
 
             Composant actuel = circuit.get(i);
 
-            if (actuel instanceof SousCircuit){
+            if (actuel instanceof SousCircuit) {
 
 //                actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(), Composant.Unite.UNITE);
 
-                if (!(circuit.get(i - 1) instanceof SousCircuit)){
+                if (!(circuit.get(i - 1) instanceof SousCircuit)) {
                     actuel.voltage.setValeur(actuel.courant.getValeur(Composant.Unite.UNITE) * ((SousCircuit) actuel).getResistanceEquiSousCircuits(), Composant.Unite.UNITE);
                 } else {
                     actuel.voltage.setValeur(circuit.get(i - 1).voltage.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
                 }
 
-            } else actuel.voltage.setValeur(actuel.courant.getValeur(Composant.Unite.UNITE) * actuel.reactance.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+            } else
+                actuel.voltage.setValeur(actuel.courant.getValeur(Composant.Unite.UNITE) * actuel.reactance.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
 
         }
 
@@ -135,14 +136,14 @@ public class Circuit {
     private void trouverCourantSimple() {
         double ddpSource = sources.get(0).voltage.getValeur(Composant.Unite.UNITE);
 
-        if (resistanceEqui != 0){
+        if (resistanceEqui != 0) {
             double courantSimple = ddpSource / resistanceEqui;
 
-            for (Composant c : circuit){
+            for (Composant c : circuit) {
                 c.courant.setValeur(courantSimple, Composant.Unite.UNITE);
             }
         } else {
-            for (Composant c : circuit){
+            for (Composant c : circuit) {
                 c.courant.setValeur(Double.MAX_VALUE, Composant.Unite.UNITE);
             }
         }
@@ -162,17 +163,17 @@ public class Circuit {
 
             Composant c = circuit.get(i);
 
-            if (c instanceof Condensateur){
+            if (c instanceof Condensateur) {
                 reactanceCondensateur += c.calculResistance(frequence);
             } else if (c instanceof Bobine) {
                 reactanceBobine += c.calculResistance(frequence);
             } else if (c instanceof SousCircuit) {
                 inverseImpedenceSousCircuit += 1 / c.calculResistance(frequence);
-                if (!(circuit.get(i + 1) instanceof SousCircuit)){
+                if (!(circuit.get(i + 1) instanceof SousCircuit)) {
                     impedenceTotaleSousCircuit += 1 / inverseImpedenceSousCircuit;
 
-                    for (int j = i; j > 0; j--){
-                        if (!(circuit.get(j) instanceof SousCircuit)){
+                    for (int j = i; j > 0; j--) {
+                        if (!(circuit.get(j) instanceof SousCircuit)) {
                             break;
                         }
 
@@ -219,11 +220,10 @@ public class Circuit {
         circuit.add(sources.get(0));
 
 
-
         circuit = parcourirCircuit();
 
-        for (Composant c : circuit){
-            if (c instanceof SousCircuit){
+        for (Composant c : circuit) {
+            if (c instanceof SousCircuit) {
                 sousCircuits.add((SousCircuit) c);
             }
         }
@@ -236,7 +236,7 @@ public class Circuit {
 
         Jonction jonctionPlus = dernier.getBornePositive();
 
-        if (jonctionPlus.estNoeud()){
+        if (jonctionPlus.estNoeud()) {
             SousCircuit newSousCircuit = null;
 
             for (int i = 0; i < jonctionPlus.getComposants().size() - 1; i++) {
@@ -249,14 +249,13 @@ public class Circuit {
 
             }
             for (Composant c : newSousCircuit.getBornePositive().getComposants()) {
-                if (!circuit.contains(c)){
+                if (!circuit.contains(c)) {
                     circuit.add(c);
                 }
             }
             parcourirCircuit();
-        }
-        else {
-            for (Composant composant : jonctionPlus.getComposants()){
+        } else {
+            for (Composant composant : jonctionPlus.getComposants()) {
                 if (!circuit.contains(composant)) {
                     circuit.add(composant);
                     parcourirCircuit();
@@ -273,14 +272,42 @@ public class Circuit {
 
         jonctionPlus = jonctions.get(jonctions.indexOf(jonctionPlus));
 
-        if (!jonctionPlus.estNoeud()){
-            for (Composant composant : jonctionPlus.getComposants()){
+        int nbCompPositives = 0;
+
+        for (Composant c : jonctionPlus.getComposants()){
+            if (c.getBornePositive().equals(jonctionPlus)){
+                nbCompPositives++;
+            }
+        }
+
+        if (!jonctionPlus.estNoeud()) {
+            for (Composant composant : jonctionPlus.getComposants()) {
                 if (!sousCircuit.getComposants().contains(composant)) {
                     sousCircuit.addComposant(composant);
                     parcourirSousCircuit(sousCircuit);
                 }
             }
-        }else {
+        } else if (nbCompPositives < 2) {
+
+            for (Composant c : jonctionPlus.getComposants()){
+                if (!(c.getBornePositive().equals(jonctionPlus))){
+                    SousCircuit newSousCircuit = new SousCircuit();
+                    newSousCircuit.addComposant(c);
+                    parcourirSousCircuit(newSousCircuit);
+                    sousCircuit.addComposant(newSousCircuit);
+                }else {
+                    for (Composant composant : jonctionPlus.getComposants()) {
+                        if (!sousCircuit.getComposants().contains(composant)) {
+                            sousCircuit.addComposant(composant);
+                            parcourirSousCircuit(sousCircuit);
+                        }
+                    }
+                }
+            }
+
+            parcourirSousCircuit(sousCircuit);
+
+        } else {
             sousCircuit.setBornePositive(jonctionPlus);
         }
 
@@ -292,7 +319,7 @@ public class Circuit {
             // Instancier la classe
             return addComposant((Class<Composant>) Class.forName("sim.danslchamp.circuit." + composantType), posX, posY, rotation90);
         } catch (ClassCastException | ClassNotFoundException e) {
-            DanslChampUtil.erreur( "Impossible de charger " + composantType, e.getMessage());
+            DanslChampUtil.erreur("Impossible de charger " + composantType, e.getMessage());
             e.printStackTrace();
         }
 
@@ -307,7 +334,7 @@ public class Circuit {
                     .getDeclaredConstructors()[0]   // SVP qu'un seul constructeur!
                     .newInstance(posX, posY, rotation90);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            DanslChampUtil.erreur( "Impossible de charger " + composantClass.getSimpleName(), e.getMessage());
+            DanslChampUtil.erreur("Impossible de charger " + composantClass.getSimpleName(), e.getMessage());
             e.printStackTrace();
         }
 
@@ -321,8 +348,8 @@ public class Circuit {
 
         addJonction(composant);
 
-        for (Diagramme diagramme:
-             getDiagrammes()) {
+        for (Diagramme diagramme :
+                getDiagrammes()) {
             diagramme.addComposant(composant);
         }
 
@@ -333,16 +360,17 @@ public class Circuit {
      * Ajoute les jonction de {@code composant} à la liste des jonctions.
      * Si la jonction existe déjà, le composant est ajouté à la liste.
      * Sinon, la jonction est ajoutée et une nouvelle liste contenant le composant y est associé.
-     * @see Circuit#jonctions
+     *
      * @param composant
+     * @see Circuit#jonctions
      */
     private void addJonction(Composant composant) {
-        for (Jonction jonction:
+        for (Jonction jonction :
                 composant.getJonctions()) {
 
             int jonctionIdx = jonctions.indexOf(jonction);
 
-            if(jonctionIdx == -1) {
+            if (jonctionIdx == -1) {
                 jonction.addComposant(composant);
                 jonctions.add(jonction);
             } else {
@@ -350,7 +378,6 @@ public class Circuit {
             }
         }
     }
-
 
 
     // GETTERS & SETTERS
