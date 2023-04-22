@@ -3,7 +3,6 @@ package sim.danslchamp.controleurs;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,19 +11,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import org.reflections.Reflections;
 import sim.danslchamp.Util.MathMlUtil;
-import sim.danslchamp.circuit.Composant;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
 
-import static sim.danslchamp.DansLChampApp.SVG_LOADER;
-
-public class BibliothequePersonnagesController extends ParentControleur implements Initializable {
+public class BibliothequeUnitesController extends ParentControleur implements Initializable {
 
     public BorderPane titleBar;
 
@@ -42,21 +36,12 @@ public class BibliothequePersonnagesController extends ParentControleur implemen
 
         vBoxPane.setFillWidth(true);
 
-        List<String> listNomPersonnages = new ArrayList<>(List.of("Ørsted","Ampère", "Volta", "Edison",
-                "Ohm", "Faraday", "Tesla", "Bell"));
-        listNomPersonnages.addAll(List.of("Maxwell", "Coulomb", "Kirchhoff", "Henry"));
+        List<String> listNomUnites = new ArrayList<>(List.of("ampère", "volt",
+                "ohm", "farad", "tesla", "coulomb", "mètre"));
 
-        for (String personnage : listNomPersonnages) {
-                CreerVBoxs(personnage);
-
+        for (String unite : listNomUnites) {
+            CreerVBoxs(unite);
         }
-
-//        Set<Class<? extends Composant>> composantsClasses = reflections.getSubTypesOf(Composant.class);
-//
-//        for (Class<? extends Composant> composantClass : composantsClasses) {
-//            if (this.getClass().getResource("../circuit/symboles/" + composantClass.getSimpleName() + ".svg") != null)   // FIXME: 2023-04-04 Hotfix
-//                CreerVBoxs(composantClass.getSimpleName());
-//        }
     }
 
     private void CreerVBoxs(String nom) {
@@ -72,10 +57,10 @@ public class BibliothequePersonnagesController extends ParentControleur implemen
         Image image = null;
 
         try {
-            image = new Image(this.getClass().getResourceAsStream("../personnages/" + nom + ".jpg"));
+            image = new Image(this.getClass().getResourceAsStream("../unites/" + nom + ".jpg"));
 
         } catch (Exception e) {
-            System.err.println("Incapable de présenter le personnage " + nom);
+            System.err.println("Incapable de présenter l'unité " + nom);
 
         }
 
@@ -83,8 +68,8 @@ public class BibliothequePersonnagesController extends ParentControleur implemen
 
         ImageView imageView = new ImageView();
         imageView.setImage(image);
-        imageView.setFitHeight(130);
-        imageView.setFitWidth(130);
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
 
         vBox.getChildren().addAll(imageView, label);
 
@@ -92,7 +77,7 @@ public class BibliothequePersonnagesController extends ParentControleur implemen
 
         vBox.setOnMouseClicked(event -> {
             try {
-                textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt("personnages/" + nom + ".txt"));
+                textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt("unites/" + nom + ".txt"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
