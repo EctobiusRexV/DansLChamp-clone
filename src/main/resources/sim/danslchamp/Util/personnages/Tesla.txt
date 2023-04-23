@@ -1,4 +1,8 @@
 <p align="justify" style="font-family: Open Sans Light">
-Les fils électriques sont des composants électrique servant au transport de l'énergie dans le circuit
-*dans cette simulation, la résistance des fils est négligée
+
+Nikola Tesla est un ingénieur est inventeur américain d'origine serbe qui fut un des personnages importants de la transition vers la transportation de l'électricité entre les centrales et les consommateurs par le courant alternatif au lieu de continu.  Bien qu'il ait déposé plus de 300 brevets, c'est dans cette branche qu'il est le plus connu.  Il mettra également au point les premiers alternateurs et consolidera les recherches de Maxwell dans l'électromagnétisme en trouvant les fréquences propres de certains circuits,  ce qui maximisera leur rendement.
+<br>
+<br>
+Il ne sera pas particulièrement populaire lors de son vivant et presque oublié après sa mort, mais l'unité d'induction magnétique, le tesla sera finalement nommé en son nom dans les années 1960.
+
 </p>
