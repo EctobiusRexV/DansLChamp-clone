@@ -70,6 +70,8 @@ public abstract class Composant {
     // Indique si le composant est tournée de 90°
     boolean rotation90;
 
+    private Group group;
+
     private int strokeWidth = Config.defautComposantStrokeWidth;
 
     private Color strokeColor = Color.valueOf(Config.defautComposantStrokeColor);
@@ -128,7 +130,10 @@ public abstract class Composant {
     }
 
     public Group getSymbole2D() {
-        return SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("symboles/" + getClass().getSimpleName() + ".svg"));
+        group = group == null
+                ? SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("symboles/" + getClass().getSimpleName() + ".svg"))
+                : group;
+        return group;
     }
 
     public static Group getSymbole2D(String symbole) {
