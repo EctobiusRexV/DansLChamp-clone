@@ -228,7 +228,7 @@ public class Circuit {
             }
         }
 
-        return circuit;
+      return circuit;
     }
 
     private List<Composant> parcourirCircuit() {
@@ -295,13 +295,19 @@ public class Circuit {
                     newSousCircuit.addComposant(c);
                     parcourirSousCircuit(newSousCircuit);
                     sousCircuit.addComposant(newSousCircuit);
-                }else {
-                    for (Composant composant : jonctionPlus.getComposants()) {
-                        if (!sousCircuit.getComposants().contains(composant)) {
-                            sousCircuit.addComposant(composant);
-                            parcourirSousCircuit(sousCircuit);
-                        }
-                    }
+                }//else {
+//                    for (Composant composant : jonctionPlus.getComposants()) {
+//                        if (!sousCircuit.getComposants().contains(composant)) {
+//                            sousCircuit.addComposant(composant);
+//                            parcourirSousCircuit(sousCircuit);
+//                        }
+//                    }
+//                }
+            }
+
+            for (Composant c : sousCircuit.getLast().getBornePositive().getComposants()){
+                if (!c.getBornePositive().equals(sousCircuit.getLast().getBornePositive())){
+                    sousCircuit.addComposant(c);
                 }
             }
 
