@@ -28,6 +28,21 @@ public abstract class Config {
     public static String circuitRecent2 = "";
     public static String circuitRecent3 = "";
 
+    // ============ Circuit ============
+
+    public static double circuitDiagrammesSplitPanePosition0;
+    public static double circuitDiagrammesSplitPanePosition1;
+    public static double circuitPosX;
+    public static double circuitPosY;
+    public static double circuitLargeur;
+    public static double circuitHauteur;
+    public static boolean circuitMaximise = true;
+    public static boolean circuitAfficherDiagramme2D = true;
+    public static boolean circuitAfficherDiagramme3D = true;
+    public static boolean circuitAfficherBarreDOutils = true;
+    public static boolean circuitAfficherListeDesComposants = true;
+    public static boolean circuitAfficherTitre = true;
+
     static void charger() {
         try {
             Field[] champs = Config.class.getFields();
