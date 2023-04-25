@@ -96,7 +96,7 @@
                 </HBox>
             </right>
             <left>
-                <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="591.0" style="-fx-background-color: dodgerblue;" text="Bibliothèque d'information sur les personnages" BorderPane.alignment="CENTER">
+                <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="591.0" style="-fx-background-color: dodgerblue;" text="Bibliothèque d'information sur les unités" BorderPane.alignment="CENTER">
                     <font>
                         <Font name="Open Sans SemiBold" size="24.0" />
                     </font>

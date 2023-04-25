@@ -1,0 +1,8 @@
+<p align="justify" style="font-family: Open Sans Light">
+
+James Clerk Maxwell est un physicien écossais reconnu surtout pour ses travaux en électricité et en magnétisme.  Il est considéré un des physiciens les plus importants de son époque, au même niveau qu'Isaac Newton lors de son vivant.  Il utilisera les observations de Micheal Faraday pour produire le concept et les équations décrivant la force des champs électriques et magnétiques.  Ces recherches seront plus tard utilisées par Albert Einstein dansses recherches sur la théorie de la relativité et aideront les recherches de la théorie quantique.  Elles aideront également Max Planck dans ses recherches sur sa théorie selon laquelle il ya a une corélation entre électromagnétisme et matière.
+<br>
+<br>
+Ses théories furent prouvées par Heinrich Hertz 8 ans après sa mort et ont permis à plusieurs inovation comme la radio d'apparaitre.
+
+</p>

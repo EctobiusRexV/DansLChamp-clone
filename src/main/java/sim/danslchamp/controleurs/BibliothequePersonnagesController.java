@@ -43,8 +43,8 @@ public class BibliothequePersonnagesController extends ParentControleur implemen
         vBoxPane.setFillWidth(true);
 
         List<String> listNomPersonnages = new ArrayList<>(List.of("Ørsted","Ampère", "Volta", "Edison",
-                "Ohm", "Faraday", "Tesla", "Bell"));
-        listNomPersonnages.addAll(List.of("Maxwell", "Coulomb", "Kirchhoff", "Henry"));
+                "Ohm", "Faraday", "Tesla"));
+        listNomPersonnages.addAll(List.of("Maxwell", "Coulomb", "Kirchhoff", "Henry", "Hertz"));
 
         for (String personnage : listNomPersonnages) {
                 CreerVBoxs(personnage);
