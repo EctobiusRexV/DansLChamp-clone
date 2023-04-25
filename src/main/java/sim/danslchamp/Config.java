@@ -33,14 +33,19 @@ public abstract class Config {
             Field[] champs = Config.class.getFields();
             List<String> lines = Files.readAllLines(Path.of("config"));
             for (int i = 0; i < champs.length; i++) {
-                if (champs[i].getType().getName().equals("int"))
-                    champs[i].setInt(null, Integer.parseInt(lines.get(i)));
-                else champs[i].set(null, lines.get(i));
+                switch (champs[i].getType().getName()) {
+                    case "int" -> champs[i].setInt(null, Integer.parseInt(lines.get(i)));
+                    case "double" -> champs[i].setDouble(null, Double.parseDouble(lines.get(i)));
+                    case "boolean" -> champs[i].setBoolean(null, Boolean.parseBoolean(lines.get(i)));
+                    default -> champs[i].set(null, lines.get(i));
+                }
             }
 
         } catch (IOException | IllegalAccessException e) {
             System.err.println("Impossible de charger la config.");
             e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println("Mauvaise version de la config.");
         }
     }
 

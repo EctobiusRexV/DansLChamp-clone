@@ -71,9 +71,9 @@ public class DansLChampApp extends Application {
         }
 
         CircuitControleur circuitControleur = fxmlLoader.getController();
+        stage.setOnHidden(event -> Config.sauvegarder());
         circuitControleur.setStage(stage);
         circuitControleur.chargerCircuit(file);
-        stage.setOnHidden(event -> Config.sauvegarder());
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
         stage.setMinWidth(1000.0);
