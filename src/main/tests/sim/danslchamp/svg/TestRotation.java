@@ -16,20 +16,25 @@ public class TestRotation extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Circle point = new Circle(0, 0, 3);
-        AnchorPane.setLeftAnchor(point, POS_POINT);
-        AnchorPane.setTopAnchor(point, POS_POINT);
-
         Résistor résistor = new Résistor(0, 0, false);
+
+        AnchorPane.setLeftAnchor(point, POS_POINT);
+        AnchorPane.setTopAnchor(point, POS_POINT+résistor.getJonctions()[0].getPositionXY().y);
+
         Group group = résistor.getSymbole2D();
         AnchorPane.setLeftAnchor(group, POS_POINT);
         AnchorPane.setTopAnchor(group, POS_POINT);
 
-        group.setRotationAxis(new Point3D(250.0, 250d, 250d));
+//        group.setRotationAxis(new Point3D(250.0, 250d, 250d));
 
-        Slider slider = new Slider(0,360,0);
+        Slider slider = new Slider(0,2*Math.PI,0);
         slider.valueProperty().addListener((c, o, v) -> {
-            if (v != null)
-                group.setRotate(v.doubleValue());
+            if (v != null) {
+                group.setRotate(Math.toDegrees(v.doubleValue()));
+
+                group.setTranslateX(-résistor.getLargeur() * (1-Math.cos(v.doubleValue()))/2);
+                group.setTranslateY(résistor.getLargeur() * Math.sin(v.doubleValue())/2);
+            }
         });
         AnchorPane.setBottomAnchor(slider, 10d);
         AnchorPane.setLeftAnchor(slider, 5d);
