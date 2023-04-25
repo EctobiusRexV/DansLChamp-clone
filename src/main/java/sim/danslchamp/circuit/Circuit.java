@@ -62,7 +62,6 @@ public class Circuit {
         sousCircuits = new ArrayList<>();
 
 
-
         circuit = trouverCircuit();
         calculCircuit();
         System.out.println(resistanceEqui);
@@ -85,7 +84,7 @@ public class Circuit {
         resistanceEqui = trouverResistanceEqui();
         trouverCourantSimple();
         trouverDDPSimple();
-        trouverCourantBranchesParalleles();
+        trouverCourantBranchesParalleles(sousCircuits);
         trouverDDPBranchesParalleles();
 
 
@@ -95,16 +94,49 @@ public class Circuit {
         for (SousCircuit sousCircuit : sousCircuits) {
             for (Composant c : sousCircuit.getComposants()) {
                 c.voltage.setValeur(c.reactance.getValeur(Composant.Unite.UNITE) * c.courant.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+                if (c instanceof SousCircuit){
+
+                    for (Composant composant : ((SousCircuit) c).getComposants()){
+                        composant.voltage.setValeur(c.courant.getValeur(Composant.Unite.UNITE) * composant.reactance.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+                    }
+
+                }
+
+
+
             }
         }
     }
 
-    private void trouverCourantBranchesParalleles() {
+    private void trouverCourantBranchesParalleles(List<SousCircuit> sousCircuits) {
 
         for (SousCircuit sousCircuit : sousCircuits) {
             sousCircuit.courant.setValeur(sousCircuit.voltage.getValeur(Composant.Unite.UNITE) / sousCircuit.reactance.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
-            for (Composant c : sousCircuit.getComposants()) {
-                c.courant.setValeur(sousCircuit.courant.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+//            for (Composant c : sousCircuit.getComposants()) {
+//
+//                if (c instanceof SousCircuit) {
+//
+//                } else {
+//                    c.courant.setValeur(sousCircuit.courant.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+//
+//                }
+//
+//            }
+            List<SousCircuit> parallelesDansParallele = new ArrayList<>();
+            for (int i = 0; i < sousCircuit.getComposants().size(); i++) {
+
+                if (sousCircuit.getComposants().get(i) instanceof SousCircuit) {
+                    if (sousCircuit.getComposants().get(i + 1) instanceof SousCircuit){
+                        sousCircuit.getComposants().get(i).voltage.setValeur(sousCircuit.courant.getValeur(Composant.Unite.UNITE) * ((SousCircuit) sousCircuit.getComposants().get(i)).getResistanceEquiSousCircuits(), Composant.Unite.UNITE);
+                        parallelesDansParallele.add((SousCircuit) sousCircuit.getComposants().get(i));
+                    } else {
+                        sousCircuit.getComposants().get(i).voltage.setValeur(sousCircuit.courant.getValeur(Composant.Unite.UNITE) * ((SousCircuit) sousCircuit.getComposants().get(i)).getResistanceEquiSousCircuits(), Composant.Unite.UNITE);
+                        parallelesDansParallele.add((SousCircuit) sousCircuit.getComposants().get(i));
+                        trouverCourantBranchesParalleles(parallelesDansParallele);
+                    }
+                } else {
+                    sousCircuit.getComposants().get(i).courant.setValeur(sousCircuit.courant.getValeur(Composant.Unite.UNITE), Composant.Unite.UNITE);
+                }
             }
         }
     }
@@ -228,7 +260,7 @@ public class Circuit {
             }
         }
 
-      return circuit;
+        return circuit;
     }
 
     private List<Composant> parcourirCircuit() {
@@ -274,8 +306,8 @@ public class Circuit {
 
         int nbCompPositives = 0;
 
-        for (Composant c : jonctionPlus.getComposants()){
-            if (c.getBornePositive().equals(jonctionPlus)){
+        for (Composant c : jonctionPlus.getComposants()) {
+            if (c.getBornePositive().equals(jonctionPlus)) {
                 nbCompPositives++;
             }
         }
@@ -289,8 +321,8 @@ public class Circuit {
             }
         } else if (nbCompPositives < 2) {
 
-            for (Composant c : jonctionPlus.getComposants()){
-                if (!(c.getBornePositive().equals(jonctionPlus))){
+            for (Composant c : jonctionPlus.getComposants()) {
+                if (!(c.getBornePositive().equals(jonctionPlus))) {
                     SousCircuit newSousCircuit = new SousCircuit();
                     newSousCircuit.addComposant(c);
                     parcourirSousCircuit(newSousCircuit);
@@ -305,8 +337,8 @@ public class Circuit {
 //                }
             }
 
-            for (Composant c : sousCircuit.getLast().getBornePositive().getComposants()){
-                if (!c.getBornePositive().equals(sousCircuit.getLast().getBornePositive())){
+            for (Composant c : sousCircuit.getLast().getBornePositive().getComposants()) {
+                if (!c.getBornePositive().equals(sousCircuit.getLast().getBornePositive())) {
                     sousCircuit.addComposant(c);
                 }
             }
