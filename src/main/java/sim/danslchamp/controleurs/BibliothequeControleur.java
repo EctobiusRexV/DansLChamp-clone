@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import org.reflections.Reflections;
+import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.Util.MathMlUtil;
 import sim.danslchamp.circuit.Composant;
 
@@ -43,7 +44,7 @@ public class BibliothequeControleur extends ParentControleur implements Initiali
         Set<Class<? extends Composant>> composantsClasses = reflections.getSubTypesOf(Composant.class);
 
         for (Class<? extends Composant> composantClass : composantsClasses) {
-            if (this.getClass().getResource("../circuit/symboles/" + composantClass.getSimpleName() + ".svg") != null)   // FIXME: 2023-04-04 Hotfix
+            if (DansLChampApp.class.getResource("circuit/symboles/" + composantClass.getSimpleName() + ".svg") != null)   // FIXME: 2023-04-04 Hotfix
                 CreerVBoxs(composantClass.getSimpleName());
         }
     }
@@ -63,7 +64,7 @@ public class BibliothequeControleur extends ParentControleur implements Initiali
         group.minHeight(50);
 
         try {
-            group = SVG_LOADER.loadSvg(this.getClass().getResourceAsStream("../circuit/symboles/" + nom + ".svg"));
+            group = SVG_LOADER.loadSvg(DansLChampApp.class.getResourceAsStream("circuit/symboles/" + nom + ".svg"));
         } catch (Exception e) {
             System.err.println("Incapable de présenter le composant " + nom);
             ;

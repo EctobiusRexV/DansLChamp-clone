@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import org.reflections.Reflections;
+import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.Util.MathMlUtil;
 
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class BibliothequeUnitesController extends ParentControleur implements In
         Image image = null;
 
         try {
-            image = new Image(this.getClass().getResourceAsStream("../unites/" + nom + ".jpg"));
+            image = new Image(DansLChampApp.class.getResourceAsStream("unites/" + nom + ".jpg"));
 
         } catch (Exception e) {
             System.err.println("Incapable de présenter l'unité " + nom);

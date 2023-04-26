@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sim.danslchamp.Config;
+import sim.danslchamp.DansLChampApp;
 
 import java.io.IOException;
 
@@ -34,7 +35,7 @@ public class ControllerUtil {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ControllerUtil.class.getResource("."));
 
-            Scene scene = new Scene(fxmlLoader.load(ControllerUtil.class.getResourceAsStream("../fxml/" + path)));
+            Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/" + path)));
 
             ParentControleur bienvenueControleur = fxmlLoader.getController();
             bienvenueControleur.setStage(stage);
