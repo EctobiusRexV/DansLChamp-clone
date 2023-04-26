@@ -78,8 +78,8 @@ public class BibliothequeControleur extends ParentControleur implements Initiali
         vBox.setOnMouseClicked(event -> {
             try {
                 if (nom.contains("source") && !nom.contains("batterie")) {
-                    textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt("source" + ".txt"));
-                } else textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt(nom + ".txt"));
+                    textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt("composants/source" + ".txt"));
+                } else textAreaBibliotheque.getEngine().loadContent(MathMlUtil.loadTxt("composants/" + nom + ".txt"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

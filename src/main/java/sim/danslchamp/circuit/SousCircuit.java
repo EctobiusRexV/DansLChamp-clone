@@ -74,6 +74,14 @@ public class SousCircuit extends Composant{
                 inverseImpedenceSousCircuit += 1 / c.calculResistance(frequence);
                 if (!(composants.get(i + 1) instanceof SousCircuit)){
                     impedenceTotaleSousCircuit += 1 / inverseImpedenceSousCircuit;
+
+                    for (int j = i; j > 0; j--) {
+                        if (!(composants.get(j) instanceof SousCircuit)) {
+                            break;
+                        }
+
+                        ((SousCircuit) composants.get(j)).ISetResistanceEquiSousCircuits(impedenceTotaleSousCircuit);
+                    }
                 }
             }else resistance += c.calculResistance(frequence);
 
@@ -83,13 +91,6 @@ public class SousCircuit extends Composant{
 
         return reactance.getValeur(Unite.UNITE);
 
-//        int resistance = 0;
-//
-//        for (Composant c : composants){
-//            resistance += c.calculResistance(frequence);
-//        }
-//
-//        return resistance;
     }
 
 

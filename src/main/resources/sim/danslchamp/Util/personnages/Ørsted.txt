@@ -1,0 +1,8 @@
+<p align="justify" style="font-family: Open Sans Light">
+
+Hans Christian Ørsted est un physicien et chimiste danois.  Il fut le premier a établir une relation entre électricité et magnétisme.  En effet, il observe que lorsqu'un courant est transporté dans un fil et que l'on positionne une boussole près de ce fil, la boussole en question se voit affectée par un champ généré par le fil !  Par contre, il ne sera malheureusement pas capable d'établir quelque explication ou relation mathématique du phénomène.  Il publie malgré tout ses découverte dans un livre qui inspirera plusieurs physiciens même après sa mort.  Il sera tout de même très bien reconnu après qu'André-Marie Ampère ait repris ses recherches.
+<br>
+<br>
+Ørsted ne se verra pas donner le nom d'une unité, mais le premier satellite danois portera son nom.  Ce satellite sert principalement à calculer le champ magnétique terrestre.
+
+</p>

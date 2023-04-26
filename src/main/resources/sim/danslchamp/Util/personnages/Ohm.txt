@@ -1,0 +1,11 @@
+<p align="justify" style="font-family: Open Sans Light">
+
+Georg Simon Ohm est un physicien et mathématicien allemand qui consacra sa vie à la recherche scientifique.  Il commencera alors à faire ses recherches à partir de ceux d'Alessandro Volta, puisqu'il utilisera sa pile voltaïque.  Il publiera alors ses recherches dans son livre « Die galvanische Kette, mathematisch bearbeitet », littéralement « Théorie mathématique du circuit galvanique » en français où il conclut qu'il y a une relation entre la différence de potentiel et l'intensité du courant, c'est la loi d'Ohm ! (voir définition du résistor)  Cette loi est un pas de géant vers la compréhension des phénomènes électriques.
+<br>
+<br>
+Il fut également le premier physicien à mesurer avec précision la différence de potentiel aux borne d'un composant ainsi que le premier à poser une vraie distinction entre courant et tension.
+<br>
+<br>
+On nommera l'unité de la résistance électrique, le ohm, en son honneur.
+
+</p>

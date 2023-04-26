@@ -1,0 +1,11 @@
+<p align="justify" style="font-family: Open Sans Light">
+
+Marie-André Ampère est un physicien français qui fait de grandes découvertes en éléctricité à la fin du 18e et au début du 19e siècle.  Alors qu'il apprend qu'Ørsted avait découvert qu'un courant dans un conducteur créait un champ magnétique, il se pose une question : et si on mettait deux de ces conducteurs traversés par un courant près l'un de l'autre ?  Comment se comportent-ils ?  Il fera alors l'expérience.  il découvrira alors que lorsque les deux sont positionnés dans le même sens, ils se repousent, alors que si les deux sont dans deux sens opposés, il s'attirent !  Il entourrera ensuite ce conducteur autour d'une aiguille qui se trouvera ainsi aimantée en permanence !  Il est donc responsable de la découverte de l'électro-aimant.
+<br>
+<br>
+Il inventera également le galvanomètre, ancètre de l'ampèremètre, qui permet de mesurer le courant dans un circuit.
+<br>
+<br>
+Pour ses travaux en physique électrique, Ampère se voit donner le nom de l'unité du courant électrique.
+
+</p>

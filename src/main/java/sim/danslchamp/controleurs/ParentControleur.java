@@ -28,6 +28,10 @@ public abstract class ParentControleur {
 
     static Stage stageBibliotheque = ControllerUtil.loadStage("Bibliotheque.fxml", 610, 700);
 
+    static Stage stageBibliothequePersonnages = ControllerUtil.loadStage("BibliothequePersonnages.fxml", 610, 700);
+
+    static Stage stageBibliothequeUnites = ControllerUtil.loadStage("BibliothequeUnites.fxml", 610, 700);
+
     public void setStage(Stage stage) {
         this.stage = stage;
         stage.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -67,6 +71,18 @@ public abstract class ParentControleur {
     void showBibliotheque() {
         stageBibliotheque.show();
         stageBibliotheque.requestFocus();
+    }
+
+    @FXML
+    void showBibliothequePersonnages(){
+        stageBibliothequePersonnages.show();
+        stageBibliothequePersonnages.requestFocus();
+    }
+
+    @FXML
+    void showBibliothequeUnites(){
+        stageBibliothequeUnites.show();
+        stageBibliothequeUnites.requestFocus();
     }
 
     @FXML
