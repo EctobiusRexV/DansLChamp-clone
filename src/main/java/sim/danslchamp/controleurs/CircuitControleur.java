@@ -1,7 +1,6 @@
 package sim.danslchamp.controleurs;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
@@ -12,6 +11,8 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.SubScene;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -32,8 +33,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import static sim.danslchamp.DansLChampApp.FC;
-
 /**
  * Contrôleur de la fenêtre Concepteur de circuit
  *
@@ -53,10 +52,38 @@ public class CircuitControleur extends ParentControleur {
     public void setStage(Stage stage) {
         super.setStage(stage);
 
+        stage.setMaximized(Config.circuitMaximise);
+        if (!Config.circuitMaximise) {
+            stage.setX(Config.circuitPosX);
+            stage.setY(Config.circuitPosY);
+            stage.setWidth(Config.circuitLargeur);
+            stage.setHeight(Config.circuitHauteur);
+        }
+
         stage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 concepteurControleur.annulerEdition();
             }
+        });
+
+        stage.setOnHidden(event -> {
+            Config.circuitDiagrammesSplitPanePosition0 = diagrammesSplitPane.getDividerPositions()[0];
+            Config.circuitDiagrammesSplitPanePosition1 = diagrammesSplitPane.getDividerPositions()[1];
+            Config.circuitMaximise = stage.isMaximized();
+            if (!stage.isMaximized()) {
+                Config.circuitPosX = stage.getX();
+                Config.circuitPosY = stage.getY();
+                Config.circuitLargeur = stage.getWidth();
+                Config.circuitHauteur = stage.getHeight();
+            }
+
+            Config.circuitAfficherDiagramme2D = diagramme2DCheckMenuItem.isSelected();
+            Config.circuitAfficherDiagramme3D = diagramme3DCheckMenuItem.isSelected();
+            Config.circuitAfficherListeDesComposants = listeDesComposantsCheckMenuItem.isSelected();
+            Config.circuitAfficherBarreDOutils = barreDOutilsCheckMenuItem.isSelected();
+            Config.circuitAfficherTitre = titreCheckMenuItem.isSelected();
+
+            Config.sauvegarder();
         });
     }
 
@@ -67,7 +94,7 @@ public class CircuitControleur extends ParentControleur {
     private VBox vBox2D, vBox3D;
     @FXML
     private SubScene subSceneConcepteur,
-            subScene3D;
+                     subScene3D;
 
     // FXML fields for each CheckMenuItem in Circuit.fxml
     @FXML
@@ -82,6 +109,15 @@ public class CircuitControleur extends ParentControleur {
     // ===============================
     @FXML
     public void initialize() {
+        diagramme2DCheckMenuItem.setSelected(Config.circuitAfficherDiagramme2D);
+        diagramme3DCheckMenuItem.setSelected(Config.circuitAfficherDiagramme3D);
+        listeDesComposantsCheckMenuItem.setSelected(Config.circuitAfficherListeDesComposants);
+        barreDOutilsCheckMenuItem.setSelected(Config.circuitAfficherBarreDOutils);
+        titreCheckMenuItem.setSelected(Config.circuitAfficherTitre);
+
+        diagrammesSplitPane.setDividerPosition(0, Config.circuitDiagrammesSplitPanePosition0);
+        diagrammesSplitPane.setDividerPosition(1, Config.circuitDiagrammesSplitPanePosition1);
+
         composantsListView.setCellFactory(item ->
                 new ComposantsListCell(circuit));
 
@@ -205,6 +241,4 @@ public class CircuitControleur extends ParentControleur {
         Config.circuitRecent2 = Config.circuitRecent1;
         Config.circuitRecent1 = file.getAbsolutePath();
     }
-
-
 }
