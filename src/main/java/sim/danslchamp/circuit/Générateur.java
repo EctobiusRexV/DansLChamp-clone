@@ -20,9 +20,9 @@ public class Générateur extends Source {
     @Modifiable
     public Valeur frequence = new Valeur(Config.defautGenerateurFrequence_Hz, Unite.UNITE, "Hz");
 
-    public Générateur(int posX, int posY, boolean rotation90) {
+    public Générateur(int posX, int posY, int angleRotation) {
         super(new Jonction[]{new Jonction(new Point(20, 0)), new Jonction(new Point(20, 40))},
-                40, 40, posX, posY, rotation90);
+                40, 40, posX, posY, angleRotation);
     }
 
     @Override

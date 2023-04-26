@@ -101,12 +101,21 @@ public abstract class Diagramme {
             symbole.setTranslateY(composant.getPosY());
             getGroup().getChildren().add(composant.getChamp());
             getGroup().getChildren().add(symbole);
+
+            rotationner(symbole, composant.getAngleRotation());
             return symbole;
         }
 
         @Override
         void afficherChampMagnetique() {
 
+        }
+
+        public static void rotationner(Group group, Number v) {
+            group.setRotate(v.doubleValue());
+
+            group.setTranslateX(group.getTranslateX() + -group.getLayoutBounds().getWidth() * (1-Math.cos(Math.toRadians(v.doubleValue())))/2);
+            group.setTranslateY(group.getTranslateY() + group.getLayoutBounds().getWidth() * Math.sin(Math.toRadians(v.doubleValue()))/2);
         }
     }
 
