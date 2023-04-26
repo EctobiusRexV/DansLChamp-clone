@@ -213,7 +213,7 @@ public abstract class Composant {
             // Instancier la classe
             composant = (Composant) composantClass
                     .getDeclaredConstructors()[0]   // SVP qu'un seul constructeur!
-                    .newInstance(0, 0, false);
+                    .newInstance(0, 0, 0);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             DanslChampUtil.erreur("Impossible de charger " + composantClass.getSimpleName(), e.getMessage());
             e.printStackTrace();
