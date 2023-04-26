@@ -71,6 +71,8 @@ public abstract class Composant {
     // Indique si le composant est tournée de 90°
     boolean rotation90;
 
+    private int angleRotation;
+
     private Group group;
 
     private int strokeWidth = Config.defautComposantStrokeWidth;
@@ -92,13 +94,15 @@ public abstract class Composant {
      * @param largeur
      * @param posX               la position en X
      * @param posY               la position en Y
-     * @param rotation90         le composant est tournée de 90°?
+     * @param angleRotation      le composant est tournée de 90°?
      */
-    protected Composant(Jonction[] jonctionsRelatives, int hauteur, int largeur, int posX, int posY, boolean rotation90) {
+    protected Composant(Jonction[] jonctionsRelatives, int hauteur, int largeur, int posX, int posY, int angleRotation) {
         this.jonctionsRelatives = jonctionsRelatives;
         this.hauteur = hauteur;
         this.largeur = largeur;
-        this.rotation90 = rotation90;
+        this.angleRotation = angleRotation;
+
+        rotation90 = angleRotation == 90 || angleRotation == 270;   // FIXME: 2023-04-25 temporaire (pour fn avec symbole 3D)
 
         setPosXY(posX, posY);
     }
@@ -161,6 +165,10 @@ public abstract class Composant {
 
     public int getPosY() {
         return posY;
+    }
+
+    public int getAngleRotation() {
+        return angleRotation;
     }
 
     public int getHauteur() {

@@ -61,8 +61,8 @@
 
 <!--fil droit-->
     <line x1="400" y1="20" x2="400" y2="30" style="fill:none;stroke:black;stroke-width:3"/>
-    <use xlink:href="#Bobine" nombreDeSpires="10" longueur="0.1" rayon="0.05" rotation90="true" x="-110" y="390" transform="rotate(-90)"/>
-    <use xlink:href="#Résistor" resistance="25" rotation90="true" x="-200" y="390" transform="rotate(-90)"/>
+    <use xlink:href="#Bobine" nombreDeSpires="10" longueur="0.1" rayon="0.05" x="400" y="30" transform="rotate(90 405 35)"/>
+    <use xlink:href="#Résistor" resistance="25" x="400" y="120" transform="rotate(90 405 125)"/>
     <line x1="400" y1="110" x2="400" y2="120" style="fill:none;stroke:black;stroke-width:3"/>
     <line x1="400" y1="200" x2="400" y2="230" style="fill:none;stroke:black;stroke-width:3"/>
 
@@ -70,7 +70,7 @@
     <line x1="300" y1="20" x2="300" y2="70" style="fill:none;stroke:black;stroke-width:3"/>
     <use xlink:href="#Condensateur" capacite="0.005" x="280" y="70"/>
     <line x1="300" y1="100" x2="300" y2="120" style="fill:none;stroke:black;stroke-width:3"/>
-    <use xlink:href="#Résistor" resistance="25" rotation90="true" x="-200" y="290" transform="rotate(-90)"/>
+    <use xlink:href="#Résistor" resistance="25" x="300" y="120" transform="rotate(90 305 125)"/>
     <line x1="300" y1="200" x2="300" y2="230" style="fill:none;stroke:black;stroke-width:3"/>
 
 

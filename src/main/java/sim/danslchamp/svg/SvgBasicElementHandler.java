@@ -28,10 +28,9 @@ import org.apache.batik.css.dom.CSSOMValue;
 import org.apache.batik.dom.svg.SVGPathSegItem;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSStyleDeclaration;
-import org.w3c.dom.svg.SVGPoint;
-import org.w3c.dom.svg.SVGPointList;
-import org.w3c.dom.svg.SVGRect;
+import org.w3c.dom.svg.*;
 import sim.danslchamp.circuit.Composant;
+import sim.danslchamp.circuit.Diagramme;
 import sim.danslchamp.circuit.Fil;
 
 import java.lang.reflect.Field;
@@ -83,7 +82,7 @@ public class SvgBasicElementHandler {
                 type,
                 (int) element.getX().getBaseVal().getValue(),
                 (int) element.getY().getBaseVal().getValue(),
-                estRotationne90(element)
+                getAngleRotation(element)
         );
 
         for (Composant.ValeurNomWrapper valeurNomWrapper :
@@ -101,12 +100,20 @@ public class SvgBasicElementHandler {
         group.setTranslateX(element.getX().getBaseVal().getValue());
         group.setTranslateY(element.getY().getBaseVal().getValue());
 
+        Diagramme.Diagramme2D.rotationner(group, getAngleRotation(element));
         loader.parentNode.getChildren().add(group);
+
     }
 
-    private static boolean estRotationne90(SVGOMUseElement element) {
-//        return element.getTransform().getBaseVal()
-        return false;
+    private static int getAngleRotation(SVGOMUseElement element) {
+        SVGTransformList transformList = element.getTransform().getBaseVal();
+        for (int i = 0; i < transformList.getNumberOfItems(); i++) {    // Gérér plusieurs transform, les rotations sont type #4
+            SVGTransform item = transformList.getItem(i);
+            if (item.getType() == 4)
+                return (int) item.getAngle();
+        }
+
+        return 0;
     }
 
 

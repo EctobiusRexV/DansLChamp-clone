@@ -24,9 +24,9 @@ public class Résistor extends Composant {
     /**
      * Permet la construction d'un résistor depuis les attributs SVG.
      */
-    public Résistor(int posX, int posY, boolean rotation90) {
+    public Résistor(int posX, int posY, int angleRotation) {
         super(new Jonction[]{new Jonction(new Point(0, 10)), new Jonction(new Point(80, 10))},
-                30, 80, posX, posY, rotation90);
+                30, 80, posX, posY, angleRotation);
     }
 
     @Override

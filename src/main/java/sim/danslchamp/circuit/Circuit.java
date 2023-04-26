@@ -62,6 +62,7 @@ public class Circuit {
         sousCircuits = new ArrayList<>();
 
 
+
         circuit = trouverCircuit();
         calculCircuit();
         System.out.println(resistanceEqui);

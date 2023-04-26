@@ -9,6 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -42,6 +43,9 @@ public class BienvenueControleur extends ParentControleur {
     @FXML
     private MFXTitledPane deBaseTitledPane;
 
+    @FXML
+    private Label bienvenueLabel;
+
 
     // ===============================
     //             INIT
@@ -69,6 +73,7 @@ public class BienvenueControleur extends ParentControleur {
         deBaseTitledPane.setContent(deBaseFlowPane);
         recentsTitlePane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
 
+        bienvenueLabel.setText("Bienvenue " + System.getProperty("user.name") + ",");
     }
 
     private VBox getCircuitVBox(Path path) {
@@ -87,7 +92,7 @@ group.setAutoSizeChildren(true);
         vBox.setPrefWidth(200);
         vBox.setMaxWidth(200);
         vBox.setFillWidth(true);
-vBox.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.RED, CornerRadii.EMPTY, new Insets(10))));
+vBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, new Insets(10))));
 vBox.setBorder(new Border(new BorderStroke(javafx.scene.paint.Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
         vBox.setUserData(path.toFile());
         vBox.setOnMouseClicked(this::circuitPressed);

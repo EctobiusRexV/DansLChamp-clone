@@ -36,9 +36,9 @@ public class Bobine extends Composant {
     /**
      * Permet la construction d'une bobine depuis les attributs SVG
      */
-    public Bobine(int posX, int posY, boolean rotation90) {
+    public Bobine(int posX, int posY, int angleRotation) {
         super(new Jonction[]{new Jonction(new Point(0, 10)), new Jonction(new Point(80, 10))},
-                22, 80, posX, posY, rotation90);
+                22, 80, posX, posY, angleRotation);
     }
 
     @Override
