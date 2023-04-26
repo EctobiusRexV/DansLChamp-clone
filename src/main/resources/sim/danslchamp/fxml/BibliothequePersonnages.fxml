@@ -55,11 +55,11 @@
 
                 <VBox style="-fx-background-color: dodgerblue;" HBox.hgrow="ALWAYS">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="150.0" VBox.vgrow="ALWAYS">
+                  <MFXScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="150.0" VBox.vgrow="ALWAYS">
                      <content>
                         <VBox fx:id="vBoxPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: dodgerblue;" />
                      </content>
-                  </ScrollPane>
+                  </MFXScrollPane>
                </children></VBox>
                 <Region onMousePressed="#dragResize" prefHeight="200.0" prefWidth="2.0" style="-fx-background-color: dodgerblue;">
                     <cursor>

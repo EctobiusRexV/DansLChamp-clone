@@ -9,6 +9,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -190,8 +191,27 @@ public abstract class Composant {
         return jonctions;
     }
 
+    public Jonction[] getJonctionsRelatives() {
+        return jonctionsRelatives;
+    }
+
     public Jonction getBornePositive() {
         return bornePositive;
+    }
+
+    public static Composant getInstance(Class<? extends Composant> composantClass) {
+        Composant composant = null;
+        try {
+            // Instancier la classe
+            composant = (Composant) composantClass
+                    .getDeclaredConstructors()[0]   // SVP qu'un seul constructeur!
+                    .newInstance(0, 0, false);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            DanslChampUtil.erreur("Impossible de charger " + composantClass.getSimpleName(), e.getMessage());
+            e.printStackTrace();
+        }
+
+        return composant;
     }
 
     private ValeurNomWrapper[] getValeurs(Class annotationClass) {
