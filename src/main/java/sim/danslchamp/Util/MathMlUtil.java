@@ -3,16 +3,13 @@ package sim.danslchamp.Util;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 
 public class MathMlUtil{
     public static String loadTxt(String fileName) throws IOException {
-        FileReader fileReader = null;
-        try {
-            fileReader = new FileReader(new File(MathMlUtil.class.getResource(fileName).toURI()));
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        InputStream fileReader  = MathMlUtil.class.getResourceAsStream(fileName);
+
         String str = "";
         int i = 0;
 
