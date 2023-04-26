@@ -38,13 +38,13 @@ public class ControllerUtil {
             Scene scene = new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/" + path)));
 
             ParentControleur bienvenueControleur = fxmlLoader.getController();
+            stage.setOnHidden(event -> Config.sauvegarder());
             bienvenueControleur.setStage(stage);
             stage.setScene(scene);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setMinHeight(minHeight);
             stage.setMinWidth(minWidht);
             stage.setResizable(true);
-            stage.setOnHidden(event -> Config.sauvegarder());
 
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
