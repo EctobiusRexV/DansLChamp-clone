@@ -79,10 +79,12 @@ public abstract class Diagramme {
             }
 
             infobulle.show(composantGroup, event.getScreenX(), event.getScreenY());
+            event.consume();
         });
         composantGroup.setOnMouseReleased(event -> {
             infobulle.hide();
         });
+
     }
 
     public Group getGroup() {

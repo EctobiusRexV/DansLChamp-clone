@@ -353,7 +353,7 @@ public class Circuit {
         return sousCircuit;
     }
 
-    public Composant addComposant(String composantType, int posX, int posY, boolean rotation90) {
+    public Composant addComposant(String composantType, int posX, int posY, int angleRotation) {
         try {
             // Instancier la classe
             Composant composant = Composant.getInstance((Class<Composant>) Class.forName("sim.danslchamp.circuit." + composantType));
@@ -367,13 +367,13 @@ public class Circuit {
         return null;
     }
 
-    public Composant addComposant(Class<? extends Composant> composantClass, int posX, int posY, boolean rotation90) {
+    public Composant addComposant(Class<? extends Composant> composantClass, int posX, int posY, int angleRotation) {
         Composant composant = null;
         try {
             // Instancier la classe
             composant = (Composant) composantClass
                     .getDeclaredConstructors()[0]   // SVP qu'un seul constructeur!
-                    .newInstance(posX, posY, rotation90);
+                    .newInstance(posX, posY, angleRotation);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             DanslChampUtil.erreur("Impossible de charger " + composantClass.getSimpleName(), e.getMessage());
             e.printStackTrace();

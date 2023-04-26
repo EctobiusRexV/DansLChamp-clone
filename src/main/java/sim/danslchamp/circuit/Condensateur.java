@@ -92,6 +92,7 @@ public class Condensateur extends Composant {
 
 
             infobulle.show(group, event.getScreenX(), event.getScreenY());
+            event.consume();
         });
         group.setOnMouseReleased(event -> {
             infobulle.hide();

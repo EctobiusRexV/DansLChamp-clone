@@ -61,7 +61,6 @@ public class ComposantsListCell extends ListCell<Composant> {
                         valeurNomWrapper.valeur.setValeur(newvalue.toString(), uniteComboBox.getValue());
                         circuit.calculCircuit();
                         //TODO pas sur lala
-                        System.out.println("test");
                         circuit.getDiagramme2D().getGroup().getChildren().clear();
                         circuit.getDiagramme3D().getGroup().getChildren().clear();
                         for (int i = 0; i < circuit.getComposants().size(); i++) {

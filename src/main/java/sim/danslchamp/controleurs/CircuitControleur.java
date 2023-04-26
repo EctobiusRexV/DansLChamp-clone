@@ -47,6 +47,8 @@ public class CircuitControleur extends ParentControleur {
 
     private ConcepteurControleur concepteurControleur;
 
+    Tooltip infobulleC = new Tooltip();
+
     @Override
     public void setStage(Stage stage) {
         super.setStage(stage);
@@ -90,29 +92,39 @@ public class CircuitControleur extends ParentControleur {
 
 
             vBox2D.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent event) -> {
-                if (concepteurControleur.getChamp().isSelected()) {
-                    Bobine bob = new Bobine(0, 0, false);
+                if (event.getTarget().getClass() == Group.class) {
+
+                } else if (concepteurControleur.getChamp().isSelected()) {
+                    Bobine bob = new Bobine(0, 0, 0);
                     for (int i = 0; i < circuit.getComposantsSansFils().size(); i++) {
                         if (circuit.getComposantsSansFils().get(i).getClass() == Bobine.class) {
                             bob = (Bobine) circuit.getComposantsSansFils().get(i);
                             break;
                         }
                     }
-                    Tooltip infobulle = new Tooltip();
+
                     javafx.scene.control.Label valeursLabel = new javafx.scene.control.Label();
                     VBox infobulleVBox = new VBox(
                             new Label("champ magnétique"),
                             new Separator(Orientation.HORIZONTAL),
                             valeursLabel);
-
-                    infobulle.setGraphic(infobulleVBox);
+//TODO faire les distances correct
+                    infobulleC.setGraphic(infobulleVBox);
+                    double x = bob.getSymbole2D().getLayoutX();
+                    double y = bob.getSymbole2D().getLayoutY();
+                    double d = Math.hypot((bob.getPosX() - event.getX()), (bob.getPosY() - event.getY()));
                     double B = 4 * Math.PI * (bob.nombreDeSpires.getValeur(Composant.Unite.UNITE) / bob.longueur.getValeur(Composant.Unite.UNITE)) * bob.courant.getValeur(Composant.Unite.UNITE) / 100;
-                    double Bext = (B * Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2) + Math.pow(Math.hypot(event.getX(), event.getY()), 2), (3 / 2)));
-                    valeursLabel.setText("La force du champ magnétique à " + Math.hypot(event.getX(), event.getY()) + " mètres de la bobine est de: " + "\n" + Bext + "e-5 T");     // Clear
+                    double Bext = (B * Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2) + Math.pow(d, 2), (3 / 2)));
+                    valeursLabel.setText("La force du champ magnétique à " + d + " mètres de la bobine est de: " + "\n" + Bext + "e-5 T");     // Clear
 
 
-                    infobulle.show(vBox2D, event.getScreenX(), event.getScreenY());
+                    infobulleC.show(vBox2D, event.getScreenX(), event.getScreenY());
                 }
+            });
+
+            vBox2D.addEventHandler(MouseEvent.MOUSE_RELEASED, event -> {
+                infobulleC.hide();
+
             });
             concepteurControleur = fxmlLoader.getController();
             concepteurControleur.setCircuit(circuit);

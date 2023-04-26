@@ -1,5 +1,6 @@
 package sim.danslchamp.circuit;
 
+import io.github.palexdev.materialfx.enums.ChainMode;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point3D;
 import javafx.scene.CacheHint;
@@ -15,6 +16,7 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.StrokeLineCap;
 import sim.danslchamp.Config;
 
+import javax.security.auth.callback.CallbackHandler;
 import java.awt.*;
 
 /**
@@ -79,37 +81,44 @@ public class Bobine extends Composant {
         double endY = this.getJonctions()[1].getPositionXY().getY();
         double criss = courant.getValeur(Unite.UNITE);
         if (criss == 0) {
-            criss = getHauteur() + startY;
+            return new Group();
         }
         Group group = new Group();
         for (int i = 0; i < 4; i++) {
             CubicCurve champ = new CubicCurve(startX, startY, ((endX - startX) / 3) + startX, criss, ((endX - startX) * 2 / 3) + startX, criss, endX, endY);
+            double t = 0.5;
+
+            double y = Math.pow(1 - t, 3) * champ.getStartY()
+                    + 3 * t * Math.pow(1 - t, 2) * champ.getControlY1()
+                    + 3 * Math.pow(t, 2) * (1 - t) * champ.getControlY2()
+                    + Math.pow(t, 3) * champ.getEndY();
+
             if (i == 0) {
                 champ.setControlX1(startX - 20);
                 champ.setControlX2(endX + 20);
             }
             if (i == 1) {
+                champ.setTranslateY(startY-y);
                 champ.setRotationAxis(new Point3D(1, 0, 0));
                 champ.setRotate(180);
                 champ.setControlX1(startX - 20);
                 champ.setControlX2(endX + 20);
-                champ.setTranslateY(startY - criss);
             }
             if (i == 2) {
+                champ.setTranslateY(-y/2 + (getHauteur()/2));
+                champ.setTranslateZ(-y/2);
                 champ.setRotationAxis(new Point3D(1, 0, 0));
                 champ.setRotate(-90);
                 champ.setControlX1(startX - 20);
                 champ.setControlX2(endX + 20);
-                champ.setTranslateY((startY - criss) / 2);
-                champ.setTranslateZ(startY - criss);
             }
             if (i == 3) {
+                champ.setTranslateY(-y/2 + (getHauteur()/2));
+                champ.setTranslateZ(y/2);
                 champ.setRotationAxis(new Point3D(1, 0, 0));
                 champ.setRotate(90);
                 champ.setControlX1(startX - 20);
                 champ.setControlX2(endX + 20);
-                champ.setTranslateY((startY - criss) / 2);
-                champ.setTranslateZ(criss - startY);
             }
             champ.setStrokeWidth(4);
             champ.setStroke(Color.ORANGERED);
@@ -128,13 +137,14 @@ public class Bobine extends Composant {
 
         group.setOnMousePressed(event -> {
             double B = 4 * Math.PI * (nombreDeSpires.getValeur(Unite.UNITE) / longueur.getValeur(Unite.UNITE)) * courant.getValeur(Unite.UNITE) / 100;
-            double Bext = (B * Math.pow(rayon.getValeur(Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(rayon.getValeur(Unite.UNITE), 2) + Math.pow(0.25,2), (3 / 2)));
+            double Bext = (B * Math.pow(rayon.getValeur(Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(rayon.getValeur(Unite.UNITE), 2) + Math.pow(0.25, 2), (3 / 2)));
             valeursLabel.setText("La force du champ magnétique à 0.25 mètre de la bobine est de: " + "\n" + Bext + "e-5 T");     // Clear
 
             valeursLabel.setText(valeursLabel.getText().concat("\n" + "La force du champ magnétique dans la bobine" + " est de" + ": "
                     + "\n" + B + "e-5 T"));
 
             infobulle.show(group, event.getScreenX(), event.getScreenY());
+            event.consume();
         });
         group.setOnMouseReleased(event -> {
             infobulle.hide();
