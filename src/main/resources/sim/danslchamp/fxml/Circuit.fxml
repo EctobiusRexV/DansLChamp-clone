@@ -33,7 +33,7 @@
                          <children>
                              <ImageView fitHeight="27.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                     <Image url="@../controleurs/logoDansLeChamp.png" />
+                                     <Image url="@/sim/danslchamp/controleurs/logoDansLeChamp.png" />
                                  </image>
                              </ImageView>
                              <MenuBar style="-fx-background-color: dodgerblue;">

@@ -50,7 +50,7 @@
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../controleurs/curseur.png" />
+                         <Image url="@/sim/danslchamp/controleurs/curseur.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -65,7 +65,7 @@
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../controleurs/disquette.png" />
+                         <Image url="@/sim/danslchamp/controleurs/disquette.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -74,7 +74,7 @@
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../controleurs/lock.png" />
+                         <Image url="@/sim/danslchamp/controleurs/lock.png" />
                      </image>
                   </ImageView>
                </graphic>

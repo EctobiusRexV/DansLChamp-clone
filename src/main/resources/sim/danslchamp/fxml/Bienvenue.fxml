@@ -38,7 +38,7 @@ je vais identifier ou sont les ressource dans le code
                           <!--                l'url de scene builder : "@../controleurs/logoComplet.png"-->
                           <!--                l'url de intellij sim/danslchamp/controleurs/logoComplet.png-->
                           <image>
-                              <Image url="@../controleurs/logoComplet.png" />
+                              <Image url="@/sim/danslchamp/controleurs/logoComplet.png" />
                           </image>
                      <VBox.margin>
                         <Insets top="40.0" />
@@ -151,7 +151,7 @@ je vais identifier ou sont les ressource dans le code
                             <!--                        le url pour intellij est "sim/danslchamp/controleurs/logoDansLeChamp.png", il commence aux package sim -->
                             <!--                       l'url pour scene builder : @../controleurs/logoDansLeChamp.png-->
                             <image>
-                                <Image url="@../controleurs/logoDansLeChamp.png" />
+                                <Image url="@/sim/danslchamp/controleurs/logoDansLeChamp.png" />
                             </image>
                         </ImageView>
                         <MenuBar prefHeight="25.0" prefWidth="261.0" style="-fx-background-color: dodgerblue;">
