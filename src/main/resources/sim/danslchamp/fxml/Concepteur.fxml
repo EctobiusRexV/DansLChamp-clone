@@ -55,6 +55,7 @@
                   </ImageView>
                </graphic>
             </ToggleButton>
+            <ToggleButton fx:id="togglechamp" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="Champ" />
             <ToggleButton fx:id="filToggleButton" mnemonicParsing="false">
                <graphic>
                   <ImageView fx:id="fil" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />

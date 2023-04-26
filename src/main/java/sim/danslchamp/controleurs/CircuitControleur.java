@@ -4,17 +4,17 @@ import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SubScene;
 import javafx.scene.*;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.control.SplitPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import sim.danslchamp.Config;
 import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.Util.ComposantsListCell;
+import sim.danslchamp.circuit.Bobine;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
 
@@ -64,7 +65,7 @@ public class CircuitControleur extends ParentControleur {
     private VBox vBox2D, vBox3D;
     @FXML
     private SubScene subSceneConcepteur,
-                     subScene3D;
+            subScene3D;
 
     // FXML fields for each CheckMenuItem in Circuit.fxml
     @FXML
@@ -86,6 +87,33 @@ public class CircuitControleur extends ParentControleur {
         try {
 //            Stage stage = fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml");
             subSceneConcepteur.setRoot(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml")));
+
+
+            vBox2D.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent event) -> {
+                if (concepteurControleur.getChamp().isSelected()) {
+                    Bobine bob = new Bobine(0, 0, false);
+                    for (int i = 0; i < circuit.getComposantsSansFils().size(); i++) {
+                        if (circuit.getComposantsSansFils().get(i).getClass() == Bobine.class) {
+                            bob = (Bobine) circuit.getComposantsSansFils().get(i);
+                            break;
+                        }
+                    }
+                    Tooltip infobulle = new Tooltip();
+                    javafx.scene.control.Label valeursLabel = new javafx.scene.control.Label();
+                    VBox infobulleVBox = new VBox(
+                            new Label("champ magnétique"),
+                            new Separator(Orientation.HORIZONTAL),
+                            valeursLabel);
+
+                    infobulle.setGraphic(infobulleVBox);
+                    double B = 4 * Math.PI * (bob.nombreDeSpires.getValeur(Composant.Unite.UNITE) / bob.longueur.getValeur(Composant.Unite.UNITE)) * bob.courant.getValeur(Composant.Unite.UNITE) / 100;
+                    double Bext = (B * Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2) + Math.pow(Math.hypot(event.getX(), event.getY()), 2), (3 / 2)));
+                    valeursLabel.setText("La force du champ magnétique à " + Math.hypot(event.getX(), event.getY()) + " mètres de la bobine est de: " + "\n" + Bext + "e-5 T");     // Clear
+
+
+                    infobulle.show(vBox2D, event.getScreenX(), event.getScreenY());
+                }
+            });
             concepteurControleur = fxmlLoader.getController();
             concepteurControleur.setCircuit(circuit);
 //            ((ConcepteurControleur) fxmlLoader.getController()).setStage(stage);
@@ -96,10 +124,10 @@ public class CircuitControleur extends ParentControleur {
         composantsListView.getSelectionModel().selectedItemProperty().addListener((l, old, composant) -> {
             if (composant != null) {
                 composant.getSymbole2D().getChildren().forEach(node -> {
-                        if (node instanceof Group) {
-                            ((Group) node).getChildren().forEach(subnodes -> subnodes.setStyle("-fx-stroke: blue"));
-                            }
-                        });
+                    if (node instanceof Group) {
+                        ((Group) node).getChildren().forEach(subnodes -> subnodes.setStyle("-fx-stroke: blue"));
+                    }
+                });
             }
             if (old != null) {
                 old.getSymbole2D().getChildren().forEach(node -> {
@@ -165,4 +193,6 @@ public class CircuitControleur extends ParentControleur {
         Config.circuitRecent2 = Config.circuitRecent1;
         Config.circuitRecent1 = file.getAbsolutePath();
     }
+
+
 }

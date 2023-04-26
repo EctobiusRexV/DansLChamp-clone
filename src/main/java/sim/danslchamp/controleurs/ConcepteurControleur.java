@@ -2,14 +2,20 @@ package sim.danslchamp.controleurs;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
+import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Line;
@@ -20,6 +26,7 @@ import sim.danslchamp.Config;
 import sim.danslchamp.circuit.*;
 import sim.danslchamp.svg.FXASvg;
 
+import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -46,9 +53,10 @@ public class ConcepteurControleur {
     private ToolBar toolbar;
 
     @FXML
-    private ToggleButton    curseurToggleButton,
-                            filToggleButton,
-                            lockToggleButton;
+    private ToggleButton curseurToggleButton,
+            filToggleButton,
+            togglechamp,
+            lockToggleButton;
 
     private Line currentLine = new Line();
 
@@ -99,7 +107,8 @@ public class ConcepteurControleur {
 
     private void initZoom() {
         diagrammeAnchorPane.addEventHandler(ScrollEvent.SCROLL, event -> {
-            if (diagrammeAnchorPane.getScaleX() + event.getDeltaY() / 100 < 0) return; // empêcher d'obtenir un scale négatif
+            if (diagrammeAnchorPane.getScaleX() + event.getDeltaY() / 100 < 0)
+                return; // empêcher d'obtenir un scale négatif
 
             diagrammeAnchorPane.scaleXProperty().set(diagrammeAnchorPane.getScaleX() + event.getDeltaY() / 1000);
             diagrammeAnchorPane.scaleYProperty().set(diagrammeAnchorPane.getScaleY() + event.getDeltaY() / 1000);
@@ -109,7 +118,7 @@ public class ConcepteurControleur {
 
     private void initToggleGroup() {
         ToggleGroup group = new ToggleGroup();
-        group.getToggles().setAll(curseurToggleButton, filToggleButton);
+        group.getToggles().setAll(curseurToggleButton, filToggleButton, togglechamp);
     }
 
     public void setCircuit(Circuit circuit) {
@@ -180,10 +189,13 @@ public class ConcepteurControleur {
     }
 
     public void annulerEdition() {
-        annule=true;
+        annule = true;
         currentLine.setVisible(false);
     }
 
+    public ToggleButton getChamp() {
+        return togglechamp;
+    }
 
     public class ListPoint2D {
 
