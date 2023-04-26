@@ -34,7 +34,15 @@ je vais identifier ou sont les ressource dans le code
          <content>
               <VBox alignment="TOP_CENTER" prefHeight="768.0" prefWidth="644.0" spacing="30.0" style="-fx-background-color: white;">
                   <children>
-                      <MFXTitledPane fx:id="recentsTitlePane" expanded="true" title="Circuits Récents">
+                  <Label fx:id="bienvenueLabel" alignment="BOTTOM_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="69.0" prefWidth="640.0" text="Bienvenue {user}" textFill="GREY">
+                     <font>
+                        <Font name="Artifakt Element Light Italic" size="36.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </Label>
+                      <MFXTitledPane fx:id="recentsTitlePane" expanded="true" prefHeight="158.0" prefWidth="640.0" title="Circuits Récents">
                           <content>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                   <children>

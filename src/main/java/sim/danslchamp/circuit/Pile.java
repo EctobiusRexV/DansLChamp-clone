@@ -17,9 +17,9 @@ import java.awt.*;
  */
 public class Pile extends Source {
 
-    public Pile(int posX, int posY, boolean rotation90) {
+    public Pile(int posX, int posY, int angleRotation) {
         super(new Jonction[]{new Jonction(new Point(20, 0)), new Jonction(new Point(20, 30))},
-                30, 40, posX, posY, rotation90);
+                30, 40, posX, posY, angleRotation);
     }
 
     @Override
