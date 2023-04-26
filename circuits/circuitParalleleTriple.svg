@@ -34,7 +34,7 @@
         </g>
     </defs>
 
-    <use xlink:href="#Pile" frequence="60" voltage="5" x="5" y="70" />
+    <use xlink:href="#Générateur" frequence="60" voltage="5" x="5" y="70" />
     <line x1="25" y1="70" x2="25" y2="20" />
     <line x1="25" y1="20" x2="140" y2="20" />
     <line x1="140" y1="20" x2="300" y2="20" />
@@ -45,7 +45,7 @@
 
     <line x1="300" y1="150" x2="140" y2="150" style="fill:none;stroke:black;stroke-width:3"/>
     <line x1="140" y1="150" x2="25" y2="150" style="fill:none;stroke:black;stroke-width:3"/>
-    <line x1="25" y1="150" x2="25" y2="100" />
+    <line x1="25" y1="150" x2="25" y2="110" />
 
     <line x1="140" y1="20" x2="140" y2="40" />
     <use xlink:href="#Condensateur" capacite="15" x="120" y="40" />
