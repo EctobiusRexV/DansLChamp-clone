@@ -43,8 +43,6 @@ public class BienvenueControleur extends ParentControleur {
     @FXML
     private MFXTitledPane deBaseTitledPane;
 
-    @FXML
-    private Label bienvenueLabel;
 
 
     // ===============================
@@ -73,7 +71,6 @@ public class BienvenueControleur extends ParentControleur {
         deBaseTitledPane.setContent(deBaseFlowPane);
         recentsTitlePane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
 
-        bienvenueLabel.setText("Bienvenue " + System.getProperty("user.name") + ",");
     }
 
     private VBox getCircuitVBox(Path path) {

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import io.github.palexdev.materialfx.controls.MFXTitledPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
-
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <!--
 IMPORTANT
@@ -24,8 +25,7 @@ les ressource maven et les ressource que scene builder utilise ne se pas compati
 je vais identifier ou sont les ressource dans le code
 -->
 
-<?import javafx.scene.control.SeparatorMenuItem?>
-<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="650.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
+<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="650.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
     <center>
       <MFXScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="TOP_CENTER">
          <BorderPane.margin>
@@ -34,14 +34,16 @@ je vais identifier ou sont les ressource dans le code
          <content>
               <VBox alignment="TOP_CENTER" prefHeight="768.0" prefWidth="644.0" spacing="30.0" style="-fx-background-color: white;">
                   <children>
-                  <Label fx:id="bienvenueLabel" alignment="BOTTOM_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="69.0" prefWidth="640.0" text="Bienvenue {user}" textFill="GREY">
-                     <font>
-                        <Font name="Artifakt Element Light Italic" size="36.0" />
-                     </font>
-                     <padding>
-                        <Insets left="15.0" />
-                     </padding>
-                  </Label>
+                      <ImageView fitHeight="115.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true">
+                          <!--                l'url de scene builder : "@../controleurs/logoComplet.png"-->
+                          <!--                l'url de intellij sim/danslchamp/controleurs/logoComplet.png-->
+                          <image>
+                              <Image url="@../controleurs/logoComplet.png" />
+                          </image>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                      </ImageView>
                       <MFXTitledPane fx:id="recentsTitlePane" expanded="true" prefHeight="158.0" prefWidth="640.0" title="Circuits Récents">
                           <content>
                               <HBox prefHeight="100.0" prefWidth="200.0">
@@ -69,13 +71,6 @@ je vais identifier ou sont les ressource dans le code
                           </VBox.margin>
                       </MFXTitledPane>
                       <MFXTitledPane fx:id="deBaseTitledPane" expanded="true" prefHeight="32.0" prefWidth="425.0" title="Circuit de Base" />
-                      <ImageView fitHeight="115.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true">
-                          <!--                l'url de scene builder : "@../controleurs/logoComplet.png"-->
-                          <!--                l'url de intellij sim/danslchamp/controleurs/logoComplet.png-->
-                          <image>
-                              <Image url="@../controleurs/logoComplet.png" />
-                          </image>
-                      </ImageView>
                   </children>
                   <opaqueInsets>
                       <Insets />
@@ -176,7 +171,7 @@ je vais identifier ou sont les ressource dans le code
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Composants" />
                                         <MenuItem mnemonicParsing="false" onAction="#showBibliothequePersonnages" text="Personnages" />
-                                        <MenuItem mnemonicParsing="false" onAction="#showBibliothequeUnites" text="Unités"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#showBibliothequeUnites" text="Unités" />
                                     </items>
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Aide">
