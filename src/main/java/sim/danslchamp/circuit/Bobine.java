@@ -128,7 +128,7 @@ public class Bobine extends Composant {
 
         group.setOnMousePressed(event -> {
             double B = 4 * Math.PI * (nombreDeSpires.getValeur(Unite.UNITE) / longueur.getValeur(Unite.UNITE)) * courant.getValeur(Unite.UNITE) / 100;
-            double Bext = (B * Math.pow(rayon.getValeur(Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(rayon.getValeur(Unite.UNITE), 2) + 0.0625, (3 / 2)));
+            double Bext = (B * Math.pow(rayon.getValeur(Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(rayon.getValeur(Unite.UNITE), 2) + Math.pow(0.25,2), (3 / 2)));
             valeursLabel.setText("La force du champ magnétique à 0.25 mètre de la bobine est de: " + "\n" + Bext + "e-5 T");     // Clear
 
             valeursLabel.setText(valeursLabel.getText().concat("\n" + "La force du champ magnétique dans la bobine" + " est de" + ": "
