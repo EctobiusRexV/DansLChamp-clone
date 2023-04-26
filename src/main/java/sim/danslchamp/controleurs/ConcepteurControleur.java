@@ -81,7 +81,12 @@ public class ConcepteurControleur {
                 Button button = new Button("", group);
                 button.setTooltip(new Tooltip(composantClass.getSimpleName()));
                 button.setOnAction(event -> {
-                    circuit.addComposant(composantClass, posX, posY, vertical);
+                    Composant composant = Composant.getInstance(composantClass);
+                    composant.setPosXY(posX-composant.getJonctionsRelatives()[0].getPositionXY().x, posY-composant.getJonctionsRelatives()[0].getPositionXY().y);
+                    posX = composant.getJonctions()[1].getPositionXY().x;
+                    posY = composant.getJonctions()[1].getPositionXY().y;
+
+                    circuit.addComposant(composant);
                     diagrammeAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
                 });
                 toolbar.getItems().add(button);

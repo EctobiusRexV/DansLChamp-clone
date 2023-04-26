@@ -317,7 +317,9 @@ public class Circuit {
     public Composant addComposant(String composantType, int posX, int posY, boolean rotation90) {
         try {
             // Instancier la classe
-            return addComposant((Class<Composant>) Class.forName("sim.danslchamp.circuit." + composantType), posX, posY, rotation90);
+            Composant composant = Composant.getInstance((Class<Composant>) Class.forName("sim.danslchamp.circuit." + composantType));
+            composant.setPosXY(posX, posY);
+            return addComposant(composant);
         } catch (ClassCastException | ClassNotFoundException e) {
             DanslChampUtil.erreur("Impossible de charger " + composantType, e.getMessage());
             e.printStackTrace();
