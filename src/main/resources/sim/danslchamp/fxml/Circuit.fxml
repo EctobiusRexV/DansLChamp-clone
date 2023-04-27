@@ -40,6 +40,12 @@
                                  <menus>
                                      <Menu text="_Fichier">
                                          <items>
+                                    <MenuItem onAction="#nouveau" text="_Nouveau">
+                                       <accelerator>
+                                          <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                       </accelerator>
+                                    </MenuItem>
+                                    <SeparatorMenuItem mnemonicParsing="false" />
                                              <MenuItem onAction="#ouvrirCircuit" text="_Ouvrir">
                                                  <accelerator>
                                                      <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />

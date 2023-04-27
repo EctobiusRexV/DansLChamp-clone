@@ -111,7 +111,7 @@ vBox.setBorder(new Border(new BorderStroke(javafx.scene.paint.Color.BLACK, Borde
     }
 
     public void nouveauCircuit(ActionEvent actionEvent) {
-        ControllerUtil.loadFenetre("Circuit.fxml", 500, 600);
+        CircuitControleur.nouveau();
     }
 
     // ===============================
