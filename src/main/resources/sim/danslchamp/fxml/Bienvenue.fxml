@@ -27,7 +27,7 @@ les ressource maven et les ressource que scene builder utilise ne se pas compati
 je vais identifier ou sont les ressource dans le code
 -->
 
-<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="650.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
+<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
     <center>
       <MFXScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="TOP_CENTER">
          <BorderPane.margin>
