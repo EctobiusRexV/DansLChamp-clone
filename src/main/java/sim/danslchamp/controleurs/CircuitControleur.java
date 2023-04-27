@@ -237,8 +237,13 @@ public class CircuitControleur extends ParentControleur {
     }
 
     private static void pousserCircuitRecent(File file) {
-        Config.circuitRecent3 = Config.circuitRecent2;
-        Config.circuitRecent2 = Config.circuitRecent1;
-        Config.circuitRecent1 = file.getAbsolutePath();
+        String circuitActuel = file.getAbsolutePath();
+
+        if (!(Config.circuitRecent2.equals(circuitActuel) || Config.circuitRecent1.equals(circuitActuel)))
+            Config.circuitRecent3 = Config.circuitRecent2;
+        if (!Config.circuitRecent1.equals(circuitActuel))
+            Config.circuitRecent2 = Config.circuitRecent1;
+
+        Config.circuitRecent1 = circuitActuel;
     }
 }
