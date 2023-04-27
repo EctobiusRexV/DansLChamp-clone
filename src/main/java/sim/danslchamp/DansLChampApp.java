@@ -22,8 +22,8 @@ public class DansLChampApp extends Application {
     // PAS TOUCHE
     // ====================
     public static final FileChooser FC = new FileChooser();
-    private static final String FILE_EXTENSION = "*.svg";
-    private static final FileChooser.ExtensionFilter EXTENSION_FILTER =
+    public static final String FILE_EXTENSION = "*.svg";
+    public static final FileChooser.ExtensionFilter EXTENSION_FILTER =
             new FileChooser.ExtensionFilter("Circuit DANS L'CHAMP", FILE_EXTENSION);
 
     public static final SvgLoader SVG_LOADER = new SvgLoader(null);

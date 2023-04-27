@@ -46,6 +46,12 @@ public class ConcepteurControleur {
 
     private Circuit circuit;
 
+    // Pour communication suavegarde
+    private CircuitControleur circuitControleur;
+    public void setCircuitControleur(CircuitControleur circuitControleur) {
+        this.circuitControleur = circuitControleur;
+    }
+
     @FXML
     protected AnchorPane diagrammeAnchorPane;
 
@@ -182,10 +188,7 @@ public class ConcepteurControleur {
 
     @FXML
     void sauvegarder() throws IOException {
-        FXASvg.aSvg(circuit);
-        Path sortie = Path.of("./circuitsExportsTests/sauvegardeDepuisConcepteur" + LocalDateTime.now().toString().replaceAll(":", "") + ".svg");
-
-        Files.write(sortie, Collections.singleton(FXASvg.aSvg(circuit)), StandardOpenOption.CREATE);
+        circuitControleur.enregistrer();
     }
 
     public void annulerEdition() {

@@ -9,7 +9,6 @@ import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SubScene;
-import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ListView;
@@ -25,13 +24,22 @@ import org.jetbrains.annotations.Nullable;
 import sim.danslchamp.Config;
 import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.Util.ComposantsListCell;
+import sim.danslchamp.Util.DanslChampUtil;
 import sim.danslchamp.circuit.Bobine;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
+import sim.danslchamp.svg.FXASvg;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.util.Collections;
+
+import static sim.danslchamp.DansLChampApp.*;
 
 /**
  * Contrôleur de la fenêtre Concepteur de circuit
@@ -43,6 +51,8 @@ import java.io.IOException;
 public class CircuitControleur extends ParentControleur {
 
     private Circuit circuit;
+
+    private File fichierEnregistrement;
 
     private ConcepteurControleur concepteurControleur;
 
@@ -164,7 +174,7 @@ public class CircuitControleur extends ParentControleur {
             });
             concepteurControleur = fxmlLoader.getController();
             concepteurControleur.setCircuit(circuit);
-//            ((ConcepteurControleur) fxmlLoader.getController()).setStage(stage);
+            concepteurControleur.setCircuitControleur(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -196,11 +206,6 @@ public class CircuitControleur extends ParentControleur {
     //         ACTIONS MENU
     // ===============================
 
-    @FXML
-    void enregistrerCircuit(ActionEvent event) {
-
-    }
-
     /**
      * Charge un circuit depuis SVG.
      *
@@ -209,6 +214,7 @@ public class CircuitControleur extends ParentControleur {
     public void chargerCircuit(@Nullable File file) throws FileNotFoundException {
         circuit = Circuit.chargerCircuit(file);
         pousserCircuitRecent(file);
+        fichierEnregistrement = file;
         composantsListView.setItems(circuit.getComposantsSansFils());
 
         concepteurControleur.diagrammeAnchorPane.getChildren().setAll(circuit.getDiagramme2D().getGroup());
@@ -245,5 +251,35 @@ public class CircuitControleur extends ParentControleur {
             Config.circuitRecent2 = Config.circuitRecent1;
 
         Config.circuitRecent1 = circuitActuel;
+    }
+
+    public void enregistrer() {
+        if (fichierEnregistrement == null) enregistrerSous();
+        else {
+            try {
+                Files.write(fichierEnregistrement.toPath(), Collections.singleton(FXASvg.aSvg(circuit)), StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+            } catch (IOException e) {
+                DanslChampUtil.erreur("Impossible d'enregistrer le fichier", e.getMessage());
+            }
+        }
+    }
+
+    public void enregistrerSous() {
+        fichierEnregistrement = FC.showSaveDialog(stage);
+        if (fichierEnregistrement != null) {
+            if (FC.getSelectedExtensionFilter() == EXTENSION_FILTER && !fichierEnregistrement.getPath().matches("[" + FILE_EXTENSION + "]^")) {
+                fichierEnregistrement = new File(fichierEnregistrement.getPath() + FILE_EXTENSION);
+            }
+
+            enregistrer();
+        }
+    }
+
+    public static void nouveau() {
+        ControllerUtil.loadFenetre("Circuit.fxml", 500, 600);
+    }
+
+    public void nouveau(ActionEvent actionEvent) {
+        nouveau();
     }
 }
