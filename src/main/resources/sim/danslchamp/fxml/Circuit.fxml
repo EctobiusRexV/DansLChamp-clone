@@ -51,6 +51,7 @@
                                                      <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                                                  </accelerator>
                                              </MenuItem>
+                                    <Menu fx:id="ouvrirRecentsMenu" mnemonicParsing="false" text="Ouvrir récents" />
                                     <SeparatorMenuItem mnemonicParsing="false" />
                                     <MenuItem onAction="#enregistrer" text="_Enregistrer">
                                        <accelerator>

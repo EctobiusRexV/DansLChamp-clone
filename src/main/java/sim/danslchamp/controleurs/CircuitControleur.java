@@ -20,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sim.danslchamp.Config;
 import sim.danslchamp.DansLChampApp;
@@ -34,9 +35,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDateTime;
 import java.util.Collections;
 
 import static sim.danslchamp.DansLChampApp.*;
@@ -50,6 +49,7 @@ import static sim.danslchamp.DansLChampApp.*;
  */
 public class CircuitControleur extends ParentControleur {
 
+    public Menu ouvrirRecentsMenu;
     private Circuit circuit;
 
     private File fichierEnregistrement;
@@ -119,6 +119,11 @@ public class CircuitControleur extends ParentControleur {
     // ===============================
     @FXML
     public void initialize() {
+        ouvrirRecentsMenu.getItems().addAll(
+                getOuvrirRecentsMenuItem(Config.circuitRecent1),
+                getOuvrirRecentsMenuItem(Config.circuitRecent2),
+                getOuvrirRecentsMenuItem(Config.circuitRecent3)
+        );
         diagramme2DCheckMenuItem.setSelected(Config.circuitAfficherDiagramme2D);
         diagramme3DCheckMenuItem.setSelected(Config.circuitAfficherDiagramme3D);
         listeDesComposantsCheckMenuItem.setSelected(Config.circuitAfficherListeDesComposants);
@@ -200,6 +205,23 @@ public class CircuitControleur extends ParentControleur {
         subSceneConcepteur.widthProperty().bind(vBox2D.widthProperty());
         subScene3D.heightProperty().bind(vBox3D.heightProperty());
         subScene3D.widthProperty().bind(vBox3D.widthProperty());
+    }
+
+    @NotNull
+    private MenuItem getOuvrirRecentsMenuItem(String text) {
+        if (text.isBlank()) return new MenuItem();
+
+        MenuItem menuItem = new MenuItem(text);
+
+        menuItem.setOnAction(event -> {
+            try {
+                chargerCircuit(new File(text));
+            } catch (FileNotFoundException e) {
+                DanslChampUtil.erreur("Impossible d'ouvrir le circuit", e.getMessage());
+            }
+        });
+
+        return menuItem;
     }
 
     // ===============================
