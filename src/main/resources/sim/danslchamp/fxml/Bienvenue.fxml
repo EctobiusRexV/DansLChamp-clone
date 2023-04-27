@@ -15,6 +15,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -45,31 +46,10 @@ je vais identifier ou sont les ressource dans le code
                         <Insets top="40.0" />
                      </VBox.margin>
                       </ImageView>
-                      <MFXTitledPane fx:id="recentsTitlePane" expanded="true" prefHeight="158.0" prefWidth="640.0" title="Circuits Récents">
+                      <MFXTitledPane expanded="true" stylesheets="@/sim/danslchamp/controleurs/titlepane.css" title="Circuits Récents">
                           <content>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                  <children>
-                                      <VBox onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
-                                          <children>
-                                              <Label fx:id="labelHautGauche" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" />
-                                          </children>
-                                      </VBox>
-                                      <VBox onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
-                                          <children>
-                                              <Label fx:id="labelHautMilieu" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" />
-                                          </children>
-                                      </VBox>
-                                      <VBox minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#circuitPressed" HBox.hgrow="ALWAYS">
-                                          <children>
-                                              <Label fx:id="labelHautDroite" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" />
-                                          </children>
-                                      </VBox>
-                                  </children>
-                              </HBox>
+                              <FlowPane fx:id="recentsFlowPane" hgap="15" vgap="15" />
                           </content>
-                          <VBox.margin>
-                              <Insets top="30.0" />
-                          </VBox.margin>
                       </MFXTitledPane>
                   <Button maxWidth="-Infinity" mnemonicParsing="false" onAction="#nouveauCircuit" style="-fx-background-color: linear-gradient(to right,white, dodgerblue);" text="Nouveau circuit »">
                      <padding>
@@ -78,7 +58,11 @@ je vais identifier ou sont les ressource dans le code
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
-                      <MFXTitledPane fx:id="deBaseTitledPane" expanded="true" prefHeight="32.0" prefWidth="425.0" title="Circuit de Base" />
+                      <MFXTitledPane expanded="true" stylesheets="@/sim/danslchamp/controleurs/titlepane.css" title="Circuit de Base">
+                      <content>
+                          <FlowPane fx:id="deBaseFlowPane" hgap="15" vgap="15" />
+                      </content>
+                  </MFXTitledPane>
                   </children>
                   <opaqueInsets>
                       <Insets />

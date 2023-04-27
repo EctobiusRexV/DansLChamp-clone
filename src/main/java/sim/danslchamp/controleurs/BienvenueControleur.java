@@ -37,11 +37,13 @@ public class BienvenueControleur extends ParentControleur {
     public BorderPane titleBar;
 
     // FXML
-    @FXML
-    private MFXTitledPane recentsTitlePane;
 
     @FXML
-    private MFXTitledPane deBaseTitledPane;
+    private FlowPane recentsFlowPane, deBaseFlowPane;
+
+    private Color[] colors = new Color[]{Color.WHITESMOKE, Color.PAPAYAWHIP, Color.GHOSTWHITE, Color.NAVAJOWHITE, Color.ANTIQUEWHITE, Color.FLORALWHITE};
+
+    private int counter;
 
 
 
@@ -50,13 +52,13 @@ public class BienvenueControleur extends ParentControleur {
     // ===============================
     @FXML
     public void initialize() {
-        FlowPane recentsFlowPane = new FlowPane();
+        counter = (int) (Math.random() * colors.length);
+
         recentsFlowPane.getChildren().addAll(
                 getCircuitVBox(Path.of(Config.circuitRecent1)),
                 getCircuitVBox(Path.of(Config.circuitRecent2)),
                 getCircuitVBox(Path.of(Config.circuitRecent3))
         );
-        FlowPane deBaseFlowPane = new FlowPane();
         try {
             Files.list(Path.of("circuits")).forEach(circuit ->
             deBaseFlowPane.getChildren().add(
@@ -66,11 +68,6 @@ public class BienvenueControleur extends ParentControleur {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        recentsTitlePane.setContent(recentsFlowPane);
-        deBaseTitledPane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
-        deBaseTitledPane.setContent(deBaseFlowPane);
-        recentsTitlePane.getStylesheets().add(getClass().getResource("titlepane.css").toExternalForm());
-
     }
 
     private VBox getCircuitVBox(Path path) {
@@ -89,10 +86,14 @@ group.setAutoSizeChildren(true);
         vBox.setPrefWidth(200);
         vBox.setMaxWidth(200);
         vBox.setFillWidth(true);
-vBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, new Insets(10))));
-vBox.setBorder(new Border(new BorderStroke(javafx.scene.paint.Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
+        vBox.setPadding(new Insets(15));
+        vBox.setAlignment(Pos.CENTER);
+vBox.setBackground(new Background(new BackgroundFill(colors[counter % colors.length], new CornerRadii(10), new Insets(10))));
+vBox.setBorder(new Border(new BorderStroke(javafx.scene.paint.Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(15), new BorderWidths(1))));
         vBox.setUserData(path.toFile());
         vBox.setOnMouseClicked(this::circuitPressed);
+
+        counter++;
         return vBox;
     }
 
@@ -103,6 +104,7 @@ vBox.setBorder(new Border(new BorderStroke(javafx.scene.paint.Color.BLACK, Borde
     void circuitPressed(MouseEvent event) {
         try {
             DansLChampApp.showConcepteurDeCircuit((File) ((VBox) event.getSource()).getUserData());
+            stage.hide();
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage()); // Au moins on va connaître le bug.
         }
