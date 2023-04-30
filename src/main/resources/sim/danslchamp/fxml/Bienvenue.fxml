@@ -27,14 +27,14 @@ les ressource maven et les ressource que scene builder utilise ne se pas compati
 je vais identifier ou sont les ressource dans le code
 -->
 
-<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
+<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="650.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
     <center>
       <MFXScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="TOP_CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <content>
-              <VBox alignment="TOP_CENTER" prefHeight="768.0" prefWidth="644.0" spacing="30.0" style="-fx-background-color: white;">
+              <VBox alignment="TOP_CENTER" prefHeight="644.0" prefWidth="644.0" spacing="30.0" style="-fx-background-color: white;">
                   <children>
                       <ImageView fitHeight="115.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true">
                           <!--                l'url de scene builder : "@../controleurs/logoComplet.png"-->
@@ -143,7 +143,7 @@ je vais identifier ou sont les ressource dans le code
                             <!--                        le url pour intellij est "sim/danslchamp/controleurs/logoDansLeChamp.png", il commence aux package sim -->
                             <!--                       l'url pour scene builder : @../controleurs/logoDansLeChamp.png-->
                             <image>
-                                <Image url="@/sim/danslchamp/controleurs/logoDansLeChamp.png" />
+                                <Image url="@../controleurs/logoDansLeChamp.png" />
                             </image>
                         </ImageView>
                         <MenuBar prefHeight="25.0" prefWidth="261.0" style="-fx-background-color: dodgerblue;">
