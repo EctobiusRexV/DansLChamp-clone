@@ -45,7 +45,7 @@ public class DansLChampApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Config.charger();
-        ControllerUtil.loadFenetre("Bienvenue.fxml", 800, 800);
+        ControllerUtil.loadFenetre("Bienvenue.fxml", 650, 650);
 
     }
 

@@ -27,7 +27,7 @@ les ressource maven et les ressource que scene builder utilise ne se pas compati
 je vais identifier ou sont les ressource dans le code
 -->
 
-<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="650.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
+<BorderPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="650.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.BienvenueControleur">
     <center>
       <MFXScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="TOP_CENTER">
          <BorderPane.margin>
@@ -75,9 +75,9 @@ je vais identifier ou sont les ressource dans le code
       </MFXScrollPane>
     </center>
     <left>
-        <VBox BorderPane.alignment="CENTER">
+        <VBox maxHeight="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <children>
-                <Region maxHeight="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="590.0" prefWidth="2.0">
+                <Region maxHeight="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="590.0" prefWidth="2.0" VBox.vgrow="ALWAYS">
                     <cursor>
                         <Cursor fx:constant="W_RESIZE" />
                     </cursor>
@@ -91,9 +91,9 @@ je vais identifier ou sont les ressource dans le code
         </VBox>
     </left>
     <right>
-        <VBox BorderPane.alignment="CENTER">
+        <VBox maxHeight="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <children>
-                <Region maxHeight="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="590.0" prefWidth="2.0">
+                <Region maxHeight="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="590.0" prefWidth="2.0" VBox.vgrow="ALWAYS">
                     <cursor>
                         <Cursor fx:constant="E_RESIZE" />
                     </cursor>

@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.CircuitControleur">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.CircuitControleur">
    <center>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
@@ -184,9 +184,9 @@
       </VBox>
    </center>
     <left>
-        <VBox BorderPane.alignment="CENTER">
+        <VBox maxHeight="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <children>
-                <Region maxHeight="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="590.0" prefWidth="2.0">
+                <Region maxHeight="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="590.0" prefWidth="2.0" VBox.vgrow="ALWAYS">
                     <cursor>
                         <Cursor fx:constant="W_RESIZE" />
                     </cursor>
@@ -200,9 +200,9 @@
         </VBox>
     </left>
     <right>
-        <VBox BorderPane.alignment="CENTER">
+        <VBox maxHeight="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <children>
-                <Region maxHeight="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="590.0" prefWidth="2.0">
+                <Region maxHeight="1.7976931348623157E308" onMousePressed="#dragResize" prefHeight="590.0" prefWidth="2.0" VBox.vgrow="ALWAYS">
                     <cursor>
                         <Cursor fx:constant="E_RESIZE" />
                     </cursor>
