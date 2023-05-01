@@ -287,4 +287,8 @@ concepteurControleur.fichierEnregistrement = file;
     public void enregistrerSous(ActionEvent actionEvent) {
         concepteurControleur.enregistrerSous();
     }
+
+    public void ouvrirCircuit(ActionEvent actionEvent) {
+        concepteurControleur.ouvrir();
+    }
 }

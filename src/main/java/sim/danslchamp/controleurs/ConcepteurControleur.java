@@ -220,10 +220,6 @@ public class ConcepteurControleur {
     public void enregistrerSous() {
         fichierEnregistrement = FC.showSaveDialog(null);
         if (fichierEnregistrement != null) {
-            if (FC.getSelectedExtensionFilter() == EXTENSION_FILTER && !fichierEnregistrement.getPath().matches("[" + FILE_EXTENSION + "]^")) {
-                fichierEnregistrement = new File(fichierEnregistrement.getPath() + FILE_EXTENSION);
-            }
-
             enregistrer();
         }
     }
