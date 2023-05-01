@@ -53,7 +53,7 @@ public class CircuitControleur extends ParentControleur {
     private Circuit circuit;
 
 
-    private ConcepteurControleur concepteurControleur;
+
 
     Tooltip infobulleC = new Tooltip();
 
@@ -69,11 +69,7 @@ public class CircuitControleur extends ParentControleur {
             stage.setHeight(Config.circuitHauteur);
         }
 
-        stage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
-                concepteurControleur.annulerEdition();
-            }
-        });
+
 
         stage.setOnHidden(event -> {
             Config.circuitDiagrammesSplitPanePosition0 = diagrammesSplitPane.getDividerPositions()[0];
@@ -135,10 +131,7 @@ public class CircuitControleur extends ParentControleur {
         composantsListView.setCellFactory(item ->
                 new ComposantsListCell(circuit));
 
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("."));
-        try {
-//            Stage stage = fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml");
-            subSceneConcepteur.setRoot(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml")));
+
 
 
             vBox2D.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent event) -> {
@@ -173,12 +166,6 @@ public class CircuitControleur extends ParentControleur {
                 infobulleC.hide();
 
             });
-            concepteurControleur = fxmlLoader.getController();
-            concepteurControleur.setCircuit(circuit);
-            concepteurControleur.setCircuitControleur(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         composantsListView.getSelectionModel().selectedItemProperty().addListener((l, old, composant) -> {
             if (composant != null) {
@@ -197,8 +184,6 @@ public class CircuitControleur extends ParentControleur {
             }
         });
 
-        subSceneConcepteur.heightProperty().bind(vBox2D.heightProperty());
-        subSceneConcepteur.widthProperty().bind(vBox2D.widthProperty());
         subScene3D.heightProperty().bind(vBox3D.heightProperty());
         subScene3D.widthProperty().bind(vBox3D.widthProperty());
     }
@@ -232,10 +217,10 @@ public class CircuitControleur extends ParentControleur {
     public void chargerCircuit(@Nullable File file) throws FileNotFoundException {
         circuit = Circuit.chargerCircuit(file);
         pousserCircuitRecent(file);
-concepteurControleur.fichierEnregistrement = file;
+
         composantsListView.setItems(circuit.getComposantsSansFils());
 
-        concepteurControleur.setCircuit(circuit);
+
 
         init3D();
     }
@@ -280,11 +265,12 @@ concepteurControleur.fichierEnregistrement = file;
         nouveau();
     }
 
-    public void enregistrer(ActionEvent actionEvent) {
-        concepteurControleur.enregistrer();
-    }
-
-    public void enregistrerSous(ActionEvent actionEvent) {
-        concepteurControleur.enregistrerSous();
+    public void ouvrirCircuit(ActionEvent actionEvent) {
+        try {
+            File file = FC.showOpenDialog(null);
+            if (file != null)
+                chargerCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
+        } catch (FileNotFoundException neSappliquePas) {
+        }
     }
 }
