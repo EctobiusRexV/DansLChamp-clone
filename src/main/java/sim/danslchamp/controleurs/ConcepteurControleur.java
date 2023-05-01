@@ -46,6 +46,8 @@ import static sim.danslchamp.DansLChampApp.FILE_EXTENSION;
 public class ConcepteurControleur {
 
     private static final int TAILLE_QUADRILLAGE_px = 25;
+    public RadioButton curseurRadioButton;
+    public RadioButton conceptionRadioButton;
 
     private int posX = 0, posY = 0;
 
@@ -66,10 +68,7 @@ public class ConcepteurControleur {
     private ToolBar toolbar;
 
     @FXML
-    private ToggleButton curseurToggleButton,
-            filToggleButton,
-            togglechamp,
-            lockToggleButton;
+    private ToggleButton lockToggleButton;
 
     private Line currentLine = new Line();
 
@@ -79,7 +78,6 @@ public class ConcepteurControleur {
     void initialize() {
         initBoutonsComposants();
         initZoom();
-        initToggleGroup();
     }
 
     private void initBoutonsComposants() {
@@ -129,11 +127,6 @@ public class ConcepteurControleur {
         });
     }
 
-    private void initToggleGroup() {
-        ToggleGroup group = new ToggleGroup();
-        group.getToggles().setAll(curseurToggleButton, filToggleButton, togglechamp);
-    }
-
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
     }
@@ -145,7 +138,7 @@ public class ConcepteurControleur {
 
     @FXML
     void mousePressed(MouseEvent event) {
-        annule = curseurToggleButton.isSelected();
+        annule = curseurRadioButton.isSelected();
 
         if (annule) return;
 

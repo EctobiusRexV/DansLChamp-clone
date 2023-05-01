@@ -34,8 +34,10 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -47,22 +49,20 @@
   <children>
       <ToolBar fx:id="toolbar" prefHeight="40.0" prefWidth="200.0">
         <items>
-            <ToggleButton fx:id="curseurToggleButton" mnemonicParsing="false" selected="true">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                         <Image url="@/sim/danslchamp/controleurs/curseur.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </ToggleButton>
-            <ToggleButton fx:id="togglechamp" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="Champ" />
-            <ToggleButton fx:id="filToggleButton" mnemonicParsing="false">
-               <graphic>
-                  <ImageView fx:id="fil" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-               </graphic>
-            </ToggleButton>
-            <Button mnemonicParsing="false" onAction="#sauvegarder">
+            <RadioButton fx:id="curseurRadioButton" mnemonicParsing="false" selected="true">
+            <graphic>
+                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/sim/danslchamp/controleurs/curseur.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+               <toggleGroup>
+                  <ToggleGroup fx:id="concepteurActions" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="conceptionRadioButton" mnemonicParsing="false" text="Conception" toggleGroup="$concepteurActions" />
+            <Button mnemonicParsing="false" onAction="#enregistrer">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
