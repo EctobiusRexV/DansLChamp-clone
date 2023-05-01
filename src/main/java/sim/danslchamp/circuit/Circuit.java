@@ -43,7 +43,7 @@ public class Circuit {
      * <p>
      * Une jonctions liant plus de deux composants est un noeud, suivant la loi des noeuds.
      */
-    private final ArrayList<Jonction> jonctions = new ArrayList<>();
+    private final ObservableList<Jonction> jonctions = FXCollections.observableArrayList();
 
 
     // fixme
@@ -444,7 +444,7 @@ public class Circuit {
     }
 
     // Pour les tests
-    public ArrayList<Jonction> getJonctions() {
+    public ObservableList<Jonction> getJonctions() {
         return jonctions;
     }
 
