@@ -7,14 +7,20 @@ import javafx.stage.Stage;
 import sim.danslchamp.DansLChampApp;
 import sim.danslchamp.circuit.Circuit;
 
+import java.io.File;
+
 public class ConcepteurTestApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Circuit circuit = getParameters().getRaw().size() > 0
+                ? Circuit.chargerCircuit(new File("circuits/" + getParameters().getRaw().get(0)))
+                : new Circuit();
+
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("."));
 
         primaryStage.setScene(new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml"))));
-        ((ConcepteurControleur) fxmlLoader.getController()).setCircuit(new Circuit());
-//        ((ConcepteurControleur) fxmlLoader.getController()).setStage(primaryStage);
+        ((ConcepteurControleur) fxmlLoader.getController()).setCircuit(circuit);
+        ((ConcepteurControleur) fxmlLoader.getController()).setStage(primaryStage);
 
         primaryStage.show();
     }
