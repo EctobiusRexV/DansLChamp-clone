@@ -170,8 +170,12 @@ public class ConcepteurControleur {
 
     @FXML
     void mouseDragged(MouseEvent event) {
-        currentLine.setEndX(Math.round((int) event.getX() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px));
-        currentLine.setEndY(Math.round((int) event.getY() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px));
+        if (event.getX() < 0 || event.getY() < 0
+                || event.getX() > diagrammeAnchorPane.getWidth() || event.getY() > diagrammeAnchorPane.getHeight()) event.consume();
+        else {
+            currentLine.setEndX(Math.round((int) event.getX() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px));
+            currentLine.setEndY(Math.round((int) event.getY() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px));
+        }
     }
 
     @FXML

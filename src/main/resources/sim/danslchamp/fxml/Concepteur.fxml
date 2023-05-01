@@ -42,7 +42,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.ConcepteurControleur">
@@ -83,17 +82,10 @@
             <Separator orientation="VERTICAL" prefHeight="40.0" />
         </items>
       </ToolBar>
-      <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-         <children>
-            <VBox alignment="CENTER">
-               <children>
-                <AnchorPane fx:id="diagrammeAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" prefHeight="-1.0" prefWidth="-1.0">
-                     <cursor>
-                        <Cursor fx:constant="CROSSHAIR" />
-                     </cursor></AnchorPane>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
+    <AnchorPane fx:id="diagrammeAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: blue;" VBox.vgrow="ALWAYS">
+         <cursor>
+            <Cursor fx:constant="CROSSHAIR" />
+         </cursor>
+      </AnchorPane>
   </children>
 </VBox>
