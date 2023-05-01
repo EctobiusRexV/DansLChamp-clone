@@ -23,6 +23,8 @@ import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 import org.reflections.Reflections;
 import sim.danslchamp.Config;
+import sim.danslchamp.DansLChampApp;
+import sim.danslchamp.Util.DanslChampUtil;
 import sim.danslchamp.circuit.*;
 import sim.danslchamp.svg.FXASvg;
 
@@ -129,6 +131,7 @@ public class ConcepteurControleur {
 
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
+        diagrammeAnchorPane.getChildren().setAll(circuit.getDiagramme2D().getGroup());
     }
 
     void setPos(int posX, int posY) {
@@ -217,11 +220,11 @@ public class ConcepteurControleur {
         currentLine.setVisible(false);
     }
 
-    public static void ouvrirCircuit() {
+    public void ouvrir() {
         try {
             File file = FC.showOpenDialog(null);
             if (file != null)
-                DansLChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
+                setCircuit(Circuit.chargerCircuit(file));  // Ne pas ouvrir si aucune sélection n'est faite!
         } catch (FileNotFoundException neSappliquePas) {
         }
     }

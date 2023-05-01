@@ -61,6 +61,15 @@
                </toggleGroup>
             </RadioButton>
             <RadioButton fx:id="conceptionRadioButton" mnemonicParsing="false" text="Conception" toggleGroup="$concepteurActions" />
+            <Button mnemonicParsing="false" onAction="#ouvrir">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/sim/danslchamp/controleurs/pochette.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <Button mnemonicParsing="false" onAction="#enregistrer">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">

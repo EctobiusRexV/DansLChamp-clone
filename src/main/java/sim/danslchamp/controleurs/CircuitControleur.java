@@ -235,7 +235,6 @@ public class CircuitControleur extends ParentControleur {
 concepteurControleur.fichierEnregistrement = file;
         composantsListView.setItems(circuit.getComposantsSansFils());
 
-        concepteurControleur.diagrammeAnchorPane.getChildren().setAll(circuit.getDiagramme2D().getGroup());
         concepteurControleur.setCircuit(circuit);
 
         init3D();
