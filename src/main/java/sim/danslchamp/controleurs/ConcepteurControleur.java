@@ -1,5 +1,6 @@
 package sim.danslchamp.controleurs;
 
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
@@ -74,12 +75,19 @@ public class ConcepteurControleur {
 
     private Line currentLine = new Line();
 
+    private Group jonctionsGroup = new Group();
+
     private boolean vertical, annule;
 
     @FXML
     void initialize() {
         initBoutonsComposants();
         initZoom();
+
+        jonctionsGroup.setVisible(false);
+        conceptionRadioButton.selectedProperty().addListener((l, old, selected) -> {
+            jonctionsGroup.setVisible(selected);;
+        });
     }
 
     private void initBoutonsComposants() {
@@ -108,7 +116,6 @@ public class ConcepteurControleur {
                     posY = composant.getJonctions()[1].getPositionXY().y;
 
                     circuit.addComposant(composant);
-                    diagrammeAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
                 });
                 toolbar.getItems().add(button);
             } catch (ClassCastException | IllegalAccessException | InvocationTargetException |
@@ -131,7 +138,15 @@ public class ConcepteurControleur {
 
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
-        diagrammeAnchorPane.getChildren().setAll(circuit.getDiagramme2D().getGroup());
+        diagrammeAnchorPane.getChildren().setAll(circuit.getDiagramme2D().getGroup(), jonctionsGroup);
+
+        jonctionsGroup.getChildren().clear();
+        addJonctionPoint(circuit.getJonctions());
+
+        circuit.getJonctions().addListener((ListChangeListener<? super Jonction>) l -> {
+            l.next();
+            addJonctionPoint((List<Jonction>) l.getAddedSubList());
+        });
     }
 
     void setPos(int posX, int posY) {
@@ -188,8 +203,6 @@ public class ConcepteurControleur {
             posY = (int) currentLine.getEndY();
 
             circuit.addComposant(new Fil((int) currentLine.getStartX(), (int) currentLine.getStartY(), posX, posY));
-
-            diagrammeAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
         }
     }
 
@@ -229,34 +242,19 @@ public class ConcepteurControleur {
         }
     }
 
+    private void addJonctionPoint(List<Jonction> list) {
+        for (Jonction jonction : list) {
+            Sphere sp = new Sphere(8);
+            sp.setMaterial(new PhongMaterial(Color.RED));
 
-    public class ListPoint2D {
+            int x = (int) jonction.getPositionXY().getX();
+            int y = (int) jonction.getPositionXY().getY();
+            sp.setLayoutX(x);
+            sp.setLayoutY(y);
 
-        private List<Jonction> jonctionList;
+            sp.setOnMousePressed(event -> setPos(x, y));
 
-
-        public ListPoint2D(List<Jonction> jonctionList) {
-            this.jonctionList = jonctionList;
-        }
-
-        public Group getGroupe() {
-            Group groupe = new Group();
-            for (Jonction jonction : jonctionList) {
-                Sphere sp = new Sphere(5);
-                sp.setMaterial(new PhongMaterial(Color.RED));
-
-                int x = (int) jonction.getPositionXY().getX();
-                int y = (int) jonction.getPositionXY().getY();
-                sp.setLayoutX(x);
-                sp.setLayoutY(y);
-
-                sp.setOnMousePressed(event -> setPos(x, y));
-
-                groupe.getChildren().add(sp);
-            }
-
-            return groupe;
+            jonctionsGroup.getChildren().add(sp);
         }
     }
-
 }
