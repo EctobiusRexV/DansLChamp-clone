@@ -142,9 +142,6 @@ public class CircuitControleur extends ParentControleur {
 
 
             vBox2D.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent event) -> {
-                if (event.getTarget().getClass() == Group.class) {
-
-                } else if (concepteurControleur.getChamp().isSelected()) {
                     Bobine bob = new Bobine(0, 0, 0);
                     for (int i = 0; i < circuit.getComposantsSansFils().size(); i++) {
                         if (circuit.getComposantsSansFils().get(i).getClass() == Bobine.class) {
@@ -169,7 +166,7 @@ public class CircuitControleur extends ParentControleur {
 
 
                     infobulleC.show(vBox2D, event.getScreenX(), event.getScreenY());
-                }
+
             });
 
             vBox2D.addEventHandler(MouseEvent.MOUSE_RELEASED, event -> {

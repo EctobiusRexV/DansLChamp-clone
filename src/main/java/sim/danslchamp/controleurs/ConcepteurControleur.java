@@ -213,9 +213,15 @@ public class ConcepteurControleur {
         currentLine.setVisible(false);
     }
 
-    public ToggleButton getChamp() {
-        return togglechamp;
+    public static void ouvrirCircuit() {
+        try {
+            File file = FC.showOpenDialog(null);
+            if (file != null)
+                DansLChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
+        } catch (FileNotFoundException neSappliquePas) {
+        }
     }
+
 
     public class ListPoint2D {
 
