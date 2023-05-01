@@ -27,6 +27,8 @@ import sim.danslchamp.circuit.*;
 import sim.danslchamp.svg.FXASvg;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -38,6 +40,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import static sim.danslchamp.DansLChampApp.*;
+import static sim.danslchamp.DansLChampApp.FILE_EXTENSION;
+
 public class ConcepteurControleur {
 
     private static final int TAILLE_QUADRILLAGE_px = 25;
@@ -48,6 +53,8 @@ public class ConcepteurControleur {
 
     // Pour communication suavegarde
     private CircuitControleur circuitControleur;
+    protected File fichierEnregistrement;
+
     public void setCircuitControleur(CircuitControleur circuitControleur) {
         this.circuitControleur = circuitControleur;
     }
@@ -186,9 +193,26 @@ public class ConcepteurControleur {
         }
     }
 
-    @FXML
-    void sauvegarder() throws IOException {
-        circuitControleur.enregistrer();
+    public void enregistrer() {
+        if (fichierEnregistrement == null) enregistrerSous();
+        else {
+            try {
+                Files.write(fichierEnregistrement.toPath(), Collections.singleton(FXASvg.aSvg(circuit)), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+            } catch (IOException e) {
+                DanslChampUtil.erreur("Impossible d'enregistrer le fichier", e.getMessage());
+            }
+        }
+    }
+
+    public void enregistrerSous() {
+        fichierEnregistrement = FC.showSaveDialog(null);
+        if (fichierEnregistrement != null) {
+            if (FC.getSelectedExtensionFilter() == EXTENSION_FILTER && !fichierEnregistrement.getPath().matches("[" + FILE_EXTENSION + "]^")) {
+                fichierEnregistrement = new File(fichierEnregistrement.getPath() + FILE_EXTENSION);
+            }
+
+            enregistrer();
+        }
     }
 
     public void annulerEdition() {

@@ -52,7 +52,6 @@ public class CircuitControleur extends ParentControleur {
     public Menu ouvrirRecentsMenu;
     private Circuit circuit;
 
-    private File fichierEnregistrement;
 
     private ConcepteurControleur concepteurControleur;
 
@@ -236,7 +235,7 @@ public class CircuitControleur extends ParentControleur {
     public void chargerCircuit(@Nullable File file) throws FileNotFoundException {
         circuit = Circuit.chargerCircuit(file);
         pousserCircuitRecent(file);
-        fichierEnregistrement = file;
+concepteurControleur.fichierEnregistrement = file;
         composantsListView.setItems(circuit.getComposantsSansFils());
 
         concepteurControleur.diagrammeAnchorPane.getChildren().setAll(circuit.getDiagramme2D().getGroup());
@@ -275,27 +274,7 @@ public class CircuitControleur extends ParentControleur {
         Config.circuitRecent1 = circuitActuel;
     }
 
-    public void enregistrer() {
-        if (fichierEnregistrement == null) enregistrerSous();
-        else {
-            try {
-                Files.write(fichierEnregistrement.toPath(), Collections.singleton(FXASvg.aSvg(circuit)), StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
-            } catch (IOException e) {
-                DanslChampUtil.erreur("Impossible d'enregistrer le fichier", e.getMessage());
-            }
-        }
-    }
 
-    public void enregistrerSous() {
-        fichierEnregistrement = FC.showSaveDialog(stage);
-        if (fichierEnregistrement != null) {
-            if (FC.getSelectedExtensionFilter() == EXTENSION_FILTER && !fichierEnregistrement.getPath().matches("[" + FILE_EXTENSION + "]^")) {
-                fichierEnregistrement = new File(fichierEnregistrement.getPath() + FILE_EXTENSION);
-            }
-
-            enregistrer();
-        }
-    }
 
     public static void nouveau() {
         ControllerUtil.loadFenetre("Circuit.fxml", 500, 600);
@@ -303,5 +282,13 @@ public class CircuitControleur extends ParentControleur {
 
     public void nouveau(ActionEvent actionEvent) {
         nouveau();
+    }
+
+    public void enregistrer(ActionEvent actionEvent) {
+        concepteurControleur.enregistrer();
+    }
+
+    public void enregistrerSous(ActionEvent actionEvent) {
+        concepteurControleur.enregistrerSous();
     }
 }
