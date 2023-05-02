@@ -86,9 +86,9 @@ public class Condensateur extends Composant {
         group.setOnMousePressed(event -> {
             valeursLabel.setText("");     // Clear
 
-
+            double e = voltage.getValeur(Unite.UNITE) / 0.005 * Math.pow(1.6,-19);
             valeursLabel.setText(valeursLabel.getText().concat("La force du champ électrique dans un condensateur plan distancé de 5 mm" + " est de" + ": " + "\n" +
-                    (voltage.getValeur(Unite.UNITE)) / 0.005 * 1.6) + "e-19 N");
+                    new Valeur(e ,Unite.UNITE,"N")));
 
 
             infobulle.show(group, event.getScreenX(), event.getScreenY());
