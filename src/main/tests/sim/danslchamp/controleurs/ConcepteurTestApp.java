@@ -20,7 +20,7 @@ public class ConcepteurTestApp extends Application {
 
         primaryStage.setScene(new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml"))));
         ((ConcepteurControleur) fxmlLoader.getController()).setCircuit(circuit);
-        ((ConcepteurControleur) fxmlLoader.getController()).setStage(primaryStage);
+//        ((ConcepteurControleur) fxmlLoader.getController()).setStage(primaryStage);
 
         primaryStage.show();
     }
