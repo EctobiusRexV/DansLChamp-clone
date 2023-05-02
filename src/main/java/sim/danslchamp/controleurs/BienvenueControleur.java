@@ -104,7 +104,7 @@ vBox.setBorder(new Border(new BorderStroke(javafx.scene.paint.Color.BLACK, Borde
     void circuitPressed(MouseEvent event) {
         try {
             DansLChampApp.showConcepteurDeCircuit((File) ((VBox) event.getSource()).getUserData());
-            stage.setIconified(true);
+//            stage.setIconified(true);
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage()); // Au moins on va connaître le bug.
         }

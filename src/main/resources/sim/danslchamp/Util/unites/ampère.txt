@@ -1,0 +1,5 @@
+<p align="justify" style="font-family: Open Sans Light">
+
+L'amp&egrave;re est l'unit&eacute; de mesure de l'intensit&eacute; du courant &eacute;lectrique, not&eacute;e A. Elle a &eacute;t&eacute; nomm&eacute;e en l'honneur du physicien fran&ccedil;ais Andr&eacute;-Marie Amp&egrave;re, qui a d&eacute;couvert le lien entre l'&eacute;lectricit&eacute; et le magn&eacute;tisme. Un amp&egrave;re correspond &agrave; un d&eacute;bit de charge &eacute;lectrique d'une coulomb par seconde. L'amp&egrave;re est une unit&eacute; fondamentale du syst&egrave;me international d'unit&eacute;s et est largement utilis&eacute;e dans les domaines de l'&eacute;lectricit&eacute;, de l'&eacute;lectronique, de la physique et de l'ing&eacute;nierie. Elle permet de mesurer la quantit&eacute; de courant circulant dans un circuit &eacute;lectrique et est essentielle pour comprendre le fonctionnement des dispositifs &eacute;lectriques et &eacute;lectroniques.
+
+</p>

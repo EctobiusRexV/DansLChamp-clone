@@ -1,0 +1,5 @@
+<p align="justify" style="font-family: Open Sans Light">
+
+Le volt est l'unit&eacute; de mesure de la diff&eacute;rence de potentiel &eacute;lectrique, autrement dit la tension &eacute;lectrique, entre deux points d'un circuit &eacute;lectrique. Il est nomm&eacute; en l'honneur d'Alessandro Volta, l'inventeur de la pile volta&iuml;que, qui a permis les premi&egrave;res &eacute;tudes sur les ph&eacute;nom&egrave;nes &eacute;lectriques. Le volt est utilis&eacute; pour mesurer la force avec laquelle l'&eacute;lectricit&eacute; est pouss&eacute;e &agrave; travers un circuit, et est essentiel pour le fonctionnement de nombreux appareils &eacute;lectriques tels que les batteries, les g&eacute;n&eacute;rateurs et les transformateurs. Le symbole du volt est &quot;V&quot;.
+
+</p>

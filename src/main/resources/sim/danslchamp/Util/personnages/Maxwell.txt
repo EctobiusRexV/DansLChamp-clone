@@ -1,8 +1,6 @@
 <p align="justify" style="font-family: Open Sans Light">
 
-James Clerk Maxwell est un physicien écossais reconnu surtout pour ses travaux en électricité et en magnétisme.  Il est considéré un des physiciens les plus importants de son époque, au même niveau qu'Isaac Newton lors de son vivant.  Il utilisera les observations de Micheal Faraday pour produire le concept et les équations décrivant la force des champs électriques et magnétiques.  Ces recherches seront plus tard utilisées par Albert Einstein dansses recherches sur la théorie de la relativité et aideront les recherches de la théorie quantique.  Elles aideront également Max Planck dans ses recherches sur sa théorie selon laquelle il ya a une corélation entre électromagnétisme et matière.
+James Clerk Maxwell est un physicien &eacute;cossais reconnu surtout pour ses travaux en &eacute;lectricit&eacute; et en magn&eacute;tisme. Il est consid&eacute;r&eacute; comme l'un des physiciens les plus importants de son &eacute;poque, au m&ecirc;me niveau qu'Isaac Newton lors de son vivant. Il utilisera les observations de Michael Faraday pour produire le concept et les &eacute;quations d&eacute;crivant la force des champs &eacute;lectriques et magn&eacute;tiques. Ces recherches seront plus tard utilis&eacute;es par Albert Einstein dans ses travaux sur la th&eacute;orie de la relativit&eacute;, ainsi que par les chercheurs travaillant sur la th&eacute;orie quantique. Elles aideront &eacute;galement Max Planck dans ses recherches sur sa th&eacute;orie selon laquelle il y a une corr&eacute;lation entre l'&eacute;lectromagn&eacute;tisme et la mati&egrave;re. Les d&eacute;couvertes de Maxwell ont eu une grande influence sur la physique moderne, et sont toujours utilis&eacute;es pour approfondir nos connaissances dans ce domaine.<br>
 <br>
-<br>
-Ses théories furent prouvées par Heinrich Hertz 8 ans après sa mort et ont permis à plusieurs inovation comme la radio d'apparaitre.
-
+Ses th&eacute;ories furent prouv&eacute;es par Heinrich Hertz 16 ans apr&egrave;s sa mort et ont permis l'apparition de plusieurs innovations, telles que la radio.
 </p>

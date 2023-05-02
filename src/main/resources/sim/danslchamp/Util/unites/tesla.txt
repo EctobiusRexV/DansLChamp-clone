@@ -1,0 +1,5 @@
+<p align="justify" style="font-family: Open Sans Light">
+
+Le tesla est l'unit&eacute; de mesure de la densit&eacute; de flux magn&eacute;tique du syst&egrave;me international (SI). Elle est utilis&eacute;e pour quantifier la force et la direction des champs magn&eacute;tiques. Un champ magn&eacute;tique d'un tesla est assez puissant : pour donner un point de comparaison, le champ magn&eacute;tique terrestre est d'environ 50 microteslas. Le tesla est nomm&eacute; en l'honneur de l'inventeur et physicien serbe-am&eacute;ricain Nikola Tesla, qui a apport&eacute; des contributions importantes au d&eacute;veloppement de l'&eacute;lectricit&eacute; et de la technologie des champs &eacute;lectromagn&eacute;tiques au XIXe si&egrave;cle.
+
+</p>

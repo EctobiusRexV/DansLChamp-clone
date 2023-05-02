@@ -1,8 +1,6 @@
 <p align="justify" style="font-family: Open Sans Light">
 
-Hans Christian Ørsted est un physicien et chimiste danois.  Il fut le premier a établir une relation entre électricité et magnétisme.  En effet, il observe que lorsqu'un courant est transporté dans un fil et que l'on positionne une boussole près de ce fil, la boussole en question se voit affectée par un champ généré par le fil !  Par contre, il ne sera malheureusement pas capable d'établir quelque explication ou relation mathématique du phénomène.  Il publie malgré tout ses découverte dans un livre qui inspirera plusieurs physiciens même après sa mort.  Il sera tout de même très bien reconnu après qu'André-Marie Ampère ait repris ses recherches.
+Hans Christian &Oslash;rsted est un physicien et chimiste danois. Il fut le premier &agrave; &eacute;tablir une relation entre l'&eacute;lectricit&eacute; et le magn&eacute;tisme. En effet, il a observ&eacute; que lorsqu'un courant est transport&eacute; dans un fil et qu'on positionne une boussole pr&egrave;s de ce fil, la boussole est affect&eacute;e par un champ magn&eacute;tique g&eacute;n&eacute;r&eacute; par le fil ! Malheureusement, il n'a pas pu &eacute;tablir d'explication ou de relation math&eacute;matique pour ce ph&eacute;nom&egrave;ne. Il a n&eacute;anmoins publi&eacute; ses d&eacute;couvertes dans un livre qui a inspir&eacute; plusieurs physiciens, m&ecirc;me apr&egrave;s sa mort. Il a finalement &eacute;t&eacute; bien reconnu apr&egrave;s qu'Andr&eacute;-Marie Amp&egrave;re a repris ses recherches.<br>
 <br>
-<br>
-Ørsted ne se verra pas donner le nom d'une unité, mais le premier satellite danois portera son nom.  Ce satellite sert principalement à calculer le champ magnétique terrestre.
-
+&Oslash;rsted ne se verra pas donner le nom d'une unit&eacute;, mais le premier satellite danois portera son nom. Ce satellite sert principalement &agrave; calculer le champ magn&eacute;tique terrestre.
 </p>

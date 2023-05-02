@@ -1,11 +1,8 @@
 <p align="justify" style="font-family: Open Sans Light">
 
-Georg Simon Ohm est un physicien et mathématicien allemand qui consacra sa vie à la recherche scientifique.  Il commencera alors à faire ses recherches à partir de ceux d'Alessandro Volta, puisqu'il utilisera sa pile voltaïque.  Il publiera alors ses recherches dans son livre « Die galvanische Kette, mathematisch bearbeitet », littéralement « Théorie mathématique du circuit galvanique » en français où il conclut qu'il y a une relation entre la différence de potentiel et l'intensité du courant, c'est la loi d'Ohm ! (voir définition du résistor)  Cette loi est un pas de géant vers la compréhension des phénomènes électriques.
+Georg Simon Ohm est un physicien et math&eacute;maticien allemand qui a consacr&eacute; sa vie &agrave; la recherche scientifique. Il a commenc&eacute; ses recherches en utilisant la pile volta&iuml;que d'Alessandro Volta. Il a publi&eacute; ses recherches dans son livre intitul&eacute; &laquo; Die galvanische Kette, mathematisch bearbeitet &raquo;, qui signifie &laquo; Th&eacute;orie math&eacute;matique du circuit galvanique &raquo; en fran&ccedil;ais. Dans ce livre, il a conclu qu'il existe une relation entre la diff&eacute;rence de potentiel et l'intensit&eacute; du courant, que l'on conna&icirc;t aujourd'hui sous le nom de loi d'Ohm (voir d&eacute;finition de la r&eacute;sistance). Cette loi a &eacute;t&eacute; une avanc&eacute;e majeure dans la compr&eacute;hension des ph&eacute;nom&egrave;nes &eacute;lectriques.<br>
 <br>
+Il fut &eacute;galement le premier physicien &agrave; mesurer avec pr&eacute;cision la diff&eacute;rence de potentiel aux bornes d'un composant, ainsi que le premier &agrave; &eacute;tablir une distinction claire entre courant et tension.<br>
 <br>
-Il fut également le premier physicien à mesurer avec précision la différence de potentiel aux borne d'un composant ainsi que le premier à poser une vraie distinction entre courant et tension.
-<br>
-<br>
-On nommera l'unité de la résistance électrique, le ohm, en son honneur.
-
+On nommera l'unit&eacute; de la r&eacute;sistance &eacute;lectrique, le ohm, en son honneur.
 </p>
