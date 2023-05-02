@@ -1,5 +1,8 @@
 <p align="justify" style="font-family: Open Sans Light">
 
-Heinrich Hertz
+Heinrich Hertz est un physicien allemand qui confirme les grandes théories de Maxwell portant sur l'électromagnétisme qui stipulent que la lumière et la chaleur sont des ondes électromagnétiques.  Il produira en laboratoire des ondes électromagnétiques et réussira a en calculer la longueur et la vitesse.  Il expliquera par la suite que ces ondes peuvent se comporter comme la lumière et la chaleur.
+<br>
+<br>
+On nommera l'unité de la fréquence, le hertz, en son honneur.
 
 </p>

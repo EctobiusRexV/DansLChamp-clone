@@ -1,5 +1,8 @@
 <p align="justify" style="font-family: Open Sans Light">
 
-Charles-Augustin de Coulomb
+Charles-Augustin de Coulomb est un ingénieur et physicien français surtout connu pour la loi de Coulomb, qui explique le phénomène de force entre deux particules chargées qui est proportionnele au produit de ces deux charges et inversement proportionnelle à la distance entre ces deux charges.  Elle est à la base de l'explication des forces apparentes dans les noyaux des particules.  Il créera également un appareil très précis servant à mesurer la force électrique.
+<br>
+<br>
+On nommera plus tard l'unité de la charge électrique, le coulomb, en son honneur.
 
 </p>
