@@ -15,7 +15,7 @@ public class AideControleur extends ParentControleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        textAreaAide.getEngine().loadContent("");
+        textAreaAide.getEngine().loadContent("En cours de développement...");
     }
 
 
