@@ -1,0 +1,5 @@
+<p align="justify" style="font-family: Open Sans Light">
+
+Le m&egrave;tre est l'unit&eacute; de mesure de longueur du syst&egrave;me international d'unit&eacute;s (SI). Il est d&eacute;fini comme la distance parcourue par la lumi&egrave;re dans le vide pendant une dur&eacute;e de 1/299 792 458 seconde. Cette d&eacute;finition permet d'avoir une constante physique universelle pour la mesure de la longueur, ce qui assure une grande pr&eacute;cision et une universalit&eacute; de la mesure. Le m&egrave;tre est utilis&eacute; dans de nombreuses applications, notamment en science, en technologie, en ing&eacute;nierie et en construction.
+
+</p>

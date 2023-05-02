@@ -1,8 +1,7 @@
 <p align="justify" style="font-family: Open Sans Light">
 
-Joseph Henry est un physicien américain qui aide à la découverte de plusieurs phénomènes en physique électrique, dont l'auto-induction dans les bobines qui est utilisé dans des centaines d'appareils de nos jours.  Il réussit également à augmenter la puissance des électroaimants en améliorant la conception de ceux-ci.  Il travaillera ensuite sur l'induction électromagnétique, utilisé pour convertir magnétisme en électricité, avant d'apprendre que Michael Faraday l'avait découvert l'année précédente.
+Joseph Henry est un physicien am&eacute;ricain qui a contribu&eacute; &agrave; la d&eacute;couverte de plusieurs ph&eacute;nom&egrave;nes en physique &eacute;lectrique, notamment l'auto-induction dans les bobines, qui est utilis&eacute;e dans des centaines d'appareils de nos jours. Il a &eacute;galement r&eacute;ussi &agrave; augmenter la puissance des &eacute;lectroaimants en am&eacute;liorant leur conception. Par la suite, il a travaill&eacute; sur l'induction &eacute;lectromagn&eacute;tique, qui est utilis&eacute;e pour convertir le magn&eacute;tisme en &eacute;lectricit&eacute;, avant de d&eacute;couvrir que Michael Faraday avait fait cette d&eacute;couverte l'ann&eacute;e pr&eacute;c&eacute;dente.<br>
 <br>
-<br>
-On nommera l'unité de l'inductance, le henri, en son honneur.
+On nommera l'unit&eacute; de l'inductance, le henry, en son honneur.
 
 </p>

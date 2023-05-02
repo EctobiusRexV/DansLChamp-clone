@@ -1,0 +1,5 @@
+<p align="justify" style="font-family: Open Sans Light">
+
+Le farad est une unit&eacute; de mesure de la capacitance &eacute;lectrique. Il est utilis&eacute; pour mesurer la capacit&eacute; d'un mat&eacute;riau &agrave; stocker des charges &eacute;lectriques. Un farad &eacute;quivaut &agrave; la capacit&eacute; n&eacute;cessaire pour stocker une charge d'un coulomb sous une tension de un volt. Le farad est souvent utilis&eacute; dans les applications &eacute;lectriques telles que la conception de condensateurs pour les circuits &eacute;lectroniques. Bien que le farad soit une unit&eacute; de mesure de grande valeur, il est plus courant d'utiliser des sous-unit&eacute;s telles que le microfarad (&micro;F) ou le nanofarad (nF) pour des valeurs de capacit&eacute; plus courantes.
+
+</p>

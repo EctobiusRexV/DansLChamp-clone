@@ -1,8 +1,6 @@
 <p align="justify" style="font-family: Open Sans Light">
 
-Thomas Alva Edison est un inventeur et physicien américain, surtout connu pour l'invention du phonographe (appareil permettant d'enregistrer et d'écouter des sons) ainsi que le kinétoscope (appareil permettant de visionner des bandes de film).  Par contre, il devient célèbre en 1880 en inventant l'ampoule à incandescence.  Il le fait en plaçant un bambou comme filament dans une ampoule à vide et en y faisant passer un courant, le bambou produit alors de la lumière.  Il remplacera plus ce bambou par un mince fil de tungstène, connu pour sa résistivité élevé.
+Thomas Alva Edison est un inventeur et physicien am&eacute;ricain, surtout connu pour l'invention du phonographe (appareil permettant d'enregistrer et d'&eacute;couter des sons) ainsi que du kin&eacute;toscope (appareil permettant de visionner des bandes de film). Cependant, il est devenu c&eacute;l&egrave;bre en 1880 en inventant l'ampoule &agrave; incandescence. Il a plac&eacute; un filament de bambou dans une ampoule &agrave; vide et en y faisant passer un courant, le bambou a produit de la lumi&egrave;re. Par la suite, il a remplac&eacute; ce filament par un mince fil de tungst&egrave;ne, connu pour sa r&eacute;sistivit&eacute; &eacute;lev&eacute;e.<br>
 <br>
-<br>
-Il devient rapidement un héros parmi la population américaine pour ses inventions multiples qui ont eu des impacts si grands que l'on peut en appercevoir les impacts encore aujourd'hui, plus de 100 ans plus tard.
-
+Il devient rapidement un h&eacute;ros parmi la population am&eacute;ricaine pour ses nombreuses inventions qui ont eu un impact si important que l'on peut encore en voir les effets aujourd'hui, plus de 100 ans plus tard.
 </p>

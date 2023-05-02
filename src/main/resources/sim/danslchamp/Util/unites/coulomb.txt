@@ -1,0 +1,5 @@
+<p align="justify" style="font-family: Open Sans Light">
+
+Le coulomb est une unit&eacute; de mesure de la charge &eacute;lectrique. Elle a &eacute;t&eacute; nomm&eacute;e en l'honneur du physicien fran&ccedil;ais Charles-Augustin de Coulomb, qui a r&eacute;alis&eacute; des travaux fondamentaux sur l'&eacute;lectrostatique au XVIIIe si&egrave;cle. Un coulomb est d&eacute;fini comme la quantit&eacute; de charge &eacute;lectrique qui traverse une section de conducteur en une seconde lorsqu'un courant &eacute;lectrique d'un amp&egrave;re y circule. Cette unit&eacute; est largement utilis&eacute;e en &eacute;lectricit&eacute; et en &eacute;lectronique pour mesurer la charge &eacute;lectrique des particules, telles que les &eacute;lectrons et les ions.
+
+</p>

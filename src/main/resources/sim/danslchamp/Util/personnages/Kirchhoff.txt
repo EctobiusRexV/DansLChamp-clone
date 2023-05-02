@@ -1,5 +1,6 @@
 <p align="justify" style="font-family: Open Sans Light">
 
-Gustav Kirchhoff
-
+Gustav Kirchhoff est un physicien allemand qui est cr&eacute;dit&eacute; pour la d&eacute;couverte de la composition du Soleil &agrave; l'aide de l'analyse de raies spectrales. Ses d&eacute;couvertes dans le domaine de l'&eacute;lectricit&eacute; approfondissent les d&eacute;couvertes de Georg Ohm, qui permettent le calcul de la r&eacute;sistance, du courant et des diff&eacute;rences de potentiel dans un circuit. Il d&eacute;terminera ensuite que le courant ne se d&eacute;place pas &agrave; la vitesse de la lumi&egrave;re, mais que la vitesse de propagation de l'information &eacute;lectrique dans un conducteur est &eacute;gale &agrave; la vitesse de la lumi&egrave;re divis&eacute;e par la racine carr&eacute;e de la permittivit&eacute; du milieu.<br>
+<br>
+Ses d&eacute;monstrations sont toujours utilis&eacute;es de nos jours et permettent d'approfondir les connaissances de la physique moderne.
 </p>

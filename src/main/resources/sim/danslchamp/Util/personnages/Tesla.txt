@@ -1,8 +1,5 @@
 <p align="justify" style="font-family: Open Sans Light">
 
-Nikola Tesla est un ingénieur est inventeur américain d'origine serbe qui fut un des personnages importants de la transition vers la transportation de l'électricité entre les centrales et les consommateurs par le courant alternatif au lieu de continu.  Bien qu'il ait déposé plus de 300 brevets, c'est dans cette branche qu'il est le plus connu.  Il mettra également au point les premiers alternateurs et consolidera les recherches de Maxwell dans l'électromagnétisme en trouvant les fréquences propres de certains circuits,  ce qui maximisera leur rendement.
+Nikola Tesla est un ing&eacute;nieur et inventeur am&eacute;ricain d'origine serbe qui a jou&eacute; un r&ocirc;le important dans la transition vers la transmission de l'&eacute;lectricit&eacute; entre les centrales et les consommateurs par le courant alternatif, plut&ocirc;t que le courant continu. Bien qu'il ait d&eacute;pos&eacute; plus de 300 brevets, c'est dans cette branche qu'il est le plus connu. Il a &eacute;galement mis au point les premiers alternateurs et a contribu&eacute; &agrave; approfondir les recherches de Maxwell dans l'&eacute;lectromagn&eacute;tisme en d&eacute;couvrant les fr&eacute;quences propres de certains circuits, ce qui a permis de maximiser leur rendement.<br>
 <br>
-<br>
-Il ne sera pas particulièrement populaire lors de son vivant et presque oublié après sa mort, mais l'unité d'induction magnétique, le tesla sera finalement nommé en son nom dans les années 1960.
-
-</p>
+Il ne fut pas particuli&egrave;rement populaire de son vivant et presque oubli&eacute; apr&egrave;s sa mort, mais l'unit&eacute; d'induction magn&eacute;tique, le tesla, sera finalement nomm&eacute;e en son honneur dans les ann&eacute;es 1960.</p>

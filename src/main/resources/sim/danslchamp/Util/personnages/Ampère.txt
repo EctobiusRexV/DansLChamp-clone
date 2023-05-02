@@ -1,11 +1,7 @@
 <p align="justify" style="font-family: Open Sans Light">
 
-Marie-André Ampère est un physicien français qui fait de grandes découvertes en éléctricité à la fin du 18e et au début du 19e siècle.  Alors qu'il apprend qu'Ørsted avait découvert qu'un courant dans un conducteur créait un champ magnétique, il se pose une question : et si on mettait deux de ces conducteurs traversés par un courant près l'un de l'autre ?  Comment se comportent-ils ?  Il fera alors l'expérience.  il découvrira alors que lorsque les deux sont positionnés dans le même sens, ils se repousent, alors que si les deux sont dans deux sens opposés, il s'attirent !  Il entourrera ensuite ce conducteur autour d'une aiguille qui se trouvera ainsi aimantée en permanence !  Il est donc responsable de la découverte de l'électro-aimant.
+Marie-Andr&eacute; Amp&egrave;re &eacute;tait un physicien fran&ccedil;ais qui a r&eacute;alis&eacute; de grandes d&eacute;couvertes en &eacute;lectricit&eacute; &agrave; la fin du XVIIIe et au d&eacute;but du XIXe si&egrave;cle. Apr&egrave;s avoir appris que &Oslash;rsted avait d&eacute;couvert qu'un courant &eacute;lectrique dans un conducteur cr&eacute;ait un champ magn&eacute;tique, Amp&egrave;re s'est pos&eacute; une question : que se passe-t-il si l'on place deux de ces conducteurs travers&eacute;s par un courant pr&egrave;s l'un de l'autre ? Pour r&eacute;pondre &agrave; cette question, il a men&eacute; une exp&eacute;rience et a d&eacute;couvert que lorsque les deux conducteurs &eacute;taient positionn&eacute;s dans le m&ecirc;me sens, ils se repoussaient, alors que s'ils &eacute;taient dans deux sens oppos&eacute;s, ils s'attiraient ! Il a ensuite enroul&eacute; un de ces conducteurs autour d'une aiguille, ce qui a aimant&eacute; l'aiguille de mani&egrave;re permanente. Ainsi, Amp&egrave;re est &agrave; l'origine de la d&eacute;couverte de l'&eacute;lectroaimant.<br>
 <br>
+Il a &eacute;galement invent&amp;eacute; le galvanom&egrave;tre, anc&ecirc;tre de l'amp&egrave;rem&egrave;tre, qui permet de mesurer le courant &amp;eacute;lectrique dans un circuit.<br>
 <br>
-Il inventera également le galvanomètre, ancètre de l'ampèremètre, qui permet de mesurer le courant dans un circuit.
-<br>
-<br>
-Pour ses travaux en physique électrique, Ampère se voit donner le nom de l'unité du courant électrique.
-
-</p>
+En reconnaissance de ses travaux en physique &eacute;lectrique, Amp&egrave;re s'est vu attribuer le nom de l'unit&amp;eacute; du courant &amp;eacute;lectrique.</p>

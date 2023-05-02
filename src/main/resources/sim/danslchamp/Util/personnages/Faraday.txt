@@ -1,11 +1,8 @@
 <p align="justify" style="font-family: Open Sans Light">
 
-Michael Faraday est un physicien et chimiste britannique.  Ses plus grands travaux et découvertes sont malgré tout concentrées dans le domaine de l'électricité.  Alors intrigué par les travaux d'Ørsted dans le domaine du magnétisme, il inverse son expérience en plongeant un aimant et un cable de métal traversé par un courant dans un bain de mercure.  Il remarqua alors que le cable se met à tourner autour de l'aimant !  Cette expérience démontre la possibilité d'un moteur électrique qui fonnctionnerais de la même façon.
+Michael Faraday est un physicien et chimiste britannique. Ses plus grandes d&eacute;couvertes et travaux sont toutefois concentr&eacute;s dans le domaine de l'&eacute;lectricit&eacute;. Intrigu&eacute; par les travaux d'&Oslash;rsted dans le domaine du magn&eacute;tisme, il inverse son exp&eacute;rience en plongeant un aimant et un c&acirc;ble de m&eacute;tal travers&eacute; par un courant dans un bain de mercure. Il remarque alors que le c&acirc;ble se met &agrave; tourner autour de l'aimant ! Cette exp&eacute;rience d&eacute;montre la possibilit&eacute; d'un moteur &eacute;lectrique qui fonctionnerait de la m&ecirc;me fa&ccedil;on.<br>
 <br>
+Il d&eacute;couvrira par la suite l'induction &eacute;lectromagn&eacute;tique apr&egrave;s de longues ann&eacute;es d'exp&eacute;rience. Il d&eacute;couvrira &eacute;galement que la charge &eacute;lectrique d'un conducteur charg&eacute; se situe &agrave; l'ext&eacute;rieur de celui-ci ! Ce principe est utilis&eacute; et peut &ecirc;tre d&eacute;montr&eacute; par ce qu'on appelle aujourd'hui la cage de Faraday.<br>
 <br>
-Il découvrira par la suite l'induction électromagnétique à la suite de longues années d'expérience.  Il découvrira également que la charge d'un conducteur chargé se situe à l'extérieur !  Ce principe est utilisé et peut être démontré par ce qu'on appelle aujourd'hui la cage de Faraday.
-<br>
-<br>
-On nommera plus tard le nom de l'unité décrivant la capacité électrique, le farad, en son nom.
-
+On nommera plus tard l'unit&eacute; d&eacute;crivant la capacit&eacute; &eacute;lectrique, le farad, en son honneur.
 </p>
