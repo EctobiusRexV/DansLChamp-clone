@@ -49,8 +49,6 @@ public class CircuitControleur extends ParentControleur {
     private Circuit circuit = new Circuit();
 
 
-
-
     Tooltip infobulleC = new Tooltip();
     private File fichierEnregistrement;
 
@@ -67,10 +65,10 @@ public class CircuitControleur extends ParentControleur {
         }
 
 
-
         stage.setOnHidden(event -> {
             Config.circuitDiagrammesSplitPanePosition0 = diagrammesSplitPane.getDividerPositions()[0];
-            if (diagrammesSplitPane.getDividers().size()>1) Config.circuitDiagrammesSplitPanePosition1 = diagrammesSplitPane.getDividerPositions()[1];
+            if (diagrammesSplitPane.getDividers().size() > 1)
+                Config.circuitDiagrammesSplitPanePosition1 = diagrammesSplitPane.getDividerPositions()[1];
             Config.circuitMaximise = stage.isMaximized();
             if (!stage.isMaximized()) {
                 Config.circuitPosX = stage.getX();
@@ -94,7 +92,7 @@ public class CircuitControleur extends ParentControleur {
     private VBox vBox2D, vBox3D;
     @FXML
     private SubScene subSceneConcepteur,
-                     subScene3D;
+            subScene3D;
 
     // FXML fields for each CheckMenuItem in Circuit.fxml
     @FXML
@@ -145,49 +143,81 @@ public class CircuitControleur extends ParentControleur {
         });
 
 
-            vBox2D.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent event) -> {
-                    Bobine bob = null;
-                    for (int i = 0; i < circuit.getComposantsSansFils().size(); i++) {
-                        if (circuit.getComposantsSansFils().get(i).getClass() == Bobine.class) {
-                            bob = (Bobine) circuit.getComposantsSansFils().get(i);
-                            break;
-                        }
+        vBox2D.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent event) -> {
+            Bobine bob = null;
+            Bobine bob2 = null;
+            int cpt = 0;
+            for (int i = 0; i < circuit.getComposantsSansFils().size(); i++) {
+                if (circuit.getComposantsSansFils().get(i).getClass() == Bobine.class) {
+                    cpt = cpt + 1;
+                    if (cpt > 1) {
+                        bob2 = (Bobine) circuit.getComposantsSansFils().get(i);
+                        break;
                     }
+                    bob = (Bobine) circuit.getComposantsSansFils().get(i);
+                    break;
+                }
+            }
 
-                    if (bob != null) {
-                        javafx.scene.control.Label valeursLabel = new javafx.scene.control.Label();
-                        VBox infobulleVBox = new VBox(
-                                new Label("champ magnétique"),
-                                new Separator(Orientation.HORIZONTAL),
-                                valeursLabel);
-//TODO faire les distances correct
-                        infobulleC.setGraphic(infobulleVBox);
-                        double x = bob.getPosX() + circuit.getDiagramme2D().getGroup().getLayoutX();
-                        double y = bob.getPosY() + circuit.getDiagramme2D().getGroup().getLayoutY();;
-                        double d = Math.hypot((x - event.getX()), (y - event.getY()));
-                        double B = 4 * Math.PI * (bob.nombreDeSpires.getValeur(Composant.Unite.UNITE) / bob.longueur.getValeur(Composant.Unite.UNITE)) * bob.courant.getValeur(Composant.Unite.UNITE) / 100;
-                        double Bext = (B * Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2) + Math.pow(d, 2), (3 / 2)));
-                        Composant.Valeur dist = new Composant.Valeur(d, Composant.Unite.UNITE, "cm");
-                        Composant.Valeur valTesla = new Composant.Valeur(Bext, Composant.Unite.UNITE, "T");
-                        valeursLabel.setText("La force du champ magnétique à " + dist + " mètres de la bobine est de: " + "\n" + valTesla);     // Clear
+            if (bob != null) {
+
+                javafx.scene.control.Label valeursLabel = new javafx.scene.control.Label();
+                VBox infobulleVBox = new VBox(
+                        new Label("champ magnétique"),
+                        new Separator(Orientation.HORIZONTAL),
+                        valeursLabel);
+                //TODO faire les distances correct
+                infobulleC.setGraphic(infobulleVBox);
+                double x = bob.getPosX() + circuit.getDiagramme2D().getGroup().getLayoutX();
+                double y = bob.getPosY() + circuit.getDiagramme2D().getGroup().getLayoutY();
+                ;
+                double d = Math.hypot((x - event.getX()), (y - event.getY()));
+                double B = 4 * Math.PI * (bob.nombreDeSpires.getValeur(Composant.Unite.UNITE) / bob.longueur.getValeur(Composant.Unite.UNITE)) * bob.courant.getValeur(Composant.Unite.UNITE) / 10000000;
+                double Bext = (B * Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2) + Math.pow(d, 2), (3 / 2)));
+                Composant.Valeur dist = new Composant.Valeur(d, Composant.Unite.UNITE, "cm");
+                Composant.Valeur valTesla = new Composant.Valeur(Bext, Composant.Unite.UNITE, "T");
+                if (cpt > 1){
+                    double x2 = bob.getPosX() + circuit.getDiagramme2D().getGroup().getLayoutX();
+                    double y2 = bob.getPosY() + circuit.getDiagramme2D().getGroup().getLayoutY();
+                    ;
+                    double d2 = Math.hypot((x2 - event.getX()), (y2 - event.getY()));
+                    double B2 = 4 * Math.PI * (bob2.nombreDeSpires.getValeur(Composant.Unite.UNITE) / bob2.longueur.getValeur(Composant.Unite.UNITE)) * bob2.courant.getValeur(Composant.Unite.UNITE) / 10000000;
+                    double Bext2 = (B2 * Math.pow(bob2.rayon.getValeur(Composant.Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(bob2.rayon.getValeur(Composant.Unite.UNITE), 2) + Math.pow(d2, 2), (3 / 2)));
+                     dist = new Composant.Valeur(d + d2, Composant.Unite.UNITE, "cm");
+                     valTesla = new Composant.Valeur(Bext + Bext2, Composant.Unite.UNITE, "T");
+
+                }
+                valeursLabel.setText("La force du champ magnétique à " + dist + " mètres de la bobine est de: " + "\n" + valTesla);     // Clear
 
 
-                        infobulleC.show(vBox2D, event.getScreenX(), event.getScreenY());
-                    }
+                infobulleC.show(vBox2D, event.getScreenX(), event.getScreenY());
+            }
 
-            });
-
-            vBox2D.addEventHandler(MouseEvent.MOUSE_RELEASED, event -> {
-                infobulleC.hide();
-
-            });
-
-        composantsListView.getSelectionModel().selectedItemProperty().addListener((l, old, composant) -> {
-            Diagramme.surligner(old, composant);
         });
 
-        subScene3D.heightProperty().bind(vBox3D.heightProperty());
-        subScene3D.widthProperty().bind(vBox3D.widthProperty());
+        vBox2D.addEventHandler(MouseEvent.MOUSE_RELEASED, event ->
+
+        {
+            infobulleC.hide();
+
+        });
+
+        composantsListView.getSelectionModel().
+
+                selectedItemProperty().
+
+                addListener((l, old, composant) ->
+
+                {
+                    Diagramme.surligner(old, composant);
+                });
+
+        subScene3D.heightProperty().
+
+                bind(vBox3D.heightProperty());
+        subScene3D.widthProperty().
+
+                bind(vBox3D.widthProperty());
     }
 
     private void affichageCheckBoxMenuItem(CheckMenuItem checkMenuItem, Node node) {
@@ -266,7 +296,6 @@ public class CircuitControleur extends ParentControleur {
 
         Config.circuitRecent1 = circuitActuel;
     }
-
 
 
     public static void nouveau() {
