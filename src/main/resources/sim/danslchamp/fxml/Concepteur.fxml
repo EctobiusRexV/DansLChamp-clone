@@ -36,7 +36,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
@@ -79,15 +78,15 @@
                   </ImageView>
                </graphic>
             </Button>
-            <ToggleButton fx:id="lockToggleButton" mnemonicParsing="false">
+            <Button mnemonicParsing="false" onAction="#ouvrirCircuit">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                         <Image url="@/sim/danslchamp/controleurs/lock.png" />
+                        <Image url="@/sim/danslchamp/controleurs/vue.png" />
                      </image>
                   </ImageView>
                </graphic>
-            </ToggleButton>
+            </Button>
             <Separator orientation="VERTICAL" prefHeight="40.0" />
         </items>
       </ToolBar>

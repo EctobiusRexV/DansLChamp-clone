@@ -6,6 +6,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
+import sim.danslchamp.circuit.Diagramme;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ public class ComposantsListCell extends ListCell<Composant> {
     public ComposantsListCell(Circuit circuit) {
         this.circuit = circuit;
     }
+
+    private Composant oldSelection;
 
     @Override
     protected void updateItem(Composant item, boolean empty) {
@@ -44,6 +47,12 @@ public class ComposantsListCell extends ListCell<Composant> {
                         Double.MAX_VALUE, // TODO: 2023-04-18 Ne devrait-il pas y avoir une limite?
                         val,
                         val * 0.1);
+
+                spinner.focusedProperty().addListener((l, old, focused) -> {
+                    if (focused)
+                        Diagramme.surligner(oldSelection, item);
+                    oldSelection = item;
+                });
                 // set Spinner Editable
                 spinner.setEditable(true);
                 // handle ParseException

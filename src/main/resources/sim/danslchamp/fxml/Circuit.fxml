@@ -64,36 +64,9 @@
                                          </items>
                                      </Menu>
                               <Menu text="_Éditer">
-                                <items>
-                                  <MenuItem mnemonicParsing="false" text="Copier">
-                                       <accelerator>
-                                          <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                                       </accelerator>
-                                    </MenuItem>
-                                    <MenuItem mnemonicParsing="false" text="Coller">
-                                       <accelerator>
-                                          <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                                       </accelerator>
-                                    </MenuItem>
-                                    <MenuItem mnemonicParsing="false" text="Couper">
-                                       <accelerator>
-                                          <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                                       </accelerator>
-                                    </MenuItem>
-                                    <SeparatorMenuItem mnemonicParsing="false" />
-                                    <MenuItem mnemonicParsing="false" text="Annuler">
-                                       <accelerator>
-                                          <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                                       </accelerator>
-                                    </MenuItem>
-                                    <MenuItem mnemonicParsing="false" text="Refaire">
-                                       <accelerator>
-                                          <KeyCodeCombination alt="UP" code="Y" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                                       </accelerator>
-                                    </MenuItem>
-                                    <SeparatorMenuItem mnemonicParsing="false" />
-                                    <MenuItem text="_Titre du circuit..." />
-                                </items>
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#ouvrirConcepteur" text="Concepteur de circuit..." />
+                                 </items>
                               </Menu>
                                      <Menu mnemonicParsing="false" text="Bibliothèque">
                                          <items>
@@ -106,9 +79,6 @@
                                     <CheckMenuItem fx:id="diagramme3DCheckMenuItem" text="Diagramme _3D" />
                                     <SeparatorMenuItem mnemonicParsing="false" />
                                     <CheckMenuItem fx:id="listeDesComposantsCheckMenuItem" text="Liste des _composants" />
-                                    <SeparatorMenuItem mnemonicParsing="false" />
-                                    <CheckMenuItem fx:id="barreDOutilsCheckMenuItem" text="Barre d'_outils" />
-                                    <CheckMenuItem fx:id="titreCheckMenuItem" text="_Titre" />
                                 </items>
                               </Menu>
                                      <Menu mnemonicParsing="false" text="Aide">
@@ -167,7 +137,7 @@
                         </SubScene>
                      </children>
                   </VBox>
-                  <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="listeDesComposantsTabPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab text="Composants">
                            <content>

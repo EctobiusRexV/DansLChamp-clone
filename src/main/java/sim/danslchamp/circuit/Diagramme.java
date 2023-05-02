@@ -23,6 +23,23 @@ public abstract class Diagramme {
     private Circuit circuit;
     private final Group group = new Group();
 
+    public static void surligner(Composant old, Composant composant) {
+        if (composant != null) {
+            composant.getSymbole2D().getChildren().forEach(node -> {
+                if (node instanceof Group) {
+                    ((Group) node).getChildren().forEach(subnodes -> subnodes.setStyle("-fx-stroke: blue"));
+                }
+            });
+        }
+        if (old != null) {
+            old.getSymbole2D().getChildren().forEach(node -> {
+                if (node instanceof Group) {
+                    ((Group) node).getChildren().forEach(subnodes -> subnodes.setStyle("-fx-stroke: black"));    // FIXME: 2023-04-25 old.getStrokeColor()
+                }
+            });
+        }
+    }
+
     /**
      * Ajoute un composant au diagramme. Construit le composant avec ses paramètres par défaut.
      *

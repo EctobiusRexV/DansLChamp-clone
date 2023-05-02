@@ -5,15 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Camera;
-import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.SubScene;
+import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ListView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
@@ -29,6 +24,7 @@ import sim.danslchamp.Util.DanslChampUtil;
 import sim.danslchamp.circuit.Bobine;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
+import sim.danslchamp.circuit.Diagramme;
 import sim.danslchamp.svg.FXASvg;
 
 import java.io.File;
@@ -74,7 +70,7 @@ public class CircuitControleur extends ParentControleur {
 
         stage.setOnHidden(event -> {
             Config.circuitDiagrammesSplitPanePosition0 = diagrammesSplitPane.getDividerPositions()[0];
-            Config.circuitDiagrammesSplitPanePosition1 = diagrammesSplitPane.getDividerPositions()[1];
+            if (diagrammesSplitPane.getDividers().size()>1) Config.circuitDiagrammesSplitPanePosition1 = diagrammesSplitPane.getDividerPositions()[1];
             Config.circuitMaximise = stage.isMaximized();
             if (!stage.isMaximized()) {
                 Config.circuitPosX = stage.getX();
@@ -86,8 +82,6 @@ public class CircuitControleur extends ParentControleur {
             Config.circuitAfficherDiagramme2D = diagramme2DCheckMenuItem.isSelected();
             Config.circuitAfficherDiagramme3D = diagramme3DCheckMenuItem.isSelected();
             Config.circuitAfficherListeDesComposants = listeDesComposantsCheckMenuItem.isSelected();
-            Config.circuitAfficherBarreDOutils = barreDOutilsCheckMenuItem.isSelected();
-            Config.circuitAfficherTitre = titreCheckMenuItem.isSelected();
 
             Config.sauvegarder();
         });
@@ -104,10 +98,13 @@ public class CircuitControleur extends ParentControleur {
 
     // FXML fields for each CheckMenuItem in Circuit.fxml
     @FXML
-    private CheckMenuItem diagramme2DCheckMenuItem, diagramme3DCheckMenuItem, listeDesComposantsCheckMenuItem, barreDOutilsCheckMenuItem, titreCheckMenuItem;
+    private CheckMenuItem diagramme2DCheckMenuItem, diagramme3DCheckMenuItem, listeDesComposantsCheckMenuItem;
 
     @FXML
     private SplitPane diagrammesSplitPane;
+
+    @FXML
+    private TabPane listeDesComposantsTabPane;
 
 
     // ===============================
@@ -120,19 +117,32 @@ public class CircuitControleur extends ParentControleur {
                 getOuvrirRecentsMenuItem(Config.circuitRecent2),
                 getOuvrirRecentsMenuItem(Config.circuitRecent3)
         );
+
+        affichageCheckBoxMenuItem(diagramme2DCheckMenuItem, vBox2D);
+        affichageCheckBoxMenuItem(diagramme3DCheckMenuItem, vBox3D);
+        affichageCheckBoxMenuItem(listeDesComposantsCheckMenuItem, listeDesComposantsTabPane);
+
+        diagrammesSplitPane.getItems().clear();
         diagramme2DCheckMenuItem.setSelected(Config.circuitAfficherDiagramme2D);
         diagramme3DCheckMenuItem.setSelected(Config.circuitAfficherDiagramme3D);
         listeDesComposantsCheckMenuItem.setSelected(Config.circuitAfficherListeDesComposants);
-        barreDOutilsCheckMenuItem.setSelected(Config.circuitAfficherBarreDOutils);
-        titreCheckMenuItem.setSelected(Config.circuitAfficherTitre);
+
 
         diagrammesSplitPane.setDividerPosition(0, Config.circuitDiagrammesSplitPanePosition0);
         diagrammesSplitPane.setDividerPosition(1, Config.circuitDiagrammesSplitPanePosition1);
 
+
         composantsListView.setCellFactory(item ->
                 new ComposantsListCell(circuit));
 
+        vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
+            if (vBox2D.getScaleX() + event.getDeltaY() / 100 < 0)
+                return; // empêcher d'obtenir un scale négatif
 
+            vBox2D.scaleXProperty().set(vBox2D.getScaleX() + event.getDeltaY() / 1000);
+            vBox2D.scaleYProperty().set(vBox2D.getScaleY() + event.getDeltaY() / 1000);
+
+        });
 
 
             vBox2D.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent event) -> {
@@ -169,24 +179,20 @@ public class CircuitControleur extends ParentControleur {
             });
 
         composantsListView.getSelectionModel().selectedItemProperty().addListener((l, old, composant) -> {
-            if (composant != null) {
-                composant.getSymbole2D().getChildren().forEach(node -> {
-                    if (node instanceof Group) {
-                        ((Group) node).getChildren().forEach(subnodes -> subnodes.setStyle("-fx-stroke: blue"));
-                    }
-                });
-            }
-            if (old != null) {
-                old.getSymbole2D().getChildren().forEach(node -> {
-                    if (node instanceof Group) {
-                        ((Group) node).getChildren().forEach(subnodes -> subnodes.setStyle("-fx-stroke: black"));    // FIXME: 2023-04-25 old.getStrokeColor()
-                    }
-                });
-            }
+            Diagramme.surligner(old, composant);
         });
 
         subScene3D.heightProperty().bind(vBox3D.heightProperty());
         subScene3D.widthProperty().bind(vBox3D.widthProperty());
+    }
+
+    private void affichageCheckBoxMenuItem(CheckMenuItem checkMenuItem, Node node) {
+        checkMenuItem.selectedProperty().addListener((l, old, selected) -> {
+            if (selected)
+                diagrammesSplitPane.getItems().add(node);
+            else
+                diagrammesSplitPane.getItems().remove(node);
+        });
     }
 
     @NotNull
@@ -296,5 +302,9 @@ public class CircuitControleur extends ParentControleur {
 
             enregistrer();
         }
+    }
+
+    public void ouvrirConcepteur(ActionEvent actionEvent) {
+        ConcepteurControleur.nouveau(circuit);
     }
 }

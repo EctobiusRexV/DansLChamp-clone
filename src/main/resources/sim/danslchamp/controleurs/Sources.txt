@@ -1,2 +1,4 @@
 curseur.png	http://www.clipartbest.com/clipart-jTxpL5ELc
 Disquette	https://www.vecteezy.com/vector-art/420468-vector-save-icon	Vecteezy.com
+pochette.png	https://www.iconarchive.com/show/noto-emoji-objects-icons-by-google/62917-open-file-folder-icon.html#google_vignette
+vue.png		https://toppng.com/show_download/278261/eye-icon/large

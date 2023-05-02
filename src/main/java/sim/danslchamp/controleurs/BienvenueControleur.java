@@ -111,7 +111,7 @@ vBox.setBorder(new Border(new BorderStroke(javafx.scene.paint.Color.BLACK, Borde
     }
 
     public void nouveauCircuit(ActionEvent actionEvent) {
-        CircuitControleur.nouveau();
+        ConcepteurControleur.nouveau(null);
     }
 
     // ===============================
@@ -122,4 +122,12 @@ vBox.setBorder(new Border(new BorderStroke(javafx.scene.paint.Color.BLACK, Borde
         Platform.exit();
     }
 
+    public void ouvrirCircuit(ActionEvent actionEvent) {
+        try {
+            File file = FC.showOpenDialog(null);
+            if (file != null)
+                DansLChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
+        } catch (FileNotFoundException neSappliquePas) {
+        }
+    }
 }

@@ -3,10 +3,12 @@ package sim.danslchamp.controleurs;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,6 +24,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.Nullable;
 import org.reflections.Reflections;
 import sim.danslchamp.Config;
 import sim.danslchamp.DansLChampApp;
@@ -52,7 +55,7 @@ public class ConcepteurControleur {
     public RadioButton curseurRadioButton;
     public RadioButton conceptionRadioButton;
 
-    private int posX = 0, posY = 0;
+    private int posX = 200, posY = 200;
 
     private Circuit circuit;
 
@@ -243,8 +246,10 @@ public class ConcepteurControleur {
     public void ouvrir() {
         try {
             File file = FC.showOpenDialog(null);
-            if (file != null)
+            if (file != null) {
                 setCircuit(Circuit.chargerCircuit(file));  // Ne pas ouvrir si aucune sélection n'est faite!
+                fichierEnregistrement = file;
+            }
         } catch (FileNotFoundException neSappliquePas) {
         }
     }
@@ -260,8 +265,35 @@ public class ConcepteurControleur {
             sp.setLayoutY(y);
 
             sp.setOnMousePressed(event -> setPos(x, y));
+            sp.setOnMouseReleased(event -> setPos(x, y));
 
             jonctionsGroup.getChildren().add(sp);
         }
+    }
+
+    public void ouvrirCircuit(ActionEvent actionEvent) throws FileNotFoundException {
+        if (fichierEnregistrement == null) {
+            DanslChampUtil.warning("Vous devez enregistrer avant de visualiser.", "");
+        }
+        DansLChampApp.showConcepteurDeCircuit(fichierEnregistrement);
+    }
+
+    public static void nouveau(@Nullable Circuit pcircuit) {
+        Circuit circuit = pcircuit != null
+                ? pcircuit
+                : new Circuit();
+
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+
+        try {
+            stage.setScene(new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ((ConcepteurControleur) fxmlLoader.getController()).setCircuit(circuit);
+        ((ConcepteurControleur) fxmlLoader.getController()).setStage(stage);
+
+        stage.show();
     }
 }
