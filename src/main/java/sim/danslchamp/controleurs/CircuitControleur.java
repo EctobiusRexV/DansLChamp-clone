@@ -170,24 +170,26 @@ public class CircuitControleur extends ParentControleur {
                 infobulleC.setGraphic(infobulleVBox);
                 double x = bob.getPosX() + circuit.getDiagramme2D().getGroup().getLayoutX();
                 double y = bob.getPosY() + circuit.getDiagramme2D().getGroup().getLayoutY();
-                ;
+
                 double d = Math.hypot((x - event.getX()), (y - event.getY()));
                 double B = 4 * Math.PI * (bob.nombreDeSpires.getValeur(Composant.Unite.UNITE) / bob.longueur.getValeur(Composant.Unite.UNITE)) * bob.courant.getValeur(Composant.Unite.UNITE) / 10000000;
-                double Bext = (B * Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2) + Math.pow(d, 2), (3 / 2)));
+                double Bext = (B * Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2) + Math.pow(d/100, 2), (3 / 2)));
                 Composant.Valeur dist = new Composant.Valeur(d, Composant.Unite.UNITE, "cm");
                 Composant.Valeur valTesla = new Composant.Valeur(Bext, Composant.Unite.UNITE, "T");
+
                 if (cpt > 1){
+                    System.out.println("il y a 2 bob");
                     double x2 = bob.getPosX() + circuit.getDiagramme2D().getGroup().getLayoutX();
                     double y2 = bob.getPosY() + circuit.getDiagramme2D().getGroup().getLayoutY();
                     ;
                     double d2 = Math.hypot((x2 - event.getX()), (y2 - event.getY()));
                     double B2 = 4 * Math.PI * (bob2.nombreDeSpires.getValeur(Composant.Unite.UNITE) / bob2.longueur.getValeur(Composant.Unite.UNITE)) * bob2.courant.getValeur(Composant.Unite.UNITE) / 10000000;
                     double Bext2 = (B2 * Math.pow(bob2.rayon.getValeur(Composant.Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(bob2.rayon.getValeur(Composant.Unite.UNITE), 2) + Math.pow(d2, 2), (3 / 2)));
-                     dist = new Composant.Valeur(d + d2, Composant.Unite.UNITE, "cm");
+                     dist = new Composant.Valeur(d + d2, Composant.Unite.UNITE, "m");
                      valTesla = new Composant.Valeur(Bext + Bext2, Composant.Unite.UNITE, "T");
 
                 }
-                valeursLabel.setText("La force du champ magnétique à " + dist + " mètres de la bobine est de: " + "\n" + valTesla);     // Clear
+                valeursLabel.setText("La force du champ magnétique à " + dist + " de la bobine est de: " + "\n" + valTesla);     // Clear
 
 
                 infobulleC.show(vBox2D, event.getScreenX(), event.getScreenY());
