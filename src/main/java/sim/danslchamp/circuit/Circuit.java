@@ -357,6 +357,7 @@ public class Circuit {
         try {
             // Instancier la classe
             Composant composant = Composant.getInstance((Class<Composant>) Class.forName("sim.danslchamp.circuit." + composantType));
+            composant.setAngleRotation(angleRotation);
             composant.setPosXY(posX, posY);
             return addComposant(composant);
         } catch (ClassCastException | ClassNotFoundException e) {

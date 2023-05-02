@@ -19,6 +19,10 @@ import static sim.danslchamp.Util.DanslChampUtil.Capitalize;
 
 public abstract class Composant {
 
+    public void setAngleRotation(int angleRotation) {
+        this.angleRotation = angleRotation;
+    }
+
     /**
      * Désigne les champs affichables dans l'infobulle d'un composant
      */
@@ -128,6 +132,28 @@ public abstract class Composant {
                 .peek(jonction ->
                         jonction.translate(posX, posY))
                 .toArray(Jonction[]::new);
+        rotationnerJonctions();
+    }
+
+    /**
+     * Rotationne les jonctions en fonction de l'angle de rotation
+     */
+    private void rotationnerJonctions() {
+        if (angleRotation == 0) {
+            return;
+        }
+
+        double angle = Math.toRadians(angleRotation);
+        double cos = Math.cos(angle);
+        double sin = Math.sin(angle);
+
+
+                    double x = jonctions[1].getPosX() - posX;
+                    double y = jonctions[1].getPosY() - posY;
+
+        jonctions[1].setPosX((int) (x * cos - y * sin + posX));
+        jonctions[1].setPosY((int) (x * sin + y * cos + posY));
+
     }
 
     public void setBornePositive(Jonction bornePositive) {
