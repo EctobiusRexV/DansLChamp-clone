@@ -56,6 +56,7 @@ public class CircuitControleur extends ParentControleur {
 
 
     Tooltip infobulleC = new Tooltip();
+    private File fichierEnregistrement;
 
     @Override
     public void setStage(Stage stage) {
@@ -217,9 +218,10 @@ public class CircuitControleur extends ParentControleur {
     public void chargerCircuit(@Nullable File file) throws FileNotFoundException {
         circuit = Circuit.chargerCircuit(file);
         pousserCircuitRecent(file);
-
+        fichierEnregistrement = file;
         composantsListView.setItems(circuit.getComposantsSansFils());
 
+        vBox2D.getChildren().setAll(circuit.getDiagramme2D().getGroup());
 
 
         init3D();
@@ -271,6 +273,28 @@ public class CircuitControleur extends ParentControleur {
             if (file != null)
                 chargerCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
         } catch (FileNotFoundException neSappliquePas) {
+        }
+    }
+
+    public void enregistrer() {
+        if (fichierEnregistrement == null) enregistrerSous();
+        else {
+            try {
+                Files.write(fichierEnregistrement.toPath(), Collections.singleton(FXASvg.aSvg(circuit)), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+            } catch (IOException e) {
+                DanslChampUtil.erreur("Impossible d'enregistrer le fichier", e.getMessage());
+            }
+        }
+    }
+
+    public void enregistrerSous() {
+        fichierEnregistrement = FC.showSaveDialog(null);
+        if (fichierEnregistrement != null) {
+            if (FC.getSelectedExtensionFilter() == EXTENSION_FILTER && !fichierEnregistrement.getPath().matches("[" + FILE_EXTENSION + "]^")) {
+                fichierEnregistrement = new File(fichierEnregistrement.getPath() + FILE_EXTENSION);
+            }
+
+            enregistrer();
         }
     }
 }
