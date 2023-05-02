@@ -204,6 +204,7 @@ public class ConcepteurControleur {
 
     @FXML
     void mouseDragged(MouseEvent event) {
+        if (annule) return;
         if (event.getX() < 0 || event.getY() < 0
                 || event.getX() > diagrammeAnchorPane.getWidth() || event.getY() > diagrammeAnchorPane.getHeight()) event.consume();
         else {
