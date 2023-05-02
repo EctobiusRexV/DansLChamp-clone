@@ -2,22 +2,14 @@ package sim.danslchamp.circuit;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.EventType;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
-
-import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 public abstract class Diagramme {
     private Circuit circuit;

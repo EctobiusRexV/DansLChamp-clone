@@ -173,7 +173,7 @@ public abstract class Composant {
 
     abstract Group getSymbole3D();
 
-    public abstract Group getChamp();
+     public abstract Group getChamp();
 
     // Getters & Setters
 

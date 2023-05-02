@@ -5,8 +5,6 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
-import javafx.scene.shape.Cylinder;
-import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.*;
 
@@ -38,7 +36,7 @@ public class Pile extends Source {
     }
 
     @Override
-    Group getChamp() {
+    public Group getChamp() {
         return new Group();
     }
 }

@@ -101,7 +101,7 @@ public class Condensateur extends Composant {
     }
 
     @Override
-    Group getChamp() {
+    public Group getChamp() {
         Circle c = new Circle(getLargeur() * 3 / 5);
         c.setStrokeWidth(3);
         c.setStroke(Color.DARKRED);

@@ -48,7 +48,7 @@ public class SousCircuit extends Composant{
     }
 
     @Override
-    Group getChamp() {
+    public Group getChamp() {
         return new Group();
     }
 

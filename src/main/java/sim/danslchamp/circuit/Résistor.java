@@ -1,11 +1,7 @@
 package sim.danslchamp.circuit;
 
-import javafx.geometry.Point3D;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.StrokeLineCap;
 import sim.danslchamp.Config;
 
 import java.awt.*;
@@ -47,7 +43,7 @@ public class Résistor extends Composant {
     }
 
     @Override
-    Group getChamp() {
+    public Group getChamp() {
         return new Group();
     }
 

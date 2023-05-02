@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import sim.danslchamp.Config;
-import sim.danslchamp.Util.DanslChampUtil;
 
 import java.awt.*;
 
@@ -43,7 +42,7 @@ box.setLayoutY(box.getHeight()/2 + box.getLayoutY()
     }
 
     @Override
-    Group getChamp() {
+    public Group getChamp() {
         return new Group();
     }
 }
