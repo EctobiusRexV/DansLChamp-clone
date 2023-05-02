@@ -1,11 +1,8 @@
 package sim.danslchamp.circuit;
 
-import io.github.palexdev.materialfx.enums.ChainMode;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point3D;
-import javafx.scene.CacheHint;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
@@ -16,7 +13,6 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.StrokeLineCap;
 import sim.danslchamp.Config;
 
-import javax.security.auth.callback.CallbackHandler;
 import java.awt.*;
 
 /**
@@ -74,7 +70,7 @@ public class Bobine extends Composant {
     }
 
     @Override
-    Group getChamp() {
+    public Group getChamp() {
         double startX = this.getJonctions()[0].getPositionXY().getX();
         double startY = this.getJonctions()[0].getPositionXY().getY();
         double endX = this.getJonctions()[1].getPositionXY().getX();
