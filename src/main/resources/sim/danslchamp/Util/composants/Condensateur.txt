@@ -1,5 +1,6 @@
 <p align="justify" style="font-family: Open Sans Light">
-Un condensateur est un dispositif électronique utilisé pour stocker de la charge électrique et de l'énergie électrique dans un champ électrique. Il se compose de deux plaques conductrices séparées par un matériau isolant appelé diélectrique. La capacité d'un condensateur est définie comme le rapport de la charge stockée sur chaque plaque à la différence de tension entre les plaques, et est donnée par l'équation suivante :
+Un condensateur est un dispositif &eacute;lectronique utilis&eacute; pour stocker de la charge &eacute;lectrique et de l'&eacute;nergie &eacute;lectrique dans un champ &eacute;lectrique. Il se compose de deux plaques conductrices s&eacute;par&eacute;es par un mat&eacute;riau isolant appel&eacute; di&eacute;lectrique. La capacit&eacute; d'un condensateur est d&eacute;finie comme le rapport de la charge stock&eacute;e sur chaque plaque &agrave;
+ la diff&eacute;rence de tension entre les plaques, et est donn&eacute;e par l'&eacute;quation suivante :
 <br>
 <p align="center">
 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -13,10 +14,10 @@ Un condensateur est un dispositif électronique utilisé pour stocker de la char
   </mrow>
 </math>
 <br>
-<p aligne="justify" style="font-family: Open Sans Light">
-où C est la capacité en farads, Q est la charge stockée sur chaque plaque en coulombs et V est la différence de tension entre les plaques en volts.
+<p align="justify" style="font-family: Open Sans Light">
+o&ugrave; C est la capacit&eacute; en farads, Q est la charge stock&eacute;e sur chaque plaque en coulombs et V est la diff&eacute;rence de tension entre les plaques en volts.
 
-L'énergie stockée dans un condensateur est donnée par l'équation suivante :
+L'&eacute;nergie stock&eacute;e dans un condensateur est donn&eacute;e par l'&eacute;quation suivante :
 <br>
 <p align="center">
 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -35,8 +36,8 @@ L'énergie stockée dans un condensateur est donnée par l'équation suivante :
   </mrow>
 </math>
 <br>
-<p aligne="justify" style="font-family: Open Sans Light">
-où U est l'énergie stockée dans le condensateur en joules.
+<p align="justify" style="font-family: Open Sans Light">
+o&ugrave; U est l'&eacute;nergie stock&eacute;e dans le condensateur en joules.
 
-Les condensateurs ont de nombreuses applications dans les circuits électroniques, notamment le stockage d'énergie, la filtration et la synchronisation. Ils sont également utilisés dans la correction du facteur de puissance et dans divers types de capteurs.
+Les condensateurs ont de nombreuses applications dans les circuits &eacute;lectroniques, notamment le stockage d'&eacute;nergie, la filtration et la synchronisation. Ils sont &eacute;galement utilis&eacute;s dans la correction du facteur de puissance et dans divers types de capteurs.
 </p>
