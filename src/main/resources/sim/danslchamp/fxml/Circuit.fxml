@@ -1,29 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.SubScene?>
-<?import javafx.scene.control.CheckMenuItem?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.input.KeyCodeCombination?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.CircuitControleur">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sim.danslchamp.controleurs.CircuitControleur">
    <center>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
@@ -68,9 +54,11 @@
                                     <MenuItem mnemonicParsing="false" onAction="#ouvrirConcepteur" text="Concepteur de circuit..." />
                                  </items>
                               </Menu>
-                                     <Menu mnemonicParsing="false" text="Bibliothèque">
+                                     <Menu mnemonicParsing="false" text="Bibliothèques">
                                          <items>
-                                             <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Ouvrir la Bibliothèque de composants" />
+                                             <MenuItem mnemonicParsing="false" onAction="#showBibliotheque" text="Composants" />
+                                    <MenuItem mnemonicParsing="false" onAction="#showBibliothequePersonnages" text="Personnages" />
+                                    <MenuItem mnemonicParsing="false" onAction="#showBibliothequeUnites" text="Unités" />
                                          </items>
                                      </Menu>
                               <Menu text="_Affichage">
