@@ -1,4 +1,6 @@
 <p align="justify" style="font-family: Open Sans Light">
-Les fils électriques sont des composants électrique servant au transport de l'énergie dans le circuit \n
-*dans cette simulation, la résistance des fils est négligée
+Les fils d'un circuit &eacute;lectrique sont des conducteurs qui permettent le transport de l'&eacute;lectricit&eacute; d'un composant &agrave; un autre. Ils sont g&eacute;n&eacute;ralement constitu&eacute;s de cuivre ou d'aluminium en raison de leur bonne conductivit&eacute;. Les fils doivent &ecirc;tre s&eacute;lectionn&eacute;s en fonction du courant maximal qu'ils doivent supporter et de la distance &agrave; parcourir. Des fils plus &eacute;pais sont n&eacute;cessaires pour les courants plus &eacute;lev&eacute;s et les distances plus longues afin de minimiser les pertes d'&eacute;nergie par effet Joule. Les fils sont souvent prot&eacute;g&eacute;s par une gaine isolante en PVC ou en caoutchouc pour &eacute;viter tout court-circuit ou &eacute;lectrocution.
+<br>
+<br>
+*dans cette application, la r&eacute;sistance des fils est n&eacute;glig&eacute;e.
 </p>

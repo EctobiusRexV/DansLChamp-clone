@@ -1,6 +1,5 @@
 <p align="justify" style="font-family: Open Sans Light">
-Une résistance est un composant électronique qui limite le courant électrique dans un circuit. Elle est généralement constituée d'un matériau conducteur, tel que le carbone ou le métal, avec une résistivité élevée. La résistance d'un composant est définie comme la proportionnalité entre la tension appliquée et le courant qui le traverse, et est donnée par l'équation suivante :
-<br>
+Une r&eacute;sistance est un composant &eacute;lectronique qui limite le courant &eacute;lectrique dans un circuit. Elle est g&eacute;n&eacute;ralement constitu&eacute;e d'un mat&eacute;riau conducteur, tel que le carbone ou le m&eacute;tal, avec une r&eacute;sistivit&eacute; &eacute;lev&eacute;e. La r&eacute;sistance d'un composant est d&eacute;finie comme la proportionnalit&eacute; entre la tension appliqu&eacute;e et le courant qui le traverse, et est donn&eacute;e par l'&eacute;quation suivante :<br>
 <p align="center">
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow>
@@ -13,11 +12,9 @@ Une résistance est un composant électronique qui limite le courant électrique
   </mrow>
 </math>
 <br>
-<p aligne="justify" style="font-family: Open Sans Light">
-où R est la résistance en ohms, V est la tension en volts et I est le courant en ampères.  C'est ce qu'on appele la loi d'Ohm.
-
-La puissance dissipée par une résistance est donnée par l'équation suivante :
-<br>
+<p align="justify" style="font-family: Open Sans Light">
+o&ugrave; R est la r&eacute;sistance en ohms, V est la tension en volts et I est le courant en amp&egrave;res. C'est ce qu'on appele la loi d'Ohm.
+La puissance dissip&eacute;e par une r&eacute;sistance est donn&eacute;e par l'&eacute;quation suivante :<br>
 <p align="center">
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow>
@@ -33,7 +30,5 @@ La puissance dissipée par une résistance est donnée par l'équation suivante 
 </math>
 <br>
 <p aligne="justify" style="font-family: Open Sans Light">
-où P est la puissance dissipée en watts.
-
-Les résistances ont de nombreuses applications dans les circuits électrique, notamment pour le réglage de la tension et du courant, la réduction du bruit et la protection contre les surtensions.
-</p>
+o&ugrave; P est la puissance dissip&eacute;e en watts.
+Les r&eacute;sistances ont de nombreuses applications dans les circuits &eacute;lectrique, notamment pour le r&eacute;glage de la tension et du courant, la r&eacute;duction du bruit et la protection contre les surtensions.</p>
