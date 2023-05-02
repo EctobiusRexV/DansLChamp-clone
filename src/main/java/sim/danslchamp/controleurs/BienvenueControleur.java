@@ -130,4 +130,10 @@ vBox.setBorder(new Border(new BorderStroke(javafx.scene.paint.Color.BLACK, Borde
         } catch (FileNotFoundException neSappliquePas) {
         }
     }
+
+    @Override
+    public void setStage(Stage stage) {
+        super.setStage(stage);
+        stage.setMaximized(true);
+    }
 }

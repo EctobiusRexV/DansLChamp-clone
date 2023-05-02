@@ -98,27 +98,45 @@ public class Bobine extends Composant {
                 champ.setControlX2(endX + 20);
             }
             if (i == 1) {
-                champ.setTranslateY(startY-y);
+                champ.setTranslateY(startY - y);
                 champ.setRotationAxis(new Point3D(1, 0, 0));
                 champ.setRotate(180);
                 champ.setControlX1(startX - 20);
                 champ.setControlX2(endX + 20);
             }
             if (i == 2) {
-                champ.setTranslateY(-y/2 + (getHauteur()/2));
-                champ.setTranslateZ(-y/2);
-                champ.setRotationAxis(new Point3D(1, 0, 0));
-                champ.setRotate(-90);
-                champ.setControlX1(startX - 20);
-                champ.setControlX2(endX + 20);
+                if (startY > 30) {
+                    champ.setTranslateY(y + getHauteur());
+                    champ.setTranslateZ(y);
+                    champ.setRotationAxis(new Point3D(1, 0, 0));
+                    champ.setRotate(-90);
+                    champ.setControlX1(startX - 20);
+                    champ.setControlX2(endX + 20);
+                }else{
+                    champ.setTranslateY(-y / 2 + (getHauteur() / 2));
+                    champ.setTranslateZ(-y / 2);
+                    champ.setRotationAxis(new Point3D(1, 0, 0));
+                    champ.setRotate(-90);
+                    champ.setControlX1(startX - 20);
+                    champ.setControlX2(endX + 20);
+                }
             }
             if (i == 3) {
-                champ.setTranslateY(-y/2 + (getHauteur()/2));
-                champ.setTranslateZ(y/2);
-                champ.setRotationAxis(new Point3D(1, 0, 0));
-                champ.setRotate(90);
-                champ.setControlX1(startX - 20);
-                champ.setControlX2(endX + 20);
+                if (startY > 30) {
+                    champ.setTranslateY(y + getHauteur());
+                    champ.setTranslateZ(-y);
+                    champ.setRotationAxis(new Point3D(1, 0, 0));
+                    champ.setRotate(90);
+                    champ.setControlX1(startX - 20);
+                    champ.setControlX2(endX + 20);
+                }else{
+                    champ.setTranslateY(-y / 2 + (getHauteur() / 2));
+                    champ.setTranslateZ(y / 2);
+                    champ.setRotationAxis(new Point3D(1, 0, 0));
+                    champ.setRotate(90);
+                    champ.setControlX1(startX - 20);
+                    champ.setControlX2(endX + 20);
+                }
             }
             champ.setStrokeWidth(4);
             champ.setStroke(Color.ORANGERED);
@@ -136,12 +154,12 @@ public class Bobine extends Composant {
         infobulle.setGraphic(infobulleVBox);
 
         group.setOnMousePressed(event -> {
-            double B = 4 * Math.PI * (nombreDeSpires.getValeur(Unite.UNITE) / longueur.getValeur(Unite.UNITE)) * courant.getValeur(Unite.UNITE) / 100;
-            double Bext = (B * Math.pow(rayon.getValeur(Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(rayon.getValeur(Unite.UNITE), 2) + Math.pow(0.25, 2), (3 / 2)));
-            valeursLabel.setText("La force du champ magnétique à 0.25 mètre de la bobine est de: " + "\n" + Bext + "e-5 T");     // Clear
+            double B = 4 * Math.PI * (nombreDeSpires.getValeur(Unite.UNITE) / longueur.getValeur(Unite.UNITE)) * courant.getValeur(Unite.UNITE) / 10000000;
+            double Bext = (B * Math.pow(rayon.getValeur(Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(rayon.getValeur(Unite.UNITE), 2) + Math.pow(0.5, 2), (3 / 2)));
+            valeursLabel.setText("La force du champ magnétique à 0.5 mètres de la bobine est de: " + "\n" + new Valeur(Bext, Unite.UNITE, "T"));     // Clear
 
             valeursLabel.setText(valeursLabel.getText().concat("\n" + "La force du champ magnétique dans la bobine" + " est de" + ": "
-                    + "\n" + B + "e-5 T"));
+                    + "\n" + new Valeur(B, Unite.UNITE, "T")));
 
             infobulle.show(group, event.getScreenX(), event.getScreenY());
             event.consume();
