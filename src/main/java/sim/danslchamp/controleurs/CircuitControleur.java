@@ -53,9 +53,10 @@ public class CircuitControleur extends ParentControleur {
     private Circuit circuit = new Circuit();
 
 
-    private ConcepteurControleur concepteurControleur;
+
 
     Tooltip infobulleC = new Tooltip();
+    private File fichierEnregistrement;
 
     @Override
     public void setStage(Stage stage) {
@@ -69,11 +70,7 @@ public class CircuitControleur extends ParentControleur {
             stage.setHeight(Config.circuitHauteur);
         }
 
-        stage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
-                concepteurControleur.annulerEdition();
-            }
-        });
+
 
         stage.setOnHidden(event -> {
             Config.circuitDiagrammesSplitPanePosition0 = diagrammesSplitPane.getDividerPositions()[0];
@@ -135,10 +132,7 @@ public class CircuitControleur extends ParentControleur {
         composantsListView.setCellFactory(item ->
                 new ComposantsListCell(circuit));
 
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("."));
-        try {
-//            Stage stage = fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml");
-            subSceneConcepteur.setRoot(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml")));
+
 
 
             vBox2D.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent event) -> {
@@ -173,12 +167,6 @@ public class CircuitControleur extends ParentControleur {
                 infobulleC.hide();
 
             });
-            concepteurControleur = fxmlLoader.getController();
-            concepteurControleur.setCircuit(circuit);
-            concepteurControleur.setCircuitControleur(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         composantsListView.getSelectionModel().selectedItemProperty().addListener((l, old, composant) -> {
             if (composant != null) {
@@ -197,8 +185,6 @@ public class CircuitControleur extends ParentControleur {
             }
         });
 
-        subSceneConcepteur.heightProperty().bind(vBox2D.heightProperty());
-        subSceneConcepteur.widthProperty().bind(vBox2D.widthProperty());
         subScene3D.heightProperty().bind(vBox3D.heightProperty());
         subScene3D.widthProperty().bind(vBox3D.widthProperty());
     }
@@ -232,10 +218,11 @@ public class CircuitControleur extends ParentControleur {
     public void chargerCircuit(@Nullable File file) throws FileNotFoundException {
         circuit = Circuit.chargerCircuit(file);
         pousserCircuitRecent(file);
-concepteurControleur.fichierEnregistrement = file;
+        fichierEnregistrement = file;
         composantsListView.setItems(circuit.getComposantsSansFils());
 
-        concepteurControleur.setCircuit(circuit == null ? new Circuit() : circuit);
+        vBox2D.getChildren().setAll(circuit.getDiagramme2D().getGroup());
+
 
         init3D();
     }
@@ -280,20 +267,34 @@ concepteurControleur.fichierEnregistrement = file;
         nouveau();
     }
 
-    public void enregistrer(ActionEvent actionEvent) {
-        concepteurControleur.enregistrer();
-    }
-
-    public void enregistrerSous(ActionEvent actionEvent) {
-        concepteurControleur.enregistrerSous();
-    }
-
     public void ouvrirCircuit(ActionEvent actionEvent) {
         try {
             File file = FC.showOpenDialog(null);
             if (file != null)
                 chargerCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
         } catch (FileNotFoundException neSappliquePas) {
+        }
+    }
+
+    public void enregistrer() {
+        if (fichierEnregistrement == null) enregistrerSous();
+        else {
+            try {
+                Files.write(fichierEnregistrement.toPath(), Collections.singleton(FXASvg.aSvg(circuit)), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+            } catch (IOException e) {
+                DanslChampUtil.erreur("Impossible d'enregistrer le fichier", e.getMessage());
+            }
+        }
+    }
+
+    public void enregistrerSous() {
+        fichierEnregistrement = FC.showSaveDialog(null);
+        if (fichierEnregistrement != null) {
+            if (FC.getSelectedExtensionFilter() == EXTENSION_FILTER && !fichierEnregistrement.getPath().matches("[" + FILE_EXTENSION + "]^")) {
+                fichierEnregistrement = new File(fichierEnregistrement.getPath() + FILE_EXTENSION);
+            }
+
+            enregistrer();
         }
     }
 }

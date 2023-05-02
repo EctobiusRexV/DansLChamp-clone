@@ -60,6 +60,17 @@ public class ConcepteurControleur {
     private CircuitControleur circuitControleur;
     protected File fichierEnregistrement;
 
+    private Stage stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        stage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                annulerEdition();
+            }
+        });
+    }
+
     public void setCircuitControleur(CircuitControleur circuitControleur) {
         this.circuitControleur = circuitControleur;
     }
