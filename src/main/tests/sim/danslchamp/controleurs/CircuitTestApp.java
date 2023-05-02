@@ -13,11 +13,15 @@ public class CircuitTestApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        File circuitFile = getParameters().getRaw().size() > 0
+                ? new File("circuits/" + getParameters().getRaw().get(0))
+                : null;
+
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("."));
 
         primaryStage.setScene(new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Circuit.fxml"))));
         if (getParameters().getRaw().size() > 0)
-            ((CircuitControleur) fxmlLoader.getController()).chargerCircuit(new File("circuits/" + getParameters().getRaw().get(0)));
+            ((CircuitControleur) fxmlLoader.getController()).chargerCircuit(circuitFile);
         ((CircuitControleur) fxmlLoader.getController()).setStage(primaryStage);
 
         primaryStage.show();

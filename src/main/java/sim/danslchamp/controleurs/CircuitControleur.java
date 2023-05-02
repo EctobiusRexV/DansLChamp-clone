@@ -50,7 +50,7 @@ import static sim.danslchamp.DansLChampApp.*;
 public class CircuitControleur extends ParentControleur {
 
     public Menu ouvrirRecentsMenu;
-    private Circuit circuit;
+    private Circuit circuit = new Circuit();
 
 
     private ConcepteurControleur concepteurControleur;
@@ -235,7 +235,7 @@ public class CircuitControleur extends ParentControleur {
 concepteurControleur.fichierEnregistrement = file;
         composantsListView.setItems(circuit.getComposantsSansFils());
 
-        concepteurControleur.setCircuit(circuit);
+        concepteurControleur.setCircuit(circuit == null ? new Circuit() : circuit);
 
         init3D();
     }
@@ -289,6 +289,11 @@ concepteurControleur.fichierEnregistrement = file;
     }
 
     public void ouvrirCircuit(ActionEvent actionEvent) {
-        concepteurControleur.ouvrir();
+        try {
+            File file = FC.showOpenDialog(null);
+            if (file != null)
+                chargerCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
+        } catch (FileNotFoundException neSappliquePas) {
+        }
     }
 }
