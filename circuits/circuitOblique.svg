@@ -51,8 +51,8 @@
 	<use xlink:href="#Résistor" resistance="50" x="100" y="10"/>
 	<line x1="180" y1="20" x2="225" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
 
-	<line x1="154" y1="91" x2="225" y2="20" style="fill:none;stroke:black;stroke-width:3"/>
-	<use xlink:href="#Résistor" resistance="50" x="154" y="91" transform="rotate(135 159 96)"/>
+	<line x1="154" y1="91" x2="225" y2="20" style="fill:none;stroke:red;stroke-width:3"/>
+	<use xlink:href="#Résistor" resistance="50" x="154" y="81" transform="rotate(135 154 91)"/>
 	<line x1="25" y1="220" x2="97.01357260" y2="147.9863273" style="fill:none;stroke:black;stroke-width:3"/>
 
 

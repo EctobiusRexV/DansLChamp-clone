@@ -108,6 +108,13 @@ public abstract class Diagramme {
         return group;
     }
 
+    public static void rotationner(Group group, Number v) {
+        group.setRotate(v.doubleValue());
+
+        group.setTranslateX(group.getTranslateX() + -group.getLayoutBounds().getWidth() * (1-Math.cos(Math.toRadians(v.doubleValue())))/2);
+        group.setTranslateY(group.getTranslateY() + group.getLayoutBounds().getWidth() * Math.sin(Math.toRadians(v.doubleValue()))/2);
+    }
+
     public static class Diagramme2D extends Diagramme {
 
         public Diagramme2D() {
@@ -128,13 +135,6 @@ public abstract class Diagramme {
         @Override
         void afficherChampMagnetique() {
 
-        }
-
-        public static void rotationner(Group group, Number v) {
-            group.setRotate(v.doubleValue());
-
-            group.setTranslateX(group.getTranslateX() + -group.getLayoutBounds().getWidth() * (1-Math.cos(Math.toRadians(v.doubleValue())))/2);
-            group.setTranslateY(group.getTranslateY() + group.getLayoutBounds().getWidth() * Math.sin(Math.toRadians(v.doubleValue()))/2);
         }
     }
 
@@ -170,6 +170,8 @@ public abstract class Diagramme {
             symbole.setTranslateY(composant.getPosY());
             getGroup().getChildren().add(symbole);
             getGroup().getChildren().add(composant.getChamp());
+
+            rotationner(symbole, composant.getAngleRotation());
             return symbole;
         }
 

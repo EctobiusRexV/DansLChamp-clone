@@ -64,6 +64,7 @@ public class ConcepteurControleur {
     protected File fichierEnregistrement;
 
     private Stage stage;
+    private double angle;
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -125,6 +126,7 @@ public class ConcepteurControleur {
                 button.setTooltip(new Tooltip(composantClass.getSimpleName()));
                 button.setOnAction(event -> {
                     Composant composant = Composant.getInstance(composantClass);
+//                    composant.setAngleRotation((int) Math.toDegrees(angle));
                     composant.setPosXY(posX-composant.getJonctionsRelatives()[0].getPositionXY().x, posY-composant.getJonctionsRelatives()[0].getPositionXY().y);
                     posX = composant.getJonctions()[1].getPositionXY().x;
                     posY = composant.getJonctions()[1].getPositionXY().y;
@@ -213,6 +215,7 @@ public class ConcepteurControleur {
     @FXML
     void mouseReleased() {
         if (!annule) {
+//            angle = Math.atan2(currentLine.getEndY() - currentLine.getStartY(), currentLine.getEndX() - currentLine.getStartX());
             posX = (int) currentLine.getEndX();
             posY = (int) currentLine.getEndY();
 

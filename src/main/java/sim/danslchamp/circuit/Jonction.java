@@ -54,4 +54,20 @@ public class Jonction {
     public boolean equals(Object jonction) {
         return positionXY.equals(((Jonction) jonction).positionXY);
     }
+
+    public double getPosX() {
+        return positionXY.getX();
+    }
+
+    public double getPosY() {
+        return positionXY.getY();
+    }
+
+    public void setPosX(int i) {
+        this.positionXY.x = i;
+    }
+
+    public void setPosY(int i) {
+        this.positionXY.y = i;
+    }
 }
