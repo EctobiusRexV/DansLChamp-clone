@@ -22,14 +22,15 @@ public class DansLChampApp extends Application {
     // PAS TOUCHE
     // ====================
     public static final FileChooser FC = new FileChooser();
-    public static final String FILE_EXTENSION = "*.svg";
+    public static final String FILE_EXTENSION = ".svg";
     public static final FileChooser.ExtensionFilter EXTENSION_FILTER =
-            new FileChooser.ExtensionFilter("Circuit DANS L'CHAMP", FILE_EXTENSION);
+            new FileChooser.ExtensionFilter("Circuit DANS L'CHAMP", "*"+FILE_EXTENSION);
 
     public static final SvgLoader SVG_LOADER = new SvgLoader(null);
 
     static {
         // pas touche -Thierry
+        FC.getExtensionFilters().add(EXTENSION_FILTER);
         SVG_LOADER.setAddViewboxRect(true);
     }
     // ====================
@@ -38,7 +39,6 @@ public class DansLChampApp extends Application {
     public void init() throws Exception {
         super.init();
 
-        FC.getExtensionFilters().add(EXTENSION_FILTER);
 //        FC.setSelectedExtensionFilter(EXTENSION_FILTER);
     }
 

@@ -137,14 +137,4 @@ public abstract class ParentControleur {
             stage.setY(dragEvent.getScreenY() - event.getY());
         });
     }
-
-    @FXML
-    void ouvrirCircuit() {
-        try {
-            File file = FC.showOpenDialog(stage);
-            if (file != null)
-                DansLChampApp.showConcepteurDeCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
-        } catch (FileNotFoundException neSappliquePas) {
-        }
-    }
 }

@@ -5,15 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Camera;
-import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.SubScene;
+import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ListView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
@@ -29,6 +24,7 @@ import sim.danslchamp.Util.DanslChampUtil;
 import sim.danslchamp.circuit.Bobine;
 import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
+import sim.danslchamp.circuit.Diagramme;
 import sim.danslchamp.svg.FXASvg;
 
 import java.io.File;
@@ -50,13 +46,13 @@ import static sim.danslchamp.DansLChampApp.*;
 public class CircuitControleur extends ParentControleur {
 
     public Menu ouvrirRecentsMenu;
-    private Circuit circuit;
+    private Circuit circuit = new Circuit();
 
-    private File fichierEnregistrement;
 
-    private ConcepteurControleur concepteurControleur;
+
 
     Tooltip infobulleC = new Tooltip();
+    private File fichierEnregistrement;
 
     @Override
     public void setStage(Stage stage) {
@@ -70,15 +66,11 @@ public class CircuitControleur extends ParentControleur {
             stage.setHeight(Config.circuitHauteur);
         }
 
-        stage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
-                concepteurControleur.annulerEdition();
-            }
-        });
+
 
         stage.setOnHidden(event -> {
             Config.circuitDiagrammesSplitPanePosition0 = diagrammesSplitPane.getDividerPositions()[0];
-            Config.circuitDiagrammesSplitPanePosition1 = diagrammesSplitPane.getDividerPositions()[1];
+            if (diagrammesSplitPane.getDividers().size()>1) Config.circuitDiagrammesSplitPanePosition1 = diagrammesSplitPane.getDividerPositions()[1];
             Config.circuitMaximise = stage.isMaximized();
             if (!stage.isMaximized()) {
                 Config.circuitPosX = stage.getX();
@@ -90,8 +82,6 @@ public class CircuitControleur extends ParentControleur {
             Config.circuitAfficherDiagramme2D = diagramme2DCheckMenuItem.isSelected();
             Config.circuitAfficherDiagramme3D = diagramme3DCheckMenuItem.isSelected();
             Config.circuitAfficherListeDesComposants = listeDesComposantsCheckMenuItem.isSelected();
-            Config.circuitAfficherBarreDOutils = barreDOutilsCheckMenuItem.isSelected();
-            Config.circuitAfficherTitre = titreCheckMenuItem.isSelected();
 
             Config.sauvegarder();
         });
@@ -108,10 +98,13 @@ public class CircuitControleur extends ParentControleur {
 
     // FXML fields for each CheckMenuItem in Circuit.fxml
     @FXML
-    private CheckMenuItem diagramme2DCheckMenuItem, diagramme3DCheckMenuItem, listeDesComposantsCheckMenuItem, barreDOutilsCheckMenuItem, titreCheckMenuItem;
+    private CheckMenuItem diagramme2DCheckMenuItem, diagramme3DCheckMenuItem, listeDesComposantsCheckMenuItem;
 
     @FXML
     private SplitPane diagrammesSplitPane;
+
+    @FXML
+    private TabPane listeDesComposantsTabPane;
 
 
     // ===============================
@@ -124,29 +117,36 @@ public class CircuitControleur extends ParentControleur {
                 getOuvrirRecentsMenuItem(Config.circuitRecent2),
                 getOuvrirRecentsMenuItem(Config.circuitRecent3)
         );
+
+        affichageCheckBoxMenuItem(diagramme2DCheckMenuItem, vBox2D);
+        affichageCheckBoxMenuItem(diagramme3DCheckMenuItem, vBox3D);
+        affichageCheckBoxMenuItem(listeDesComposantsCheckMenuItem, listeDesComposantsTabPane);
+
+        diagrammesSplitPane.getItems().clear();
         diagramme2DCheckMenuItem.setSelected(Config.circuitAfficherDiagramme2D);
         diagramme3DCheckMenuItem.setSelected(Config.circuitAfficherDiagramme3D);
         listeDesComposantsCheckMenuItem.setSelected(Config.circuitAfficherListeDesComposants);
-        barreDOutilsCheckMenuItem.setSelected(Config.circuitAfficherBarreDOutils);
-        titreCheckMenuItem.setSelected(Config.circuitAfficherTitre);
+
 
         diagrammesSplitPane.setDividerPosition(0, Config.circuitDiagrammesSplitPanePosition0);
         diagrammesSplitPane.setDividerPosition(1, Config.circuitDiagrammesSplitPanePosition1);
 
+
         composantsListView.setCellFactory(item ->
                 new ComposantsListCell(circuit));
 
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("."));
-        try {
-//            Stage stage = fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml");
-            subSceneConcepteur.setRoot(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml")));
+        vBox2D.addEventHandler(ScrollEvent.SCROLL, event -> {
+            if (vBox2D.getScaleX() + event.getDeltaY() / 100 < 0)
+                return; // empêcher d'obtenir un scale négatif
+
+            vBox2D.scaleXProperty().set(vBox2D.getScaleX() + event.getDeltaY() / 1000);
+            vBox2D.scaleYProperty().set(vBox2D.getScaleY() + event.getDeltaY() / 1000);
+
+        });
 
 
             vBox2D.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent event) -> {
-                if (event.getTarget().getClass() == Group.class) {
-
-                } else if (concepteurControleur.getChamp().isSelected()) {
-                    Bobine bob = new Bobine(0, 0, 0);
+                    Bobine bob = null;
                     for (int i = 0; i < circuit.getComposantsSansFils().size(); i++) {
                         if (circuit.getComposantsSansFils().get(i).getClass() == Bobine.class) {
                             bob = (Bobine) circuit.getComposantsSansFils().get(i);
@@ -154,57 +154,49 @@ public class CircuitControleur extends ParentControleur {
                         }
                     }
 
-                    javafx.scene.control.Label valeursLabel = new javafx.scene.control.Label();
-                    VBox infobulleVBox = new VBox(
-                            new Label("champ magnétique"),
-                            new Separator(Orientation.HORIZONTAL),
-                            valeursLabel);
+                    if (bob != null) {
+                        javafx.scene.control.Label valeursLabel = new javafx.scene.control.Label();
+                        VBox infobulleVBox = new VBox(
+                                new Label("champ magnétique"),
+                                new Separator(Orientation.HORIZONTAL),
+                                valeursLabel);
 //TODO faire les distances correct
-                    infobulleC.setGraphic(infobulleVBox);
-                    double x = bob.getSymbole2D().getLayoutX();
-                    double y = bob.getSymbole2D().getLayoutY();
-                    double d = Math.hypot((bob.getPosX() - event.getX()), (bob.getPosY() - event.getY()));
-                    double B = 4 * Math.PI * (bob.nombreDeSpires.getValeur(Composant.Unite.UNITE) / bob.longueur.getValeur(Composant.Unite.UNITE)) * bob.courant.getValeur(Composant.Unite.UNITE) / 100;
-                    double Bext = (B * Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2) + Math.pow(d, 2), (3 / 2)));
-                    valeursLabel.setText("La force du champ magnétique à " + d + " mètres de la bobine est de: " + "\n" + Bext + "e-5 T");     // Clear
+                        infobulleC.setGraphic(infobulleVBox);
+                        double x = bob.getPosX() + circuit.getDiagramme2D().getGroup().getLayoutX();
+                        double y = bob.getPosY() + circuit.getDiagramme2D().getGroup().getLayoutY();;
+                        double d = Math.hypot((x - event.getX()), (y - event.getY()));
+                        double B = 4 * Math.PI * (bob.nombreDeSpires.getValeur(Composant.Unite.UNITE) / bob.longueur.getValeur(Composant.Unite.UNITE)) * bob.courant.getValeur(Composant.Unite.UNITE) / 100;
+                        double Bext = (B * Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2)) / (2 * Math.pow(Math.pow(bob.rayon.getValeur(Composant.Unite.UNITE), 2) + Math.pow(d, 2), (3 / 2)));
+                        Composant.Valeur dist = new Composant.Valeur(d, Composant.Unite.UNITE, "cm");
+                        Composant.Valeur valTesla = new Composant.Valeur(Bext, Composant.Unite.UNITE, "T");
+                        valeursLabel.setText("La force du champ magnétique à " + dist + " mètres de la bobine est de: " + "\n" + valTesla);     // Clear
 
 
-                    infobulleC.show(vBox2D, event.getScreenX(), event.getScreenY());
-                }
+                        infobulleC.show(vBox2D, event.getScreenX(), event.getScreenY());
+                    }
+
             });
 
             vBox2D.addEventHandler(MouseEvent.MOUSE_RELEASED, event -> {
                 infobulleC.hide();
 
             });
-            concepteurControleur = fxmlLoader.getController();
-            concepteurControleur.setCircuit(circuit);
-            concepteurControleur.setCircuitControleur(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         composantsListView.getSelectionModel().selectedItemProperty().addListener((l, old, composant) -> {
-            if (composant != null) {
-                composant.getSymbole2D().getChildren().forEach(node -> {
-                    if (node instanceof Group) {
-                        ((Group) node).getChildren().forEach(subnodes -> subnodes.setStyle("-fx-stroke: blue"));
-                    }
-                });
-            }
-            if (old != null) {
-                old.getSymbole2D().getChildren().forEach(node -> {
-                    if (node instanceof Group) {
-                        ((Group) node).getChildren().forEach(subnodes -> subnodes.setStyle("-fx-stroke: black"));    // FIXME: 2023-04-25 old.getStrokeColor()
-                    }
-                });
-            }
+            Diagramme.surligner(old, composant);
         });
 
-        subSceneConcepteur.heightProperty().bind(vBox2D.heightProperty());
-        subSceneConcepteur.widthProperty().bind(vBox2D.widthProperty());
         subScene3D.heightProperty().bind(vBox3D.heightProperty());
         subScene3D.widthProperty().bind(vBox3D.widthProperty());
+    }
+
+    private void affichageCheckBoxMenuItem(CheckMenuItem checkMenuItem, Node node) {
+        checkMenuItem.selectedProperty().addListener((l, old, selected) -> {
+            if (selected)
+                diagrammesSplitPane.getItems().add(node);
+            else
+                diagrammesSplitPane.getItems().remove(node);
+        });
     }
 
     @NotNull
@@ -239,8 +231,8 @@ public class CircuitControleur extends ParentControleur {
         fichierEnregistrement = file;
         composantsListView.setItems(circuit.getComposantsSansFils());
 
-        concepteurControleur.diagrammeAnchorPane.getChildren().setAll(circuit.getDiagramme2D().getGroup());
-        concepteurControleur.setCircuit(circuit);
+        vBox2D.getChildren().setAll(circuit.getDiagramme2D().getGroup());
+
 
         init3D();
     }
@@ -275,11 +267,30 @@ public class CircuitControleur extends ParentControleur {
         Config.circuitRecent1 = circuitActuel;
     }
 
+
+
+    public static void nouveau() {
+        ControllerUtil.loadFenetre("Circuit.fxml", 500, 600);
+    }
+
+    public void nouveau(ActionEvent actionEvent) {
+        nouveau();
+    }
+
+    public void ouvrirCircuit(ActionEvent actionEvent) {
+        try {
+            File file = FC.showOpenDialog(null);
+            if (file != null)
+                chargerCircuit(file);  // Ne pas ouvrir si aucune sélection n'est faite!
+        } catch (FileNotFoundException neSappliquePas) {
+        }
+    }
+
     public void enregistrer() {
         if (fichierEnregistrement == null) enregistrerSous();
         else {
             try {
-                Files.write(fichierEnregistrement.toPath(), Collections.singleton(FXASvg.aSvg(circuit)), StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+                Files.write(fichierEnregistrement.toPath(), Collections.singleton(FXASvg.aSvg(circuit)), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
             } catch (IOException e) {
                 DanslChampUtil.erreur("Impossible d'enregistrer le fichier", e.getMessage());
             }
@@ -287,7 +298,7 @@ public class CircuitControleur extends ParentControleur {
     }
 
     public void enregistrerSous() {
-        fichierEnregistrement = FC.showSaveDialog(stage);
+        fichierEnregistrement = FC.showSaveDialog(null);
         if (fichierEnregistrement != null) {
             if (FC.getSelectedExtensionFilter() == EXTENSION_FILTER && !fichierEnregistrement.getPath().matches("[" + FILE_EXTENSION + "]^")) {
                 fichierEnregistrement = new File(fichierEnregistrement.getPath() + FILE_EXTENSION);
@@ -297,11 +308,7 @@ public class CircuitControleur extends ParentControleur {
         }
     }
 
-    public static void nouveau() {
-        ControllerUtil.loadFenetre("Circuit.fxml", 500, 600);
-    }
-
-    public void nouveau(ActionEvent actionEvent) {
-        nouveau();
+    public void ouvrirConcepteur(ActionEvent actionEvent) {
+        ConcepteurControleur.nouveau(circuit);
     }
 }

@@ -1,11 +1,14 @@
 package sim.danslchamp.controleurs;
 
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,12 +24,17 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.Nullable;
 import org.reflections.Reflections;
 import sim.danslchamp.Config;
+import sim.danslchamp.DansLChampApp;
+import sim.danslchamp.Util.DanslChampUtil;
 import sim.danslchamp.circuit.*;
 import sim.danslchamp.svg.FXASvg;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -38,16 +46,34 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import static sim.danslchamp.DansLChampApp.*;
+import static sim.danslchamp.DansLChampApp.FILE_EXTENSION;
+
 public class ConcepteurControleur {
 
     private static final int TAILLE_QUADRILLAGE_px = 25;
+    public RadioButton curseurRadioButton;
+    public RadioButton conceptionRadioButton;
 
-    private int posX = 0, posY = 0;
+    private int posX = 200, posY = 200;
 
     private Circuit circuit;
 
     // Pour communication suavegarde
     private CircuitControleur circuitControleur;
+    protected File fichierEnregistrement;
+
+    private Stage stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        stage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                annulerEdition();
+            }
+        });
+    }
+
     public void setCircuitControleur(CircuitControleur circuitControleur) {
         this.circuitControleur = circuitControleur;
     }
@@ -59,12 +85,11 @@ public class ConcepteurControleur {
     private ToolBar toolbar;
 
     @FXML
-    private ToggleButton curseurToggleButton,
-            filToggleButton,
-            togglechamp,
-            lockToggleButton;
+    private ToggleButton lockToggleButton;
 
     private Line currentLine = new Line();
+
+    private Group jonctionsGroup = new Group();
 
     private boolean vertical, annule;
 
@@ -72,7 +97,11 @@ public class ConcepteurControleur {
     void initialize() {
         initBoutonsComposants();
         initZoom();
-        initToggleGroup();
+
+        jonctionsGroup.setVisible(false);
+        conceptionRadioButton.selectedProperty().addListener((l, old, selected) -> {
+            jonctionsGroup.setVisible(selected);;
+        });
     }
 
     private void initBoutonsComposants() {
@@ -101,7 +130,6 @@ public class ConcepteurControleur {
                     posY = composant.getJonctions()[1].getPositionXY().y;
 
                     circuit.addComposant(composant);
-                    diagrammeAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
                 });
                 toolbar.getItems().add(button);
             } catch (ClassCastException | IllegalAccessException | InvocationTargetException |
@@ -122,13 +150,17 @@ public class ConcepteurControleur {
         });
     }
 
-    private void initToggleGroup() {
-        ToggleGroup group = new ToggleGroup();
-        group.getToggles().setAll(curseurToggleButton, filToggleButton, togglechamp);
-    }
-
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
+        diagrammeAnchorPane.getChildren().setAll(circuit.getDiagramme2D().getGroup(), jonctionsGroup);
+
+        jonctionsGroup.getChildren().clear();
+        addJonctionPoint(circuit.getJonctions());
+
+        circuit.getJonctions().addListener((ListChangeListener<? super Jonction>) l -> {
+            l.next();
+            addJonctionPoint((List<Jonction>) l.getAddedSubList());
+        });
     }
 
     void setPos(int posX, int posY) {
@@ -138,7 +170,7 @@ public class ConcepteurControleur {
 
     @FXML
     void mousePressed(MouseEvent event) {
-        annule = curseurToggleButton.isSelected();
+        annule = curseurRadioButton.isSelected();
 
         if (annule) return;
 
@@ -170,8 +202,12 @@ public class ConcepteurControleur {
 
     @FXML
     void mouseDragged(MouseEvent event) {
-        currentLine.setEndX(Math.round((int) event.getX() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px));
-        currentLine.setEndY(Math.round((int) event.getY() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px));
+        if (event.getX() < 0 || event.getY() < 0
+                || event.getX() > diagrammeAnchorPane.getWidth() || event.getY() > diagrammeAnchorPane.getHeight()) event.consume();
+        else {
+            currentLine.setEndX(Math.round((int) event.getX() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px));
+            currentLine.setEndY(Math.round((int) event.getY() / TAILLE_QUADRILLAGE_px * TAILLE_QUADRILLAGE_px));
+        }
     }
 
     @FXML
@@ -181,14 +217,25 @@ public class ConcepteurControleur {
             posY = (int) currentLine.getEndY();
 
             circuit.addComposant(new Fil((int) currentLine.getStartX(), (int) currentLine.getStartY(), posX, posY));
-
-            diagrammeAnchorPane.getChildren().add(new ListPoint2D(circuit.getJonctions()).getGroupe());
         }
     }
 
-    @FXML
-    void sauvegarder() throws IOException {
-        circuitControleur.enregistrer();
+    public void enregistrer() {
+        if (fichierEnregistrement == null) enregistrerSous();
+        else {
+            try {
+                Files.write(fichierEnregistrement.toPath(), Collections.singleton(FXASvg.aSvg(circuit)), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+            } catch (IOException e) {
+                DanslChampUtil.erreur("Impossible d'enregistrer le fichier", e.getMessage());
+            }
+        }
+    }
+
+    public void enregistrerSous() {
+        fichierEnregistrement = FC.showSaveDialog(null);
+        if (fichierEnregistrement != null) {
+            enregistrer();
+        }
     }
 
     public void annulerEdition() {
@@ -196,37 +243,57 @@ public class ConcepteurControleur {
         currentLine.setVisible(false);
     }
 
-    public ToggleButton getChamp() {
-        return togglechamp;
-    }
-
-    public class ListPoint2D {
-
-        private List<Jonction> jonctionList;
-
-
-        public ListPoint2D(List<Jonction> jonctionList) {
-            this.jonctionList = jonctionList;
-        }
-
-        public Group getGroupe() {
-            Group groupe = new Group();
-            for (Jonction jonction : jonctionList) {
-                Sphere sp = new Sphere(5);
-                sp.setMaterial(new PhongMaterial(Color.RED));
-
-                int x = (int) jonction.getPositionXY().getX();
-                int y = (int) jonction.getPositionXY().getY();
-                sp.setLayoutX(x);
-                sp.setLayoutY(y);
-
-                sp.setOnMousePressed(event -> setPos(x, y));
-
-                groupe.getChildren().add(sp);
+    public void ouvrir() {
+        try {
+            File file = FC.showOpenDialog(null);
+            if (file != null) {
+                setCircuit(Circuit.chargerCircuit(file));  // Ne pas ouvrir si aucune sélection n'est faite!
+                fichierEnregistrement = file;
             }
-
-            return groupe;
+        } catch (FileNotFoundException neSappliquePas) {
         }
     }
 
+    private void addJonctionPoint(List<Jonction> list) {
+        for (Jonction jonction : list) {
+            Sphere sp = new Sphere(8);
+            sp.setMaterial(new PhongMaterial(Color.RED));
+
+            int x = (int) jonction.getPositionXY().getX();
+            int y = (int) jonction.getPositionXY().getY();
+            sp.setLayoutX(x);
+            sp.setLayoutY(y);
+
+            sp.setOnMousePressed(event -> setPos(x, y));
+            sp.setOnMouseReleased(event -> setPos(x, y));
+
+            jonctionsGroup.getChildren().add(sp);
+        }
+    }
+
+    public void ouvrirCircuit(ActionEvent actionEvent) throws FileNotFoundException {
+        if (fichierEnregistrement == null) {
+            DanslChampUtil.warning("Vous devez enregistrer avant de visualiser.", "");
+        }
+        DansLChampApp.showConcepteurDeCircuit(fichierEnregistrement);
+    }
+
+    public static void nouveau(@Nullable Circuit pcircuit) {
+        Circuit circuit = pcircuit != null
+                ? pcircuit
+                : new Circuit();
+
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+
+        try {
+            stage.setScene(new Scene(fxmlLoader.load(DansLChampApp.class.getResourceAsStream("fxml/Concepteur.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ((ConcepteurControleur) fxmlLoader.getController()).setCircuit(circuit);
+        ((ConcepteurControleur) fxmlLoader.getController()).setStage(stage);
+
+        stage.show();
+    }
 }
