@@ -76,7 +76,7 @@ public class Bobine extends Composant {
         double endX = this.getJonctions()[1].getPositionXY().getX();
         double endY = this.getJonctions()[1].getPositionXY().getY();
         double criss = courant.getValeur(Unite.UNITE);
-        if (criss == 0) {
+        if (criss == 0 || criss > 5000) {
             return new Group();
         }
         Group group = new Group();
