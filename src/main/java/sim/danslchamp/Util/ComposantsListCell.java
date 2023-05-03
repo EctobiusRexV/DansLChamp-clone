@@ -8,6 +8,7 @@ import sim.danslchamp.circuit.Circuit;
 import sim.danslchamp.circuit.Composant;
 import sim.danslchamp.circuit.Diagramme;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ComposantsListCell extends ListCell<Composant> {
@@ -62,7 +63,7 @@ public class ComposantsListCell extends ListCell<Composant> {
 
                 // ComboBox pour choisir l'unité avec le symbole
                 ComboBox<Composant.Unite> uniteComboBox = new ComboBox<>();
-                uniteComboBox.getItems().addAll(List.of(Composant.Unite.values()));
+                uniteComboBox.getItems().addAll(Arrays.stream(Composant.Unite.values()).skip(1).toList());
                 uniteComboBox.setValue(valeurNomWrapper.valeur.getUnite());
 
                 spinner.valueProperty().addListener((l, oldvalue, newvalue) -> {
@@ -88,6 +89,15 @@ public class ComposantsListCell extends ListCell<Composant> {
                 uniteComboBox.setOnAction(event -> {
                     valeurNomWrapper.valeur.setValeur(spinner.getEditor().getText(), uniteComboBox.getValue());
                     circuit.calculCircuit();
+                    //TODO pas sur lala
+                    circuit.getDiagramme2D().getGroup().getChildren().clear();
+                    circuit.getDiagramme3D().getGroup().getChildren().clear();
+                    for (int i = 0; i < circuit.getComposants().size(); i++) {
+                        circuit.getDiagramme2D().addComposant(circuit.getComposants().get(i));
+                    }
+                    for (int i = 0; i < circuit.getComposants().size(); i++) {
+                        circuit.getDiagramme3D().addComposant(circuit.getComposants().get(i));
+                    }
 
                 });
 

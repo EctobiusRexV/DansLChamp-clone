@@ -9,17 +9,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class Config {
-    public static int defautBobineLongueur_mm = 0;
-    public static int defautBobineNombreDeSpires = 0;
-    public static int defautBobineRayon_mm = 0;
+    public static double defautBobineLongueur_mm = 0.1;
+    public static int defautBobineNombreDeSpires = 10;
+    public static double defautBobineRayon_mm = 0.01;
 
-    public static int defautCondensateurCapacite_pF = 0;
+    public static double defautCondensateurCapacite_pF = 0.000000000050;
 
-    public static int defautResistorResistance_mOhms = 0;
+    public static double defautResistorResistance_mOhms = 25;
 
-    public static int defautSourceVoltage_mV = 0;
+    public static double defautSourceVoltage_mV = 5;
 
-    public static int defautGenerateurFrequence_Hz = 60;
+    public static double defautGenerateurFrequence_Hz = 60.0;
 
     public static int defautComposantStrokeWidth = 3;
     public static String defautComposantStrokeColor = "0x000000ff";
